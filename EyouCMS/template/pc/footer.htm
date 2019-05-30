@@ -1,0 +1,22 @@
+<footer>
+	<section class="footer_wrap">
+		<div class="footerInfo">
+			<div class="logo">
+				<a href="{eyou:global name='web_cmsurl' /}/" title="{eyou:global name="web_name" /}"><img src="template/pc/images/footer-logo.png" /></a>
+			</div>
+			<div class="infoBox">
+				<p><span>地&nbsp;&nbsp;&nbsp;址：</span>{eyou:global name='web_attr_1' /}</p>
+				<p><span>電&nbsp;&nbsp;&nbsp;話：</span>{eyou:global name='web_attr_2' /}</p>
+				<p><span>傳&nbsp;&nbsp;&nbsp;真：</span>{eyou:global name='web_attr_11' /}</p>
+				<p><span>E-mail：</span>{eyou:global name='web_attr_3' /}</p>
+			</div>
+		</div>
+		<div class="copyright">
+			{eyou:uitext e-id='web_copyright' e-page="footer"}
+         	{$field.value}
+         	{eyou:else /}
+         	{eyou:global name='web_copyright' /}
+         	{/eyou:uitext}
+		</div>
+	</section>
+</footer>

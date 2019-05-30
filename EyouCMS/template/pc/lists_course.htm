@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html debug="true" lang="zh_tw">
+<head>
+<meta charset="utf-8">
+<title>{$eyou.field.seo_title}</title>
+<meta property="og:title" content="{$eyou.field.seo_title}">
+<meta property="og:site_name" content="{$eyou.field.seo_title}">
+<meta property="og:url" content="{eyou:global name='web_basehost' /}">
+<meta property="og:type" content="website">
+<meta name="description" content="{$eyou.field.seo_description}">
+<meta name="keywords" content="{$eyou.field.seo_keywords}">
+
+<!--CSS-->
+<link rel="stylesheet" type="text/css" href="template/pc/css/master.css">
+<!--main nav-->
+<link rel="stylesheet" type="text/css" href="template/pc/function/bootsnav/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="template/pc/function/bootsnav/css/bootsnav.css">
+
+<link rel="stylesheet" type="text/css" href="template/pc/css/course.css">
+
+<!--手機解析度-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!--favor icon-->
+<link rel="shortcut icon" href="{eyou:global name='web_cmspath' /}/favicon.ico" />
+
+<!--google_font-->
+<link href="https://fonts.googleapis.com/css?family=Lalezar" rel="stylesheet">  
+
+<script type="text/javascript" src="template/pc/Scripts/jquery/jquery-2.1.1.min.js"></script>
+<!--main nav-->
+<script src="template/pc/function/bootsnav/bootsnav.js"></script>
+
+<!-- IE Fix for HTML5 Tags -->
+<!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+</head> 
+ <body>
+ 	<div class="page_Wrap">
+ 		<!--header-s-->
+ 		{eyou:include file="header.htm"/}
+ 		<!--header-e-->
+ 		<!--banner-->
+ 		<div class="banner">
+ 			<div class="banner_wrap">
+ 				<div class="inPageTitle">
+					<p>Course</p>
+					<h2>課程資訊</h2>
+				</div>
+			</div>
+ 		</div>
+		<!--banner end-->
+		<!--mainBox-->
+		<div class="main_wrap">
+			<!--bread-->
+			<div class="bread">{eyou:position style="crumb" /}</div>
+			<!--bread end-->
+			<div class="side_menu">
+				<ul>
+					{eyou:channel type="sonself" currentstyle="active"}
+					<li><a href="{$field.typeurl}" title="{$field.typename}" class="{$field.currentstyle}">{$field.typename}</a></li>
+					{/eyou:channel}
+				</ul>
+			</div>
+			<ul class="courseInfoList">
+				{eyou:list pagesize="10" titlelen="30"}
+        		<li>
+        			<div class="Class_date"><i class="far fa-calendar-alt"></i> {eyou:field aid='$field.aid' addfields='Class_date' /} <span>{eyou:field aid='$field.aid' addfields='Registration_status' /}</span></div>
+        			<div class="item">
+        				<div class="courseSort">{$field.typename}</div>
+          				<div class="courseTitle"><a href="{$field.arcurl}" title="{$field.title}">{$field.title}</a></div>
+          			</div>
+          			<p class="ellipsis">{eyou:field aid='$field.aid' addfields='description' /}</p>
+          		</li>
+          		{/eyou:list}
+			</ul>
+			<div class="pageNav">
+				<ul>
+					{eyou:pagelist listitem="index,end,pre,next" listsize="2"/}
+				</ul>
+			</div>
+		</div>
+		<!--mainBox end-->
+		<!--footer-s-->
+		{eyou:include file="footer.htm" /}
+		<!--footer-e-->
+	</div>
+ </body>
+</html>

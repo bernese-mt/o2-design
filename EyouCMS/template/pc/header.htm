@@ -1,0 +1,74 @@
+<header>
+	<div class="top_link">
+ 		<div class="content">
+ 	   		<h2>{eyou:global name='web_recordnum' /}</h2>
+ 	   	    <ul>
+ 	   	    	<li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i> 協會粉絲團</a></li>
+ 	   	        <li><a href="https://enews.url.com.tw/TPMA/69724" target="_blank"><i class="far fa-newspaper"></i> 物業網報</a></li>
+ 	   	    </ul>
+ 	   	</div>
+  	</div>
+  	<div class="logo_wrap">
+  		<div class="cis">
+	   		<a href="{eyou:global name='web_cmsurl' /}/" title="{eyou:global name="web_name" /}"><img src="{eyou:global name="web_logo" /}" alt="{eyou:global name="web_name" /}" /></a> 
+ 	   	</div>
+  	   	<div class="info_wrap">
+  	   		<ul>
+  	   	    	<li>
+  	   	        	<i class="fas fa-map-marker-alt"></i>
+  	   	            <div class="info_item">
+  	   	            	<strong>協會位址.</strong>
+  	   	                <p>{eyou:global name='web_attr_1' /}</p>
+   	   	            </div>
+  	   	        </li>
+  	   	        <li>
+  	   	        	<i class="fas fa-globe-asia"></i>
+  	   	            <div class="info_item">
+  	   	            	<strong>{eyou:global name='web_attr_2' /}</strong>
+  	   	                <p><a href="mailto:{eyou:global name='web_attr_3' /}">{eyou:global name='web_attr_3' /}</a></p>
+  	   	            </div>
+  	   	        </li>
+  	   	        <li>
+  	   	        	<i class="far fa-clock"></i>
+  	   	            <div class="info_item">
+  	   	            	<strong>服務時間.</strong>
+  	   	                <p>{eyou:global name='web_attr_9' /}</p>
+  	   	            </div>
+  	   	    	</li>
+  	   		</ul>
+  		</div>
+  	</div>
+  	<!--menuBox-->
+	<nav class="manu_box navbar navbar-default navbar-mobile bootsnav">
+    	<div class="navbar-header">
+        	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+            	<i class="fa fa-bars"></i>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-menu">
+        	<ul class="nav navbar-nav" data-in="fadeInDown" data-out="fadeOutUp">
+        		{eyou:channel type="top" row="60" id="field" currentstyle="active"}
+        		<li class="dropdown">
+        			<a href="{$field.typeurl}"> {$field.typename}{eyou:notempty name="$field.children"}{/eyou:notempty}</a>
+        			{eyou:notempty name="$field.children"}
+        			<ul class="dropdown-menu">
+        				{eyou:channel name="$field.children" row="100" id="field2"}
+        				<li>
+        					<a href="{$field2.typeurl}">{$field2.typename}</a>
+        					{eyou:notempty name="$field2.children"}
+        					<ul class="dropdown-menu">
+        						{eyou:channel name="$field2.children" row="100" id="field3"}
+        						<li><a href="{$field3.typeurl}">{$field3.typename}</a></li>
+        						{/eyou:channel}
+							</ul>
+         					{/eyou:notempty}
+						</li>
+         				{/eyou:channel}
+					</ul>
+        			{/eyou:notempty}
+        		</li>
+        		{/eyou:channel}
+        	</ul>
+		</div>
+  	</nav>
+</header>

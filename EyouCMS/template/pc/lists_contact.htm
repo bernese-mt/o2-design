@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html debug="true" lang="zh_tw">
+<head>
+<meta charset="utf-8">
+<title>{$eyou.field.seo_title}</title>
+<meta property="og:title" content="{$eyou.field.seo_title}">
+<meta property="og:site_name" content="{$eyou.field.seo_title}">
+<meta property="og:url" content="{eyou:global name='web_basehost' /}">
+<meta property="og:type" content="website">
+<meta name="description" content="{$eyou.field.seo_description}">
+<meta name="keywords" content="{$eyou.field.seo_keywords}">
+
+<!--CSS-->
+<link rel="stylesheet" type="text/css" href="template/pc/css/master.css">
+<!--main nav-->
+<link rel="stylesheet" type="text/css" href="template/pc/function/bootsnav/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="template/pc/function/bootsnav/css/bootsnav.css">
+
+<link rel="stylesheet" type="text/css" href="template/pc/css/contact.css">
+
+<!--手機解析度-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!--favor icon-->
+<link rel="shortcut icon" href="{eyou:global name='web_cmspath' /}/favicon.ico" />
+
+<!--google_font-->
+<link href="https://fonts.googleapis.com/css?family=Lalezar" rel="stylesheet">  
+
+<script type="text/javascript" src="template/pc/Scripts/jquery/jquery-2.1.1.min.js"></script>
+<!--main nav-->
+<script src="template/pc/function/bootsnav/bootsnav.js"></script>
+
+<!-- IE Fix for HTML5 Tags -->
+<!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+</head> 
+ <body>
+ 	<div class="page_Wrap">
+ 		<!--header-s-->
+ 		{eyou:include file="header.htm"/}
+ 		<!--header-e-->
+ 		<!--banner-->
+ 		<div class="banner">
+ 			<div class="banner_wrap">
+ 				<div class="inPageTitle">
+					<p>Contact</p>
+					<h2>聯絡我們</h2>
+				</div>
+			</div>
+ 		</div>
+		<!--banner end-->
+		<!--mainBox-->
+		<div class="main_wrap">
+			<!--bread-->
+			<div class="bread">{eyou:position style="crumb" /}</div>
+			<!--bread end-->
+			<div class="contact_box">
+				<div class="contact_info">
+					<h2>{eyou:global name='web_title' /}</h2>
+					<p>TEL：{eyou:global name='web_attr_2' /}</p>
+					<p>FAX：{eyou:global name='web_attr_11' /}</p>
+					<p>Email：<a href="mailto:{eyou:global name='web_attr_3' /}">{eyou:global name='web_attr_3' /}</a></p>
+					<p>會址：{eyou:global name='web_attr_1' /}</p>
+					<p>粉絲團：<a href="{eyou:global name='web_attr_3' /}" target="_blank">{eyou:global name='web_title' /}粉絲團</a></p>
+				</div>
+				<div class="contact_map">
+					<div class="map">{eyou:global name='web_attr_13' /}</div>
+				</div>
+			</div>
+		</div>
+		<!--mainBox end-->
+		<!--footer-s-->
+		{eyou:include file="footer.htm" /}
+		<!--footer-e-->
+	</div>
+ </body>
+</html>

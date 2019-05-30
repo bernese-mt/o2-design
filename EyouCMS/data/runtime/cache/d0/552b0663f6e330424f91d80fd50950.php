@@ -1,0 +1,4 @@
+<?php
+//000000086400
+ exit();?>
+a:2:{i:0;a:12:{s:2:"id";s:1:"1";s:5:"title";s:12:"简体中文";s:4:"mark";s:2:"cn";s:3:"url";s:0:"";s:6:"target";s:1:"0";s:15:"is_home_default";s:1:"1";s:16:"is_admin_default";s:1:"1";s:11:"syn_pack_id";s:2:"24";s:6:"status";s:1:"1";s:10:"sort_order";s:3:"100";s:8:"add_time";s:10:"1541583096";s:11:"update_time";s:10:"1543890743";}i:1;a:12:{s:2:"id";s:1:"2";s:5:"title";s:7:"English";s:4:"mark";s:2:"en";s:3:"url";s:0:"";s:6:"target";s:1:"0";s:15:"is_home_default";s:1:"0";s:16:"is_admin_default";s:1:"0";s:11:"syn_pack_id";s:2:"24";s:6:"status";s:1:"1";s:10:"sort_order";s:3:"100";s:8:"add_time";s:10:"1545267531";s:11:"update_time";s:10:"1545267534";}}

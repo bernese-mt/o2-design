@@ -1,0 +1,13 @@
+@charset "utf-8";
+.clearfix:after{content:".";clear:both;height:0;visibility:hidden;display:block;}            
+.clearfix{display:inline-block;}                
+* html .clearfix{height:1%;}        
+.clearfix{display:block;}
+.share{padding:5px;cursor:hand;}
+.share span{float:left;margin-left:10px;}
+.share a{background:url("icon.gif") no-repeat 0 0;display:block;padding:0 0 0 18px;height:16px;line-height:16px;color:#0066CC;overflow:hidden;margin:2px 0 0;text-decoration:none;float:left;}
+.share a:hover{color:#E05C23;}
+.share .twitter{background-position:0 -16px;display:none;}
+.share .renren{background-position:0 -32px;}
+.share .qzone{background-position:0 -48px;}
+.share .t_qq{background-position:0 -64px;}

@@ -1,0 +1,44 @@
+<header>
+	<section class="container">
+		<div class="logo">
+			<h1><a title="{eyou:global name="web_name" /}" href="{eyou:global name='web_cmsurl' /}/"><img src="{eyou:global name="web_logo" /}" alt="{eyou:global name="web_name" /}" /></a></h1>
+		</div>
+		<!--menuBox-->
+		<nav class="navbar navbar-default navbar-mobile bootsnav">
+        	<div class="navbar-header">
+            	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+	            	<i class="fa fa-bars"></i>
+	            </button>
+	        </div>
+	        <div class="collapse navbar-collapse" id="navbar-menu">
+	        	<ul class="nav navbar-nav" data-in="fadeInDown" data-out="fadeOutUp">
+            		{eyou:channel type="top" row="60" id="field" currentstyle="active"}
+            		<li class="dropdown">
+            			<a href="{$field.typeurl}" class="dropdown-toggle {$field.currentstyle}" {eyou:notempty name="$field.children"}data-toggle="dropdown"{/eyou:notempty}><span data-title="{$field.typename}">{$field.typename}</span>{eyou:notempty name="$field.children"}<i class="fas fa-angle-right"></i>{/eyou:notempty}</a> 
+            			{eyou:notempty name="$field.children"}
+            			<ul class="dropdown-menu">
+            				{eyou:channel name="$field.children" row="100" id="field2"}
+            				<li class="dropdown">
+            					<a href="{$field2.typeurl}">{$field2.typename}</a>
+            					{eyou:notempty name="$field2.children"}
+            					<ul class="dropdown-menu">
+            						{eyou:channel name="$field2.children" row="100" id="field3"}
+            						<li><a href="{$field3.typeurl}">{$field3.typename}</a></li>
+            						{/eyou:channel}
+								</ul>
+            					{/eyou:notempty}
+            				</li>
+            				{/eyou:channel}
+						</ul>
+                        {/eyou:notempty}
+                    </li>
+                    {/eyou:channel}
+                </ul>
+	        </div>
+	    </nav>
+		<!--menuBox end-->
+		<div class="call">
+			<a href="tel:{eyou:global name='web_attr_2' /}" title="網站架設諮詢專線"><i class="fas fa-phone-volume"></i> {eyou:global name='web_attr_2' /}</a>
+		</div>
+	</section>
+</header>

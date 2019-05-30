@@ -1,0 +1,53 @@
+<!-- include tpl=head_lay nopadding=true -->
+<script type="text/javascript">
+function save()
+{
+	var opener = $.dialog.opener;
+	$("#post_save").ajaxSubmit({
+		'url':get_plugin_url('pledit','save'),
+		'type':'post',
+		'dataType':'json',
+		'success':function(rs){
+			if(rs.status){
+				$.dialog.tips('批处理操作成功',function(){
+					opener.$.phpok.reload();
+				}).lock();
+				return true;
+			}
+			$.dialog.alert(rs.info);
+			return false;
+		}
+	});
+}
+</script>
+<form method="post" class="layui-form" id="post_save" onsubmit="return false">
+<input type="hidden" name="pid" id="pid" value="{$pid}" />
+<input type="hidden" name="ids" id="ids" value="{$ids}" />
+<input type="hidden" name="field" value="{$field}" />
+<div class="layui-card">
+	<div class="layui-card-body">
+		<!-- loop from=$rslist key=$key value=$value id=$tmpid -->
+		<div class="layui-form-item">
+			<label class="layui-form-label">
+				#{$key}
+			</label>
+			<div class="layui-input-block">
+				{$value.html}
+			</div>
+			<!-- if $tlist[$key] --><div class="layui-input-block mtop gray i">主题：{$tlist[$key][title]}</div><!-- /if -->
+		</div>
+		<!-- /loop -->
+		<div class="layui-form-item">
+			<label class="layui-form-label">
+				
+			</label>
+			<div class="layui-input-block">
+				
+			</div>
+			
+		</div>
+	</div>
+</div>
+</form>
+
+<!-- include tpl=foot_lay is_open=true -->

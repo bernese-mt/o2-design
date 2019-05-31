@@ -1,8 +1,0 @@
-#For Nginx
-location / {
-	index index.php;
-	if (!-e $request_filename)
-	{
-		rewrite (.*) /index.php break; 
-	}
-}

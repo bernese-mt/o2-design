@@ -1,4 +1,0 @@
-<?php
-//000000086400
- exit();?>
-a:34:{s:2:"id";s:2:"73";s:3:"nid";s:7:"article";s:5:"title";s:12:"文章模型";s:6:"ntitle";s:6:"文章";s:5:"table";s:7:"article";s:8:"ctl_name";s:7:"Article";s:6:"status";s:1:"1";s:8:"ifsystem";s:1:"1";s:15:"is_repeat_title";s:1:"1";s:6:"is_del";s:1:"0";s:10:"sort_order";s:3:"100";s:8:"add_time";s:10:"1559019069";s:11:"update_time";s:10:"1559019123";s:11:"channeltype";s:1:"1";s:15:"current_channel";s:1:"1";s:9:"parent_id";s:1:"0";s:8:"typename";s:11:"en認識RWD";s:7:"dirname";s:11:"what_is_rwd";s:7:"dirpath";s:17:"/html/what_is_rwd";s:12:"englist_name";s:0:"";s:5:"grade";s:1:"0";s:8:"typelink";s:0:"";s:6:"litpic";s:0:"";s:8:"templist";s:17:"lists_article.htm";s:8:"tempview";s:16:"view_article.htm";s:9:"seo_title";s:0:"";s:12:"seo_keywords";s:0:"";s:15:"seo_description";s:0:"";s:9:"is_hidden";s:1:"0";s:7:"is_part";s:1:"0";s:8:"admin_id";s:1:"3";s:10:"del_method";s:1:"0";s:4:"lang";s:2:"en";s:6:"typeid";s:2:"73";}

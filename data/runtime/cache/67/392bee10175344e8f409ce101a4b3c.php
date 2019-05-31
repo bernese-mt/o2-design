@@ -1,4 +1,0 @@
-<?php
-//000000086400
- exit();?>
-a:34:{s:2:"id";s:1:"6";s:3:"nid";s:9:"guestbook";s:5:"title";s:12:"留言模型";s:6:"ntitle";s:6:"留言";s:5:"table";s:9:"guestbook";s:8:"ctl_name";s:9:"Guestbook";s:6:"status";s:1:"1";s:8:"ifsystem";s:1:"1";s:15:"is_repeat_title";s:1:"1";s:6:"is_del";s:1:"0";s:10:"sort_order";s:1:"7";s:8:"add_time";s:10:"1526539546";s:11:"update_time";s:10:"1558687175";s:11:"channeltype";s:1:"8";s:15:"current_channel";s:1:"8";s:9:"parent_id";s:1:"0";s:8:"typename";s:12:"委案洽詢";s:7:"dirname";s:7:"contact";s:7:"dirpath";s:18:"/html/baomingrukou";s:12:"englist_name";s:0:"";s:5:"grade";s:1:"0";s:8:"typelink";s:0:"";s:6:"litpic";s:0:"";s:8:"templist";s:22:"lists_guestbook_30.htm";s:8:"tempview";s:0:"";s:9:"seo_title";s:0:"";s:12:"seo_keywords";s:0:"";s:15:"seo_description";s:0:"";s:9:"is_hidden";s:1:"0";s:7:"is_part";s:1:"0";s:8:"admin_id";s:1:"0";s:10:"del_method";s:1:"0";s:4:"lang";s:2:"cn";s:6:"typeid";s:1:"6";}

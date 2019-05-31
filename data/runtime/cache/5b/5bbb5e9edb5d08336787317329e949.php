@@ -1,4 +1,0 @@
-<?php
-//000000086400
- exit();?>
-a:34:{s:2:"id";s:2:"51";s:3:"nid";s:6:"images";s:5:"title";s:12:"图集模型";s:6:"ntitle";s:6:"图集";s:5:"table";s:6:"images";s:8:"ctl_name";s:6:"Images";s:6:"status";s:1:"1";s:8:"ifsystem";s:1:"1";s:15:"is_repeat_title";s:1:"1";s:6:"is_del";s:1:"0";s:10:"sort_order";s:3:"100";s:8:"add_time";s:10:"1526539517";s:11:"update_time";s:10:"1558686939";s:11:"channeltype";s:1:"3";s:15:"current_channel";s:1:"3";s:9:"parent_id";s:1:"0";s:8:"typename";s:4:"Case";s:7:"dirname";s:8:"kehuanli";s:7:"dirpath";s:14:"/html/kehuanli";s:12:"englist_name";s:0:"";s:5:"grade";s:1:"0";s:8:"typelink";s:0:"";s:6:"litpic";s:0:"";s:8:"templist";s:16:"lists_images.htm";s:8:"tempview";s:15:"view_images.htm";s:9:"seo_title";s:0:"";s:12:"seo_keywords";s:0:"";s:15:"seo_description";s:0:"";s:9:"is_hidden";s:1:"0";s:7:"is_part";s:1:"0";s:8:"admin_id";s:1:"0";s:10:"del_method";s:1:"0";s:4:"lang";s:2:"en";s:6:"typeid";s:2:"51";}

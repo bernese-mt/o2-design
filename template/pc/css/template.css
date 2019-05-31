@@ -1,0 +1,275 @@
+@charset "UTF-8";
+/* CSS Document */
+
+/*==banner 廣告==*/
+.banner_wrap {
+	border-bottom: 1px #ececec solid;
+}
+
+.banner_wrap .container {
+	margin: 0 auto;
+	width: 1160px;
+	overflow: hidden;
+}
+
+.banner_wrap .container h1 {
+	margin: 215px 0 15px;
+	text-align: center;
+	font-size: 44px;
+	color: #333;
+	font-weight: 400;
+}
+
+.banner_wrap .container p {
+	margin-bottom: 85px;
+	text-align: center;
+	font-size: 18px;
+	color: #898989;
+	font-weight: 100;
+}
+
+/*==main 中間主要欄位==*/
+.side_menu {
+	border-bottom: 1px #ececec solid;
+}
+
+.side_menu ul {
+	margin: 0 auto;
+	padding: 15px 0;
+	width: 1160px;
+	overflow: hidden;
+	text-align: center;
+}
+
+.side_menu ul li {
+	margin-left: 1px;
+	display: inline-block;
+}
+
+.side_menu ul li a {
+	padding: 10px 20px;
+	display: block;
+	position: relative;
+	font-size: 14px;
+	color: #898989;
+	text-decoration: none;
+	transition: all .3s ease-out 0s;
+}
+
+.side_menu ul li a:hover ,
+.side_menu ul li a.active {
+	background: #333;
+	color: #fff;
+}
+
+.side_menu ul li a::after {
+	position: absolute;
+    margin-top: 3px;
+    margin-left: 25px;
+    width: 1px;
+    height: 10px;
+    background-color: #e7e7e7;
+    content: '';
+}
+
+.side_menu ul li:last-child a::after {
+	display: none;
+}
+
+/*==main 中間主要欄位==*/
+.main_wrap {
+	margin: 0 auto;
+	padding-bottom: 90px;
+	width: 1160px;
+	overflow: visible;
+}
+
+/*==share 分享==*/
+.share {
+	margin: 40px 0 90px;
+	text-align: right;
+	font-size: 16px;
+	color: #777;
+}
+
+.share a {
+	padding: 0 5px;
+	display: inline-block;
+	color: #777;
+}
+
+/*==template 版型欄位==*/
+.template_wrap {
+	padding: 55px 0; 
+}
+
+.template_wrap ul {
+	overflow: hidden;
+}
+
+.template_wrap ul li {
+	padding: 0 15px 30px;
+	width: 33.33%;
+	float: left;
+	overflow: hidden;
+}
+
+.template_wrap ul li .item {
+	background: #f7f7f7;
+	overflow: hidden;
+	position: relative;
+}
+
+.template_wrap ul li .item .img {
+	width: 100%;
+	height: 265px;
+	overflow: hidden;
+}
+
+.template_wrap ul li .item .img img {
+	width: 100%;
+}
+
+.template_wrap ul li .item .info {
+	padding: 25px 20px 50px;
+	position: relative;
+	z-index: 5;
+	transition: all 0.4s ease;
+}
+
+.template_wrap ul li .item:hover .info {
+	transform:translate(15px,15px);
+	background:none;
+}
+
+.template_wrap ul li .item .info h3 {
+	margin: 0 0 10px;
+}
+
+.template_wrap ul li .item .info h3 a {
+	font-size: 24px;
+	color: #000;
+	text-decoration: none;
+}
+
+.template_wrap ul li .item:hover .info h3 a ,
+.template_wrap ul li .item:hover .info p ,
+.template_wrap ul li .item:hover .info p a ,
+.template_wrap ul li .item:hover .info .more a {
+	color: #fff;
+}
+
+.template_wrap ul li .item .info p {
+	width: 100%;
+	display: block;
+	font-size: 16px;   
+}
+
+.template_wrap ul li .item .info p a {
+	height: 18px;
+	display: block;
+	overflow: hidden;
+    white-space: nowrap;
+	color: #000;
+	text-decoration: none;
+	text-overflow: ellipsis;
+}
+
+.template_wrap ul li .item .info p::after {
+	content: "";
+    display: block;
+    margin: 15px 0;
+    background: #898989;
+    width: 60px;
+    height: 1px;
+}
+
+.template_wrap ul li .item:hover .info p::after {
+	background: #fff;
+}
+
+.template_wrap ul li .item .info .more a {
+	display: block;
+	font-size: 12px;
+    color: #898989;
+	text-decoration: none;
+}
+
+.template_wrap ul li .item .info .more_btn {
+	display: block;
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    font-size: 16px;
+    color: #d22829;
+    text-align: center;
+    background: #FFF;
+    border-radius: 100%;
+    position: absolute;
+    right: 30px;
+    bottom: 30px;
+    opacity: 0;
+}
+
+.template_wrap ul li .item:hover .info .more_btn {
+	opacity:1;	
+	transform:translate(-20px,-20px);
+}
+
+.template_wrap ul li .item::after {
+	content: "";
+    background: #d22829;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: all 0.4s ease;
+}
+
+.template_wrap ul li .item:hover::after {
+	opacity: 1;
+} 
+
+@media only screen and (max-width: 1024px) {
+	.banner .banner_wrap ,
+	.main_wrap {
+		width: 967px;
+	}
+	
+	.banner .banner_wrap .inPageTitle {
+		top: 155px;
+	}
+}
+
+@media only screen and (max-width: 768px) {
+	.banner {
+		margin-top: 175px;
+	}
+	.banner .banner_wrap, 
+	.main_wrap {
+		margin: 0 20px;
+		width: auto;
+	}
+	
+	.main_wrap {
+		padding-top: 65px;
+	}
+	
+	.banner .banner_wrap .inPageTitle {
+		top: 105px;
+	}
+	
+	.bread {
+		margin-bottom: 15px;
+	}
+	
+	.side_menu ul li {
+		margin-bottom: 10px;
+	}
+	
+	.side_menu ul li a {
+		padding: 10px;
+	}
+}

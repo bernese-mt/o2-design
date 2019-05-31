@@ -339,7 +339,7 @@ return  array(
             '2004' => array(
                 'id'=>2004,
                 'parent_id'=>2000,
-                'name' => '高級選項',
+                'name' => '進階選項',
                 'controller'=>'Senior',
                 'action'=>'index',
                 'url'=>'', 
@@ -352,7 +352,7 @@ return  array(
                     '2004001' => array(
                         'id'=>2004001,
                         'parent_id'=>2004,
-                        'name' => '管理員', 
+                        'name' => '帳號管理', 
                         'controller'=>'Admin',
                         'action'=>'index', 
                         'url'=>'', 
@@ -380,7 +380,7 @@ return  array(
                     '2004003' => array(
                         'id'=>2004003,
                         'parent_id'=>2004,
-                        'name' => '模板管理', 
+                        'name' => '版型管理', 
                         'controller'=>'Filemanager',
                         'action'=>'index', 
                         'url'=>'', 

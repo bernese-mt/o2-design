@@ -1,1 +1,2 @@
+Disallow: /
 Disallow: /install_*

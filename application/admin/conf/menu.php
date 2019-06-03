@@ -2,7 +2,7 @@
 /**
  * 易優CMS
  * ============================================================================
- * 版權所有 2016-2028 海南贊贊網絡科技有限公司，并保留所有權利。
+ * 版權所有 2016-2028 海南贊贊網絡科技有限公司，並保留所有權利。
  * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
  * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
@@ -116,7 +116,7 @@ if ($main_lang == $admin_lang) {
 }
 /*--end*/
 
-/*插件應用URl*/
+/*外掛應用URl*/
 $weapp_index_arr = array();
 // $weappDirList = glob(ROOT_PATH.'weapp/*');
 if (1 == tpCache('web.web_weapp_switch') && file_exists(ROOT_PATH.'weapp')) {
@@ -145,8 +145,8 @@ if (1 == tpCache('web.web_users_switch') && $main_lang == $admin_lang) {
  *      controller  控制器
  *      action  操作名
  *      url     跳轉鏈接(控制器與操作名爲空時，才使用url)
- *      target  打開窗口方式
- *      icon    菜單圖标
+ *      target  打開視窗方式
+ *      icon    菜單圖標
  *      grade   層級
  *      is_menu 是否顯示菜單
  *      is_modules  是否顯示權限模塊分組
@@ -182,7 +182,7 @@ return  array(
             '1002' => array(
                 'id'=>1002,
                 'parent_id'=>1000,
-                'name' => '内容管理',
+                'name' => '內容管理',
                 'controller'=>'Archives',
                 'action'=>'index',
                 'url'=>'', 
@@ -225,7 +225,7 @@ return  array(
             '2001' => array(
                 'id'=>2001,
                 'parent_id'=>2000,
-                'name' => '基本信息',
+                'name' => '基本資訊',
                 'controller'=>'System',
                 'action'=>'web',
                 'url'=>'', 
@@ -408,7 +408,7 @@ return  array(
                     // '2004004' => array(
                     //     'id'=>2004004,
                     //     'parent_id'=>2004,
-                    //     'name' => '字段管理', 
+                    //     'name' => '欄位管理', 
                     //     'controller'=>isset($field_cindex_arr['controller']) ? $field_cindex_arr['controller'] : '',
                     //     'action'=>isset($field_cindex_arr['action']) ? $field_cindex_arr['action'] : '',
                     //     'url'=>isset($field_cindex_arr['url']) ? $field_cindex_arr['url'] : '',
@@ -452,7 +452,7 @@ return  array(
             '2005' => array(
                 'id'=>2005,
                 'parent_id'=>2000,
-                'name' => '插件應用',
+                'name' => '外掛應用',
                 'controller'=>'Weapp',
                 'action'=>'index',
                 'url'=>'',

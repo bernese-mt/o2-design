@@ -16,14 +16,14 @@
                 {/if}
             {/if}
             <div class="subject">
-                <h3>会员中心</h3>
+                <h3>會員中心</h3>
                 <h5></h5>
             </div>
             <ul class="tab-base nc-row">
                 {eq name="'Member@users_index'|is_check_access" value="1"}
                     <li>
                         <a href="{:url('Member/users_index')}" {if condition="in_array($Think.const.ACTION_NAME, ['users_index','level_index','attr_index','users_config'])"}class="current"{/if}>
-                            <span>用户列表</span>
+                            <span>使用者列表</span>
                         </a>
                     </li>
                 {/eq}

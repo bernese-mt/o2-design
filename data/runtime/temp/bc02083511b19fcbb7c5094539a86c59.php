@@ -1,8 +1,8 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:44:"./application/admin/template/index\index.htm";i:1559289462;s:67:"D:\site\ada\o2-design\application\admin\template\public\menubox.htm";i:1558667897;s:64:"D:\site\ada\o2-design\application\admin\template\public\left.htm";i:1558672259;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:44:"./application/admin/template/index\index.htm";i:1559529924;s:67:"D:\site\ada\o2-design\application\admin\template\public\menubox.htm";i:1559529926;s:64:"D:\site\ada\o2-design\application\admin\template\public\left.htm";i:1559529926;}*/ ?>
 <!doctype html>
 <html>
 <head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -41,18 +41,18 @@
 <body>
 
   <script type="text/javascript">
-  //固定层移动
+  //固定層移動
   $(function(){
-      //管理显示与隐藏
+      //管理顯示與隱藏
       $('img[tptype="admin_avatar"], #admin-manager-btn').click(function () {
           if ($(".manager-menu").css("display") == "none") {
               $(".manager-menu").css('display', 'block'); 
-              $("#admin-manager-btn").attr("title","关闭快捷管理"); 
+              $("#admin-manager-btn").attr("title","關閉快捷管理"); 
               $("#admin-manager-btn").removeClass().addClass("arrow-close");
           }
           else {
               $(".manager-menu").css('display', 'none');
-              $("#admin-manager-btn").attr("title","显示快捷管理");
+              $("#admin-manager-btn").attr("title","顯示快捷管理");
               $("#admin-manager-btn").removeClass().addClass("arrow");
           }           
       });
@@ -69,9 +69,9 @@
 <div class="eycms_cont_left hidden-xs">
     <dl class="eylogo">
         <?php if(!(empty($is_eyou_authortoken) || (($is_eyou_authortoken instanceof \think\Collection || $is_eyou_authortoken instanceof \think\Paginator ) && $is_eyou_authortoken->isEmpty()))): ?>
-        <a href="<?php echo \think\Request::instance()->url(); ?>"><img src="/o2-design/public/static/admin/images/logo_ey.png?v=<?php echo time(); ?>" alt="点击刷新" title="点击刷新"></a>
+        <a href="<?php echo \think\Request::instance()->url(); ?>"><img src="/o2-design/public/static/admin/images/logo_ey.png?v=<?php echo time(); ?>" alt="點選重新整理" title="點選重新整理"></a>
         <?php else: ?>
-        <a href="<?php echo \think\Request::instance()->url(); ?>"><img src="/o2-design/public/static/admin/images/logo.png?v=<?php echo time(); ?>" alt="点击刷新" title="点击刷新"></a>
+        <a href="<?php echo \think\Request::instance()->url(); ?>"><img src="/o2-design/public/static/admin/images/logo.png?v=<?php echo time(); ?>" alt="點選重新整理" title="點選重新整理"></a>
         <?php endif; ?>
     </dl>
     <?php if(is_array($menu) || $menu instanceof \think\Collection || $menu instanceof \think\Paginator): $i = 0; $__LIST__ = $menu;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
@@ -126,7 +126,7 @@
                   <span class="hidden-xs">購買授權</span>
                 </a>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="shouquan">
-                    <li class="ey-tool-list text-center"><a target="_blank" class="liaojie" href="http://www.eyoucms.com/buy/">了解商業授權</a></li>
+                    <li class="ey-tool-list text-center"><a target="_blank" class="liaojie" href="http://www.eyoucms.com/buy/">瞭解商業授權</a></li>
                     <li class="ey-tool-list text-center">
                       <input class="btn btn-primary" type="button" onclick="$('.em_authortoken').toggleClass('open');openItem('Index|authortoken');" value="錄入商業授權" />
                     </li>
@@ -137,7 +137,7 @@
 
               <!-- 多語言 -->
               <em id="Language_index" class="eyou_tool em_lang" data-expanded="close" <?php if(empty($web_language_switch)): ?>style="display: none;"<?php endif; ?>>
-                <a class="btn btn-default dropdown-toggle" title="支持多語言切換" href="javascript:void(0);" onclick="valide(this);">
+                <a class="btn btn-default dropdown-toggle" title="支援多語言切換" href="javascript:void(0);" onclick="valide(this);">
                   <i class="fa fa-globe"></i>
                   <span class="hidden-xs"><?php echo (isset($languages[$admin_lang]['title']) && ($languages[$admin_lang]['title'] !== '')?$languages[$admin_lang]['title']:'簡體中文'); ?></span>
                 </a>
@@ -156,7 +156,7 @@
               <div id="upgrade_filelist" style="display:none;"></div>
               <div id="upgrade_intro" style="display:none;"></div>
               <div id="upgrade_notice" style="display:none;"></div>
-              <a class="btn btn-default dropdown-toggle" style="display: none;color:#F00;" title="不升級可能有安全隐患" href="javascript:void(0);" id="a_upgrade" data-version="" data-max_version="" data-iframe="parent" data-tips_url="<?php echo url('Upgrade/setPopupUpgrade'); ?>" data-upgrade_url="<?php echo url('Upgrade/OneKeyUpgrade'); ?>" data-check_authority="<?php echo url('Upgrade/check_authority'); ?>">
+              <a class="btn btn-default dropdown-toggle" style="display: none;color:#F00;" title="不升級可能有安全隱患" href="javascript:void(0);" id="a_upgrade" data-version="" data-max_version="" data-iframe="parent" data-tips_url="<?php echo url('Upgrade/setPopupUpgrade'); ?>" data-upgrade_url="<?php echo url('Upgrade/OneKeyUpgrade'); ?>" data-check_authority="<?php echo url('Upgrade/check_authority'); ?>">
                 <i class="fa fa-info-circle"></i>
                 <span class="hidden-xs">系統更新</span>
               </a>
@@ -179,7 +179,7 @@
               <ul class="nc-row" tptype="quick_link">
                   <!--<li class="hide"><a href="javascript:void(0);" onClick="openItem('System|web');" title="站點設置">站點設置</a></li>-->
                   <li><a href="<?php echo url('Admin/logout'); ?>" title="登出">登出</a></li>
-                  <!--<li class="hide"><a href="javascript:void(0);" onClick="GetUploadify(1,'','adminlogo','adminlogo_call_back','<?php echo url('Uploadify/upload_full'); ?>');" title="后台Logo">后台Logo</a></li>-->
+                  <!--<li class="hide"><a href="javascript:void(0);" onClick="GetUploadify(1,'','adminlogo','adminlogo_call_back','<?php echo url('Uploadify/upload_full'); ?>');" title="後臺Logo">後臺Logo</a></li>-->
               </ul>
             </div>
           </div>

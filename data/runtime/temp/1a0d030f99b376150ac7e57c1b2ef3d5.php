@@ -1,8 +1,8 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:50:"./application/admin/template/ad_position\index.htm";i:1558672259;s:66:"D:\site\ada\o2-design\application\admin\template\public\layout.htm";i:1558672259;s:66:"D:\site\ada\o2-design\application\admin\template\public\footer.htm";i:1558667897;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:50:"./application/admin/template/ad_position\index.htm";i:1559529923;s:66:"D:\site\ada\o2-design\application\admin\template\public\layout.htm";i:1559529926;s:66:"D:\site\ada\o2-design\application\admin\template\public\footer.htm";i:1559529926;}*/ ?>
 <!doctype html>
 <html>
 <head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -48,15 +48,15 @@
     <div class="flexigrid">
         <div class="mDiv">
             <div class="ftitle">
-                <h3>广告管理</h3>
-                <h5>(共<?php echo $pager->totalRows; ?>条记录)</h5>
+                <h3>廣告管理</h3>
+                <h5>(共<?php echo $pager->totalRows; ?>條記錄)</h5>
             </div>
-            <div title="刷新数据" class="pReload"><i class="fa fa-refresh"></i></div>
-            <form class="navbar-form form-inline" action="<?php echo url('AdPosition/index'); ?>" method="get" onsubmit="layer_loading('正在处理');">
+            <div title="重新整理數據" class="pReload"><i class="fa fa-refresh"></i></div>
+            <form class="navbar-form form-inline" action="<?php echo url('AdPosition/index'); ?>" method="get" onsubmit="layer_loading('正在處理');">
                 <?php echo (isset($searchform['hidden']) && ($searchform['hidden'] !== '')?$searchform['hidden']:''); ?>
                 <div class="sDiv">
                     <div class="sDiv2">
-                        <input type="text" size="30" name="keywords" value="<?php echo \think\Request::instance()->param('keywords'); ?>" class="qsbox" placeholder="名称搜索...">
+                        <input type="text" size="30" name="keywords" value="<?php echo \think\Request::instance()->param('keywords'); ?>" class="qsbox" placeholder="名稱搜索...">
                         <input type="submit" class="btn" value="搜索">
                     </div>
                     <!-- <div class="sDiv2">
@@ -72,14 +72,14 @@
                     <tr>
                         <?php if($main_lang == $admin_lang): ?>
                         <th class="sign w40" axis="col0">
-                            <div class="tc">选择</div>
+                            <div class="tc">選擇</div>
                         </th>
                         <?php endif; ?>
                         <th abbr="article_title" axis="col3" class="w60">
                             <div class="tc">ID</div>
                         </th>
                         <th abbr="article_title" axis="col3">
-                            <div class="tl" style="width: 100%">广告名称</div>
+                            <div class="tl" style="width: 100%">廣告名稱</div>
                         </th>
                         <th axis="col1" class="w250">
                             <div class="tc">操作</div>
@@ -96,7 +96,7 @@
                     <?php if(empty($list) || (($list instanceof \think\Collection || $list instanceof \think\Paginator ) && $list->isEmpty())): ?>
                         <tr>
                             <td class="no-data" align="center" axis="col0" colspan="50">
-                                <i class="fa fa-exclamation-circle"></i>没有符合条件的记录
+                                <i class="fa fa-exclamation-circle"></i>沒有符合條件的記錄
                             </td>
                         </tr>
                     <?php else: if(is_array($list) || $list instanceof \think\Collection || $list instanceof \think\Paginator): if( count($list)==0 ) : echo "" ;else: foreach($list as $k=>$vo): ?>
@@ -124,13 +124,13 @@
                            
                             <td class="">
                                 <div class="w250 tc">
-                                    <!-- <a class="btn blue" href="<?php echo url('Other/index',array('pid'=>$vo['id'])); ?>"><i class="fa fa-search"></i>查看</a> -->
+                                    <!-- <a class="btn blue" href="<?php echo url('Other/index',array('pid'=>$vo['id'])); ?>"><i class="fa fa-search"></i>檢視</a> -->
                                     <?php if(is_check_access(CONTROLLER_NAME.'@edit') == '1'): ?>
-                                    <a href="<?php echo url('AdPosition/edit',array('id'=>$vo['id'])); ?>" class="btn blue"><i class="fa fa-pencil-square-o"></i>编辑</a>
+                                    <a href="<?php echo url('AdPosition/edit',array('id'=>$vo['id'])); ?>" class="btn blue"><i class="fa fa-pencil-square-o"></i>編輯</a>
                                     <?php endif; if($main_lang == $admin_lang): if(is_check_access(CONTROLLER_NAME.'@del') == '1'): ?>
-                                    <a class="btn red"  href="javascript:void(0);" data-url="<?php echo url('AdPosition/del'); ?>" data-id="<?php echo $vo['id']; ?>" onClick="delfun(this);"><i class="fa fa-trash-o"></i>删除</a>
+                                    <a class="btn red"  href="javascript:void(0);" data-url="<?php echo url('AdPosition/del'); ?>" data-id="<?php echo $vo['id']; ?>" onClick="delfun(this);"><i class="fa fa-trash-o"></i>刪除</a>
                                     <?php endif; endif; ?>
-                                    <a class="btn blue" href="javascript:void(0);" onclick="copyToClipBoard(<?php echo $vo['id']; ?>, 1)">标签调用</a>
+                                    <a class="btn blue" href="javascript:void(0);" onclick="copyToClipBoard(<?php echo $vo['id']; ?>, 1)">標籤呼叫</a>
                                 </div>
                             </td>
                             
@@ -150,16 +150,16 @@
                 <?php if(is_check_access(CONTROLLER_NAME.'@del') == '1'): ?>
                 <div class="fbutton">
                     <a onclick="batch_del(this, 'ids');" data-url="<?php echo url('AdPosition/del'); ?>">
-                        <div class="add" title="批量删除">
-                            <span><i class="fa fa-close"></i>批量删除</span>
+                        <div class="add" title="批量刪除">
+                            <span><i class="fa fa-close"></i>批量刪除</span>
                         </div>
                     </a>
                 </div>
                 <?php endif; if(is_check_access(CONTROLLER_NAME.'@add') == '1'): ?>
                 <div class="fbutton">
                     <a href="<?php echo url('AdPosition/add'); ?>">
-                        <div class="add" title="新增广告">
-                            <span class="red"><i class="fa fa-plus"></i>新增广告</span>
+                        <div class="add" title="新增廣告">
+                            <span class="red"><i class="fa fa-plus"></i>新增廣告</span>
                         </div>
                     </a>
                 </div>
@@ -167,40 +167,40 @@
             </div>
             <div style="clear:both"></div>
         </div>
-        <!--分页位置-->
+        <!--分頁位置-->
         <?php echo $page; ?>
     </div>
 </div>
 <script>
     $(document).ready(function(){
-        // 表格行点击选中切换
+        // 表格行點選選中切換
         $('#flexigrid > table>tbody >tr').click(function(){
             $(this).toggleClass('trSelected');
         });
 
-        // 点击刷新数据
+        // 點選重新整理數據
         $('.fa-refresh').click(function(){
             location.href = location.href;
         });
     });
 
     /**
-     * 代码调用js
+     * 程式碼呼叫js
      * @param id  id
-     * @param limit 条数
+     * @param limit 條數
      */
     function copyToClipBoard(id, limit) {
       var advstr = "{eyou:adv pid='" + id + "'}\r\n   <img src='{$"+"field.litpic}' alt='{$"+"field.title}' />\r\n{/eyou:adv";
-      var contentdiv = '<div class="dialog_content" style="margin: 0px; padding: 0px;"><dl style="padding:10px 30px;line-height:30px"><dd>标签 adv 调用：</dd>'
+      var contentdiv = '<div class="dialog_content" style="margin: 0px; padding: 0px;"><dl style="padding:10px 30px;line-height:30px"><dd>標籤 adv 呼叫：</dd>'
       contentdiv += '<textarea rows="4" cols="60" style="width:400px;height:60px;">' + advstr + '}</textarea>'
       contentdiv += '<dd>JavaScript：</dd>'
       contentdiv += '<dd><input type="text" style=" width:400px;" value="<script type=&quot;text/javascript&quot; src=&quot;http://' + '<?php echo \think\Request::instance()->server('http_host'); ?>' + '/index.php?m=api&amp;c=Other&amp;a=other_show&amp;pid=' + id + '&amp;row='+limit+'&quot;><\/script>"></dd>'
-      contentdiv += '<dd style="border-top: dotted 1px #E7E7E7; color: #F60;">请将标签adv或JavaScript代码复制并粘贴到对应模板文件中！</dd></dl></div>'
+      contentdiv += '<dd style="border-top: dotted 1px #E7E7E7; color: #F60;">請將標籤adv或JavaScript程式碼複製並貼上到對應模板檔案中！</dd></dl></div>'
       layer.open({
-        title: '代码调用',
+        title: '程式碼呼叫',
         type: 1,
         skin: 'layui-layer-demo',
-        area: ['480px', '280px'], //宽高
+        area: ['480px', '280px'], //寬高
         content: contentdiv
       });
     }

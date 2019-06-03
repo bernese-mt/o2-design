@@ -24,7 +24,7 @@
                 <h3>功能配置</h3>
                 <h5></h5>
             </div>
-            <form class="navbar-form form-inline" action="{:url('Member/level_index')}" method="get" onsubmit="layer_loading('正在处理');">
+            <form class="navbar-form form-inline" action="{:url('Member/level_index')}" method="get" onsubmit="layer_loading('正在處理');">
                 {$searchform.hidden|default=''}
                 <div class="sDiv">
                     {include file="member/users_bar" /}
@@ -41,7 +41,7 @@
                                 <div class="tc"></div>
                             </th>
                             <th abbr="article_title" axis="col3" class="w10">
-                                <div class="tc">登录设置</div>
+                                <div class="tc">登錄設定</div>
                             </th>
                             <th abbr="ac_id" axis="col4">
                                 <div class=""></div>
@@ -54,38 +54,38 @@
             <div class="ncap-form-default">
                 <dl class="row">
                     <dt class="tit">
-                        <label for="uname">第三方登录</label>
+                        <label for="uname">第三方登錄</label>
                     </dt>
                     <dd class="opt">
                         <label>
-                            <input type="radio" name="oauth[oauth_open]" value="1" {if condition="$info.oauth_open == 1"}checked="checked"{/if}/>开启
+                            <input type="radio" name="oauth[oauth_open]" value="1" {if condition="$info.oauth_open == 1"}checked="checked"{/if}/>開啟
                         </label>
                         &nbsp;&nbsp;&nbsp;
                         <label>
-                            <input type="radio" name="oauth[oauth_open]" value="0" {if condition="!isset($info.oauth_open) || empty($info.oauth_open)"}checked="checked"{/if}/>关闭
+                            <input type="radio" name="oauth[oauth_open]" value="0" {if condition="!isset($info.oauth_open) || empty($info.oauth_open)"}checked="checked"{/if}/>關閉
                         </label>
-                        <span style="padding-left: 10px; color: #C0C0C0;">关闭则自动隐藏第三方登录入口。</span>
+                        <span style="padding-left: 10px; color: #C0C0C0;">關閉則自動隱藏第三方登錄入口。</span>
                     </dd>
                 </dl>
                 <dl class="row {if condition="!isset($info.oauth_open) || empty($info.oauth_open)"}none{/if}" id="oauth_list">
                     <dt class="tit">
-                        <label for="uname">第三方平台</label>
+                        <label for="uname">第三方平臺</label>
                     </dt>
                     <dd class="opt" style="line-height: 30px;">
                         <label>
-                            <input type="checkbox" name="oauth[oauth_qq]" value="1" {if condition="!isset($info.oauth_qq) || $info.oauth_qq == 1"}checked="checked"{/if} />Q&nbsp;Q登录
+                            <input type="checkbox" name="oauth[oauth_qq]" value="1" {if condition="!isset($info.oauth_qq) || $info.oauth_qq == 1"}checked="checked"{/if} />Q&nbsp;Q登錄
                         </label>
-                        <span style="padding-left: 23px; color: #C0C0C0;"><a href="javascript:void(0);" onclick="set_oauth_config(this);" data-oauth="qq" data-title="QQ登录配置">[配置参数]</a></span>
+                        <span style="padding-left: 23px; color: #C0C0C0;"><a href="javascript:void(0);" onclick="set_oauth_config(this);" data-oauth="qq" data-title="QQ登錄配置">[配置參數]</a></span>
                         <br/>
                         <label>
-                            <input type="checkbox" name="oauth[oauth_weixin]" value="1" {if condition="!isset($info.oauth_weixin) || $info.oauth_weixin == 1"}checked="checked"{/if} />微信登录
+                            <input type="checkbox" name="oauth[oauth_weixin]" value="1" {if condition="!isset($info.oauth_weixin) || $info.oauth_weixin == 1"}checked="checked"{/if} />微信登錄
                         </label>
-                        <span style="padding-left: 23px; color: #C0C0C0;"><a href="javascript:void(0);" onclick="set_oauth_config(this);" data-oauth="weixin" data-title="微信登录配置">[配置参数]</a></span>
+                        <span style="padding-left: 23px; color: #C0C0C0;"><a href="javascript:void(0);" onclick="set_oauth_config(this);" data-oauth="weixin" data-title="微信登錄配置">[配置參數]</a></span>
                         <br/>
                         <label>
-                            <input type="checkbox" name="oauth[oauth_weibo]" value="1" {if condition="!isset($info.oauth_weibo) || $info.oauth_weibo == 1"}checked="checked"{/if} />微博登录
+                            <input type="checkbox" name="oauth[oauth_weibo]" value="1" {if condition="!isset($info.oauth_weibo) || $info.oauth_weibo == 1"}checked="checked"{/if} />微博登錄
                         </label>
-                        <span style="padding-left: 23px; color: #C0C0C0;"><a href="javascript:void(0);" onclick="set_oauth_config(this);" data-oauth="weibo" data-title="微博登录配置">[配置参数]</a></span>
+                        <span style="padding-left: 23px; color: #C0C0C0;"><a href="javascript:void(0);" onclick="set_oauth_config(this);" data-oauth="weibo" data-title="微博登錄配置">[配置參數]</a></span>
                     </dd>
                 </dl>
             </div> -->
@@ -99,7 +99,7 @@
                     <div class="tc"></div>
                 </th>
                 <th abbr="article_title" axis="col3" class="w10">
-                    <div class="tc">用户系统</div>
+                    <div class="tc">使用者系統</div>
                 </th>
                 <th abbr="ac_id" axis="col4">
                     <div class=""></div>
@@ -113,14 +113,14 @@
 <div class="ncap-form-default">
     <dl class="row">
         <dt class="tit">
-            <label for="uname">前台模板更新</label>
+            <label for="uname">前臺模板更新</label>
         </dt>
         <dd class="opt">
             <label id="td_upgrade_msg">
                 <div id="upgrade_filelist" style="display:none;"></div> 
                 <div id="upgrade_intro" style="display:none;"></div> 
                 <div id="upgrade_notice" style="display:none;"></div> 
-                <a href="javascript:void(0);" id="a_upgrade" data-version="" data-max_version="" data-iframe="workspace" title="" data-upgrade_url="{:url('Member/OneKeyUpgrade')}" data-check_authority="{:url('Member/check_authority')}">正在版本检测中……</a>
+                <a href="javascript:void(0);" id="a_upgrade" data-version="" data-max_version="" data-iframe="workspace" title="" data-upgrade_url="{:url('Member/OneKeyUpgrade')}" data-check_authority="{:url('Member/check_authority')}">正在版本檢測中……</a>
             </label>
         </dd>
     </dl>
@@ -135,7 +135,7 @@
                                 <div class="tc"></div>
                             </th>
                             <th abbr="article_title" axis="col3" class="w10">
-                                <div class="tc">注册设置</div>
+                                <div class="tc">註冊設定</div>
                             </th>
                             <th abbr="ac_id" axis="col4">
                                 <div class=""></div>
@@ -150,37 +150,37 @@
             <div class="ncap-form-default">
                 <dl class="row">
                     <dt class="tit">
-                        <label for="uname">会员中心</label>
+                        <label for="uname">會員中心</label>
                     </dt>
                     <dd class="opt">
                         <label>
-                            <input type="radio" name="users[users_open_register]" value="0" {if condition="!isset($info.users_open_register) || empty($info.users_open_register)"}checked="checked"{/if}/>开启
+                            <input type="radio" name="users[users_open_register]" value="0" {if condition="!isset($info.users_open_register) || empty($info.users_open_register)"}checked="checked"{/if}/>開啟
                         </label>
                         &nbsp;&nbsp;&nbsp;
                         <label>
-                            <input type="radio" name="users[users_open_register]" value="1" {if condition="$info.users_open_register == 1"}checked="checked"{/if}/>关闭
+                            <input type="radio" name="users[users_open_register]" value="1" {if condition="$info.users_open_register == 1"}checked="checked"{/if}/>關閉
                         </label>
-                        <span style="padding-left: 10px; color: #C0C0C0;">关闭则自动隐藏账户注册/登录的入口。</span>
+                        <span style="padding-left: 10px; color: #C0C0C0;">關閉則自動隱藏賬戶註冊/登錄的入口。</span>
                     </dd>
                 </dl>
                 <dl class="row">
                     <dt class="tit">
-                        <label for="username">注册验证</label>
+                        <label for="username">註冊驗證</label>
                     </dt>
                     <dd class="opt" style="line-height: 30px;">
                         <label>
-                            <input type="radio" name="users[users_verification]" value="0" {if condition="!isset($info.users_verification) || empty($info.users_verification)"}checked="checked"{/if}/>不验证
-                            <span style="padding-left: 23px; color: #C0C0C0;">注册用户后，可直接登陆，无需验证。</span>
+                            <input type="radio" name="users[users_verification]" value="0" {if condition="!isset($info.users_verification) || empty($info.users_verification)"}checked="checked"{/if}/>不驗證
+                            <span style="padding-left: 23px; color: #C0C0C0;">註冊使用者后，可直接登陸，無需驗證。</span>
                         </label>
                         <br/>
                         <label>
-                            <input type="radio" name="users[users_verification]" value="1" {if condition="$info.users_verification == 1"}checked="checked"{/if}/>后台激活
-                            <span style="padding-left: 10px; color: #C0C0C0;">注册用户后，需后台审核激活后才能登录。</span>
+                            <input type="radio" name="users[users_verification]" value="1" {if condition="$info.users_verification == 1"}checked="checked"{/if}/>後臺啟用
+                            <span style="padding-left: 10px; color: #C0C0C0;">註冊使用者后，需後臺審覈啟用后才能登錄。</span>
                         </label>
                         <br/>
                         <label>
-                            <input type="radio" name="users[users_verification]" value="2" onclick="email();" {if condition="$info.users_verification == 2"}checked="checked"{/if}/>邮件验证
-                            <span style="padding-left: 10px; color: #C0C0C0;" >注册用户中，发送邮箱验证码校验才能注册。</span>
+                            <input type="radio" name="users[users_verification]" value="2" onclick="email();" {if condition="$info.users_verification == 2"}checked="checked"{/if}/>郵件驗證
+                            <span style="padding-left: 10px; color: #C0C0C0;" >註冊使用者中，發送郵箱驗證碼校驗才能註冊。</span>
                         </label>
                     </dd>
                 </dl>
@@ -195,7 +195,7 @@
                                 <div class="tc"></div>
                             </th>
                             <th abbr="article_title" axis="col3" class="w10">
-                                <div class="tc">前台风格设置</div>
+                                <div class="tc">前臺風格設定</div>
                             </th>
                             <th abbr="ac_id" axis="col4">
                                 <div class=""></div>
@@ -208,7 +208,7 @@
             <div class="ncap-form-default">
                 <dl class="row">
                     <dt class="tit">
-                        <label for="uname">左侧菜单</label>
+                        <label for="uname">左側菜單</label>
                     </dt>
                     <dd class="opt">
                         <a href="javascript:void(0);" onclick="menu_index();" class="ncap-btn ncap-btn-green">管理</a>
@@ -216,7 +216,7 @@
                 </dl>
                 <dl class="row">
                     <dt class="tit">
-                        <label for="uname">主题颜色</label>
+                        <label for="uname">主題顏色</label>
                     </dt>
                     <dd class="opt">
                         <input type="text" name="theme[theme_color]" value="{$info.theme_color|default='#ff6565'}" id="picker" style="border-color: {$info.theme_color|default='#ff6565'};" />
@@ -227,7 +227,7 @@
             <div class="ncap-form-default">
                 <dl class="row">
                     <div class="bot">
-                        <a href="JavaScript:void(0);" onclick="usersset();" class="ncap-btn-big ncap-btn-green" id="submitBtn">确认提交</a>
+                        <a href="JavaScript:void(0);" onclick="usersset();" class="ncap-btn-big ncap-btn-green" id="submitBtn">確認提交</a>
                     </div>
                 </dl>
             </div>
@@ -237,12 +237,12 @@
 </div>
 <script>
     $(document).ready(function(){
-        // 表格行点击选中切换
+        // 表格行點選選中切換
         $('#flexigrid > table>tbody >tr').click(function(){
             $(this).toggleClass('trSelected');
         });
 
-        // 点击刷新数据
+        // 點選重新整理數據
         $('.fa-refresh').click(function(){
             location.href = location.href;
         });
@@ -256,7 +256,7 @@
             }
         });
 
-        // 颜色选择
+        // 顏色選擇
         $('#picker').colpick({
             flat:false,
             layout:'rgbhex',
@@ -272,7 +272,7 @@
             $(this).colpickSetColor('#'+this.value);
         });
 
-        // 版本检测更新弹窗
+        // 版本檢測更新彈窗
         // $.ajax({
         //     type : "GET",
         //     url  : "{:url('Member/ajax_check_upgrade_version')}",
@@ -287,7 +287,7 @@
         //                 $('#a_upgrade').attr('data-version', res.data.msg.key_num)
         //                 .attr('data-max_version', res.data.msg.max_version)
         //                 .attr('title', res.data.msg.tips);
-        //                 $('#a_upgrade').html('检测到新版本'+res.data.msg.key_num+'[点击查看]').css('color', '#F00');
+        //                 $('#a_upgrade').html('檢測到新版本'+res.data.msg.key_num+'[點選檢視]').css('color', '#F00');
 
         //                 {if condition="(0 >= $Think.session.admin_info.role_id OR 1 == $Think.session.admin_info.auth_role_info.online_update)"}
         //                     // btn_upgrade($("#a_upgrade"), 0);
@@ -314,7 +314,7 @@
                 }
             },
             error: function(e){
-                showErrorMsg('网络失败，请刷新页面后重试');
+                showErrorMsg('網路失敗，請重新整理頁面後重試');
                 return false;
             }
         });
@@ -338,7 +338,7 @@
             fixed: true, //不固定
             shadeClose: false,
             shade: 0.3,
-            maxmin: true, //开启最大化最小化按钮
+            maxmin: true, //開啟最大化最小化按鈕
             area: ['80%', '80%'],
             content: url
         });
@@ -350,18 +350,18 @@
         //iframe窗
         layer.open({
             type: 2,
-            title: '前台会员中心左侧菜单',
+            title: '前臺會員中心左側菜單',
             fixed: true, //不固定
             shadeClose: false,
             shade: 0.3,
-            maxmin: true, //开启最大化最小化按钮
+            maxmin: true, //開啟最大化最小化按鈕
             area: ['80%', '80%'],
             content: url
         });
     }
 
     function usersset(){
-        layer_loading('正在处理');
+        layer_loading('正在處理');
         $('#postForm').submit();
     }
 

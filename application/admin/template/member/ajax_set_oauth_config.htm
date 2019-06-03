@@ -7,12 +7,12 @@
     <div class="flexigrid">
         <div class="mDiv">
             <div class="ftitle">
-                <h3>支付功能参数设置</h3>
+                <h3>支付功能參數設定</h3>
             </div>
-            <div title="刷新数据" class="pReload"><i class="fa fa-refresh"></i></div>
+            <div title="重新整理數據" class="pReload"><i class="fa fa-refresh"></i></div>
             <div class="sDiv">
                 <div class="sDiv2 addartbtn fl" style="margin-right: 6px;">
-                    <input type="button" class="btn" value="支付宝配置" onclick="window.location.href='{:url("member/alipay_set")}';">
+                    <input type="button" class="btn" value="支付寶配置" onclick="window.location.href='{:url("member/alipay_set")}';">
                 </div>
             </div>
             <div class="sDiv">
@@ -31,7 +31,7 @@
                                 <div class="tc"></div>
                             </th>
                             <th abbr="article_title" axis="col3" class="w10">
-                                <div class="tc">微信参数设置</div>
+                                <div class="tc">微信參數設定</div>
                             </th>
                             <th abbr="ac_id" axis="col4">
                                 <div class=""></div>
@@ -48,7 +48,7 @@
                     </dt>
                     <dd class="opt">
                         <input type="text" name="wechat[appid]" id="appid" value="{$wechat.appid}" class="input-txt">
-                        <p class="notic">请输入您的微信公众平台中的微信AppId，用于微信支付。</p>
+                        <p class="notic">請輸入您的微信公眾平臺中的微信AppId，用於微信支付。</p>
                     </dd>
                 </dl>
                 <dl class="row">
@@ -57,7 +57,7 @@
                     </dt>
                     <dd class="opt">
                         <input type="text" name="wechat[mchid]" id="mchid" value="{$wechat.mchid}" class="input-txt">
-                        <p class="notic">请输入您的微信公众平台中的微信MchId，用于微信支付。</p>
+                        <p class="notic">請輸入您的微信公眾平臺中的微信MchId，用於微信支付。</p>
                     </dd>
                 </dl>
                 <dl class="row">
@@ -66,16 +66,16 @@
                     </dt>
                     <dd class="opt">
                         <input type="text" name="wechat[key]" id="key" value="{$wechat.key}" class="input-txt">
-                        <p class="notic">请输入您的微信公众平台中的微信KEY值，用于微信支付。</p>
+                        <p class="notic">請輸入您的微信公眾平臺中的微信KEY值，用於微信支付。</p>
                     </dd>
                 </dl>
                 <dl class="row">
                     <dt class="tit">
-                        <label for="username"><em></em>公众号名称</label>
+                        <label for="username"><em></em>公眾號名稱</label>
                     </dt>
                     <dd class="opt">
                         <input type="text" name="wechat[name]" value="{$wechat.name}" class="input-txt">
-                        <p class="notic">请输入您的微信公众平台中的微信公众号名称。</p>
+                        <p class="notic">請輸入您的微信公眾平臺中的微信公眾號名稱。</p>
                     </dd>
                 </dl>
                 <dl class="row">
@@ -84,7 +84,7 @@
                     </dt>
                     <dd class="opt">
                         <input type="text" name="wechat[appsecret]" value="{$wechat.appsecret}" class="input-txt">
-                        <p class="notic">请输入您的微信公众平台中的微信AppSecret。</p>
+                        <p class="notic">請輸入您的微信公眾平臺中的微信AppSecret。</p>
                     </dd>
                 </dl>
             </div>
@@ -92,7 +92,7 @@
             <div class="ncap-form-default">
                 <dl class="row">
                     <div class="bot">
-                        <a href="JavaScript:void(0);" onclick="wechatset();" class="ncap-btn-big ncap-btn-green" id="submitBtn">确认提交</a>
+                        <a href="JavaScript:void(0);" onclick="wechatset();" class="ncap-btn-big ncap-btn-green" id="submitBtn">確認提交</a>
                     </div>
                 </dl>
             </div>
@@ -101,12 +101,12 @@
 </div>
 <script>
     $(document).ready(function(){
-        // 表格行点击选中切换
+        // 表格行點選選中切換
         $('#flexigrid > table>tbody >tr').click(function(){
             $(this).toggleClass('trSelected');
         });
 
-        // 点击刷新数据
+        // 點選重新整理數據
         $('.fa-refresh').click(function(){
             location.href = location.href;
         });
@@ -128,7 +128,7 @@
             return false;
         }
 
-        layer_loading('正在处理');
+        layer_loading('正在處理');
         $('#postForm').submit();
     }
 

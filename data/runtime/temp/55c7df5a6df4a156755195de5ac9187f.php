@@ -1,8 +1,8 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:56:"./application/admin/template/archives\index_archives.htm";i:1558672259;s:66:"D:\site\ada\o2-design\application\admin\template\public\layout.htm";i:1558672259;s:70:"D:\site\ada\o2-design\application\admin\template\archives\tags_btn.htm";i:1558667858;s:66:"D:\site\ada\o2-design\application\admin\template\public\footer.htm";i:1558667897;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:56:"./application/admin/template/archives\index_archives.htm";i:1559529923;s:66:"D:\site\ada\o2-design\application\admin\template\public\layout.htm";i:1559529926;s:70:"D:\site\ada\o2-design\application\admin\template\archives\tags_btn.htm";i:1559529923;s:66:"D:\site\ada\o2-design\application\admin\template\public\footer.htm";i:1559529926;}*/ ?>
 <!doctype html>
 <html>
 <head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -48,28 +48,28 @@
     <div class="flexigrid" style="margin-top: 0px;">
         <div class="mDiv" style="padding: 5px 0px;">
             <div class="ftitle">
-                <h3><?php echo (isset($arctype_info['typename']) && ($arctype_info['typename'] !== '')?$arctype_info['typename']:'所有文档'); ?></h3>
-                <h5>(共<?php echo $pager->totalRows; ?>条记录)</h5>
+                <h3><?php echo (isset($arctype_info['typename']) && ($arctype_info['typename'] !== '')?$arctype_info['typename']:'所有文件'); ?></h3>
+                <h5>(共<?php echo $pager->totalRows; ?>條記錄)</h5>
             </div>
-            <div title="刷新数据" class="pReload"><i class="fa fa-refresh"></i></div>
-            <form id="search_form" class="navbar-form form-inline" action="<?php echo url('Archives/index_archives'); ?>" method="get" onsubmit="layer_loading('正在处理');">
+            <div title="重新整理數據" class="pReload"><i class="fa fa-refresh"></i></div>
+            <form id="search_form" class="navbar-form form-inline" action="<?php echo url('Archives/index_archives'); ?>" method="get" onsubmit="layer_loading('正在處理');">
                 <?php echo (isset($searchform['hidden']) && ($searchform['hidden'] !== '')?$searchform['hidden']:''); ?>
                 <div class="sDiv">
                     <?php if(is_check_access('Archives@add') == '1'): ?>
                         <div class="fbutton" style="float: none;">
                               <a href="javascript:void(0);" onClick="<?php if(\think\Request::instance()->param('typeid') > '0'): ?>window.location.href='<?php echo url("Archives/add", array("typeid"=>\think\Request::instance()->param('typeid'))); ?>';<?php else: ?>quick_release();<?php endif; ?>">
                                   <div class="add">
-                                      <span><i class="fa fa-plus"></i>发布文档</span>
+                                      <span><i class="fa fa-plus"></i>發佈文件</span>
                                   </div>
                               </a>
                         </div>
                     <?php endif; ?>
-                    <!-- 扩展 -->
+                    <!-- 擴充套件 -->
                     <?php if(is_check_access('Tags@index') == '1'): ?>
                         <div class="fbutton" style="float: none; display: none;">
                               <a href="javascript:void(0);" onClick="tags_list();">
                                   <div class="add">
-                                      <span><i class="fa fa-tag"></i>TAG标签管理</span>
+                                      <span><i class="fa fa-tag"></i>TAG標籤管理</span>
                                   </div>
                               </a>
                         </div>
@@ -80,11 +80,11 @@
                                 //iframe窗
                                 layer.open({
                                     type: 2,
-                                    title: 'TAG标签管理',
+                                    title: 'TAG標籤管理',
                                     fixed: true, //不固定
                                     shadeClose: false,
                                     shade: 0.3,
-                                    maxmin: true, //开启最大化最小化按钮
+                                    maxmin: true, //開啟最大化最小化按鈕
                                     area: ['80%', '80%'],
                                     content: url
                                 });
@@ -93,12 +93,12 @@
                     <?php endif; ?>
 <!--                     <div class="sDiv2">  
                         <select name="typeid" id="typeid" class="select" style="margin:0px 5px;">
-                            <option value="">--所有文档--</option>
+                            <option value="">--所有文件--</option>
                             <?php echo $arctype_html; ?>
                         </select>
                     </div> -->
                     <div class="sDiv2">
-                        <input type="text" size="30" name="keywords" value="<?php echo \think\Request::instance()->param('keywords'); ?>" class="qsbox" placeholder="标题搜索...">
+                        <input type="text" size="30" name="keywords" value="<?php echo \think\Request::instance()->param('keywords'); ?>" class="qsbox" placeholder="標題搜索...">
                         <input type="submit" class="btn" value="搜索">
                     </div>
                     <!-- <div class="sDiv2">
@@ -113,25 +113,25 @@
                     <thead>
                     <tr>
                         <th class="sign w40" axis="col0">
-                            <div class="tc">选择</div>
+                            <div class="tc">選擇</div>
                         </th>
                         <th abbr="article_title" axis="col3" class="w40">
                             <div class="tc">ID</div>
                         </th>
                         <th abbr="article_title" axis="col3" class="">
-                            <div style="text-align: left; padding-left: 10px;" class="">标题</div>
+                            <div style="text-align: left; padding-left: 10px;" class="">標題</div>
                         </th>
                         <th abbr="article_time" axis="col6" class="w100">
-                            <div class="tc">所属栏目</div>
+                            <div class="tc">所屬欄目</div>
                         </th>
                         <th abbr="article_time" axis="col6" class="w50">
-                            <div class="tc">推荐</div>
+                            <div class="tc">推薦</div>
                         </th>
                         <th abbr="article_time" axis="col6" class="w60">
-                            <div class="tc">浏览量</div>
+                            <div class="tc">瀏覽量</div>
                         </th>
                         <th abbr="article_time" axis="col6" class="w100">
-                            <div class="tc">更新时间</div>
+                            <div class="tc">更新時間</div>
                         </th>
                         <th axis="col1" class="w180">
                             <div class="tc">操作</div>
@@ -151,7 +151,7 @@
                     <?php if(empty($list) || (($list instanceof \think\Collection || $list instanceof \think\Paginator ) && $list->isEmpty())): ?>
                         <tr>
                             <td class="no-data" align="center" axis="col0" colspan="50">
-                                <i class="fa fa-exclamation-circle"></i>没有符合条件的记录
+                                <i class="fa fa-exclamation-circle"></i>沒有符合條件的記錄
                             </td>
                         </tr>
                     <?php else: if(is_array($list) || $list instanceof \think\Collection || $list instanceof \think\Paginator): if( count($list)==0 ) : echo "" ;else: foreach($list as $k=>$vo): ?>
@@ -176,7 +176,7 @@
                                 </div>
                             </td>
                             <td class="">
-                                <div class="w100 tc"><a href="<?php echo url('Archives/index_archives', array('typeid'=>$vo['typeid'])); ?>"><?php echo (isset($vo['typename']) && ($vo['typename'] !== '')?$vo['typename']:'<i class="red">数据出错！</i>'); ?></a></div>
+                                <div class="w100 tc"><a href="<?php echo url('Archives/index_archives', array('typeid'=>$vo['typeid'])); ?>"><?php echo (isset($vo['typename']) && ($vo['typename'] !== '')?$vo['typename']:'<i class="red">數據出錯！</i>'); ?></a></div>
                             </td>
                             <td>
                                 <div class="tc w50">
@@ -200,10 +200,10 @@
                             <td class="">
                                 <div class="w180 tc">
                                     <?php if(is_check_access('Archives@edit') == '1'): ?>
-                                    <a href="<?php echo url($channelRow[$vo['channel']]['ctl_name'].'/edit',array('id'=>$vo['aid'],'typeid'=>\think\Request::instance()->param('typeid'),'gourl'=>$gourl)); ?>" class="btn blue"><i class="fa fa-pencil-square-o"></i>编辑</a>
+                                    <a href="<?php echo url($channelRow[$vo['channel']]['ctl_name'].'/edit',array('id'=>$vo['aid'],'typeid'=>\think\Request::instance()->param('typeid'),'gourl'=>$gourl)); ?>" class="btn blue"><i class="fa fa-pencil-square-o"></i>編輯</a>
                                     <?php endif; if(is_check_access('Archives@del') == '1'): ?>
-                                    <a class="btn red"  href="javascript:void(0);" data-url="<?php echo url('Archives/del'); ?>" data-id="<?php echo $vo['aid']; ?>" data-deltype="pseudo" onClick="delfun(this);"><i class="fa fa-trash-o"></i>删除</a>
-                                    <a href="<?php echo $vo['arcurl']; ?>" target="_blank" class="btn blue"><i class="fa fa-pencil-square-o"></i>浏览</a>
+                                    <a class="btn red"  href="javascript:void(0);" data-url="<?php echo url('Archives/del'); ?>" data-id="<?php echo $vo['aid']; ?>" data-deltype="pseudo" onClick="delfun(this);"><i class="fa fa-trash-o"></i>刪除</a>
+                                    <a href="<?php echo $vo['arcurl']; ?>" target="_blank" class="btn blue"><i class="fa fa-pencil-square-o"></i>瀏覽</a>
                                     <?php endif; ?>
                                 </div>
                             </td>
@@ -231,16 +231,16 @@
                 <?php if(is_check_access('Archives@del') == '1'): ?>
                 <div class="fbutton">
                     <a onclick="batch_del(this, 'ids');" data-url="<?php echo url('Archives/del'); ?>" data-deltype="pseudo">
-                        <div class="add" title="批量删除">
-                            <span><i class="fa fa-close"></i>批量删除</span>
+                        <div class="add" title="批量刪除">
+                            <span><i class="fa fa-close"></i>批量刪除</span>
                         </div>
                     </a>
                 </div>
                 <?php endif; if(is_check_access('Archives@move') == '1'): ?>
                 <div class="fbutton">
                     <a onclick="func_move(this, 'ids');" data-url="<?php echo url('Archives/move', array('typeid'=>\think\Request::instance()->param('typeid'))); ?>">
-                        <div class="add" title="批量移动">
-                            <span><i class="fa fa-hdd-o"></i>批量移动</span>
+                        <div class="add" title="批量移動">
+                            <span><i class="fa fa-hdd-o"></i>批量移動</span>
                         </div>
                     </a>
                 </div>
@@ -248,24 +248,24 @@
             </div>
             <div style="clear:both"></div>
         </div>
-        <!--分页位置-->
+        <!--分頁位置-->
         <?php echo $page; ?>
     </div>
 </div>
 <script type="text/javascript">
     $(document).ready(function(){
 
-        // 表格行点击选中切换
+        // 表格行點選選中切換
         $('#flexigrid > table>tbody >tr').click(function(){
             $(this).toggleClass('trSelected');
         });
 
-        // 点击刷新数据
+        // 點選重新整理數據
         $('.fa-refresh').click(function(){
             location.href = location.href;
         });
 
-        // 选择栏目检索出相应文档列表
+        // 選擇欄目檢索出相應文件列表
         $('#typeid').change(function(){
           $('#search_form').submit();
         });
@@ -288,7 +288,7 @@
             }
         })
         if(a.length == 0){
-            layer.alert('请至少选择一项', {icon: 2, title:false});
+            layer.alert('請至少選擇一項', {icon: 2, title:false});
             return;
         }
 
@@ -296,11 +296,11 @@
         //iframe窗
         layer.open({
             type: 2,
-            title: '移动文档',
+            title: '移動文件',
             fixed: true, //不固定
             shadeClose: false,
             shade: 0.3,
-            maxmin: false, //开启最大化最小化按钮
+            maxmin: false, //開啟最大化最小化按鈕
             area: ['350px', '260px'],
             content: url
         });
@@ -311,11 +311,11 @@
         //iframe窗
         layer.open({
             type: 2,
-            title: '快捷发布文档',
+            title: '快捷發佈文件',
             fixed: true, //不固定
             shadeClose: false,
             shade: 0.3,
-            maxmin: true, //开启最大化最小化按钮
+            maxmin: true, //開啟最大化最小化按鈕
             area: ['600px', '520px'],
             content: "<?php echo url('Archives/release', array('iframe'=>2)); ?>",
             success: function(layero, index){
@@ -330,7 +330,7 @@
     }
 
     /**
-     * 获取修改之前的内容
+     * 獲取修改之前的內容
      */
     function get_aids()
     {

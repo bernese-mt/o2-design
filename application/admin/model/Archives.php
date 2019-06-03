@@ -1,11 +1,11 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
@@ -16,20 +16,20 @@ namespace app\admin\model;
 use think\Model;
 
 /**
- * 文档主表
+ * 文件主表
  */
 class Archives extends Model
 {
     //初始化
     protected function initialize()
     {
-        // 需要调用`Model`的`initialize`方法
+        // 需要呼叫`Model`的`initialize`方法
         parent::initialize();
     }
 
     /**
-     * 统计每个栏目文档数
-     * @param int $aid 产品id
+     * 統計每個欄目文件數
+     * @param int $aid 產品id
      */
     public function afterSave($aid, $post)
     {
@@ -41,15 +41,15 @@ class Archives extends Model
             $post['aid'] = $aid;
             M('article_content')->insert($post);
         }
-        // 自动推送链接给蜘蛛
+        // 自動推送鏈接給蜘蛛
         push_zzbaidu($opt, $aid);
 
-        // --处理TAG标签
+        // --處理TAG標籤
         model('Taglist')->savetags($aid, $post['typeid'], $post['tags']);
     }
 
     /**
-     * 获取单条记录
+     * 獲取單條記錄
      * @author wengxianhu by 2017-7-26
      */
     public function getInfo($aid, $field = '', $isshowbody = true)
@@ -68,7 +68,7 @@ class Archives extends Model
                 ->find($aid);
         }
 
-        // 文章TAG标签
+        // 文章TAG標籤
         if (!empty($result)) {
             $typeid = isset($result['typeid']) ? $result['typeid'] : 0;
             $tags = model('Taglist')->getListByAid($aid, $typeid);
@@ -79,11 +79,11 @@ class Archives extends Model
     }
 
     /**
-     * 伪删除栏目下所有文档
+     * 偽刪除欄目下所有文件
      */
     public function pseudo_del($typeidArr)
     {
-        // 伪删除文档
+        // 偽刪除文件
         M('archives')->where([
                 'typeid'    => ['IN', $typeidArr],
                 'is_del'    => 0,
@@ -98,12 +98,12 @@ class Archives extends Model
     }
 
     /**
-     * 删除栏目下所有文档
+     * 刪除欄目下所有文件
      */
     public function del($typeidArr)
     {
-        /*获取栏目下所有文档，并取得每个模型下含有的文档ID集合*/
-        $channelAidList = array(); // 模型下的文档ID列表
+        /*獲取欄目下所有文件，並取得每個模型下含有的文件ID集合*/
+        $channelAidList = array(); // 模型下的文件ID列表
         $arcrow = M('archives')->where(array('typeid'=>array('IN', $typeidArr)))
             ->order('channel asc')
             ->select();
@@ -115,31 +115,31 @@ class Archives extends Model
         }
         /*--end*/
 
-        /*在相关模型下删除文档残余的关联记录*/
-        $sta = M('archives')->where(array('typeid'=>array('IN', $typeidArr)))->delete(); // 删除文档
+        /*在相關模型下刪除文件殘餘的關聯記錄*/
+        $sta = M('archives')->where(array('typeid'=>array('IN', $typeidArr)))->delete(); // 刪除文件
         if ($sta) {
             foreach ($channelAidList as $key => $val) {
                 $aidArr = $val;
-                /*删除其余相关联的表记录*/
+                /*刪除其餘相關聯的表記錄*/
                 switch ($key) {
                     case '1': // 文章模型
                         model('Article')->afterDel($aidArr);
                         break;
                     
-                    case '2': // 产品模型
+                    case '2': // 產品模型
                         model('Product')->afterDel($aidArr);
                         M('product_attribute')->where(array('typeid'=>array('IN', $typeidArr)))->delete();
                         break;
                     
-                    case '3': // 图集模型
+                    case '3': // 圖集模型
                         model('Images')->afterDel($aidArr);
                         break;
                     
-                    case '4': // 下载模型
+                    case '4': // 下載模型
                         model('Download')->afterDel($aidArr);
                         break;
                     
-                    case '6': // 单页模型
+                    case '6': // 單頁模型
                         model('Single')->afterDel($typeidArr);
                         break;
 
@@ -152,7 +152,7 @@ class Archives extends Model
         }
         /*--end*/
 
-        /*删除留言模型下的关联内容*/
+        /*刪除留言模型下的關聯內容*/
         $guestbookList = M('guestbook')->where(array('typeid'=>array('IN', $typeidArr)))->select();
         if (!empty($guestbookList)) {
             $aidArr = get_arr_column($guestbookList, 'aid');

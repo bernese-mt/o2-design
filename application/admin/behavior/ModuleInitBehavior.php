@@ -3,7 +3,7 @@
 namespace app\admin\behavior;
 
 /**
- * 系统行为扩展：
+ * 系統行為擴充套件：
  */
 class ModuleInitBehavior {
     protected static $actionName;
@@ -12,8 +12,8 @@ class ModuleInitBehavior {
     protected static $method;
 
     /**
-     * 构造方法
-     * @param Request $request Request对象
+     * 構造方法
+     * @param Request $request Request對像
      * @access public
      */
     public function __construct()
@@ -21,7 +21,7 @@ class ModuleInitBehavior {
 
     }
 
-    // 行为扩展的执行入口必须是run
+    // 行為擴充套件的執行入口必須是run
     public function run(&$params){
         self::$actionName = request()->action();
         self::$controllerName = request()->controller();
@@ -39,11 +39,11 @@ class ModuleInitBehavior {
     }
 
     /**
-     * 根据前端模板自动开启系统模型
+     * 根據前端模板自動開啟系統模型
      */
     private function setChanneltypeStatus()
     {
-        /*不在以下相应的控制器和操作名里不往下执行，以便提高性能*/
+        /*不在以下相應的控制器和操作名里不往下執行，以便提高效能*/
         $ctlActArr = array(
             'Index@index',
             'System@clear_cache',
@@ -58,10 +58,10 @@ class ModuleInitBehavior {
     }
 
     /**
-     * iis服务器自动追加URL重写，入口index.php被隐藏
+     * iis伺服器自動追加URL重寫，入口index.php被隱藏
      */
     private function iisInlet() {
-        /*不在以下相应的控制器和操作名里不往下执行，以便提高性能*/
+        /*不在以下相應的控制器和操作名里不往下執行，以便提高效能*/
         $ctlActArr = array(
             'Admin@login',
             'System@clear_cache',
@@ -134,10 +134,10 @@ EOF;
     }
 
     /**
-     * 检测url入口index.php是否被重写隐藏
+     * 檢測url入口index.php是否被重寫隱藏
      */
     private function checkInlet() {
-        /*不在以下相应的控制器和操作名里不往下执行，以便提高性能*/
+        /*不在以下相應的控制器和操作名里不往下執行，以便提高效能*/
         $ctlActArr = array(
             'Index@welcome',
             'System@clear_cache',
@@ -153,9 +153,9 @@ EOF;
         cache($cacheKey, 1);
         /*--end*/
 
-        $now_seo_inlet = 0; // 默认不隐藏入口
+        $now_seo_inlet = 0; // 預設不隱藏入口
         
-        /*检测是否支持URL重写隐藏应用的入口文件index.php*/
+        /*檢測是否支援URL重寫隱藏應用的入口檔案index.php*/
         try {
             $response = false;
 
@@ -171,7 +171,7 @@ EOF;
                     $ch = curl_init($url);            
                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
                     curl_setopt($ch, CURLOPT_BINARYTRANSFER,1);
-                    curl_setopt($ch, CURLOPT_TIMEOUT, 3); // 设置cURL允许执行的最长秒数
+                    curl_setopt($ch, CURLOPT_TIMEOUT, 3); // 設定cURL允許執行的最長秒數
                     $response = curl_exec ($ch);
                     curl_close ($ch);
                 }
@@ -180,13 +180,13 @@ EOF;
             if ('Congratulations on passing' == $response) {
                 $now_seo_inlet = 1;
             } else if (!empty($response) && !stristr($response, 'not found')) {
-                /*解决部分空间file_get_contents获取不到自身网址数据的问题*/
+                /*解決部分空間file_get_contents獲取不到自身網址數據的問題*/
                 $web_server = strtolower($_SERVER['SERVER_SOFTWARE']);
                 if (stristr($web_server, 'apache') && file_exists('.htaccess')) {
                     $rewriteContent = @file_get_contents(ROOT_PATH.'.htaccess');
-                    if (preg_match('#\#RewriteRule(\s+)\^\(\.\*\)\$(\s+)index.php\?s=/#i', $rewriteContent)) { // 有伪静态规则，但被注释
+                    if (preg_match('#\#RewriteRule(\s+)\^\(\.\*\)\$(\s+)index.php\?s=/#i', $rewriteContent)) { // 有偽靜態規則，但被註釋
                         $now_seo_inlet = 0;
-                    } else if (preg_match('#RewriteRule(\s+)\^\(\.\*\)\$(\s+)index.php\?s=/#i', $rewriteContent)) { // 有伪静态规则，且启用
+                    } else if (preg_match('#RewriteRule(\s+)\^\(\.\*\)\$(\s+)index.php\?s=/#i', $rewriteContent)) { // 有偽靜態規則，且啟用
                         $now_seo_inlet = 1;
                     }
                 } else if (stristr($web_server, 'microsoft-iis')) {
@@ -206,7 +206,7 @@ EOF;
 
         $seo_inlet = tpCache('seo.seo_inlet');
         if ($seo_inlet != $now_seo_inlet) {
-            /*多语言*/
+            /*多語言*/
             if (is_language()) {
                 $langRow = \think\Db::name('language')->order('id asc')
                     ->cache(true, EYOUCMS_CACHE_TIME, 'language')
@@ -214,7 +214,7 @@ EOF;
                 foreach ($langRow as $key => $val) {
                     tpCache('seo', ['seo_inlet'=>$now_seo_inlet], $val['mark']);
                 }
-            } else { // 单语言
+            } else { // 單語言
                 tpCache('seo', ['seo_inlet'=>$now_seo_inlet]);
             }
             /*--end*/
@@ -222,11 +222,11 @@ EOF;
     }
 
     /**
-     * 修改数据库配置文件
+     * 修改數據庫配置檔案
      */
     private function update_databasefile()
     {
-        /*不在以下相应的控制器和操作名里不往下执行，以便提高性能*/
+        /*不在以下相應的控制器和操作名里不往下執行，以便提高效能*/
         $ctlActArr = array(
             'Index@welcome',
             'Tools@index',
@@ -237,7 +237,7 @@ EOF;
         }
         /*--end*/
 
-        //读取配置文件，并替换真实配置数据
+        //讀取配置檔案，並替換真實配置數據
         $filename = APP_PATH . 'database.php';
         $databaseConf = include $filename;
         $sampleConf = include APP_PATH . 'database.php_read';
@@ -251,14 +251,14 @@ EOF;
                 $strConfig = str_replace('#DB_PORT#', $databaseConf['hostport'], $strConfig);
                 $strConfig = str_replace('#DB_PREFIX#', $databaseConf['prefix'], $strConfig);
                 $strConfig = str_replace('#DB_CHARSET#', $databaseConf['charset'], $strConfig);
-                @chmod($filename,0777); //数据库配置文件的地址
-                is_writable($filename) && @file_put_contents($filename, $strConfig); //数据库配置文件的地址
+                @chmod($filename,0777); //數據庫配置檔案的地址
+                is_writable($filename) && @file_put_contents($filename, $strConfig); //數據庫配置檔案的地址
             }
         }
     }
 
     /**
-     * 根据IP判断是否本地局域网访问
+     * 根據IP判斷是否本地區域網訪問
      */
     /*private function is_local($ip){
         if(preg_match('/^(localhost|127\.|192\.)/', $ip) === 1){  

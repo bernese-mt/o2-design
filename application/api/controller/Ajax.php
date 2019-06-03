@@ -1,11 +1,11 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
@@ -25,7 +25,7 @@ class Ajax extends Base
     }
 
     /**
-     * 内容页浏览量的自增接口
+     * 內容頁瀏覽量的自增介面
      */
     public function arcclick()
     {
@@ -49,7 +49,7 @@ class Ajax extends Base
     }
 
     /**
-     * arclist列表分页arcpagelist标签接口
+     * arclist列表分頁arcpagelist標籤介面
      */
     public function arcpagelist()
     {
@@ -59,7 +59,7 @@ class Ajax extends Base
         !empty($tagid) && $tagid = preg_replace("/[^a-zA-Z0-9-_]/",'', $tagid);
 
         if (empty($tagid) || empty($pnum)) {
-            $this->error('参数有误');
+            $this->error('參數有誤');
         }
 
         $data = [
@@ -72,16 +72,16 @@ class Ajax extends Base
         $arcmultiRow = $arcmulti_db->where(['tagid'=>$tagid])->find();
         if(!empty($arcmultiRow) && !empty($arcmultiRow['querysql']))
         {
-            // arcpagelist标签属性pagesize优先级高于arclist标签属性pagesize
+            // arcpagelist標籤屬性pagesize優先順序高於arclist標籤屬性pagesize
             if (0 < intval($pagesize)) {
                 $arcmultiRow['pagesize'] = $pagesize;
             }
 
-            // 取出属性并解析为变量
+            // 取出屬性並解析為變數
             $attarray = unserialize(stripslashes($arcmultiRow['attstr']));
-            // extract($attarray, EXTR_SKIP); // 把数组中的键名直接注册为了变量
+            // extract($attarray, EXTR_SKIP); // 把陣列中的鍵名直接註冊爲了變數
 
-            // 通过页面及总数解析当前页面数据范围
+            // 通過頁面及總數解析目前頁面數據範圍
             $pnum < 2 && $pnum = 2;
             $strnum = intval($attarray['row']) + ($pnum - 2) * $arcmultiRow['pagesize'];
 
@@ -92,11 +92,11 @@ class Ajax extends Base
             if (!empty($queryRow)) {
                 if (empty($arcmultiRow['innertext'])) {
                     $data['code'] = -1;
-                    $data['msg'] = "模板追加文件 arclist_{$tagid}.htm 不存在，或者文件没有内容！";
-                    $this->error("标签模板不存在", null, $data);
+                    $data['msg'] = "模板追加檔案 arclist_{$tagid}.htm 不存在，或者檔案沒有內容！";
+                    $this->error("標籤模板不存在", null, $data);
                 }
 
-                /*拼接完整的arclist标签语法*/
+                /*拼接完整的arclist標籤語法*/
                 $offset = intval($strnum);
                 $row = intval($offset) + intval($arcmultiRow['pagesize']);
                 $innertext = "{eyou:arclist";
@@ -110,10 +110,10 @@ class Ajax extends Base
                 $innertext .= stripslashes($arcmultiRow['innertext']);
                 $innertext .= "{/eyou:arclist}";
                 /*--end*/
-                $msg = $this->display($innertext); // 渲染模板标签语法
+                $msg = $this->display($innertext); // 渲染模板標籤語法
                 $data['msg'] = $msg;
 
-                //是否到了最终页
+                //是否到了最終頁
                 if (!empty($queryRow[0]['totalNum']) && $queryRow[0]['totalNum'] <= $row) {
                     $data['lastpage'] = 1;
                 }
@@ -123,11 +123,11 @@ class Ajax extends Base
             }
         }
 
-        $this->success('请求成功', null, $data);
+        $this->success('請求成功', null, $data);
     }
 
     /**
-     * 获取表单令牌
+     * 獲取表單令牌
      */
     public function get_token($name = '__token__')
     {
@@ -138,7 +138,7 @@ class Ajax extends Base
     }
 
     /**
-     * 检验会员登录
+     * 檢驗會員登錄
      */
     public function check_user()
     {
@@ -163,10 +163,10 @@ class Ajax extends Base
                             $users['html'] = $username;
                         }
                         $users['ey_is_login'] = 1;
-                        $this->success('请求成功', null, $users);
+                        $this->success('請求成功', null, $users);
                     }
                 }
-                $this->success('请先登录', null, ['ey_is_login'=>0]);
+                $this->success('請先登錄', null, ['ey_is_login'=>0]);
             }
             else if ('reg' == $type)
             {
@@ -175,7 +175,7 @@ class Ajax extends Base
                 } else {
                     $users['ey_is_login'] = 0;
                 }
-                $this->success('请求成功', null, $users);
+                $this->success('請求成功', null, $users);
             }
             else if ('logout' == $type)
             {
@@ -184,14 +184,14 @@ class Ajax extends Base
                 } else {
                     $users['ey_is_login'] = 0;
                 }
-                $this->success('请求成功', null, $users);
+                $this->success('請求成功', null, $users);
             }
         }
-        $this->error('访问错误');
+        $this->error('訪問錯誤');
     }
 
     /**
-     * 获取用户信息
+     * 獲取使用者資訊
      */
     public function get_tag_user_info()
     {
@@ -242,25 +242,25 @@ class Ajax extends Base
                     'users'  => $users,
                     'dtypes'  => $dtypes,
                 ];
-                $this->success('请求成功', null, $data);
+                $this->success('請求成功', null, $data);
             }
-            $this->success('请先登录', null, ['ey_is_login'=>0]);
+            $this->success('請先登錄', null, ['ey_is_login'=>0]);
         }
-        $this->error('访问错误');
+        $this->error('訪問錯誤');
     }
 
-    // 验证码获取
+    // 驗證碼獲取
     public function vertify()
     {
         $type = input('param.type/s', 'default');
         $configList = \think\Config::get('captcha');
         $captchaArr = array_keys($configList);
         if (in_array($type, $captchaArr)) {
-            /*验证码插件开关*/
+            /*驗證碼外掛開關*/
             $admin_login_captcha = config('captcha.'.$type);
             $config = (!empty($admin_login_captcha['is_on']) && !empty($admin_login_captcha['config'])) ? $admin_login_captcha['config'] : config('captcha.default');
             /*--end*/
-            ob_clean(); // 清空缓存，才能显示验证码
+            ob_clean(); // 清空快取，才能顯示驗證碼
             $Verify = new \think\Verify($config);
             $Verify->entry($type);
         }
@@ -268,16 +268,16 @@ class Ajax extends Base
     }
       
     /**
-     * 邮箱发送
+     * 郵箱發送
      */
     public function send_email()
     {
-        // 超时后，断掉邮件发送
+        // 超時後，斷掉郵件發送
         function_exists('set_time_limit') && set_time_limit(5);
 
         $type = input('param.type/s');
         
-        // 留言发送邮件
+        // 留言發送郵件
         if (IS_AJAX_POST && 'gbook_submit' == $type) {
             $tid = input('param.tid/d');
             $aid = input('param.aid/d');
@@ -286,11 +286,11 @@ class Ajax extends Base
             $scene = $send_email_scene[1]['scene'];
 
             $web_name = tpCache('web.web_name');
-            // 判断标题拼接
+            // 判斷標題拼接
             $arctype  = M('arctype')->field('typename')->find($tid);
             $web_name = $arctype['typename'].'-'.$web_name;
 
-            // 拼装发送的字符串内容
+            // 拼裝發送的字串內容
             $row = M('guestbook_attribute')->field('a.attr_name, b.attr_value')
                 ->alias('a')
                 ->join('__GUESTBOOK_ATTR__ b', 'a.attr_id = b.attr_id AND a.typeid = '.$tid, 'LEFT')
@@ -305,12 +305,12 @@ class Ajax extends Base
             }
             $html = "<p style='text-align: left;'>{$web_name}</p><p style='text-align: left;'>{$content}</p>";
             if (isMobile()) {
-                $html .= "<p style='text-align: left;'>——来源：移动端</p>";
+                $html .= "<p style='text-align: left;'>——來源：移動端</p>";
             } else {
-                $html .= "<p style='text-align: left;'>——来源：电脑端</p>";
+                $html .= "<p style='text-align: left;'>——來源：電腦端</p>";
             }
             
-            // 发送邮件
+            // 發送郵件
             $res = send_email(null,null,$html, $scene);
             if (intval($res['code']) == 1) {
                 $this->success($res['msg']);

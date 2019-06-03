@@ -7,7 +7,7 @@
     <div class="fixed-bar">
         <div class="item-title"><a class="back" href="javascript:history.back();" title="返回列表"><i class="fa fa-arrow-circle-o-left"></i></a>
             <div class="subject">
-                <h3>新增留言属性</h3>
+                <h3>新增留言屬性</h3>
                 <h5></h5>
             </div>
         </div>
@@ -16,12 +16,12 @@
         <div class="ncap-form-default">
             <dl class="row">
                 <dt class="tit">
-                    <label for="typeid"><em>*</em>所属栏目</label>
+                    <label for="typeid"><em>*</em>所屬欄目</label>
                 </dt>
                 <dd class="opt"> 
                     {empty name="$typeid"}
                     <select name="typeid" id="typeid">
-                        <option value="0">请选择栏目…</option>
+                        <option value="0">請選擇欄目…</option>
                         {$select_html}
                     </select>
                     {else /}
@@ -34,7 +34,7 @@
             </dl>
             <dl class="row">
                 <dt class="tit">
-                    <label for="ac_name"><em>*</em>属性名称</label>
+                    <label for="ac_name"><em>*</em>屬性名稱</label>
                 </dt>
                 <dd class="opt">
                     <input type="text" name="attr_name" value="" id="attr_name" class="input-txt">
@@ -44,11 +44,11 @@
             </dl>
             <dl class="row">
                 <dt class="tit">
-                    <label for="attr_input_type"><em>*</em>属性类型</label>
+                    <label for="attr_input_type"><em>*</em>屬性型別</label>
                 </dt>
                 <dd class="opt">
-                    <label><input type="radio" value="0" name="attr_input_type" checked="checked" />单行文本</label>
-                    <label><input type="radio" value="2" name="attr_input_type" />多行文本</label>
+                    <label><input type="radio" value="0" name="attr_input_type" checked="checked" />單行文字</label>
+                    <label><input type="radio" value="2" name="attr_input_type" />多行文字</label>
                     <label><input type="radio" value="1" name="attr_input_type" />下拉框</label>
                     <span class="err" id="err_attr_input_type" style="color:#F00; display:none;"></span>
                     <p class="notic"></p>
@@ -56,16 +56,16 @@
             </dl>
             <dl class="row none attr_input_type2">
                 <dt class="tit">
-                    <label for="attr_values"><em>*</em>可选值列表</label>
+                    <label for="attr_values"><em>*</em>可選值列表</label>
                 </dt>
                 <dd class="opt">
-                    <textarea rows="10" cols="30" name="attr_values" id="attr_values" class="input-txt" style="height:100px;" placeholder="一行代表一个可选值"></textarea>
+                    <textarea rows="10" cols="30" name="attr_values" id="attr_values" class="input-txt" style="height:100px;" placeholder="一行代表一個可選值"></textarea>
                     <span id="err_attr_values" class="err" style="color:#F00; display:none;"></span>
-                    <p class="notic">一行代表一个可选值</p>
+                    <p class="notic">一行代表一個可選值</p>
                 </dd>
             </dl>
             <div class="bot">
-                <a href="JavaScript:void(0);" onclick="check_submit('post_form','{:U('Guestbook/attribute_add')}');"  class="ncap-btn-big ncap-btn-green" id="submitBtn">确认提交</a>
+                <a href="JavaScript:void(0);" onclick="check_submit('post_form','{:U('Guestbook/attribute_add')}');"  class="ncap-btn-big ncap-btn-green" id="submitBtn">確認提交</a>
         </div>
     </form>
 </div>
@@ -82,33 +82,33 @@
     });
 
     /**
-    * ajax 提交属性 到后台去验证然后回到前台提示错误
-    * 验证通过后,再通过 form 自动提交
+    * ajax 提交屬性 到後臺去驗證然後回到前臺提示錯誤
+    * 驗證通過後,再通過 form 自動提交
     */
     function check_submit(form_id,submit_url)
     {
         if ($('#typeid').val() == 0) {
-            showErrorMsg('请选择栏目…！');
+            showErrorMsg('請選擇欄目…！');
             $('#typeid').focus();
             return false;
         }
         if($.trim($('input[name=attr_name]').val()) == ''){
-            showErrorMsg('属性名称不能为空！');
+            showErrorMsg('屬性名稱不能為空！');
             $('input[name=attr_name]').focus();
             return false;
         }
         if ($('input[name=attr_input_type]').is(':checked') == false) {
-            showErrorMsg('请选择属性类型！');
+            showErrorMsg('請選擇屬性型別！');
             $($('input[name=attr_input_type]')[0]).focus();
             return false;
         }
         if ($('input[name=attr_input_type]:checked').val() == 1 && $.trim($('#attr_values').val()) == '') {
-            showErrorMsg('可选值列表不能为空！');
+            showErrorMsg('可選值列表不能為空！');
             $('#attr_values').focus();
             return false;
         }
 
-        layer_loading('正在处理');
+        layer_loading('正在處理');
         $.ajax({
             type : "POST",
             url  : submit_url,
@@ -116,7 +116,7 @@
             dataType: "JSON",
             error: function(request) {
                 layer.closeAll();
-                layer.alert("网络失败，请刷新页面后重试", {icon: 5, title:false});
+                layer.alert("網路失敗，請重新整理頁面後重試", {icon: 5, title:false});
                 return false;
             },
             success: function(v) {

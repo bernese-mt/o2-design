@@ -4,29 +4,29 @@
 <div id="ajaxwaitid"></div>
 <div class="page">
     {include file="system/bar" /}
-    <!-- 操作说明 -->
+    <!-- 操作說明 -->
     <div class="explanation" id="explanation">
         <div class="title" id="checkZoom"><i class="fa fa-lightbulb-o"></i>
-            <h4 title="提示相关设置操作时应注意的要点">操作提示</h4>
+            <h4 title="提示相關設定操作時應注意的要點">操作提示</h4>
             <span id="explanationZoom" title="收起提示"></span> </div>
         <ul>
-            <li>阿里云OSS存储相关设置, 请从阿里云注册账户, 并在其控制台获取相关信息。</li>
+            <li>阿里云OSS儲存相關設定, 請從阿里云註冊賬戶, 並在其控制檯獲取相關資訊。</li>
         </ul>
     </div>
     <form method="post" id="handlepost" action="{:U('System/handle')}" enctype="multipart/form-data" name="form1">
         <div class="ncap-form-default">
             <dl class="row">
                 <dt class="tit">
-                    <label for="oss_switch">上传OSS开关</label>
+                    <label for="oss_switch">上傳OSS開關</label>
                 </dt>
                 <dd class="opt">
                     <div class="onoff">
-                        <label for="switch1" class="cb-enable  {if condition="isset($config.oss_switch) && $config.oss_switch eq 1"}selected{/if}">开启</label>
-                        <label for="switch0" class="cb-disable {if condition="!isset($config.oss_switch) || $config.oss_switch eq 0"}selected{/if}">关闭</label>
+                        <label for="switch1" class="cb-enable  {if condition="isset($config.oss_switch) && $config.oss_switch eq 1"}selected{/if}">開啟</label>
+                        <label for="switch0" class="cb-disable {if condition="!isset($config.oss_switch) || $config.oss_switch eq 0"}selected{/if}">關閉</label>
                         <input type="radio" id="switch1" name="oss_switch" value="1" {if condition="isset($config.oss_switch) && $config.oss_switch eq 1"}checked="checked"{/if}>
                         <input type="radio" id="switch0" name="oss_switch" value="0" {if condition="!isset($config.oss_switch) || $config.oss_switch eq 0"}checked="checked"{/if} >
                     </div>
-                    <p class="notic">是否对全站图片启用对象存储功能，减少图片占用主站点带宽</p>
+                    <p class="notic">是否對全站圖片啟用對像儲存功能，減少圖片佔用主站點頻寬</p>
                 </dd>
             </dl>
             <dl class="row">
@@ -35,7 +35,7 @@
                 </dt>
                 <dd class="opt">
                     <input id="oss_key_id" name="oss_key_id" value="{$config.oss_key_id|default=''}" class="input-txt" type="text" />
-                    <p class="notic">对象存储的key id</p>
+                    <p class="notic">對像儲存的key id</p>
                 </dd>
             </dl>
             <dl class="row">
@@ -44,7 +44,7 @@
                 </dt>
                 <dd class="opt">
                     <input id="oss_key_secret" name="oss_key_secret" value="{$config.oss_key_secret|default=''}" class="input-txt" type="text" />
-                    <p class="notic">对象存储的key secret</p>
+                    <p class="notic">對像儲存的key secret</p>
                 </dd>
             </dl>
             <dl class="row">
@@ -53,7 +53,7 @@
                 </dt>
                 <dd class="opt">
                     <input id="oss_endpoint" name="oss_endpoint" value="{$config.oss_endpoint|default=''}" class="input-txt" type="text" />
-                    <p class="notic">对象存储的Endpoint，比如 oss-cn-shenzhen.aliyuncs.com</p>
+                    <p class="notic">對像儲存的Endpoint，比如 oss-cn-shenzhen.aliyuncs.com</p>
                 </dd>
             </dl>
             <dl class="row">
@@ -62,7 +62,7 @@
                 </dt>
                 <dd class="opt">
                     <input id="oss_bucket" name="oss_bucket" value="{$config.oss_bucket|default=''}" class="input-txt" type="text" />
-                    <p class="notic">对象存储的 Bucket</p>
+                    <p class="notic">對像儲存的 Bucket</p>
                 </dd>
             </dl>
             <dl class="row">
@@ -71,12 +71,12 @@
                 </dt>
                 <dd class="opt">
                     <input id="oss_domain" name="oss_domain" value="{$config.oss_domain|default=''}" class="input-txt" type="text" />
-                    <p class="notic">OSS对应的域名别名</p>
+                    <p class="notic">OSS對應的域名別名</p>
                 </dd>
             </dl>
             <div class="bot">
                 <input type="hidden" name="inc_type" value="{$inc_type}">
-                <a href="JavaScript:void(0);" class="ncap-btn-big ncap-btn-green" onclick="check_form();">确认提交</a>
+                <a href="JavaScript:void(0);" class="ncap-btn-big ncap-btn-green" onclick="check_form();">確認提交</a>
             </div>
         </div>
     </form>
@@ -85,22 +85,22 @@
     function check_form()
     {
         if(!$('#oss_key_id').val()){
-            layer.alert('AccessKeyId 不能为空！',{icon:2, title:false});
+            layer.alert('AccessKeyId 不能為空！',{icon:2, title:false});
             return false;
         }
         if(!$('#oss_key_secret').val()){
-            layer.alert('AccessKeySecret 不能为空！',{icon:2, title:false});
+            layer.alert('AccessKeySecret 不能為空！',{icon:2, title:false});
             return false;
         }
         if(!$('#oss_endpoint').val()){
-            layer.alert('Endpoint 不能为空！',{icon:2, title:false});
+            layer.alert('Endpoint 不能為空！',{icon:2, title:false});
             return false;
         }
         if(!$('#oss_bucket').val()){
-            layer.alert('Bucket 不能为空！',{icon:2, title:false});
+            layer.alert('Bucket 不能為空！',{icon:2, title:false});
             return false;
         }
-        layer_loading('正在处理');
+        layer_loading('正在處理');
         document.form1.submit();
     }
 </script>

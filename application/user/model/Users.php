@@ -1,13 +1,13 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
- * Author: 陈风任 <491085389@qq.com>
+ * Author: 陳風任 <491085389@qq.com>
  * Date: 2019-2-20
  */
 namespace app\user\model;
@@ -16,7 +16,7 @@ use think\Model;
 use think\Config;
 
 /**
- * 会员
+ * 會員
  */
 class Users extends Model
 {
@@ -28,26 +28,26 @@ class Users extends Model
     //初始化
     protected function initialize()
     {
-        // 需要调用`Model`的`initialize`方法
+        // 需要呼叫`Model`的`initialize`方法
         parent::initialize();
         $this->home_lang = get_home_lang();
     }
 
-    // 判断会员属性中必填项是否为空
-    // 传入参数：
-    // $post_users ：会员属性信息数组
-    // return error：错误提示
+    // 判斷會員屬性中必填項是否為空
+    // 傳入參數：
+    // $post_users ：會員屬性資訊陣列
+    // return error：錯誤提示
     public function isEmpty($post_users = [])
     {
         $error = '';
-        // 会员属性
+        // 會員屬性
         $where = array(
             'lang'        => $this->home_lang,
-            'is_hidden'   => 0, // 是否隐藏属性，0为否
-            'is_required' => 1, // 是否必填属性，1为是
+            'is_hidden'   => 0, // 是否隱藏屬性，0為否
+            'is_required' => 1, // 是否必填屬性，1為是
         );
         $para_data = M('users_parameter')->where($where)->field('title,name')->select();
-        // 处理提交的属性中必填项是否为空
+        // 處理提交的屬性中必填項是否為空
         foreach ($para_data as $key => $value) {
             if (isset($post_users[$value['name']])) {
                 if (is_array($post_users[$value['name']])) {
@@ -55,16 +55,16 @@ class Users extends Model
                 }
                 $attr_value = trim($post_users[$value['name']]);
                 if (empty($attr_value)) {
-                    return $value['title'].'不能为空！';;
+                    return $value['title'].'不能為空！';;
                 }
             }
         }
     }
 
-    // 判断邮箱和手机是否存在，并且判断验证码是否验证通过
-    // 传入参数：
-    // $post_users:会员属性信息数组
-    // $users_id:会员ID，注册时不需要传入，修改时需要传入。
+    // 判斷郵箱和手機是否存在，並且判斷驗證碼是否驗證通過
+    // 傳入參數：
+    // $post_users:會員屬性資訊陣列
+    // $users_id:會員ID，註冊時不需要傳入，修改時需要傳入。
     // return error
     public function isRequired($post_users = [],$users_id='')
     {
@@ -72,7 +72,7 @@ class Users extends Model
             return false;
         }
 
-        // 处理邮箱和手机是否存在
+        // 處理郵箱和手機是否存在
         $where_1 = [
             'name'     => ['LIKE', ["email_%","mobile_%"], 'OR'],
             'is_system'=> 1,
@@ -84,13 +84,13 @@ class Users extends Model
         $email_code = '';
         $mobile = '';
         $mobile_code = '';
-        /*获取邮箱和手机号码*/
+        /*獲取郵箱和手機號碼*/
         foreach ($post_users as $key => $val) {
             if (preg_match('/^email_/i', $key)) {
                 if (!preg_match('/_code$/i', $key)) {
                     $email = $val;
                     if (!empty($val) && !check_email($val)) {
-                        return $users_parameter[$key]['title'].'格式不正确！';
+                        return $users_parameter[$key]['title'].'格式不正確！';
                     }
                 } else {
                     $email_code = $val;
@@ -99,7 +99,7 @@ class Users extends Model
                 if (!preg_match('/_code$/i', $key)) {
                     $mobile = $val;
                     if (!empty($val) && !check_mobile($val)) {
-                        return $users_parameter[$key]['title'].'格式不正确！';
+                        return $users_parameter[$key]['title'].'格式不正確！';
                     }
                 } else {
                     $mobile_code = $val;
@@ -111,7 +111,7 @@ class Users extends Model
         $users_verification = getUsersConfigData('users.users_verification');
         if ('2' == $users_verification) {
             $time = getTime();
-            /*处理邮箱验证码逻辑*/
+            /*處理郵箱驗證碼邏輯*/
             if (!empty($email)) {
                 $where = [
                     'email' => $email,
@@ -123,25 +123,25 @@ class Users extends Model
                 if (!empty($record)) {
                     $record['add_time'] += Config::get('global.email_default_time_out');
                     if (1 == $record['status'] || $record['add_time'] <= $time) {
-                        return '邮箱验证码已被使用或超时，请重新发送！';
+                        return '郵箱驗證碼已被使用或超時，請重新發送！';
                     }else{
-                        // 返回后处理邮箱验证码失效操作
+                        // 返回后處理郵箱驗證碼失效操作
                         $data = [
-                            'code_status' => 1,// 正确
+                            'code_status' => 1,// 正確
                             'email'       => $email,
                         ];
                         return $data;
                     }
                 }else{
                     if (!empty($users_id)) {
-                        // 当会员修改邮箱地址，验证码为空或错误返回
+                        // 當會員修改郵箱地址，驗證碼為空或錯誤返回
                         $row = $this->getUsersListData('email',$users_id);
                         if ($email != $row['email']) {
-                            return '邮箱验证码不正确，请重新输入！';
+                            return '郵箱驗證碼不正確，請重新輸入！';
                         }
                     }else{
-                        // 当会员注册时，验证码为空或错误返回
-                        return '邮箱验证码不正确，请重新输入！';
+                        // 當會員註冊時，驗證碼為空或錯誤返回
+                        return '郵箱驗證碼不正確，請重新輸入！';
                     }
                 }
             }
@@ -157,7 +157,7 @@ class Users extends Model
                     'lang'     => $this->home_lang,
                 ];
 
-                // 若users_id为空，则清除条件中的users_id条件
+                // 若users_id為空，則清除條件中的users_id條件
                 if (empty($users_id)) { unset($where_2['users_id']); }
 
                 $users_list = M('users_list')->where($where_2)->field('info')->find();
@@ -168,16 +168,16 @@ class Users extends Model
         }
     }
 
-    // 查询会员属性信息表的邮箱和手机字段
-    // 必须传入参数：
-    // users_id 会员ID
-    // field    查询字段，email仅邮箱，mobile仅手机号，*为两项都查询。
+    // 查詢會員屬性資訊表的郵箱和手機欄位
+    // 必須傳入參數：
+    // users_id 會員ID
+    // field    查詢欄位，email僅郵箱，mobile僅手機號，*為兩項都查詢。
     // return   Data
     public function getUsersListData($field,$users_id)
     {   
         $Data = array();
         if ('email' == $field || '*' == $field) {
-            // 查询邮箱
+            // 查詢郵箱
             $parawhere = [
                 'name'      => ['LIKE', "email_%"],
                 'is_system' => 1,
@@ -194,7 +194,7 @@ class Users extends Model
         }
 
         if ('mobile' == $field || '*' == $field) {
-            // 查询手机号
+            // 查詢手機號
             $parawhere_1 = [
                 'name'      => ['LIKE', "mobile_%"],
                 'is_system' => 1,
@@ -214,14 +214,14 @@ class Users extends Model
     }
 
     /**
-     * 查询解析数据表的数据用以构造from表单
+     * 查詢解析數據表的數據用以構造from表單
      * @param   return $list
-     * @param   用于添加，不携带数据
-     * @author  陈风任 by 2019-2-20
+     * @param   用於新增，不攜帶數據
+     * @author  陳風任 by 2019-2-20
      */
     public function getDataPara()
     {
-        // 字段及内容数据处理
+        // 欄位及內容數據處理
         $where = array(
             'lang'       => $this->home_lang,
             'is_hidden'  => 0,
@@ -232,23 +232,23 @@ class Users extends Model
             ->order('sort_order asc,para_id asc')
             ->select();
 
-        // 根据所需数据格式，拆分成一维数组
+        // 根據所需數據格式，拆分成一維陣列
         $addonRow = array();
 
-        // 根据不同字段类型封装数据
+        // 根據不同欄位型別封裝數據
         $list = $this->showViewFormData($row, 'users_', $addonRow);
         return $list;
     }
 
     /**
-     * 查询解析数据表的数据用以构造from表单
+     * 查詢解析數據表的數據用以構造from表單
      * @param   return $list
-     * @param   用于修改，携带数据
-     * @author  陈风任 by 2019-2-20
+     * @param   用於修改，攜帶數據
+     * @author  陳風任 by 2019-2-20
      */
     public function getDataParaList($users_id = '')
     {
-        // 字段及内容数据处理
+        // 欄位及內容數據處理
         $row = M('users_parameter')->field('a.*,b.info,b.users_id')
             ->alias('a')
             ->join('__USERS_LIST__ b', "a.para_id = b.para_id AND b.users_id = {$users_id}", 'LEFT')
@@ -258,22 +258,22 @@ class Users extends Model
             ])
             ->order('a.sort_order asc,a.para_id asc')
             ->select();
-        // 根据所需数据格式，拆分成一维数组
+        // 根據所需數據格式，拆分成一維陣列
         $addonRow = [];
         foreach ($row as $key => $value) {
             $addonRow[$value['name']] = $value['info'];
         }
-        // 根据不同字段类型封装数据
+        // 根據不同欄位型別封裝數據
         $list = $this->showViewFormData($row, 'users_', $addonRow);
         return $list;
     }
 
     /**
-     * 处理页面显示字段的表单数据
-     * @param array $list 字段列表
-     * @param array $formFieldStr 表单元素名称的统一数组前缀
-     * @param array $addonRow 字段的数据
-     * @author 陈风任 by 2019-2-20
+     * 處理頁面顯示欄位的表單數據
+     * @param array $list 欄位列表
+     * @param array $formFieldStr 表單元素名稱的統一陣列字首
+     * @param array $addonRow 欄位的數據
+     * @author 陳風任 by 2019-2-20
      */
     public function showViewFormData($list, $formFieldStr, $addonRow = array())
     {
@@ -371,7 +371,7 @@ class Users extends Model
                         $val[$val['name'].'_eyou_imgupload_list'] = array();
                         if (isset($addonRow[$val['name']]) && !empty($addonRow[$val['name']])) {
                             $eyou_imgupload_list = explode(',', $addonRow[$val['name']]);
-                            /*支持子目录*/
+                            /*支援子目錄*/
                             foreach ($eyou_imgupload_list as $k1 => $v1) {
                                 $eyou_imgupload_list[$k1] = handle_subdir_pic($v1);
                             }
@@ -390,7 +390,7 @@ class Users extends Model
                     case 'htmltext':
                     {
                         $val['dfvalue'] = isset($addonRow[$val['name']]) ? $addonRow[$val['name']] : $val['dfvalue'];
-                        /*支持子目录*/
+                        /*支援子目錄*/
                         $val['dfvalue'] = handle_subdir_pic($val['dfvalue'], 'html');
                         /*--end*/
                         break;
@@ -399,7 +399,7 @@ class Users extends Model
                     default:
                     {
                         $val['dfvalue'] = isset($addonRow[$val['name']]) ? $addonRow[$val['name']] : $val['dfvalue'];
-                        /*支持子目录*/
+                        /*支援子目錄*/
                         if (is_string($val['dfvalue'])) {
                             $val['dfvalue'] = handle_subdir_pic($val['dfvalue'], 'html');
                             $val['dfvalue'] = handle_subdir_pic($val['dfvalue']);

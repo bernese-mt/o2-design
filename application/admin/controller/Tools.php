@@ -1,11 +1,11 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
@@ -19,11 +19,11 @@ class Tools extends Base {
 
     public function _initialize() {
         parent::_initialize();
-        $this->language_access(); // 多语言功能操作权限
+        $this->language_access(); // 多語言功能操作許可權
     }
     
     /**
-     * 数据表列表
+     * 數據表列表
      */
     public function index()
     {
@@ -41,7 +41,7 @@ class Tools extends Base {
         $path = !empty($path) ? $path : config('DATA_BACKUP_PATH');
         @unlink(realpath(trim($path, '/')) . DS . 'backup.lock');
         // if (session('?backup_config.path')) {
-            //备份完成，清空缓存
+            //備份完成，清空快取
             session('backup_tables', null);
             session('backup_file', null);
             session('backup_config', null);
@@ -53,14 +53,14 @@ class Tools extends Base {
     }
 
     /**
-     * 数据备份
+     * 數據備份
      */
     public function export($tables = null, $id = null, $start = null,$optstep = 0)
     {
-        //防止备份数据过程超时
+        //防止備份數據過程超時
         function_exists('set_time_limit') && set_time_limit(0);
 
-        /*升级完自动备份所有数据表*/
+        /*升級完自動備份所有數據表*/
         if ('all' == $tables) {
             $dbtables = Db::query('SHOW TABLE STATUS');
             $list = array();
@@ -82,38 +82,38 @@ class Tools extends Base {
                 mkdir($path, 0755, true);
             }
 
-            //读取备份配置
+            //讀取備份配置
             $config = array(
                 'path'     => realpath($path) . DS,
                 'part'     => config('DATA_BACKUP_PART_SIZE'),
                 'compress' => config('DATA_BACKUP_COMPRESS'),
                 'level'    => config('DATA_BACKUP_COMPRESS_LEVEL'),
             );
-            //检查是否有正在执行的任务
+            //檢查是否有正在執行的任務
             $lock = "{$config['path']}backup.lock";
             if(is_file($lock)){
-                return json(array('info'=>'检测到有一个备份任务正在执行，请稍后再试！', 'status'=>0, 'url'=>''));
+                return json(array('info'=>'檢測到有一個備份任務正在執行，請稍後再試！', 'status'=>0, 'url'=>''));
             } else {
-                //创建锁文件
+                //建立鎖檔案
                 file_put_contents($lock, $_SERVER['REQUEST_TIME']);
             }
 
-            //检查备份目录是否可写
+            //檢查備份目錄是否可寫
             if(!is_writeable($config['path'])){
-                return json(array('info'=>'备份目录不存在或不可写，请检查后重试！', 'status'=>0, 'url'=>''));
+                return json(array('info'=>'備份目錄不存在或不可寫，請檢查後重試！', 'status'=>0, 'url'=>''));
             }
             session('backup_config', $config);
 
-            //生成备份文件信息
+            //產生備份檔案資訊
             $file = array(
                 'name' => date('Ymd-His', $_SERVER['REQUEST_TIME']),
                 'part' => 1,
                 'version' => getCmsVersion(),
             );
             session('backup_file', $file);
-            //缓存要备份的表
+            //快取要備份的表
             session('backup_tables', $tables);
-            //创建备份文件
+            //建立備份檔案
             $Database = new Backup($file, $config);
             if(false !== $Database->create()){
                 $speed = (floor((1/count($tables))*10000)/10000*100);
@@ -121,23 +121,23 @@ class Tools extends Base {
                 $tab = array('id' => 0, 'start' => 0, 'speed'=>$speed, 'table'=>$tables[0], 'optstep'=>1);
                 return json(array('tables' => $tables, 'tab' => $tab, 'info'=>'初始化成功！', 'status'=>1, 'url'=>''));
             } else {
-                return json(array('info'=>'初始化失败，备份文件创建失败！', 'status'=>0, 'url'=>''));
+                return json(array('info'=>'初始化失敗，備份檔案建立失敗！', 'status'=>0, 'url'=>''));
             }
-        } elseif (IS_POST && is_numeric($id) && is_numeric($start) && 1 == intval($optstep)) { //备份数据
+        } elseif (IS_POST && is_numeric($id) && is_numeric($start) && 1 == intval($optstep)) { //備份數據
             $tables = session('backup_tables');
-            //备份指定表
+            //備份指定表
             $Database = new Backup(session('backup_file'), session('backup_config'));
             $start  = $Database->backup($tables[$id], $start);
-            if(false === $start){ //出错
-                return json(array('info'=>'备份出错！', 'status'=>0, 'url'=>''));
+            if(false === $start){ //出錯
+                return json(array('info'=>'備份出錯！', 'status'=>0, 'url'=>''));
             } elseif (0 === $start) { //下一表
                 if(isset($tables[++$id])){
                     $speed = (floor((($id+1)/count($tables))*10000)/10000*100);
                     $speed = sprintf("%.2f", $speed);
                     $tab = array('id' => $id, 'start' => 0, 'speed' => $speed, 'table'=>$tables[$id], 'optstep'=>1);
-                    return json(array('tab' => $tab, 'info'=>'备份完成！', 'status'=>1, 'url'=>''));
-                } else { //备份完成，清空缓存
-                    /*自动覆盖安装目录下的eyoucms.sql*/
+                    return json(array('tab' => $tab, 'info'=>'備份完成！', 'status'=>1, 'url'=>''));
+                } else { //備份完成，清空快取
+                    /*自動覆蓋安裝目錄下的eyoucms.sql*/
                     $install_time = DEFAULT_INSTALL_DATE;
                     $constsant_path = APP_PATH.MODULE_NAME.'/conf/constant.php';
                     if (file_exists($constsant_path)) {
@@ -152,7 +152,7 @@ class Tools extends Base {
                         $srcfile = session('backup_config.path').session('backup_file.name').'-'.session('backup_file.part').'-'.session('backup_file.version').'.sql';
                         $dstfile = $install_path.'/eyoucms.sql';
                         if(@copy($srcfile, $dstfile)){
-                            /*替换所有表的前缀为官方默认ey_，并重写安装数据包里*/
+                            /*替換所有表的字首為官方預設ey_，並重寫安裝數據包里*/
                             $eyouDbStr = file_get_contents($dstfile);
                             $dbtables = Db::query('SHOW TABLE STATUS');
                             foreach ($dbtables as $k => $v) {
@@ -165,7 +165,7 @@ class Tools extends Base {
                             @file_put_contents($dstfile, $eyouDbStr);
                             /*--end*/
                         } else {
-                            @unlink($dstfile); // 复制失败就删掉，避免安装错误的数据包
+                            @unlink($dstfile); // 複製失敗就刪掉，避免安裝錯誤的數據包
                         }
                     }
                     /*--end*/
@@ -173,28 +173,28 @@ class Tools extends Base {
                     session('backup_tables', null);
                     session('backup_file', null);
                     session('backup_config', null);
-                    return json(array('info'=>'备份完成！', 'status'=>1, 'url'=>''));
+                    return json(array('info'=>'備份完成！', 'status'=>1, 'url'=>''));
                 }
             } else {
                 $rate = floor(100 * ($start[0] / $start[1]));
                 $speed = floor((($id+1)/count($tables))*10000)/10000*100 + ($rate/100);
                 $speed = sprintf("%.2f", $speed);
                 $tab  = array('id' => $id, 'start' => $start[0], 'speed' => $speed, 'table'=>$tables[$id], 'optstep'=>1);
-                return json(array('tab' => $tab, 'info'=>"正在备份...({$rate}%)", 'status'=>1, 'url'=>''));
+                return json(array('tab' => $tab, 'info'=>"正在備份...({$rate}%)", 'status'=>1, 'url'=>''));
             }
 
-        } else {//出错
-            return json(array('info'=>'参数有误', 'status'=>0, 'url'=>''));
+        } else {//出錯
+            return json(array('info'=>'參數有誤', 'status'=>0, 'url'=>''));
         }
     }
         
     /**
-     * 优化
+     * 優化
      */
     public function optimize()
     {
         $batchFlag = input('get.batchFlag', 0, 'intval');
-        //批量删除
+        //批量刪除
         if ($batchFlag) {
             $table = input('key', array());
         }else {
@@ -202,7 +202,7 @@ class Tools extends Base {
         }
     
         if (empty($table)) {
-            $this->error('请选择数据表');
+            $this->error('請選擇數據表');
         }
 
         $strTable = implode(',', $table);
@@ -214,12 +214,12 @@ class Tools extends Base {
     }
     
     /**
-     * 修复
+     * 修復
      */
     public function repair()
     {
         $batchFlag = input('get.batchFlag', 0, 'intval');
-        //批量删除
+        //批量刪除
         if ($batchFlag) {
             $table = input('key', array());
         }else {
@@ -227,7 +227,7 @@ class Tools extends Base {
         }
     
         if (empty($table)) {
-            $this->error('请选择数据表');
+            $this->error('請選擇數據表');
         }
     
         $strTable = implode(',', $table);
@@ -240,7 +240,7 @@ class Tools extends Base {
     }
 
     /**
-     * 数据还原
+     * 數據還原
      */
     public function restore()
     {
@@ -287,45 +287,45 @@ class Tools extends Base {
     }
 
     /**
-     * 上传sql文件
+     * 上傳sql檔案
      */
     public function restoreUpload()
     {
         $file = request()->file('sqlfile');
         if(empty($file)){
-            $this->error('请上传sql文件');
+            $this->error('請上傳sql檔案');
         }
-        // 移动到框架应用根目录/data/sqldata/ 目录下
+        // 移動到框架應用根目錄/data/sqldata/ 目錄下
         $path = tpCache('global.web_sqldatapath');
         $path = !empty($path) ? $path : config('DATA_BACKUP_PATH');
         $path = trim($path, '/');
         $image_upload_limit_size = intval(tpCache('basic.file_size') * 1024 * 1024);
         $info = $file->validate(['size'=>$image_upload_limit_size,'ext'=>'sql,gz'])->move($path, $_FILES['sqlfile']['name']);
         if ($info) {
-            //上传成功 获取上传文件信息
+            //上傳成功 獲取上傳檔案資訊
             $file_path_full = $info->getPathName();
             if (file_exists($file_path_full)) {
                 $sqls = Backup::parseSql($file_path_full);
                 if(Backup::install($sqls)){
 //                    array_map("unlink", glob($path));
-                    /*清除缓存*/
+                    /*清除快取*/
                     delFile(RUNTIME_PATH);
                     /*--end*/
-                    $this->success("执行sql成功", url('Tools/restore'));
+                    $this->success("執行sql成功", url('Tools/restore'));
                 }else{
-                    $this->error('执行sql失败');
+                    $this->error('執行sql失敗');
                 }
             } else {
-                $this->error('sql文件上传失败');
+                $this->error('sql檔案上傳失敗');
             }
         } else {
-            //上传错误提示错误信息
+            //上傳錯誤提示錯誤資訊
             $this->error($file->getError());
         }
     }
 
     /**
-     * 执行还原数据库操作
+     * 執行還原數據庫操作
      * @param int $time
      * @param null $part
      * @param null $start
@@ -335,7 +335,7 @@ class Tools extends Base {
         function_exists('set_time_limit') && set_time_limit(0);
 
         if(is_numeric($time) && is_null($part) && is_null($start)){ //初始化
-            //获取备份文件信息
+            //獲取備份檔案資訊
             $name  = date('Ymd-His', $time) . '-*.sql*';
             $path = tpCache('global.web_sqldatapath');
             $path = !empty($path) ? $path : config('DATA_BACKUP_PATH');
@@ -351,18 +351,18 @@ class Tools extends Base {
             }
             ksort($list);
 
-            //检测文件正确性
+            //檢測檔案正確性
             $last = end($list);
             if(count($list) === $last[0]){
-                session('backup_list', $list); //缓存备份列表
+                session('backup_list', $list); //快取備份列表
                 $part = 1;
                 $start = 0;
                 $data = array('part' => $part, 'start' => $start);
                 // $this->success('初始化完成！', null, array('part' => $part, 'start' => $start));
-                respose(array('code'=>1, 'msg'=>"初始化完成！准备还原#{$part}...", 'rate'=>'', 'data'=>$data));
+                respose(array('code'=>1, 'msg'=>"初始化完成！準備還原#{$part}...", 'rate'=>'', 'data'=>$data));
             } else {
-                // $this->error('备份文件可能已经损坏，请检查！');
-                respose(array('code'=>0, 'msg'=>"备份文件可能已经损坏，请检查！"));
+                // $this->error('備份檔案可能已經損壞，請檢查！');
+                respose(array('code'=>0, 'msg'=>"備份檔案可能已經損壞，請檢查！"));
             }
         } elseif(is_numeric($part) && is_numeric($start)) {
             $list  = session('backup_list');
@@ -374,40 +374,40 @@ class Tools extends Base {
                     'compress' => $list[$part][2]));
             $start = $db->import($start);
             if(false === $start){
-                // $this->error('还原数据出错！');
-                respose(array('code'=>0, 'msg'=>"还原数据出错！", 'rate'=>'0%'));
+                // $this->error('還原數據出錯！');
+                respose(array('code'=>0, 'msg'=>"還原數據出錯！", 'rate'=>'0%'));
             } elseif(0 === $start) { //下一卷
                 if(isset($list[++$part])){
                     $data = array('part' => $part, 'start' => 0);
-                    // $this->success("正在还g原...#{$part}", null, $data);
+                    // $this->success("正在還g原...#{$part}", null, $data);
                     $rate = (floor((($start+1)/count($list))*10000)/10000*100).'%';
-                    respose(array('code'=>1, 'msg'=>"正在还原#{$part}...", 'rate'=>$rate, 'data'=>$data));
+                    respose(array('code'=>1, 'msg'=>"正在還原#{$part}...", 'rate'=>$rate, 'data'=>$data));
                 } else {
                     session('backup_list', null);
                     delFile(RUNTIME_PATH);
-                    respose(array('code'=>1, 'msg'=>"还原完成...", 'rate'=>'100%'));
-                    // $this->success('还原完成！');
+                    respose(array('code'=>1, 'msg'=>"還原完成...", 'rate'=>'100%'));
+                    // $this->success('還原完成！');
                 }
             } else {
                 $data = array('part' => $part, 'start' => $start[0]);
                 if($start[1]){
                     $rate = floor(100 * ($start[0] / $start[1])).'%';
-                    respose(array('code'=>1, 'msg'=>"正在还原#{$part}...", 'rate'=>$rate, 'data'=>$data));
-                    // $this->success("正在还d原...#{$part} ({$rate}%)", null, $data);
+                    respose(array('code'=>1, 'msg'=>"正在還原#{$part}...", 'rate'=>$rate, 'data'=>$data));
+                    // $this->success("正在還d原...#{$part} ({$rate}%)", null, $data);
                 } else {
                     $data['gz'] = 1;
-                    respose(array('code'=>1, 'msg'=>"正在还原#{$part}...", 'data'=>$data, 'start'=>$start));
-                    // $this->success("正在还s原...#{$part}", null, $data);
+                    respose(array('code'=>1, 'msg'=>"正在還原#{$part}...", 'data'=>$data, 'start'=>$start));
+                    // $this->success("正在還s原...#{$part}", null, $data);
                 }
             }
         } else {
-            // $this->error('参数错误！');
-            respose(array('code'=>0, 'msg'=>"参数有误", 'rate'=>'0%'));
+            // $this->error('參數錯誤！');
+            respose(array('code'=>0, 'msg'=>"參數有誤", 'rate'=>'0%'));
         }
     }
 
     /**
-     * (新)执行还原数据库操作
+     * (新)執行還原數據庫操作
      * @param int $time
      */
     public function new_import($time = 0)
@@ -415,7 +415,7 @@ class Tools extends Base {
         function_exists('set_time_limit') && set_time_limit(0);
 
         if(is_numeric($time) && intval($time) > 0){
-            //获取备份文件信息
+            //獲取備份檔案資訊
             $name  = date('Ymd-His', $time) . '-*.sql*';
             $path = tpCache('global.web_sqldatapath');
             $path = !empty($path) ? $path : config('DATA_BACKUP_PATH');
@@ -431,37 +431,37 @@ class Tools extends Base {
             }
             ksort($list);
 
-            //检测文件正确性
+            //檢測檔案正確性
             $last = end($list);
             $file_path_full = !empty($last[1]) ? $last[1] : '';
             if (file_exists($file_path_full)) {
-                /*校验sql文件是否属于当前CMS版本*/
+                /*校驗sql檔案是否屬於目前CMS版本*/
                 preg_match('/(\d{8,8})-(\d{6,6})-(\d+)-(v\d+\.\d+\.\d+)\.sql/i', $file_path_full, $matches);
                 $version = getCmsVersion();
                 if ($matches[4] != $version) {
-                    $this->error('sql不兼容当前版本：'.$version, url('Tools/restore'));
+                    $this->error('sql不相容目前版本：'.$version, url('Tools/restore'));
                 }
                 /*--end*/
                 $sqls = Backup::parseSql($file_path_full);
                 if(Backup::install($sqls)){
-                    /*清除缓存*/
+                    /*清除快取*/
                     delFile(RUNTIME_PATH);
                     /*--end*/
                     $this->success('操作成功', request()->baseFile(), '', 1, [], '_parent');
                 }else{
-                    $this->error('操作失败！', url('Tools/restore'));
+                    $this->error('操作失敗！', url('Tools/restore'));
                 }
             }
         }
         else 
         {
-            $this->error("参数有误", url('Tools/restore'));
+            $this->error("參數有誤", url('Tools/restore'));
         }
         exit;
     }
 
     /**
-     * 下载
+     * 下載
      * @param int $time
      */
     public function downFile($time = 0)
@@ -475,7 +475,7 @@ class Tools extends Base {
         if(is_array($files)){
             foreach ($files as $filePath){
                 if (!file_exists($filePath)) {
-                    $this->error("该文件不存在，可能是被删除");
+                    $this->error("該檔案不存在，可能是被刪除");
                 }else{
                     $filename = basename($filePath);
                     header("Content-type: application/octet-stream");
@@ -488,8 +488,8 @@ class Tools extends Base {
     }
 
     /**
-     * 删除备份文件
-     * @param  Integer $time 备份时间
+     * 刪除備份檔案
+     * @param  Integer $time 備份時間
      */
     public function del()
     {
@@ -504,12 +504,12 @@ class Tools extends Base {
                 $path  = realpath($path) . DS . $name;
                 array_map("unlink", glob($path));
                 if(count(glob($path))){
-                    $this->error('备份文件删除失败，请检查目录权限！');
+                    $this->error('備份檔案刪除失敗，請檢查目錄許可權！');
                 }
             }
-            $this->success('删除成功！');
+            $this->success('刪除成功！');
         } else {
-            $this->error('参数有误');
+            $this->error('參數有誤');
         }
     }
 }

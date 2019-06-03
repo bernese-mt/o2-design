@@ -7,7 +7,7 @@
     <div class="fixed-bar">
         <div class="item-title">
             <div class="subject">
-                <h3>修改管理员密码</h3>
+                <h3>修改管理員密碼</h3>
                 <h5></h5>
             </div>
         </div>
@@ -17,7 +17,7 @@
         <div class="ncap-form-default">
             <dl class="row">
                 <dt class="tit">
-                    <label for="old_pw"><em>*</em>原密码</label>
+                    <label for="old_pw"><em>*</em>原密碼</label>
                 </dt>
                 <dd class="opt">
                     <input type="password" name="old_pw" value="" id="old_pw" class="input-txt">
@@ -26,7 +26,7 @@
             </dl>
             <dl class="row">
                 <dt class="tit">
-                    <label for="new_pw"><em>*</em>新密码</label>
+                    <label for="new_pw"><em>*</em>新密碼</label>
                 </dt>
                 <dd class="opt">
                     <input type="password" name="new_pw" value="" id="new_pw" class="input-txt">
@@ -35,14 +35,14 @@
             </dl>
             <dl class="row">
                 <dt class="tit">
-                    <label for="new_pw2"><em>*</em>确认密码</label>
+                    <label for="new_pw2"><em>*</em>確認密碼</label>
                 </dt>
                 <dd class="opt">
                     <input type="password" name="new_pw2" value="" id="new_pw2" class="input-txt">
                     <p class="notic"></p>
                 </dd>
             </dl>
-            <div class="bot"><a href="JavaScript:void(0);" class="ncap-btn-big ncap-btn-green" id="submitBtn">确认提交</a></div>
+            <div class="bot"><a href="JavaScript:void(0);" class="ncap-btn-big ncap-btn-green" id="submitBtn">確認提交</a></div>
         </div>
     </form>
 </div>
@@ -54,10 +54,10 @@
         });
         
         $("#admin_form").validate({
-            debug: false, //调试模式取消submit的默认提交功能   
-            focusInvalid: false, //当为false时，验证无效时，没有焦点响应  
+            debug: false, //除錯模式取消submit的預設提交功能   
+            focusInvalid: false, //當爲false時，驗證無效時，沒有焦點響應  
             onkeyup: false,   
-            submitHandler: function(form){   //表单提交句柄,为一回调函数，带一个参数：form   
+            submitHandler: function(form){   //表單提交控制代碼,為一回調函式，帶一個參數：form   
                 $.ajax({
                     url:"{:url('Admin/admin_pwd')}",
                     type:'post',
@@ -74,7 +74,7 @@
                     }
                 });
             },  
-            ignore:":button",   //不验证的元素
+            ignore:":button",   //不驗證的元素
             rules:{
                 old_pw:{
                     required:true,
@@ -92,17 +92,17 @@
             },
             messages:{
                 old_pw:{
-                    required:"请输入原密码",
-                    minlength:"原始密码长度不能少于5位"
+                    required:"請輸入原密碼",
+                    minlength:"原始密碼長度不能少於5位"
                 },
                 new_pw:{
-                    required:"请输入新密码",
-                    minlength:"新密码长度不能少于5位"
+                    required:"請輸入新密碼",
+                    minlength:"新密碼長度不能少於5位"
                 },
                 new_pw2:{
-                    required:"请输入确认密码",
-                    minlength:"确认密码长度不能少于5位",
-                    equalTo:"两次密码输入不一致"
+                    required:"請輸入確認密碼",
+                    minlength:"確認密碼長度不能少於5位",
+                    equalTo:"兩次密碼輸入不一致"
                 }
             }
         });

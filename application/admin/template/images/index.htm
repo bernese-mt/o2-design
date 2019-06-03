@@ -9,22 +9,22 @@
         <div class="mDiv">
             <div class="ftitle">
                 <h3>{$arctype_info.typename|default=''}</h3>
-                <h5>(共{$pager->totalRows}条记录)</h5>
+                <h5>(共{$pager->totalRows}條記錄)</h5>
             </div>
-            <div title="刷新数据" class="pReload"><i class="fa fa-refresh"></i></div>
-            <form class="navbar-form form-inline" action="{:url('Images/index')}" method="get" onsubmit="layer_loading('正在处理');">
+            <div title="重新整理數據" class="pReload"><i class="fa fa-refresh"></i></div>
+            <form class="navbar-form form-inline" action="{:url('Images/index')}" method="get" onsubmit="layer_loading('正在處理');">
                 {$searchform.hidden|default=''}
                 <div class="sDiv">
                     {include file="archives/tags_btn" /}
                     <div class="sDiv2">  
                         <select name="flag" class="select" style="margin:0px 5px;">
-                            <option value="">--属性--</option>
-                            <option value="is_recom" {eq name="$Request.param.flag" value="is_recom"}selected{/eq}>推荐</option>
+                            <option value="">--屬性--</option>
+                            <option value="is_recom" {eq name="$Request.param.flag" value="is_recom"}selected{/eq}>推薦</option>
                         </select>
                     </div>
                     <div class="sDiv2">
                         <input type="hidden" name="typeid" id="typeid" value="{$Request.param.typeid|default=''}">
-                        <input type="text" size="30" name="keywords" value="{$Request.param.keywords}" class="qsbox" placeholder="标题搜索...">
+                        <input type="text" size="30" name="keywords" value="{$Request.param.keywords}" class="qsbox" placeholder="標題搜索...">
                         <input type="submit" class="btn" value="搜索">
                     </div>
                     <!-- <div class="sDiv2">
@@ -39,25 +39,25 @@
                     <thead>
                     <tr>
                         <th class="sign w40" axis="col0">
-                            <div class="tc">选择</div>
+                            <div class="tc">選擇</div>
                         </th>
                         <th abbr="article_title" axis="col3" class="w40">
                             <div class="tc">ID</div>
                         </th>
                         <th abbr="article_title" axis="col3" class="">
-                            <div style="text-align: left; padding-left: 10px;" class="">标题</div>
+                            <div style="text-align: left; padding-left: 10px;" class="">標題</div>
                         </th>
                         <th abbr="article_time" axis="col6" class="w100">
-                            <div class="tc">所属栏目</div>
+                            <div class="tc">所屬欄目</div>
                         </th>
                         <th abbr="article_time" axis="col6" class="w50">
-                            <div class="tc">推荐</div>
+                            <div class="tc">推薦</div>
                         </th>
                         <th abbr="article_time" axis="col6" class="w60">
-                            <div class="tc">浏览量</div>
+                            <div class="tc">瀏覽量</div>
                         </th>
                         <th abbr="article_time" axis="col6" class="w100">
-                            <div class="tc">更新时间</div>
+                            <div class="tc">更新時間</div>
                         </th>
                         <th align="center" axis="col1" class="w180">
                             <div class="tc">操作</div>
@@ -78,7 +78,7 @@
                     {empty name="list"}
                         <tr>
                             <td class="no-data" align="center" axis="col0" colspan="50">
-                                <i class="fa fa-exclamation-circle"></i>没有符合条件的记录
+                                <i class="fa fa-exclamation-circle"></i>沒有符合條件的記錄
                             </td>
                         </tr>
                     {else/}
@@ -105,7 +105,7 @@
                                 </div>
                             </td>
                             <td align="center" class="">
-                                <div class="w100 tc"><a href="{:url('Images/index', array('typeid'=>$vo['typeid'], 'tab'=>3))}">{$vo.typename|default='<i class="red">数据出错！</i>'}</a></div>
+                                <div class="w100 tc"><a href="{:url('Images/index', array('typeid'=>$vo['typeid'], 'tab'=>3))}">{$vo.typename|default='<i class="red">數據出錯！</i>'}</a></div>
                             </td>
                             <td align="center" class="">
                                 <div class="tc w50">
@@ -129,11 +129,11 @@
                             <td>
                                 <div class="w180 tc">
                                     {eq name="$Think.const.CONTROLLER_NAME.'@edit'|is_check_access" value="1"}
-                                    <a href="{:url('Images/edit',array('id'=>$vo['aid']))}" class="btn blue"><i class="fa fa-pencil-square-o"></i>编辑</a>
+                                    <a href="{:url('Images/edit',array('id'=>$vo['aid']))}" class="btn blue"><i class="fa fa-pencil-square-o"></i>編輯</a>
                                     {/eq}
                                     {eq name="$Think.const.CONTROLLER_NAME.'@del'|is_check_access" value="1"}
-                                    <a class="btn red"  href="javascript:void(0);" data-url="{:url('Images/del')}" data-id="{$vo.aid}" data-deltype="pseudo" onClick="delfun(this);"><i class="fa fa-trash-o"></i>删除</a>
-                                    <a href="{$vo.arcurl}" class="btn blue" target="_blank"><i class="fa fa-pencil-square-o"></i>浏览</a>
+                                    <a class="btn red"  href="javascript:void(0);" data-url="{:url('Images/del')}" data-id="{$vo.aid}" data-deltype="pseudo" onClick="delfun(this);"><i class="fa fa-trash-o"></i>刪除</a>
+                                    <a href="{$vo.arcurl}" class="btn blue" target="_blank"><i class="fa fa-pencil-square-o"></i>瀏覽</a>
                                     {/eq}
                                 </div>
                             </td>
@@ -163,8 +163,8 @@
                 {eq name="$Think.const.CONTROLLER_NAME.'@del'|is_check_access" value="1"}
                 <div class="fbutton">
                     <a onclick="batch_del(this, 'ids');" data-url="{:url('Images/del')}" data-deltype="pseudo">
-                        <div class="add" title="批量删除">
-                            <span><i class="fa fa-close"></i>批量删除</span>
+                        <div class="add" title="批量刪除">
+                            <span><i class="fa fa-close"></i>批量刪除</span>
                         </div>
                     </a>
                 </div>
@@ -172,8 +172,8 @@
                 {eq name="'Archives@move'|is_check_access" value="1"}
                 <div class="fbutton">
                     <a onclick="func_move(this, 'ids');" data-url="{:url('Archives/move', array('typeid'=>$Request.param.typeid))}">
-                        <div class="add" title="批量移动">
-                            <span><i class="fa fa-hdd-o"></i>批量移动</span>
+                        <div class="add" title="批量移動">
+                            <span><i class="fa fa-hdd-o"></i>批量移動</span>
                         </div>
                     </a>
                 </div>
@@ -181,8 +181,8 @@
                 {eq name="$Think.const.CONTROLLER_NAME.'@add'|is_check_access" value="1"}
                 <div class="fbutton">
                     <a href="{:url('Images/add', array('typeid'=>$Request.param.typeid))}">
-                        <div class="add" title="新增图集">
-                            <span class="red"><i class="fa fa-plus"></i>新增图集</span>
+                        <div class="add" title="新增圖集">
+                            <span class="red"><i class="fa fa-plus"></i>新增圖集</span>
                         </div>
                     </a>
                 </div>
@@ -190,19 +190,19 @@
             </div>
             <div style="clear:both"></div>
         </div>
-        <!--分页位置-->
+        <!--分頁位置-->
         {$page}
     </div>
 </div>
 <script type="text/javascript">
     $(document).ready(function(){
 
-        // 表格行点击选中切换
+        // 表格行點選選中切換
         $('#flexigrid > table>tbody >tr').click(function(){
             $(this).toggleClass('trSelected');
         });
 
-        // 点击刷新数据
+        // 點選重新整理數據
         $('.fa-refresh').click(function(){
             location.href = location.href;
         });
@@ -225,7 +225,7 @@
             }
         })
         if(a.length == 0){
-            layer.alert('请至少选择一项', {icon: 2, title:false});
+            layer.alert('請至少選擇一項', {icon: 2, title:false});
             return;
         }
 
@@ -233,18 +233,18 @@
         //iframe窗
         layer.open({
             type: 2,
-            title: '移动文档',
+            title: '移動文件',
             fixed: true, //不固定
             shadeClose: false,
             shade: 0.3,
-            maxmin: false, //开启最大化最小化按钮
+            maxmin: false, //開啟最大化最小化按鈕
             area: ['350px', '260px'],
             content: url
         });
     }
 
     /**
-     * 获取修改之前的内容
+     * 獲取修改之前的內容
      */
     function get_aids()
     {

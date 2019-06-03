@@ -1,11 +1,11 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
@@ -13,382 +13,382 @@
 
 return array(
     // +----------------------------------------------------------------------
-    // | 应用设置
+    // | 應用設定
     // +----------------------------------------------------------------------
 
-    // 默认Host地址
+    // 預設Host地址
     'app_host'               => '',
-    // 应用命名空间
+    // 應用名稱空間
     'app_namespace'          => 'app',
-    // 应用调试模式
+    // 應用除錯模式
     'app_debug'              => false,
-    // 应用Trace
+    // 應用Trace
     'app_trace'              => false,
-    // 应用模式状态
+    // 應用模式狀態
     'app_status'             => '',
-    // 是否支持多模块
+    // 是否支援多模組
     'app_multi_module'       => true,
-    // 入口自动绑定模块
+    // 入口自動繫結模組
     'auto_bind_module'       => false,
-    // 注册的根命名空间
+    // 註冊的根名稱空間
     'root_namespace'         => array(),
-    // 扩展函数文件
+    // 擴充套件函式檔案
     'extra_file_list'        => array(APP_PATH . 'helper' . EXT, THINK_PATH . 'helper' . EXT, APP_PATH . 'function' . EXT),
-    // 默认输出类型
+    // 預設輸出型別
     'default_return_type'    => 'html',
-    // 默认AJAX 数据返回格式,可选json xml ...
+    // 預設AJAX 數據返回格式,可選json xml ...
     'default_ajax_return'    => 'json',
-    // 默认JSONP格式返回的处理方法
+    // 預設JSONP格式返回的處理方法
     'default_jsonp_handler'  => 'jsonpReturn',
-    // 默认JSONP处理方法
+    // 預設JSONP處理方法
     'var_jsonp_handler'      => 'callback',
-    // 默认时区
+    // 預設時區
     'default_timezone'       => 'PRC',
-    // 是否开启多语言
+    // 是否開啟多語言
     'lang_switch_on'         => true,
-    // 默认全局过滤方法 用逗号分隔多个
+    // 預設全域性過濾方法 用逗號分隔多個
     'default_filter'         => 'strip_sql,htmlspecialchars', // htmlspecialchars
-    // 默认语言
+    // 預設語言
     'default_lang'           => 'cn',
-    // 应用类库后缀
+    // 應用類庫後綴
     'class_suffix'           => false,
-    // 控制器类后缀
+    // 控制器類後綴
     'controller_suffix'      => false,
-    // 是否https链接
+    // 是否https鏈接
     'is_https'               => false,
 
     // +----------------------------------------------------------------------
-    // | 模块设置
+    // | 模組設定
     // +----------------------------------------------------------------------
 
-    // 默认模块名
+    // 預設模組名
     'default_module'         => 'home',
-    // 禁止访问模块
+    // 禁止訪問模組
     'deny_module_list'       => array('common'),
-    // 默认控制器名
+    // 預設控制器名
     'default_controller'     => 'Index',
-    // 默认操作名
+    // 預設操作名
     'default_action'         => 'index',
-    // 默认验证器
+    // 預設驗證器
     'default_validate'       => '',
-    // 默认的空控制器名
+    // 預設的空控制器名
     'empty_controller'       => 'Error',
-    // 操作方法后缀
+    // 操作方法後綴
     'action_suffix'          => '',
-    // 自动搜索控制器
+    // 自動搜索控制器
     'controller_auto_search' => false,
 
     // +----------------------------------------------------------------------
-    // | URL设置
+    // | URL設定
     // +----------------------------------------------------------------------
 
-    // PATHINFO变量名 用于兼容模式
+    // PATHINFO變數名 用於相容模式
     'var_pathinfo'           => 's',
-    // 兼容PATH_INFO获取
+    // 相容PATH_INFO獲取
     'pathinfo_fetch'         => array('ORIG_PATH_INFO', 'REDIRECT_PATH_INFO', 'REDIRECT_URL'),
     // pathinfo分隔符
     'pathinfo_depr'          => '/',
-    // URL伪静态后缀
+    // URL偽靜態後綴
     'url_html_suffix'        => 'html',
-    // URL普通方式参数 用于自动生成
+    // URL普通方式參數 用於自動產生
     'url_common_param'       => false,
-    // URL参数方式 0 按名称成对解析 1 按顺序解析
+    // URL參數方式 0 按名稱成對解析 1 按順序解析
     'url_param_type'         => 0,
-    // 是否开启路由
+    // 是否開啟路由
     'url_route_on'           => true,
     // 路由使用完整匹配
     'route_complete_match'   => false,
-    // 路由配置文件（支持配置多个）
+    // 路由配置檔案（支援配置多個）
     'route_config_file'      => array('route'),
-    // 是否强制使用路由
+    // 是否強制使用路由
     'url_route_must'         => false,
     // 域名部署
     'url_domain_deploy'      => false,
     // 域名根，如thinkphp.cn
     'url_domain_root'        => '',
-    // 是否自动转换URL中的控制器和操作名
+    // 是否自動轉換URL中的控制器和操作名
     'url_convert'            => false,
-    // 默认的访问控制器层
+    // 預設的訪問控制器層
     'url_controller_layer'   => 'controller',
-    // 表单请求类型伪装变量
+    // 表單請求型別偽裝變數
     'var_method'             => '_method',
-    // 表单ajax伪装变量
+    // 表單ajax偽裝變數
     'var_ajax'               => '_ajax',
-    // 表单pjax伪装变量
+    // 表單pjax偽裝變數
     'var_pjax'               => '_pjax',
-    // 是否开启请求缓存 true自动缓存 支持设置请求缓存规则
+    // 是否開啟請求快取 true自動快取 支援設定請求快取規則
     'request_cache'          => false,
-    // 请求缓存有效期
+    // 請求快取有效期
     'request_cache_expire'   => null,
-    // 全局请求缓存排除规则
+    // 全域性請求快取排除規則
     'request_cache_except'   => array(),
 
     // +----------------------------------------------------------------------
-    // | 模板设置
+    // | 模板設定
     // +----------------------------------------------------------------------
 
     'template'               => array(
-        // 模板引擎类型 支持 php think 支持扩展
+        // 模板引擎型別 支援 php think 支援擴充套件
         'type'         => 'Think',
-        // 模板路径
+        // 模板路徑
         'view_path'    => '',
-        // 模板后缀
+        // 模板後綴
         'view_suffix'  => 'htm',
-        // 模板文件名分隔符
+        // 模板檔名分隔符
         'view_depr'    => DS,
-        // 模板引擎普通标签开始标记
+        // 模板引擎普通標籤開始標記
         'tpl_begin'    => '{',
-        // 模板引擎普通标签结束标记
+        // 模板引擎普通標籤結束標記
         'tpl_end'      => '}',
-        // 标签库标签开始标记
+        // 標籤庫標籤開始標記
         'taglib_begin' => '{',
-        // 标签库标签结束标记
+        // 標籤庫標籤結束標記
         'taglib_end'   => '}',
     ),
 
-    // 视图输出字符串内容替换
+    // 檢視輸出字串內容替換
     'view_replace_str'       => array(),
-    // 默认跳转页面对应的模板文件
+    // 預設跳轉頁面對應的模板檔案
     'dispatch_error_tmpl' => 'public/static/common/dispatch_jump.htm',
-    // 默认成功跳转对应的模板文件
+    // 預設成功跳轉對應的模板檔案
     'dispatch_success_tmpl' => 'public/static/common/dispatch_jump.htm', 
 
     // +----------------------------------------------------------------------
-    // | 异常及错误设置
+    // | 異常及錯誤設定
     // +----------------------------------------------------------------------
 
-    // 异常页面的模板文件 
+    // 異常頁面的模板檔案 
     'exception_tmpl'         => THINK_PATH . 'tpl' . DS . 'think_exception.tpl',
-    // errorpage 错误页面
+    // errorpage 錯誤頁面
     'error_tmpl'         => THINK_PATH . 'tpl' . DS . 'think_error.tpl', 
     
 
-    // 错误显示信息,非调试模式有效
-    'error_message'          => '页面错误！请稍后再试～',
-    // 显示错误信息
+    // 錯誤顯示資訊,非除錯模式有效
+    'error_message'          => '頁面錯誤！請稍後再試～',
+    // 顯示錯誤資訊
     'show_error_msg'         => true,
-    // 异常处理handle类 留空使用 \think\exception\Handle
+    // 異常處理handle類 留空使用 \think\exception\Handle
     'exception_handle'       => '',
 
     // +----------------------------------------------------------------------
-    // | 日志设置
+    // | 日誌設定
     // +----------------------------------------------------------------------
 
     'log'                    => array(
-        // 日志记录方式，内置 file socket 支持扩展
+        // 日誌記錄方式，內建 file socket 支援擴充套件
         'type'  => 'File',
-        // 日志保存目录
+        // 日誌儲存目錄
         'path'  => LOG_PATH,
-        // 日志记录级别
+        // 日誌記錄級別
         'level' => array('error'),
-        // 日志开关  1 开启 0 关闭
+        // 日誌開關  1 開啟 0 關閉
         'switch' => 0,  
     ),
 
     // +----------------------------------------------------------------------
-    // | Trace设置 开启 app_trace 后 有效
+    // | Trace設定 開啟 app_trace 后 有效
     // +----------------------------------------------------------------------
     'trace'                  => array(
-        // 内置Html Console 支持扩展
+        // 內建Html Console 支援擴充套件
         'type' => 'Html',
     ),
 
     // +----------------------------------------------------------------------
-    // | 缓存设置
+    // | 快取設定
     // +----------------------------------------------------------------------
 
     'cache'                  => array(
-        // 驱动方式
+        // 驅動方式
         'type'   => 'File',
-        // 缓存保存目录
+        // 快取儲存目錄
         'path'   => CACHE_PATH,
-        // 缓存前缀
+        // 快取字首
         'prefix' => '',
-        // 缓存有效期 0表示永久缓存
+        // 快取有效期 0表示永久快取
         'expire' => 0,
     ),
 
     // +----------------------------------------------------------------------
-    // | 会话设置
+    // | 會話設定
     // +----------------------------------------------------------------------
 
     'session'                => array(
         'id'             => '',
-        // SESSION_ID的提交变量,解决flash上传跨域
+        // SESSION_ID的提交變數,解決flash上傳跨域
         'var_session_id' => '',
-        // SESSION 前缀
+        // SESSION 字首
         'prefix'         => 'think',
-        // 驱动方式 支持redis memcache memcached
+        // 驅動方式 支援redis memcache memcached
         'type'           => '',
-        // 是否自动开启 SESSION
+        // 是否自動開啟 SESSION
         'auto_start'     => true,
-        // 主机
+        // 主機
         // 'host'           => '127.0.0.1',
-        // 端口
+        // 埠
         // 'port'           => 11211,
         'path'  => 'data/session',
     ),
 
     // +----------------------------------------------------------------------
-    // | Cookie设置
+    // | Cookie設定
     // +----------------------------------------------------------------------
     'cookie'                 => array(
-        // cookie 名称前缀
+        // cookie 名稱字首
         'prefix'    => '',
-        // cookie 保存时间
+        // cookie 儲存時間
         'expire'    => 0,
-        // cookie 保存路径
+        // cookie 儲存路徑
         'path'      => '/',
         // cookie 有效域名
         'domain'    => '',
-        //  cookie 启用安全传输
+        //  cookie 啟用安全傳輸
         'secure'    => false,
-        // httponly设置
-        'httponly'  => '', // 设置为true时，通过阻止 JS 读取 Cookie 来 防止XSS 攻击
+        // httponly設定
+        'httponly'  => '', // 設定為true時，通過阻止 JS 讀取 Cookie 來 防止XSS 攻擊
         // 是否使用 setcookie
         'setcookie' => true,
     ),
     
     // +----------------------------------------------------------------------
-    // | Memcache设置(支持集群)
+    // | Memcache設定(支援集群)
     // +----------------------------------------------------------------------
     'memcache'             => array(
-        'switch'    => 0, // 0 关闭，1 开启
-        'host' => '127.0.0.1,127.0.0.2', // 多个集群IP用,隔开
-        'port' => '11211,11212', // 多个集群端口号用,隔开
+        'switch'    => 0, // 0 關閉，1 開啟
+        'host' => '127.0.0.1,127.0.0.2', // 多個集群IP用,隔開
+        'port' => '11211,11212', // 多個集群埠號用,隔開
         'expire' => 0,
     ),
 
-    //分页配置
+    //分頁配置
     'paginate'      => array(
         'type'      => 'eyou',
         'var_page'  => 'page',
         'list_rows' => 15,
     ),
-    // 密码加密串
-    'AUTH_CODE' => "!*&^eyoucms<>|?", //安装完毕之后不要改变，否则所有密码都会出错
+    // 密碼加密串
+    'AUTH_CODE' => "!*&^eyoucms<>|?", //安裝完畢之後不要改變，否則所有密碼都會出錯
     
-    // 核心字符串
+    // 核心字串
     'service_ey' => "aHR0cDovL3NlcnZpY2UuZXlvdWNtcy5jb20=",
     'service_ey_token' => "0763150235251e259b1a47f2838ecc26",
     
     // +----------------------------------------------------------------------
-    // | 验证码
+    // | 驗證碼
     // +----------------------------------------------------------------------
     'captcha' => array(
         'default'    => [
-            // 验证码字符集合
+            // 驗證碼字符集合
             'codeSet'  => '2345678abcdefhijkmnpqrstuvwxyz', 
-            // 验证码字体大小(px)
+            // 驗證碼字型大小(px)
             'fontSize' => 35, 
-            // 是否画混淆曲线
+            // 是否畫混淆曲線
             'useCurve' => false, 
-            // 是否添加杂点
+            // 是否新增雜點
             'useNoise' => false, 
-            // 验证码图片高度
+            // 驗證碼圖片高度
             'imageH'   => 0,
-            // 验证码图片宽度
+            // 驗證碼圖片寬度
             'imageW'   => 0, 
-            // 验证码位数
+            // 驗證碼位數
             'length'   => 4, 
-            // 验证成功后是否重置        
+            // 驗證成功后是否重置        
             'reset'    => false,
-            // 验证码字体，不设置随机获取
+            // 驗證碼字型，不設定隨機獲取
             'fontttf' => '4.ttf',
         ],
-        // 后台登录验证码配置
+        // 後臺登錄驗證碼配置
         'admin_login'   => [
-            'is_on' => 1, // 开关
+            'is_on' => 1, // 開關
             'config' => [],
         ],
-        // 表单提交验证码配置
+        // 表單提交驗證碼配置
         'form_submit'   => [
-            'is_on' => 1, // 开关
+            'is_on' => 1, // 開關
             'config' => [],
         ],
-        // 会员登录验证码配置
+        // 會員登錄驗證碼配置
         'users_login'   => [
-            'is_on' => 0, // 开关
+            'is_on' => 0, // 開關
             'config' => [],
         ],
-        // 会员注册验证码配置
+        // 會員註冊驗證碼配置
         'users_reg'   => [
-            'is_on' => 0, // 开关
+            'is_on' => 0, // 開關
             'config' => [],
         ],
-        // 会员找回密码验证码配置
+        // 會員找回密碼驗證碼配置
         'users_retrieve_password'   => [
-            'is_on' => 0, // 开关
+            'is_on' => 0, // 開關
             'config' => [],
         ],
     ),
 
     // +----------------------------------------------------------------------
-    // | 404页面跳转
+    // | 404頁面跳轉
     // +----------------------------------------------------------------------
     'http_exception_template' => array(
-        // 定义404错误的重定向页面地址
+        // 定義404錯誤的重定向頁面地址
         404 => ROOT_PATH.'public/static/errpage/404.html',
-        // 还可以定义其它的HTTP status
+        // 還可以定義其它的HTTP status
         401 => ROOT_PATH.'public/static/errpage/401.html',
     ),
 
-    /**假设这个访问地址是 www.xxxxx.dev/home/goods/goodsInfo/id/1.html 
-     *就保存名字为 home_goods_goodsinfo_1.html     
-     *配置成这样, 指定 模块 控制器 方法名 参数名
+    /**假設這個訪問地址是 www.xxxxx.dev/home/goods/goodsInfo/id/1.html 
+     *就儲存名字為 home_goods_goodsinfo_1.html     
+     *配置成這樣, 指定 模組 控制器 方法名 參數名
      */
-    // true 开启页面缓存
+    // true 開啟頁面快取
     'HTML_CACHE_STATUS' => true,
-    // 缓存的页面，规则：模块 控制器 方法名 参数名
+    // 快取的頁面，規則：模組 控制器 方法名 參數名
     'HTML_CACHE_ARR'    => [
-        // 首页
+        // 首頁
         'home_Index_index'      => ['filename'=>'index', 'cache'=>7200],
-        // [普通伪静态]文章
+        // [普通偽靜態]文章
         'home_Article_index'    => ['filename'=>'channel', 'cache'=>7200],
         'home_Article_lists'    => ['filename'=>'lists', 'p'=>array('tid','page'), 'cache'=>7200],
         'home_Article_view'     => ['filename'=>'view', 'p'=>array('dirname','aid'), 'cache'=>7200],
-        // [普通伪静态]产品
+        // [普通偽靜態]產品
         'home_Product_index'    => ['filename'=>'channel', 'cache'=>7200],
         'home_Product_lists'    => ['filename'=>'lists', 'p'=>array('tid','page'), 'cache'=>7200],
         'home_Product_view'     => ['filename'=>'view', 'p'=>array('dirname','aid'), 'cache'=>7200],
-        // [普通伪静态]图集
+        // [普通偽靜態]圖集
         'home_Images_index'     => ['filename'=>'channel', 'cache'=>7200],
         'home_Images_lists'     => ['filename'=>'lists', 'p'=>array('tid','page'), 'cache'=>7200],
         'home_Images_view'      => ['filename'=>'view', 'p'=>array('dirname','aid'), 'cache'=>7200],
-        // [普通伪静态]下载
+        // [普通偽靜態]下載
         'home_Download_index'   => ['filename'=>'channel', 'cache'=>7200],
         'home_Download_lists'   => ['filename'=>'lists', 'p'=>array('tid','page'), 'cache'=>7200],
         'home_Download_view'    => ['filename'=>'view', 'p'=>array('dirname','aid'), 'cache'=>7200],
-        // [普通伪静态]单页
+        // [普通偽靜態]單頁
         'home_Single_index'     => ['filename'=>'channel', 'cache'=>7200],
         'home_Single_lists'     => ['filename'=>'lists', 'p'=>array('tid','page'), 'cache'=>7200],
-        // [超短伪静态]列表页
+        // [超短偽靜態]列表頁
         'home_Lists_index'      => ['filename'=>'lists', 'p'=>array('tid','page'), 'cache'=>7200],
-        // [超短伪静态]内容页
+        // [超短偽靜態]內容頁
         'home_View_index'       => ['filename'=>'view', 'p'=>array('dirname','aid'), 'cache'=>7200],
     ],
 
     // +----------------------------------------------------------------------
-    // | 短信设置
+    // | 簡訊設定
     // +----------------------------------------------------------------------
-    // 开启调试模式，跳过手机接收短信这一块
+    // 開啟除錯模式，跳過手機接收簡訊這一塊
     'sms_debug' => true,
-    //短信使用场景
+    //簡訊使用場景
     'SEND_SCENE' => array(
-        '1'=>array('用户注册','验证码${code}，您正在注册成为${product}用户，感谢您的支持！','regis_sms_enable'),
-        '2'=>array('用户找回密码','验证码${code}，用于密码找回，如非本人操作，请及时检查账户安全','forget_pwd_sms_enable'),
-        '3'=>array('身份验证','尊敬的用户，您的验证码为${code}, 请勿告诉他人.','bind_mobile_sms_enable'),
-        '4'=>array('消息通知','您有新的消息：${content}，请注意查收！','messages_notice'),
+        '1'=>array('使用者註冊','驗證碼${code}，您正在註冊成為${product}使用者，感謝您的支援！','regis_sms_enable'),
+        '2'=>array('使用者找回密碼','驗證碼${code}，用於密碼找回，如非本人操作，請及時檢查賬戶安全','forget_pwd_sms_enable'),
+        '3'=>array('身份驗證','尊敬的使用者，您的驗證碼為${code}, 請勿告訴他人.','bind_mobile_sms_enable'),
+        '4'=>array('訊息通知','您有新的訊息：${content}，請注意查收！','messages_notice'),
     ),
 
     // +----------------------------------------------------------------------
-    // | 邮件设置
+    // | 郵件設定
     // +----------------------------------------------------------------------
-    //邮件使用场景
+    //郵件使用場景
     'send_email_scene' => [
-        1   => ['scene'=>1], // 留言表单
-        2   => ['scene'=>2], // 会员注册
-        3   => ['scene'=>3], // 绑定邮箱
-        4   => ['scene'=>4], // 找回密码
+        1   => ['scene'=>1], // 留言表單
+        2   => ['scene'=>2], // 會員註冊
+        3   => ['scene'=>3], // 繫結郵箱
+        4   => ['scene'=>4], // 找回密碼
     ],
 );

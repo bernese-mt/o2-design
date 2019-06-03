@@ -9,7 +9,7 @@
         <div class="ncap-form-default">
             <dl class="row">
                 <dt class="tit">
-                    <label for="title"><em>*</em>发布至</label>
+                    <label for="title"><em>*</em>發佈至</label>
                 </dt>
                 <dd class="opt" style="width: auto;">
                     <select name="typeid" id="typeid" style="width: 300px;" size="22">
@@ -27,7 +27,7 @@
     $(function () {
         $('#typeid').find('option').click(function(){
             if (!$('#typeid').val()) {
-                layer.alert('请选择栏目…！', {icon:5, title:false}, function(index){
+                layer.alert('請選擇欄目…！', {icon:5, title:false}, function(index){
                     $('#typeid').val('');
                     layer.close(index);
                 });
@@ -38,14 +38,14 @@
             current_channel = parseInt(current_channel);
             var js_allow_channel_arr = {$js_allow_channel_arr};
             if ($.inArray(current_channel, js_allow_channel_arr) == -1) {
-                layer.alert('该栏目模型不允许发布文档！', {icon:5, title:false}, function(index){
+                layer.alert('該欄目模型不允許發佈文件！', {icon:5, title:false}, function(index){
                     $('#typeid').val('');
                     layer.close(index);
                 });
                 return false;
             }
 
-            var parentObj = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+            var parentObj = parent.layer.getFrameIndex(window.name); //先得到目前iframe層的索引
             parent.layer.close(parentObj);
 
             var url = "{:url('Archives/release')}";

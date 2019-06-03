@@ -1,13 +1,13 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
- * Author: 陈风任 <491085389@qq.com>
+ * Author: 陳風任 <491085389@qq.com>
  * Date: 2019-2-20
  */
 namespace app\user\model;
@@ -17,22 +17,22 @@ use think\Config;
 use think\Db;
 
 /**
- * 会员
+ * 會員
  */
 class Pay extends Model
 {
     private $home_lang = 'cn';
-    private $key = ''; // key密钥
+    private $key = ''; // key金鑰
 
     //初始化
     protected function initialize()
     {
-        // 需要调用`Model`的`initialize`方法
+        // 需要呼叫`Model`的`initialize`方法
         parent::initialize();
         $this->home_lang = get_home_lang();
     }
 
-    // 处理充值订单，超过指定时间修改为已取消订单，针对未付款订单
+    // 處理充值訂單，超過指定時間修改爲已取消訂單，針對未付款訂單
     public function UpdateOrderData($users_id){
         $time  = getTime() - Config::get('global.get_order_validity');
         $where = array(
@@ -41,23 +41,23 @@ class Pay extends Model
             'add_time' => array('<',$time),
         );
         $data = [
-            'status'        => 4, // 订单取消
+            'status'        => 4, // 訂單取消
             'update_time'   => getTime(),
         ];
         Db::name('users_money')->where($where)->update($data);
     }
 
     /*
-     *   微信H5支付，手机浏览器调起微信支付
-     *   @params string $openid : 用户的openid
-     *   @params string $out_trade_no : 商户订单号
-     *   @params number $total_fee : 订单金额，单位分
-     *   return string $code_url : 二维码URL链接
+     *   微信H5支付，手機瀏覽器調起微信支付
+     *   @params string $openid : 使用者的openid
+     *   @params string $out_trade_no : 商戶訂單號
+     *   @params number $total_fee : 訂單金額，單位分
+     *   return string $code_url : 二維碼URL鏈接
      */
-    public function getMobilePay($out_trade_no,$total_fee,$body="充值",$attach="微信扫码支付")
+    public function getMobilePay($out_trade_no,$total_fee,$body="充值",$attach="微信掃碼支付")
     {
 
-        // 获取微信配置信息
+        // 獲取微信配置資訊
         $pay_wechat_config = getUsersConfigData('pay.pay_wechat_config');
         if (empty($pay_wechat_config)) {
             return false;
@@ -65,7 +65,7 @@ class Pay extends Model
         $wechat = unserialize($pay_wechat_config);
         $this->key = $wechat['key'];
 
-        //支付数据
+        //支付數據
         $data['out_trade_no']     = $out_trade_no;
         $data['total_fee']        = $total_fee * 100;
         $data['spbill_create_ip'] = $this->get_client_ip();
@@ -105,15 +105,15 @@ class Pay extends Model
     }
 
     /*
-     *   微信二维码支付
-     *   @params string $openid : 用户的openid
-     *   @params string $out_trade_no : 商户订单号
-     *   @params number $total_fee : 订单金额，单位分
-     *   return string $code_url : 二维码URL链接
+     *   微信二維碼支付
+     *   @params string $openid : 使用者的openid
+     *   @params string $out_trade_no : 商戶訂單號
+     *   @params number $total_fee : 訂單金額，單位分
+     *   return string $code_url : 二維碼URL鏈接
      */
-    public function payForQrcode($out_trade_no,$total_fee,$body="充值",$attach="微信扫码支付")
+    public function payForQrcode($out_trade_no,$total_fee,$body="充值",$attach="微信掃碼支付")
     {
-        // 获取微信配置信息
+        // 獲取微信配置資訊
         $pay_wechat_config = getUsersConfigData('pay.pay_wechat_config');
         if (empty($pay_wechat_config)) {
             return false;
@@ -121,7 +121,7 @@ class Pay extends Model
         $wechat = unserialize($pay_wechat_config);
         $this->key = $wechat['key'];
 
-        //支付数据
+        //支付數據
         $data['out_trade_no']     = $out_trade_no;
         $data['total_fee']        = $total_fee * 100;
         $data['spbill_create_ip'] = $this->get_client_ip();
@@ -159,7 +159,7 @@ class Pay extends Model
         }
     }
 
-    // 获取客户端IP
+    // 獲取客戶端IP
     private function get_client_ip() {
         if(getenv('HTTP_CLIENT_IP') && strcasecmp(getenv('HTTP_CLIENT_IP'), 'unknown')) {
             $ip = getenv('HTTP_CLIENT_IP');
@@ -173,7 +173,7 @@ class Pay extends Model
         return preg_match ( '/[\d\.]{7,15}/', $ip, $matches ) ? $matches [0] : '';
     }
 
-    //对参数排序，生成MD5加密签名
+    //對參數排序，產生MD5加密簽名
     private function getParam($paramArray, $isencode=false)
     {
         $paramStr = '';
@@ -200,7 +200,7 @@ class Pay extends Model
 
     }
 
-    //POST提交数据
+    //POST提交數據
     private function https_post($url,$data)
     {
         $ch = curl_init ();
@@ -221,9 +221,9 @@ class Pay extends Model
     }
 
     /*
-    * XML转array
-    * @params xml $xml : xml 数据
-    * return array $data : 转义后的array数组
+    * XML轉array
+    * @params xml $xml : xml 數據
+    * return array $data : 轉義后的array陣列
     */
     private function xmlToArray($xml)
     {
@@ -234,17 +234,17 @@ class Pay extends Model
     }
 
     public function getNewAliPayPayUrl($data){
-        // 引入SDK文件
+        // 引入SDK檔案
         vendor('alipay.pagepay.service.AlipayTradeService');
         vendor('alipay.pagepay.buildermodel.AlipayTradePagePayContentBuilder');
-        // 获取支付宝配置信息
+        // 獲取支付寶配置資訊
         $pay_alipay_config = getUsersConfigData('pay.pay_alipay_config');
         if (empty($pay_alipay_config)) {
             return false;
         }
         $alipay = unserialize($pay_alipay_config);
         $transaction_type = $data['transaction_type'];
-        // 参数拼装
+        // 參數拼裝
         $config['app_id'] = $alipay['app_id'];
         $config['merchant_private_key'] = $alipay['merchant_private_key'];
         $config['transaction_type'] = $transaction_type;
@@ -254,15 +254,15 @@ class Pay extends Model
         $config['sign_type']  = 'RSA2';
         $config['gatewayUrl'] = 'https://openapi.alipay.com/gateway.do';
         $config['alipay_public_key'] = $alipay['alipay_public_key'];
-        // 实例化
+        // 實例化
         $payRequestBuilder = new \AlipayTradePagePayContentBuilder;
         $aop               = new \AlipayTradeService($config);
 
-        $out_trade_no = trim($data['unified_number']);//商户订单号，商户网站订单系统中唯一订单号，必填
-        $subject      = trim('充值');//订单名称，必填
-        $total_amount = trim($data['unified_amount']);//付款金额，必填
-        $body         = trim('支付宝充值');//商品描述，可空
-        //构造参数
+        $out_trade_no = trim($data['unified_number']);//商戶訂單號，商戶網站訂單系統中唯一訂單號，必填
+        $subject      = trim('充值');//訂單名稱，必填
+        $total_amount = trim($data['unified_amount']);//付款金額，必填
+        $body         = trim('支付寶充值');//商品描述，可空
+        //構造參數
         $payRequestBuilder->setBody($body);
         $payRequestBuilder->setSubject($subject);
         $payRequestBuilder->setTotalAmount($total_amount);
@@ -272,29 +272,29 @@ class Pay extends Model
     }
 
     /*
-     *   支付宝旧版支付，生成支付链接方法。
-     *   @params string $data   : 订单表数据，必须传入
-     *   @params string $alipay : 支付宝配置信息，通过 getUsersConfigData 方法调用数据
-     *   return string $alipay_url : 支付宝支付链接
+     *   支付寶舊版支付，產生支付鏈接方法。
+     *   @params string $data   : 訂單表數據，必須傳入
+     *   @params string $alipay : 支付寶配置資訊，通過 getUsersConfigData 方法呼叫數據
+     *   return string $alipay_url : 支付寶支付鏈接
      */
     public function getOldAliPayPayUrl($data,$alipay){
-        // 重要参数，支付宝配置信息
+        // 重要參數，支付寶配置資訊
         if (empty($alipay)) {
             return false;
         }
         
-        // 参数设置
-        $order['out_trade_no'] = $data['unified_number']; //订单号
-        $order['price']        = $data['unified_amount']; //订单金额
-        $charset               = 'utf-8';  //编码格式
-        $real_method           = '2';      //调用方式
-        $agent                 = 'C4335994340215837114'; //代理机构
+        // 參數設定
+        $order['out_trade_no'] = $data['unified_number']; //訂單號
+        $order['price']        = $data['unified_amount']; //訂單金額
+        $charset               = 'utf-8';  //編碼格式
+        $real_method           = '2';      //呼叫方式
+        $agent                 = 'C4335994340215837114'; //代理機構
 
-        $seller_email          = $alipay['account'];//支付宝用户账号
-        $security_check_code   = $alipay['code'];   //交易安全校验码
+        $seller_email          = $alipay['account'];//支付寶使用者賬號
+        $security_check_code   = $alipay['code'];   //交易安全校驗碼
         $partner               = $alipay['id'];     //合作者身份ID
 
-        $transaction_type      = $data['transaction_type']; //自定义，用于验证
+        $transaction_type      = $data['transaction_type']; //自定義，用於驗證
         switch ($real_method){
             case '0':
                 $service = 'trade_create_by_buyer';
@@ -315,17 +315,17 @@ class Pay extends Model
           '_input_charset'    => $charset,
           'notify_url'        => url('user/Pay/alipay_return', ['transaction_type'=>$transaction_type], true, true),
           'return_url'        => url('user/Pay/alipay_return', ['transaction_type'=>$transaction_type], true, true),
-          /* 业务参数 */
-          'subject'           => "支付订单号:".$order['out_trade_no'],
+          /* 業務參數 */
+          'subject'           => "支付訂單號:".$order['out_trade_no'],
           'out_trade_no'      => $order['out_trade_no'],
           'price'             => $order['price'],
           'quantity'          => 1,
           'payment_type'      => 1,
-          /* 物流参数 */
+          /* 物流參數 */
           'logistics_type'    => 'EXPRESS',
           'logistics_fee'     => 0,
           'logistics_payment' => 'BUYER_PAY_AFTER_RECEIVE',
-          /* 买卖双方信息 */
+          /* 買賣雙方資訊 */
           'seller_email'      => $seller_email,
         );
 

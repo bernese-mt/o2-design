@@ -1,32 +1,32 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
  */
 
 /**
- * 权限属性说明
+ * 許可權屬性說明
  * array
- *      id  主键ID
- *      menu_id   一级模块ID
- *      menu_id2    二级模块ID
- *      name  权限名称
- *      is_modules 是否显示在分组下
- *      auths  权限列表(格式：控制器@*,控制器@操作名 --多个权限以逗号隔开)
+ *      id  主鍵ID
+ *      menu_id   一級模組ID
+ *      menu_id2    二級模組ID
+ *      name  許可權名稱
+ *      is_modules 是否顯示在分組下
+ *      auths  許可權列表(格式：控制器@*,控制器@操作名 --多個許可權以逗號隔開)
  */
 return [
     [
         'id' => 1,
         'menu_id' => 1001,
         'menu_id2' => 0,
-        'name'  => '栏目管理',
+        'name'  => '欄目管理',
         'is_modules'    => 1,
         'auths' => 'Arctype@index,Arctype@add,Arctype@edit,Arctype@del,Arctype@pseudo_del',
     ],
@@ -34,7 +34,7 @@ return [
         'id' => 2,
         'menu_id' => 1002,
         'menu_id2' => 0,
-        'name'  => '内容管理',
+        'name'  => '內容管理',
         'is_modules'    => 1,
         'auths' => 'Archives@*,Arctype@single_edit',
     ],
@@ -42,7 +42,7 @@ return [
         'id' => 3,
         'menu_id' => 1003,
         'menu_id2' => 0,
-        'name'  => '允许操作',
+        'name'  => '允許操作',
         'is_modules'    => 1,
         'auths' => 'Other@*,AdPosition@*',
     ],
@@ -50,7 +50,7 @@ return [
         'id' => 4,
         'menu_id' => 2001,
         'menu_id2' => 0,
-        'name'  => '允许操作',
+        'name'  => '允許操作',
         'is_modules'    => 1,
         'auths' => 'System@web,System@web2,System@basic,System@water,System@index',
     ],
@@ -58,7 +58,7 @@ return [
     //     'id' => 5,
     //     'menu_id' => 2001,
     //     'menu_id2' => 0,
-    //     'name'  => '核心设置',
+    //     'name'  => '核心設定',
     //     'is_modules'    => 1,
     //     'auths' => 'System@web2,System@index',
     // ],
@@ -66,7 +66,7 @@ return [
     //     'id' => 6,
     //     'menu_id' => 2001,
     //     'menu_id2' => 0,
-    //     'name'  => '附件设置',
+    //     'name'  => '附件設定',
     //     'is_modules'    => 1,
     //     'auths' => 'System@basic,System@index',
     // ],
@@ -74,7 +74,7 @@ return [
     //     'id' => 7,
     //     'menu_id' => 2001,
     //     'menu_id2' => 0,
-    //     'name'  => '图片水印',
+    //     'name'  => '圖片水印',
     //     'is_modules'    => 1,
     //     'auths' => 'System@water,System@index',
     // ],
@@ -82,7 +82,7 @@ return [
         'id' => 8,
         'menu_id' => 2003,
         'menu_id2' => 2003001,
-        'name'  => 'SEO优化',
+        'name'  => 'SEO優化',
         'is_modules'    => 1,
         'auths' => 'Seo@*',
     ],
@@ -90,7 +90,7 @@ return [
         'id' => 9,
         'menu_id' => 2003,
         'menu_id2' => 2003002,
-        'name'  => '友情链接',
+        'name'  => '友情鏈接',
         'is_modules'    => 1,
         'auths' => 'Links@*',
     ],
@@ -98,7 +98,7 @@ return [
         'id' => 10,
         'menu_id' => 2004,
         'menu_id2' => 2004001,
-        'name'  => '管理员',
+        'name'  => '管理員',
         'is_modules'    => 1,
         'auths' => 'Admin@admin_edit,Admin@admin_pwd',
     ],
@@ -122,7 +122,7 @@ return [
         'id' => 11,
         'menu_id' => 2004,
         'menu_id2' => 2004002,
-        'name'  => '备份还原',
+        'name'  => '備份還原',
         'is_modules'    => 1,
         'auths' => 'Tools@*',
     ],
@@ -130,7 +130,7 @@ return [
     //     'id' => 13,
     //     'menu_id' => 2004,
     //     'menu_id2' => 2004004,
-    //     'name'  => '字段管理',
+    //     'name'  => '欄位管理',
     //     'is_modules'    => 0,
     //     'auths' => 'Field@*',
     // ],
@@ -138,7 +138,7 @@ return [
         'id' => 15,
         'menu_id' => 2005,
         'menu_id2' => 0,
-        'name'  => '插件应用',
+        'name'  => '外掛應用',
         'is_modules'    => 1,
         'auths' => 'Weapp@index,Weapp@create,Weapp@pack,Weapp@upload,Weapp@disable,Weapp@install,Weapp@enable,Weapp@execute',
     ],
@@ -146,7 +146,7 @@ return [
         'id' => 16,
         'menu_id' => 2002,
         'menu_id2' => 0,
-        'name'  => '允许操作',
+        'name'  => '允許操作',
         'is_modules'    => 1,
         'auths' => 'Uiset@*',
     ],
@@ -154,7 +154,7 @@ return [
         'id' => 17,
         'menu_id' => 2005,
         'menu_id2' => 0,
-        'name'  => '插件卸载',
+        'name'  => '外掛解除安裝',
         'is_modules'    => 0,
         'auths' => 'Weapp@uninstall',
     ],
@@ -162,7 +162,7 @@ return [
         'id' => 18,
         'menu_id' => 2004,
         'menu_id2' => 2004001,
-        'name'  => '权限组',
+        'name'  => '許可權組',
         'is_modules'    => 0,
         'auths' => 'Admin@admin_add,Admin@admin_del,AuthRole@*',
     ],
@@ -170,7 +170,7 @@ return [
         'id' => 20,
         'menu_id' => 2004,
         'menu_id2' => 2004007,
-        'name'  => '频道模型',
+        'name'  => '頻道模型',
         'is_modules'    => 1,
         'auths' => 'Channeltype@*,Field@*',
     ],
@@ -178,7 +178,7 @@ return [
         'id' => 14,
         'menu_id' => 2004,
         'menu_id2' => 2004005,
-        'name'  => '清除缓存',
+        'name'  => '清除快取',
         'is_modules'    => 1,
         'auths' => 'System@clear_cache',
     ],
@@ -186,7 +186,7 @@ return [
         'id' => 21,
         'menu_id' => 2006,
         'menu_id2' => 0,
-        'name'  => '允许操作',
+        'name'  => '允許操作',
         'is_modules'    => 1,
         'auths' => 'Member@*',
     ],
@@ -194,7 +194,7 @@ return [
         'id' => 22,
         'menu_id' => 2007,
         'menu_id2' => 0,
-        'name'  => '允许操作',
+        'name'  => '允許操作',
         'is_modules'    => 1,
         'auths' => 'Index@switch_map',
     ],

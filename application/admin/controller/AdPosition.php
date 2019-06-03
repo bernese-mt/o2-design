@@ -1,11 +1,11 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
@@ -18,7 +18,7 @@ use think\Db;
 
 class AdPosition extends Base
 {
-    private $ad_position_system_id = array(); // 系统默认位置ID，不可删除
+    private $ad_position_system_id = array(); // 系統預設位置ID，不可刪除
 
     public function _initialize() {
         parent::_initialize();
@@ -30,7 +30,7 @@ class AdPosition extends Base
         $get = input('get.');
         $keywords = input('keywords/s');
         $condition = [];
-        // 应用搜索条件
+        // 應用搜索條件
         foreach (['keywords'] as $key) {
             if (isset($get[$key]) && $get[$key] !== '') {
                 if ($key == 'keywords') {
@@ -42,15 +42,15 @@ class AdPosition extends Base
             }
         }
 
-        // 多语言
+        // 多語言
         $condition['a.lang'] = array('eq', $this->admin_lang);
 
         $adPositionM =  M('ad_position');
-        $count = $adPositionM->alias('a')->where($condition)->count();// 查询满足要求的总记录数
-        $Page = new Page($count, config('paginate.list_rows'));// 实例化分页类 传入总记录数和每页显示的记录数
+        $count = $adPositionM->alias('a')->where($condition)->count();// 查詢滿足要求的總記錄數
+        $Page = new Page($count, config('paginate.list_rows'));// 實例化分頁類 傳入總記錄數和每頁顯示的記錄數
         $list = $adPositionM->alias('a')->where($condition)->order('id desc')->limit($Page->firstRow.','.$Page->listRows)->select();
 
-        // 获取指定位置的广告数目
+        // 獲取指定位置的廣告數目
         $cid = get_arr_column($list, 'id');
         $ad_list = M('ad')->field('pid, count(id) AS has_children')
             ->where([
@@ -60,10 +60,10 @@ class AdPosition extends Base
             ->getAllWithIndex('pid');
         $this->assign('ad_list', $ad_list);
 
-        $show = $Page->show();// 分页显示输出
-        $this->assign('page',$show);// 赋值分页输出
-        $this->assign('list',$list);// 赋值数据集
-        $this->assign('pager',$Page);// 赋值分页对象
+        $show = $Page->show();// 分頁顯示輸出
+        $this->assign('page',$show);// 賦值分頁輸出
+        $this->assign('list',$list);// 賦值數據集
+        $this->assign('pager',$Page);// 賦值分頁對像
         return $this->fetch();
     }
     
@@ -72,10 +72,10 @@ class AdPosition extends Base
      */
     public function add()
     {
-        //防止php超时
+        //防止php超時
         function_exists('set_time_limit') && set_time_limit(0);
 
-        $this->language_access(); // 多语言功能操作权限
+        $this->language_access(); // 多語言功能操作許可權
 
         if (IS_POST) {
             $post = input('post.');
@@ -85,10 +85,10 @@ class AdPosition extends Base
                 'lang'  => $this->admin_lang,
             );
             if(M('ad_position')->where($map)->count() > 0){
-                $this->error('该广告名称已存在，请检查', url('AdPosition/index'));
+                $this->error('該廣告名稱已存在，請檢查', url('AdPosition/index'));
             }
 
-            // 添加广告位置表信息
+            // 新增廣告位置表資訊
             $data = array(
                 'title'       => trim($post['title']),
                 'intro'       => $post['intro'],
@@ -100,10 +100,10 @@ class AdPosition extends Base
             $insertId = M('ad_position')->insertGetId($data);
 
             if ($insertId) {
-                // 同步广告位置ID到多语言的模板变量里，添加多语言广告位
+                // 同步廣告位置ID到多語言的模板變數里，新增多語言廣告位
                 $this->syn_add_language_attribute($insertId);
 
-                // 读取组合广告位的图片及信息
+                // 讀取組合廣告位的圖片及資訊
                 $i = '1';
                 foreach ($post['img_litpic'] as $key => $value) {
                     if (!empty($value)) {
@@ -112,29 +112,29 @@ class AdPosition extends Base
                         }else{
                             $target = '0';
                         }
-                        // 主要参数
+                        // 主要參數
                         $AdData['litpic']      = $value;
                         $AdData['pid']         = $insertId;
                         $AdData['title']       = trim($post['img_title'][$key]);
                         $AdData['links']       = $post['img_links'][$key];
                         $AdData['target']      = $target;
-                        // 其他参数
+                        // 其他參數
                         $AdData['media_type']  = 1;
                         $AdData['admin_id']    = session('admin_id');
                         $AdData['lang']        = $this->admin_lang;
                         $AdData['sort_order']  = $i++;
                         $AdData['add_time']    = getTime();
                         $AdData['update_time'] = getTime();
-                        // 添加到广告图表
+                        // 新增到廣告圖表
                         $ad_id = Db::name('ad')->add($AdData);
-                        // 同步多语言
+                        // 同步多語言
                         $this->syn_add_ad_language_attribute($ad_id);
                     }
                 }
-                adminLog('新增广告：'.$post['title']);
+                adminLog('新增廣告：'.$post['title']);
                 $this->success("操作成功", url('AdPosition/index'));
             } else {
-                $this->error("操作失败", url('AdPosition/index'));
+                $this->error("操作失敗", url('AdPosition/index'));
             }
             exit;
         }
@@ -144,7 +144,7 @@ class AdPosition extends Base
 
     
     /**
-     * 编辑
+     * 編輯
      */
     public function edit()
     {
@@ -152,7 +152,7 @@ class AdPosition extends Base
             $post = input('post.');
             if(!empty($post['id'])){
                 if(array_key_exists($post['id'], $this->ad_position_system_id)){
-                    $this->error("不可更改系统预定义位置", url('AdPosition/edit',array('id'=>$post['id'])));
+                    $this->error("不可更改系統預定義位置", url('AdPosition/edit',array('id'=>$post['id'])));
                 }
 
                 $map = array(
@@ -162,7 +162,7 @@ class AdPosition extends Base
                 );
 
                 if(Db::name('ad_position')->where($map)->count() > 0){
-                    $this->error('该广告名称已存在，请检查', url('AdPosition/index'));
+                    $this->error('該廣告名稱已存在，請檢查', url('AdPosition/index'));
                 }
 
                 $data = array(
@@ -177,42 +177,42 @@ class AdPosition extends Base
             if ($r) {
                 $i = '1';
                 $ad_db = Db::name('ad');
-                // 读取组合广告位的图片及信息
+                // 讀取組合廣告位的圖片及資訊
                 foreach ($post['img_litpic'] as $key => $value) {
                     if (!empty($value)) {
-                        // 是否新窗口打开
+                        // 是否新視窗打開
                         if (!empty($post['img_target'][$key])) {
                             $target = '1';
                         }else{
                             $target = '0';
                         }
-                        // 广告位ID，为空则表示添加
+                        // 廣告位ID，為空則表示新增
                         $ad_id = $post['img_id'][$key];
                         if (!empty($ad_id)) {
-                            // 查询更新条件
+                            // 查詢更新條件
                             $where = [
                                 'id'   => $ad_id,
                                 'lang' => $this->admin_lang,
                             ];
                             if ($ad_db->where($where)->count() > 0) {
-                                // 主要参数
+                                // 主要參數
                                 $AdData['litpic']      = $value;
                                 $AdData['title']       = $post['img_title'][$key];
                                 $AdData['links']       = $post['img_links'][$key];
                                 $AdData['target']      = $target;
-                                // 其他参数
+                                // 其他參數
                                 $AdData['sort_order']  = $i++;
                                 $AdData['update_time'] = getTime();
-                                // 更新，不需要同步多语言
+                                // 更新，不需要同步多語言
                                 $ad_db->where($where)->update($AdData);
                             }else{
-                                // 主要参数
+                                // 主要參數
                                 $AdData['litpic']      = $value;
                                 $AdData['pid']         = $post['id'];
                                 $AdData['title']       = $post['img_title'][$key];
                                 $AdData['links']       = $post['img_links'][$key];
                                 $AdData['target']      = $target;
-                                // 其他参数
+                                // 其他參數
                                 $AdData['media_type']  = 1;
                                 $AdData['admin_id']    = session('admin_id');
                                 $AdData['lang']        = $this->admin_lang;
@@ -220,17 +220,17 @@ class AdPosition extends Base
                                 $AdData['add_time']    = getTime();
                                 $AdData['update_time'] = getTime();
                                 $ad_id = $ad_db->add($AdData);
-                                // 同步多语言
+                                // 同步多語言
                                 $this->syn_add_ad_language_attribute($ad_id);
                             }
                         }else{
-                            // 主要参数
+                            // 主要參數
                             $AdData['litpic']      = $value;
                             $AdData['pid']         = $post['id'];
                             $AdData['title']       = $post['img_title'][$key];
                             $AdData['links']       = $post['img_links'][$key];
                             $AdData['target']      = $target;
-                            // 其他参数
+                            // 其他參數
                             $AdData['media_type']  = 1;
                             $AdData['admin_id']    = session('admin_id');
                             $AdData['lang']        = $this->admin_lang;
@@ -238,16 +238,16 @@ class AdPosition extends Base
                             $AdData['add_time']    = getTime();
                             $AdData['update_time'] = getTime();
                             $ad_id = $ad_db->add($AdData);
-                            // 同步多语言
+                            // 同步多語言
                             $this->syn_add_ad_language_attribute($ad_id);
                         }
                     }
                 }
 
-                adminLog('编辑广告：'.$post['title']);
+                adminLog('編輯廣告：'.$post['title']);
                 $this->success("操作成功", url('AdPosition/index'));
             } else {
-                $this->error("操作失败");
+                $this->error("操作失敗");
             }
         }
 
@@ -259,15 +259,15 @@ class AdPosition extends Base
             ->where(array('a.id'=>$id))
             ->find();
         if (empty($field)) {
-            $this->error('广告不存在，请联系管理员！');
+            $this->error('廣告不存在，請聯繫管理員！');
             exit;
         }
         $assign_data['field'] = $field;
 
-        // 广告
+        // 廣告
         $ad_data = Db::name('ad')->where(array('pid'=>$field['id']))->order('sort_order asc')->select();
         foreach ($ad_data as $key => $val) {
-            $ad_data[$key]['litpic'] = handle_subdir_pic($val['litpic']); // 支持子目录
+            $ad_data[$key]['litpic'] = handle_subdir_pic($val['litpic']); // 支援子目錄
         }
         $assign_data['ad_data'] = $ad_data;
         
@@ -276,15 +276,15 @@ class AdPosition extends Base
     }
 
     /**
-     * 删除广告图片
+     * 刪除廣告圖片
      */
     public function del_imgupload()
     {
-        $this->language_access(); // 多语言功能操作权限
+        $this->language_access(); // 多語言功能操作許可權
         $id_arr = input('del_id/a');
         $id_arr = eyIntval($id_arr);
         if(IS_POST && !empty($id_arr)){
-            /*多语言*/
+            /*多語言*/
             $attr_name_arr = [];
             foreach ($id_arr as $key => $val) {
                 $attr_name_arr[] = 'ad'.$val;
@@ -305,7 +305,7 @@ class AdPosition extends Base
                 ->cache(true,null,'ad')
                 ->delete();
             if ($r) {
-                /*多语言*/
+                /*多語言*/
                 if (!empty($attr_name_arr)) {
                     Db::name('language_attr')->where([
                             'attr_name' => ['IN', $attr_name_arr],
@@ -318,33 +318,33 @@ class AdPosition extends Base
                         ])->delete();
                 }
                 /*--end*/
-                adminLog('删除广告-id：'.implode(',', $id_arr));
+                adminLog('刪除廣告-id：'.implode(',', $id_arr));
             }
         }
     }
 
     /**
-     * 删除
+     * 刪除
      */
     public function del()
     {
-        $this->language_access(); // 多语言功能操作权限
+        $this->language_access(); // 多語言功能操作許可權
 
         $id_arr = input('del_id/a');
         $id_arr = eyIntval($id_arr);
         if(IS_POST && !empty($id_arr)){
             foreach ($id_arr as $key => $val) {
                 if(array_key_exists($val, $this->ad_position_system_id)){
-                    $this->error('系统预定义，不能删除');
+                    $this->error('系統預定義，不能刪除');
                 }
             }
 
             $ad_count = M('ad')->where('pid','IN',$id_arr)->count();
             if ($ad_count > 0){
-                $this->error('该位置下有广告，不允许删除，请先删除该位置下的广告');
+                $this->error('該位置下有廣告，不允許刪除，請先刪除該位置下的廣告');
             }  
 
-            /*多语言*/
+            /*多語言*/
             $attr_name_arr = [];
             foreach ($id_arr as $key => $val) {
                 $attr_name_arr[] = 'adp'.$val;
@@ -361,7 +361,7 @@ class AdPosition extends Base
             $r = M('ad_position')->where('id','IN',$id_arr)->delete();
             if ($r) {
 
-                /*多语言*/
+                /*多語言*/
                 if (!empty($attr_name_arr)) {
                     M('language_attr')->where([
                             'attr_name' => ['IN', $attr_name_arr],
@@ -374,22 +374,22 @@ class AdPosition extends Base
                 }
                 /*--end*/
 
-                adminLog('删除广告-id：'.implode(',', $id_arr));
-                $this->success('删除成功');
+                adminLog('刪除廣告-id：'.implode(',', $id_arr));
+                $this->success('刪除成功');
             } else {
-                $this->error('删除失败');
+                $this->error('刪除失敗');
             }
         }else{
-            $this->error('参数有误');
+            $this->error('參數有誤');
         }
     }
 
     /**
-     * 同步新增广告位置ID到多语言的模板变量里
+     * 同步新增廣告位置ID到多語言的模板變數里
      */
     private function syn_add_language_attribute($adp_id)
     {
-        /*单语言情况下不执行多语言代码*/
+        /*單語言情況下不執行多語言程式碼*/
         if (!is_language()) {
             return true;
         }
@@ -399,7 +399,7 @@ class AdPosition extends Base
         $admin_lang = $this->admin_lang;
         $main_lang = $this->main_lang;
         $languageRow = Db::name('language')->field('mark')->order('id asc')->select();
-        if (!empty($languageRow) && $admin_lang == $main_lang) { // 当前语言是主体语言，即语言列表最早新增的语言
+        if (!empty($languageRow) && $admin_lang == $main_lang) { // 目前語言是主體語言，即語言列表最早新增的語言
             $ad_position_db = Db::name('ad_position');
             $result = $ad_position_db->find($adp_id);
             $attr_name = 'adp'.$adp_id;
@@ -413,7 +413,7 @@ class AdPosition extends Base
             if (false !== $r) {
                 $data = [];
                 foreach ($languageRow as $key => $val) {
-                    /*同步新广告位置到其他语言广告位置列表*/
+                    /*同步新廣告位置到其他語言廣告位置列表*/
                     if ($val['mark'] != $admin_lang) {
                         $addsaveData = $result;
                         $addsaveData['lang']  = $val['mark'];
@@ -423,7 +423,7 @@ class AdPosition extends Base
                     }
                     /*--end*/
                     
-                    /*所有语言绑定在主语言的ID容器里*/
+                    /*所有語言繫結在主語言的ID容器里*/
                     $data[] = [
                         'attr_name' => $attr_name,
                         'attr_value'    => $adp_id,
@@ -442,11 +442,11 @@ class AdPosition extends Base
     }
 
     /**
-     * 同步新增广告ID到多语言的模板变量里
+     * 同步新增廣告ID到多語言的模板變數里
      */
    private function syn_add_ad_language_attribute($ad_id)
     {
-        /*单语言情况下不执行多语言代码*/
+        /*單語言情況下不執行多語言程式碼*/
         if (!is_language()) {
             return true;
         }
@@ -456,7 +456,7 @@ class AdPosition extends Base
         $admin_lang = $this->admin_lang;
         $main_lang = get_main_lang();
         $languageRow = Db::name('language')->field('mark')->order('id asc')->select();
-        if (!empty($languageRow) && $admin_lang == $main_lang) { // 当前语言是主体语言，即语言列表最早新增的语言
+        if (!empty($languageRow) && $admin_lang == $main_lang) { // 目前語言是主體語言，即語言列表最早新增的語言
             $ad_db = Db::name('ad');
             $result = $ad_db->find($ad_id);
             $attr_name = 'ad'.$ad_id;
@@ -470,7 +470,7 @@ class AdPosition extends Base
             if (false !== $r) {
                 $data = [];
                 foreach ($languageRow as $key => $val) {
-                    /*同步新广告到其他语言广告列表*/
+                    /*同步新廣告到其他語言廣告列表*/
                     if ($val['mark'] != $admin_lang) {
                         $addsaveData = $result;
                         $addsaveData['lang'] = $val['mark'];
@@ -486,7 +486,7 @@ class AdPosition extends Base
                     }
                     /*--end*/
                     
-                    /*所有语言绑定在主语言的ID容器里*/
+                    /*所有語言繫結在主語言的ID容器里*/
                     $data[] = [
                         'attr_name'   => $attr_name,
                         'attr_value'  => $ad_id,

@@ -7,7 +7,7 @@
         <meta http-equiv="Content-Language" content="zh-cn"/>
         <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
         <meta name="robots" content="noarchive">
-        <title>后台登录</title>
+        <title>後臺登錄</title>
         <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" media="screen"/>
         <link href="__SKIN__/css/login.css" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="__SKIN__/js/jquery.js"></script>
@@ -27,7 +27,7 @@
                         if ((browser=="Netscape"||browser=="Microsoft Internet Explorer"))
                         {
                             if(trim_Version == 'MSIE8.0' || trim_Version == 'MSIE7.0' || trim_Version == 'MSIE6.0'){
-                                layer.alert('请使用IE9.0版本以上进行访问', {icon:2, title:false});
+                                layer.alert('請使用IE9.0版本以上進行訪問', {icon:2, title:false});
                                 return false;
                             }
                         }
@@ -52,22 +52,22 @@
             </div>
             <div class="box">
                 <form action="" name='theForm' id="theForm" method="post">
-                    <label for="inputEmail" class="sr-only">用户名</label>
-                    <input type="text" name="user_name" autocomplete="off" class="form-control" value="" placeholder="用户名" required autofocus />
-                    <label for="inputPassword" class="sr-only">密码</label>
-                    <input type="password" name="password" autocomplete="off" class="form-control" value="" placeholder="密码" required />
+                    <label for="inputEmail" class="sr-only">使用者名稱</label>
+                    <input type="text" name="user_name" autocomplete="off" class="form-control" value="" placeholder="使用者名稱" required autofocus />
+                    <label for="inputPassword" class="sr-only">密碼</label>
+                    <input type="password" name="password" autocomplete="off" class="form-control" value="" placeholder="密碼" required />
                     {eq name="$is_vertify" value="1"}
                     <div class="formText" style="position:relative">
                         <i class="icon icon-chick"></i>
-                        <input type="text" name="vertify" autocomplete="off" class="form-control" value="" placeholder="验证码" />
+                        <input type="text" name="vertify" autocomplete="off" class="form-control" value="" placeholder="驗證碼" />
                         <img src="{:url('Admin/vertify')}" class="chicuele" id="imgVerify" alt="" onclick="fleshVerify();" style="position:absolute; right: 3px;top: 3px;height: 36px;">
                     </div>
                     {/eq}
                     <div class="clearfix text-right">
-                        <a href="javascript:void(0);" class="help forget_pwd">忘记密码?</a>
+                        <a href="javascript:void(0);" class="help forget_pwd">忘記密碼?</a>
                     </div>
                     <input type="hidden" name="__token__" value="{$Request.token}" />
-                    <input type="button" name="submit" class="btn btn-lg btn-primary btn-block show-dialog" value="登录">
+                    <input type="button" name="submit" class="btn btn-lg btn-primary btn-block show-dialog" value="登錄">
                 </form>
             </div> 
         </div> <!-- /container -->
@@ -100,14 +100,14 @@
                     var vertify=true;
 
                     if($('#theForm input[name=user_name]').val() == ''){
-                        layer.msg('用户名不能为空！', {time: 1000});
+                        layer.msg('使用者名稱不能為空！', {time: 1000});
                         $('#theForm input[name=user_name]').focus();
                         user_name = false;
                         return false;
                     }
 
                     if($('#theForm input[name=password]').val() == ''){
-                        layer.msg('密码不能为空！', {time: 1000});
+                        layer.msg('密碼不能為空！', {time: 1000});
                         $('#theForm input[name=password]').focus();
                         password = false;
                         return false;
@@ -115,7 +115,7 @@
 
                     {eq name="$is_vertify" value="1"}
                     if($('#theForm input[name=vertify]').val() == ''){
-                        layer.msg('验证码不能为空！', {time: 1000});
+                        layer.msg('驗證碼不能為空！', {time: 1000});
                         $('#theForm input[name=vertify]').focus();
                         vertify = false;
                         return false;
@@ -130,7 +130,7 @@
                             url += '?';
                         }
                         url += 't='+Math.random();
-                        layer_loading('准备进入');
+                        layer_loading('準備進入');
                         $.ajax({
                             async:false,
                             url: url,
@@ -151,7 +151,7 @@
                             },
                             error : function(XMLHttpRequest, textStatus, errorThrown) {
                                 layer.closeAll();
-                                layer.alert('网络失败，请刷新页面后重试', {icon: 5, title:false});
+                                layer.alert('網路失敗，請重新整理頁面後重試', {icon: 5, title:false});
                             }
                         });
                     }else{
@@ -160,7 +160,7 @@
                 });
 
                 $(".forget_pwd").click(function(){
-                    layer.alert('请联系网站管理员！', {icon: 6, title:false});
+                    layer.alert('請聯繫網站管理員！', {icon: 6, title:false});
                 });
             });
             
@@ -172,21 +172,21 @@
                     src += '?';
                 }
                 src += 'r='+Math.floor(Math.random()*100);
-                $('#imgVerify').attr('src', src);//重载验证码
+                $('#imgVerify').attr('src', src);//過載驗證碼
             }
 
             /**
-             * 封装的加载层
+             * 封裝的載入層
              */
             function layer_loading(msg){
                 var loading = layer.msg(
-                msg+'...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请勿刷新页面', 
+                msg+'...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;請勿重新整理頁面', 
                 {
                     icon: 1,
-                    time: 3600000, //1小时后后自动关闭
+                    time: 3600000, //1小時後后自動關閉
                     shade: [0.2] //0.1透明度的白色背景
                 });
-                //loading层
+                //loading層
                 var index = layer.load(3, {
                     shade: [0.1,'#fff'] //0.1透明度的白色背景
                 });

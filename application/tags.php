@@ -1,8 +1,8 @@
 <?php
 
-// 应用行为扩展定义文件
+// 應用行為擴充套件定義檔案
 
-/*引入全部插件的app_init行为*/
+/*引入全部外掛的app_init行為*/
 $app_init = [
     'app\\common\\behavior\\AppInitBehavior',
 ];
@@ -18,7 +18,7 @@ if (!empty($files)) {
 }
 /*--end*/
 
-/*引入全部插件的app_begin行为*/
+/*引入全部外掛的app_begin行為*/
 $app_begin = [];
 $files = glob(WEAPP_DIR_NAME.DS.'*'.DS.'behavior'.DS.'AppBeginBehavior.php');
 if (!empty($files)) {
@@ -32,7 +32,7 @@ if (!empty($files)) {
 }
 /*--end*/
 
-/*引入全部插件的app_begin行为*/
+/*引入全部外掛的app_begin行為*/
 $module_init = [];
 $files = glob(WEAPP_DIR_NAME.DS.'*'.DS.'behavior'.DS.'ModuleInitBehavior.php');
 if (!empty($files)) {
@@ -46,7 +46,7 @@ if (!empty($files)) {
 }
 /*--end*/
 
-/*引入全部插件的action_begin行为*/
+/*引入全部外掛的action_begin行為*/
 $action_begin = [];
 $files = glob(WEAPP_DIR_NAME.DS.'*'.DS.'behavior'.DS.'ActionBeginBehavior.php');
 if (!empty($files)) {
@@ -60,7 +60,7 @@ if (!empty($files)) {
 }
 /*--end*/
 
-/*引入全部插件的view_filter行为*/
+/*引入全部外掛的view_filter行為*/
 $view_filter = [];
 $files = glob(WEAPP_DIR_NAME.DS.'*'.DS.'behavior'.DS.'ViewFilterBehavior.php');
 if (!empty($files)) {
@@ -74,7 +74,7 @@ if (!empty($files)) {
 }
 /*--end*/
 
-/*引入全部插件的log_write行为*/
+/*引入全部外掛的log_write行為*/
 $log_write = [];
 $files = glob(WEAPP_DIR_NAME.DS.'*'.DS.'behavior'.DS.'LogWriteBehavior.php');
 if (!empty($files)) {
@@ -88,7 +88,7 @@ if (!empty($files)) {
 }
 /*--end*/
 
-/*引入全部插件的app_end行为*/
+/*引入全部外掛的app_end行為*/
 $app_end = [];
 $files = glob(WEAPP_DIR_NAME.DS.'*'.DS.'behavior'.DS.'AppEndBehavior.php');
 if (!empty($files)) {
@@ -103,18 +103,18 @@ if (!empty($files)) {
 /*--end*/
 
 return array(
-    // 应用初始化
+    // 應用初始化
     'app_init'     => $app_init,
-    // 应用开始
+    // 應用開始
     'app_begin'    => $app_begin,
-    // 模块初始化
+    // 模組初始化
     'module_init'  => $module_init,
-    // 操作开始执行
+    // 操作開始執行
     'action_begin' => $action_begin,
-    // 视图内容过滤
+    // 檢視內容過濾
     'view_filter'  => $view_filter,
-    // 日志写入
+    // 日誌寫入
     'log_write'    => $log_write,
-    // 应用结束
+    // 應用結束
     'app_end'      => $app_end,
 );

@@ -2,7 +2,7 @@
 /**
  * 易優CMS
  * ============================================================================
- * 版權所有 2016-2028 海南贊贊網絡科技有限公司，并保留所有權利。
+ * 版權所有 2016-2028 海南贊贊網絡科技有限公司，並保留所有權利。
  * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
  * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
@@ -33,7 +33,7 @@ if (!function_exists('adminLog'))
     /**
      * 管理員操作記錄
      * @param $log_url 操作URL
-     * @param $log_info 記錄信息
+     * @param $log_info 記錄資訊
      */
     function adminLog($log_info = ''){
         $admin_id = session('admin_id');
@@ -50,7 +50,7 @@ if (!function_exists('adminLog'))
 if (!function_exists('getAdminInfo')) 
 {
     /**
-     * 獲取管理員登錄信息
+     * 獲取管理員登錄資訊
      */
     function getAdminInfo($admin_id = 0)
     {
@@ -77,7 +77,7 @@ if (!function_exists('getAdminInfo'))
 if (!function_exists('get_conf')) 
 {
     /**
-     * 獲取conf配置文件
+     * 獲取conf配置檔案
      */
     function get_conf($name = 'global')
     {            
@@ -89,7 +89,7 @@ if (!function_exists('get_conf'))
 if (!function_exists('get_auth_rule')) 
 {
     /**
-     * 獲取權限列表文件
+     * 獲取權限列表檔案
      */
     function get_auth_rule($where = [])
     {
@@ -281,7 +281,7 @@ if (!function_exists('tpversion'))
 if (!function_exists('push_zzbaidu')) 
 {
     /**
-     * 将新鏈接推送給百度蜘蛛
+     * 將新鏈接推送給百度蜘蛛
      */
     function push_zzbaidu($type = 'urls', $aid = '', $typeid = '')
     {
@@ -332,7 +332,7 @@ if (!function_exists('push_zzbaidu'))
 if (!function_exists('sitemap_auto')) 
 {
     /**
-     * 自動生成引擎sitemap
+     * 自動產生引擎sitemap
      */
     function sitemap_auto()
     {
@@ -346,7 +346,7 @@ if (!function_exists('sitemap_auto'))
 if (!function_exists('sitemap_all')) 
 {
     /**
-     * 生成全部引擎sitemap
+     * 產生全部引擎sitemap
      */
     function sitemap_all()
     {
@@ -357,7 +357,7 @@ if (!function_exists('sitemap_all'))
 if (!function_exists('sitemap_xml')) 
 {
     /**
-     * 生成xml形式的sitemap
+     * 產生xml形式的sitemap
      */
     function sitemap_xml()
     {
@@ -369,14 +369,14 @@ if (!function_exists('sitemap_xml'))
         $modelu_name = 'home';
         $filename = ROOT_PATH . "sitemap.xml";
 
-        /* 分類列表(用于生成列表鏈接的sitemap) */
+        /* 分類列表(用於產生列表鏈接的sitemap) */
         $map = array(
             'status'    => 1,
             'is_del'    => 0,
             'lang'      => get_main_lang(),
         );
         if (is_array($sitemap_config)) {
-            // 過濾隐藏欄目
+            // 過濾隱藏欄目
             if (isset($sitemap_config['sitemap_not1']) && $sitemap_config['sitemap_not1'] > 0) {
                 $map['is_hidden'] = 0;
             }
@@ -390,7 +390,7 @@ if (!function_exists('sitemap_xml'))
             ->order('sort_order asc')
             ->getAllWithIndex('id');
 
-        /* 文章列表(用于生成文章詳情鏈接的sitemap) */
+        /* 文章列表(用於產生文章詳情鏈接的sitemap) */
         $map = array(
             'channel'   => ['IN', config('global.allow_release_channel')],
             'arcrank'   => array('gt', -1),
@@ -411,7 +411,7 @@ if (!function_exists('sitemap_xml'))
             ->limit(48000)
             ->select();
 
-            // header('Content-Type: text/xml');//這行很重要，php默認輸出text/html格式的文件，所以這裏明确告訴浏覽器輸出的格式爲xml,不然浏覽器顯示不出xml的格式
+            // header('Content-Type: text/xml');//這行很重要，php默認輸出text/html格式的檔案，所以這裏明確告訴瀏覽器輸出的格式爲xml,不然瀏覽器顯示不出xml的格式
             $xml_wrapper = <<<XML
 <?xml version='1.0' encoding='utf-8'?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -429,7 +429,7 @@ XML;
             ->cache(true, EYOUCMS_CACHE_TIME, 'language')
             ->select();
 
-        /*去掉入口文件*/
+        /*去掉入口檔案*/
         $inletStr = '/index.php';
         $seo_inlet = config('ey_config.seo_inlet');
         1 == intval($seo_inlet) && $inletStr = '';
@@ -443,12 +443,12 @@ XML;
             $url = $val['url'];
             if (empty($url)) {
                 if (1 == $val['is_home_default']) {
-                    $url = request()->domain().ROOT_DIR.'/'; // 支持子目錄
+                    $url = request()->domain().ROOT_DIR.'/'; // 支援子目錄
                 } else {
                     $seoConfig = tpCache('seo', [], $mark);
                     $seo_pseudo = !empty($seoConfig['seo_pseudo']) ? $seoConfig['seo_pseudo'] : config('ey_config.seo_pseudo');
                     if (1 == $seo_pseudo) {
-                        $url = request()->domain().ROOT_DIR.$inletStr; // 支持子目錄
+                        $url = request()->domain().ROOT_DIR.$inletStr; // 支援子目錄
                         if (!empty($inletStr)) {
                             $url .= '?';
                         } else {
@@ -456,13 +456,13 @@ XML;
                         }
                         $url .= http_build_query(['lang'=>$mark]);
                     } else {
-                        $url = request()->domain().ROOT_DIR.$inletStr.'/'.$mark; // 支持子目錄
+                        $url = request()->domain().ROOT_DIR.$inletStr.'/'.$mark; // 支援子目錄
                     }
                 }
             }
             /*--end*/
 
-            $item = $xml->addChild('url'); //使用addChild添加節點
+            $item = $xml->addChild('url'); //使用addChild新增節點
             foreach (['loc','lastmod','changefreq','priority'] as $key1) {
                 if ('loc' == $key1) {
                     $row = $url;
@@ -488,7 +488,7 @@ XML;
         /*所有欄目*/
         foreach ($result_arctype as $sub) {
             if (is_array($sub)) {
-                $item = $xml->addChild('url'); //使用addChild添加節點
+                $item = $xml->addChild('url'); //使用addChild新增節點
                 foreach ($sub as $key => $row) {
                     if (in_array($key, array('loc','lastmod','changefreq','priority'))) {
                         if ($key == 'loc') {
@@ -519,7 +519,7 @@ XML;
         /*所有文檔*/
         foreach ($result_archives as $val) {
             if (is_array($val) && isset($result_arctype[$val['typeid']])) {
-                $item = $xml->addChild('url'); //使用addChild添加節點
+                $item = $xml->addChild('url'); //使用addChild新增節點
                 $val = array_merge($result_arctype[$val['typeid']], $val);
                 foreach ($val as $key => $row) {
                     if (in_array($key, array('loc','lastmod','changefreq','priority'))) {
@@ -561,7 +561,7 @@ if (!function_exists('get_typeurl'))
      */
     function get_typeurl($arctype_info = array())
     {
-        /*兼容采集沒有歸屬欄目的文檔*/
+        /*相容採集沒有歸屬欄目的文檔*/
         if (empty($arctype_info['current_channel'])) {
             $channelRow = \think\Db::name('channeltype')->field('id as channel')
                 ->where('id',1)
@@ -579,7 +579,7 @@ if (!function_exists('get_typeurl'))
         $seo_pseudo = !empty($seoConfig['seo_pseudo']) ? $seoConfig['seo_pseudo'] : config('ey_config.seo_pseudo');
         $seo_dynamic_format = !empty($seoConfig['seo_dynamic_format']) ? $seoConfig['seo_dynamic_format'] : config('ey_config.seo_dynamic_format');
         $typeurl = typeurl("home/{$ctl_name}/lists", $arctype_info, true, request()->domain(), $seo_pseudo, $seo_dynamic_format);
-        // 自動隐藏index.php入口文件
+        // 自動隱藏index.php入口檔案
         $typeurl = auto_hide_index($typeurl);
 
         return $typeurl;
@@ -593,7 +593,7 @@ if (!function_exists('get_arcurl'))
      */
     function get_arcurl($arcview_info = array())
     {
-        /*兼容采集沒有歸屬欄目的文檔*/
+        /*相容採集沒有歸屬欄目的文檔*/
         if (empty($arcview_info['channel'])) {
             $channelRow = \think\Db::name('channeltype')->field('id as channel')
                 ->where('id',1)
@@ -611,7 +611,7 @@ if (!function_exists('get_arcurl'))
         $seo_pseudo = !empty($seoConfig['seo_pseudo']) ? $seoConfig['seo_pseudo'] : config('ey_config.seo_pseudo');
         $seo_dynamic_format = !empty($seoConfig['seo_dynamic_format']) ? $seoConfig['seo_dynamic_format'] : config('ey_config.seo_dynamic_format');
         $arcurl = arcurl("home/{$ctl_name}/view", $arcview_info, true, request()->domain(), $seo_pseudo, $seo_dynamic_format);
-        // 自動隐藏index.php入口文件
+        // 自動隱藏index.php入口檔案
         $arcurl = auto_hide_index($arcurl);
 
         return $arcurl;
@@ -648,9 +648,9 @@ if (!function_exists('get_total_arc'))
 if (!function_exists('replace_path')) 
 {
     /**
-     * 将路徑斜杆、反斜杠替換爲冒号符，适用于IIS服務器在URL上的雙重轉義限制
+     * 將路徑斜桿、反斜槓替換爲冒號符，適用於IIS服務器在URL上的雙重轉義限制
      * @param string $filepath 相對路徑
-     * @param string $replacement 目标字符
+     * @param string $replacement 目標字元
      * @param boolean $is_back false爲替換，true爲還原
      */
     function replace_path($filepath = '', $replacement = ':', $is_back = false)
@@ -669,14 +669,14 @@ if (!function_exists('replace_path'))
 if (!function_exists('get_seo_pseudo_list')) 
 {
     /**
-     * URL模式下拉列表
+     * URL模式下拉選單
      */
     function get_seo_pseudo_list($key = '')
     {
         $data = array(
-            1   => '動态URL',
-            // 2   => '靜态頁面',
-            3   => '僞靜态化'
+            1   => '動態URL',
+            // 2   => '靜態頁面',
+            3   => '僞靜態化'
         );
 
         return isset($data[$key]) ? $data[$key] : $data;
@@ -695,7 +695,7 @@ if (!function_exists('get_chown_pathinfo'))
         $pathinfo = true;
 
         if (function_exists('stat')) {
-            /*指定操作系統，在列表内才進行后續獲取*/
+            /*指定操作系統，在列表內才進行后續獲取*/
             $isValidate = false;
             $os = PHP_OS;
             $osList = array('linux','unix');
@@ -729,12 +729,12 @@ if (!function_exists('get_chown_pathinfo'))
 if (!function_exists('auto_hide_index')) 
 {
     /**
-     * URL中隐藏index.php入口文件（适用后台顯示前台的URL）
+     * URL中隱藏index.php入口檔案（適用後臺顯示前臺的URL）
      */
     function auto_hide_index($url) {
         $web_adminbasefile = tpCache('web.web_adminbasefile');
-        $web_adminbasefile = !empty($web_adminbasefile) ? $web_adminbasefile : ROOT_DIR.'/login.php'; // 支持子目錄
-        $url = str_replace($web_adminbasefile, ROOT_DIR.'/index.php', $url); // 支持子目錄
+        $web_adminbasefile = !empty($web_adminbasefile) ? $web_adminbasefile : ROOT_DIR.'/login.php'; // 支援子目錄
+        $url = str_replace($web_adminbasefile, ROOT_DIR.'/index.php', $url); // 支援子目錄
         $seo_inlet = config('ey_config.seo_inlet');
         if (1 == $seo_inlet) {
             $url = str_replace('/index.php/', '/', $url);
@@ -745,7 +745,7 @@ if (!function_exists('auto_hide_index'))
 
 if (!function_exists('menu_select')) 
 {
-    /*組裝成層級下拉列表框*/
+    /*組裝成層級下拉選單框*/
     function menu_select($selected = 0)
     {
         $select_html = '';
@@ -809,7 +809,7 @@ if (!function_exists('menu_select'))
 if (!function_exists('schemaTable')) 
 {
     /**
-     * 重新生成數據表緩存字段文件
+     * 重新產生數據表緩存欄位檔案
      */
     function schemaTable($name)
     {
@@ -818,7 +818,7 @@ if (!function_exists('schemaTable'))
         if (!preg_match('/^'.$prefix.'/i', $name)) {
             $table = $prefix.$name;
         }
-        /*調用命令行的指令*/
+        /*調用命令列的指令*/
         \think\Console::call('optimize:schema', ['--table', $table]);
         /*--end*/
     }

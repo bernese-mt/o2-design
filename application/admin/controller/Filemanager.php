@@ -1,11 +1,11 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
@@ -28,18 +28,18 @@ class Filemanager extends Base
         parent::_initialize();
         $this->filemanagerLogic = new FilemanagerLogic(); 
         $this->globalTpCache = $this->filemanagerLogic->globalTpCache;
-        $this->baseDir = $this->filemanagerLogic->baseDir; // 服务器站点根目录绝对路径
-        $this->maxDir = $this->filemanagerLogic->maxDir; // 默认文件管理的最大级别目录
+        $this->baseDir = $this->filemanagerLogic->baseDir; // 伺服器站點根目錄絕對路徑
+        $this->maxDir = $this->filemanagerLogic->maxDir; // 預設檔案管理的最大級別目錄
     }
 
     public function index()
     {
-        // 获取到所有GET参数
+        // 獲取到所有GET參數
         $param = input('param.', '', null);
         $activepath = input('param.activepath', '', null);
         $activepath = $this->filemanagerLogic->replace_path($activepath, ':', true);
 
-        /*当前目录路径*/
+        /*目前目錄路徑*/
         $activepath = !empty($activepath) ? $activepath : $this->maxDir;
         $tmp_max_dir = preg_replace("#\/#i", "\/", $this->maxDir);
         if (!preg_match("#^".$tmp_max_dir."#i", $activepath)) {
@@ -49,7 +49,7 @@ class Filemanager extends Base
 
         $inpath = "";
         $activepath = str_replace("..", "", $activepath);
-        $activepath = preg_replace("#^\/{1,}#", "/", $activepath); // 多个斜杆替换为单个斜杆
+        $activepath = preg_replace("#^\/{1,}#", "/", $activepath); // 多個斜桿替換為單個斜桿
         if($activepath == "/") $activepath = "";
 
         if(empty($activepath)) {
@@ -61,7 +61,7 @@ class Filemanager extends Base
         $list = $this->filemanagerLogic->getDirFile($inpath, $activepath);
         $assign_data['list'] = $list;
 
-        /*文件操作*/
+        /*檔案操作*/
         $assign_data['replaceImgOpArr'] = $this->filemanagerLogic->replaceImgOpArr;
         $assign_data['editOpArr'] = $this->filemanagerLogic->editOpArr;
         $assign_data['renameOpArr'] = $this->filemanagerLogic->renameOpArr;
@@ -77,7 +77,7 @@ class Filemanager extends Base
 
 
     /**
-     * 替换图片
+     * 替換圖片
      */
     public function replace_img()
     {
@@ -85,20 +85,20 @@ class Filemanager extends Base
             $post = input('post.', '', null);
             $activepath = !empty($post['activepath']) ? trim($post['activepath']) : '';
             if (empty($activepath)) {
-                $this->error('参数有误');
+                $this->error('參數有誤');
                 exit;
             }
 
             $file = request()->file('upfile');
             if (empty($file)) {
-                $this->error('请选择上传图片！');
+                $this->error('請選擇上傳圖片！');
                 exit;
             } else {
                 $image_upload_limit_size = intval(tpCache('basic.file_size') * 1024 * 1024);
                 $result = $this->validate(
                     ['file' => $file],
                     ['file'=>'image|fileSize:'.$image_upload_limit_size],
-                    ['file.image' => '上传文件必须为图片','file.fileSize' => '上传图片过大']
+                    ['file.image' => '上傳檔案必須為圖片','file.fileSize' => '上傳圖片過大']
                 );
                 if (true !== $result || empty($file)) {
                     $this->error($result);
@@ -115,7 +115,7 @@ class Filemanager extends Base
 
         $activepath = input('param.activepath/s', '', null);
         $activepath = $this->filemanagerLogic->replace_path($activepath, ':', true);
-        if ($activepath == "") $activepathname = "根目录";
+        if ($activepath == "") $activepathname = "根目錄";
         else $activepathname = $activepath;
 
         $info = array(
@@ -128,7 +128,7 @@ class Filemanager extends Base
     }
 
     /**
-     * 编辑
+     * 編輯
      */
     public function edit()
     {
@@ -140,7 +140,7 @@ class Filemanager extends Base
             $activepath = !empty($post['activepath']) ? trim($post['activepath']) : '';
 
             if (empty($filename) || empty($activepath)) {
-                $this->error('参数有误');
+                $this->error('參數有誤');
                 exit;
             }
 
@@ -164,22 +164,22 @@ class Filemanager extends Base
         $path_parts  = pathinfo($filename);
         $path_parts['extension'] = strtolower($path_parts['extension']);
 
-        /*不允许越过指定最大级目录的文件编辑*/
+        /*不允許越過指定最大級目錄的檔案編輯*/
         $tmp_max_dir = preg_replace("#\/#i", "\/", $this->filemanagerLogic->maxDir);
         if (!preg_match("#^".$tmp_max_dir."#i", $activepath)) {
-            $this->error('没有操作权限！');
+            $this->error('沒有操作許可權！');
             exit;
         }
         /*--end*/
         
-        /*允许编辑的文件类型*/
+        /*允許編輯的檔案型別*/
         if (!in_array($path_parts['extension'], $this->filemanagerLogic->editExt)) {
-            $this->error('只允许操作文件类型如下：'.implode('|', $this->filemanagerLogic->editExt));
+            $this->error('只允許操作檔案型別如下：'.implode('|', $this->filemanagerLogic->editExt));
             exit;
         }
         /*--end*/
 
-        /*读取文件内容*/
+        /*讀取檔案內容*/
         $file = $this->baseDir."$activepath/$filename";
         $content = "";
         if(is_file($file))
@@ -217,7 +217,7 @@ class Filemanager extends Base
     }
 
     /**
-     * 新建文件
+     * 新建檔案
      */
     public function newfile()
     {
@@ -229,7 +229,7 @@ class Filemanager extends Base
             $activepath = !empty($post['activepath']) ? trim($post['activepath']) : '';
 
             if (empty($filename) || empty($activepath)) {
-                $this->error('参数有误');
+                $this->error('參數有誤');
                 exit;
             }
 

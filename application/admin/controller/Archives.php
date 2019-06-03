@@ -1,11 +1,11 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
@@ -19,7 +19,7 @@ use app\common\logic\ArctypeLogic;
 
 class Archives extends Base
 {
-    // 允许发布文档的模型ID
+    // 允許發佈文件的模型ID
     public $allowReleaseChannel = array();
     
     public function _initialize() {
@@ -28,12 +28,12 @@ class Archives extends Base
     }
 
     /**
-     * 内容管理
+     * 內容管理
      */
     public function index()
     {
         $arctype_list = array();
-        // 目录列表
+        // 目錄列表
         $arctypeLogic = new ArctypeLogic(); 
         $where['is_del'] = '0'; // 回收站功能
         $arctype_list = $arctypeLogic->arctype_list(0, 0, false, 0, $where, false);
@@ -50,12 +50,12 @@ class Archives extends Base
             }
             $typename = $val['typename'];
             $zNodes .= "{"."id:{$val['id']}, pId:{$val['parent_id']}, name:\"{$typename}\", url:'{$typeurl}',target:'content_body'";
-            /*默认展开一级栏目*/
+            /*預設展開一級欄目*/
             if (empty($val['parent_id'])) {
                 $zNodes .= ",open:true";
             }
             /*--end*/
-            /*栏目有下级栏目时，显示图标*/
+            /*欄目有下級欄目時，顯示圖示*/
             if (1 == $val['has_children']) {
                 $zNodes .= ",isParent:true";
             } else {
@@ -71,17 +71,17 @@ class Archives extends Base
     }
 
     /**
-     * 内容管理 - 所有文档列表风格（只针对ey_archives表，排除单页记录）
+     * 內容管理 - 所有文件列表風格（只針對ey_archives表，排除單頁記錄）
      */
     public function index_archives()
     {
         $assign_data = array();
         $condition = array();
-        // 获取到所有URL参数
+        // 獲取到所有URL參數
         $param = input('param.');
         $typeid = input('typeid/d', 0);
 
-        /*跳转到指定栏目的文档列表*/
+        /*跳轉到指定欄目的文件列表*/
         if (0 < intval($typeid)) {
             $row = db('arctype')
                 ->alias('a')
@@ -102,7 +102,7 @@ class Archives extends Base
         }
         /*--end*/
 
-        // 应用搜索条件
+        // 應用搜索條件
         foreach (['keywords','typeid'] as $key) {
             if (isset($param[$key]) && $param[$key] !== '') {
                 if ($key == 'keywords') {
@@ -111,7 +111,7 @@ class Archives extends Base
                     $typeid = $param[$key];
                     $hasRow = model('Arctype')->getHasChildren($typeid);
                     $typeids = get_arr_column($hasRow, 'id');
-                    /*权限控制 by 小虎哥*/
+                    /*許可權控制 by 小虎哥*/
                     $admin_info = session('admin_info');
                     if (0 < intval($admin_info['role_id'])) {
                         $auth_role_info = $admin_info['auth_role_info'];
@@ -134,7 +134,7 @@ class Archives extends Base
             }
         }
         
-        /*权限控制 by 小虎哥*/
+        /*許可權控制 by 小虎哥*/
         if (empty($typeid)) {
             $typeids = [];
             $admin_info = session('admin_info');
@@ -156,29 +156,29 @@ class Archives extends Base
         /*--end*/
 
         if (empty($typeid)) {
-            // 只显示允许发布文档的模型，且是开启状态
+            // 只顯示允許發佈文件的模型，且是開啟狀態
             $channelIds = Db::name('channeltype')->where('status',0)
                 ->whereOr('id','IN',[6,8])->column('id');
             $condition['a.channel'] = array('NOT IN', $channelIds);
         } else {
-            // 只显示当前栏目对应模型下的文档
+            // 只顯示目前欄目對應模型下的文件
             $current_channel = Db::name('arctype')->where('id',$typeid)->getField('current_channel');
             $condition['a.channel'] = array('eq', $current_channel);
         }
 
-        /*多语言*/
+        /*多語言*/
         $condition['a.lang'] = array('eq', $this->admin_lang);
         /*--end*/
 
-        /*回收站数据不显示*/
+        /*回收站數據不顯示*/
         $condition['a.is_del'] = array('eq', 0);
         /*--end*/
 
         /**
-         * 数据查询，搜索出主键ID的值
+         * 數據查詢，搜索出主鍵ID的值
          */
-        $count = DB::name('archives')->alias('a')->where($condition)->count('aid');// 查询满足要求的总记录数
-        $Page = new Page($count, config('paginate.list_rows'));// 实例化分页类 传入总记录数和每页显示的记录数
+        $count = DB::name('archives')->alias('a')->where($condition)->count('aid');// 查詢滿足要求的總記錄數
+        $Page = new Page($count, config('paginate.list_rows'));// 實例化分頁類 傳入總記錄數和每頁顯示的記錄數
         $list = DB::name('archives')
             ->field("a.aid,a.channel")
             ->alias('a')
@@ -188,8 +188,8 @@ class Archives extends Base
             ->getAllWithIndex('aid');
 
         /**
-         * 完善数据集信息
-         * 在数据量大的情况下，经过优化的搜索逻辑，先搜索出主键ID，再通过ID将其他信息补充完整；
+         * 完善數據集資訊
+         * 在數據量大的情況下，經過優化的搜索邏輯，先搜索出主鍵ID，再通過ID將其他資訊補充完整；
          */
         if ($list) {
             $aids = array_keys($list);
@@ -201,7 +201,7 @@ class Archives extends Base
                 ->where('a.aid', 'in', $aids)
                 ->getAllWithIndex('aid');
 
-            /*获取当页文档的所有模型*/
+            /*獲取當頁文件的所有模型*/
             $channelIds = get_arr_column($list, 'channel');
             $channelRow = Db::name('channeltype')->field('id, ctl_name')
                 ->where('id','IN',$channelIds)
@@ -211,18 +211,18 @@ class Archives extends Base
 
             foreach ($list as $key => $val) {
                 $row[$val['aid']]['arcurl'] = get_arcurl($row[$val['aid']]);
-                $row[$val['aid']]['litpic'] = handle_subdir_pic($row[$val['aid']]['litpic']); // 支持子目录
+                $row[$val['aid']]['litpic'] = handle_subdir_pic($row[$val['aid']]['litpic']); // 支援子目錄
                 $list[$key] = $row[$val['aid']];
             }
         }
-        $show = $Page->show(); // 分页显示输出
-        $assign_data['page'] = $show; // 赋值分页输出
-        $assign_data['list'] = $list; // 赋值数据集
-        $assign_data['pager'] = $Page; // 赋值分页对象
+        $show = $Page->show(); // 分頁顯示輸出
+        $assign_data['page'] = $show; // 賦值分頁輸出
+        $assign_data['list'] = $list; // 賦值數據集
+        $assign_data['pager'] = $Page; // 賦值分頁對像
 
-        // 栏目ID
-        $assign_data['typeid'] = $typeid; // 栏目ID
-        /*当前栏目信息*/
+        // 欄目ID
+        $assign_data['typeid'] = $typeid; // 欄目ID
+        /*目前欄目資訊*/
         $arctype_info = array();
         if ($typeid > 0) {
             $arctype_info = M('arctype')->field('typename')->find($typeid);
@@ -230,11 +230,11 @@ class Archives extends Base
         $assign_data['arctype_info'] = $arctype_info;
         /*--end*/
 
-        /*允许发布文档列表的栏目*/
+        /*允許發佈文件列表的欄目*/
         $assign_data['arctype_html'] = allow_release_arctype($typeid, array());
         /*--end*/
         
-        /*返回上一层链接*/
+        /*返回上一層鏈接*/
         $gourl = url('Archives/index_archives', array('typeid'=>$typeid));
         $assign_data['gourl'] = $gourl;
         /*--end*/
@@ -244,11 +244,11 @@ class Archives extends Base
     }
 
     /**
-     * 内容管理 - 栏目展开风格
+     * 內容管理 - 欄目展開風格
      */
     private function index_arctype() {
         $arctype_list = array();
-        // 目录列表
+        // 目錄列表
         $arctypeLogic = new ArctypeLogic(); 
         $arctype_list = $arctypeLogic->arctype_list(0, 0, false, 0, array(), false);
         $this->assign('arctype_list', $arctype_list);
@@ -257,18 +257,18 @@ class Archives extends Base
         $channeltype_list = getChanneltypeList();
         $this->assign('channeltype_list', $channeltype_list);
 
-        // 栏目最多级别
+        // 欄目最多級別
         $arctype_max_level = intval(config('global.arctype_max_level'));
         $this->assign('arctype_max_level', $arctype_max_level);
 
-        // 允许发布文档的模型
+        // 允許發佈文件的模型
         $this->assign('allow_release_channel', $this->allowReleaseChannel);
 
         return $this->fetch('index_arctype');
     }
 
     /**
-     * 发布文档
+     * 發佈文件
      */
     public function add()
     {
@@ -289,7 +289,7 @@ class Archives extends Base
     }
 
     /**
-     * 编辑文档
+     * 編輯文件
      */
 /*    public function edit()
     {
@@ -313,7 +313,7 @@ class Archives extends Base
     }*/
 
     /**
-     * 删除文档
+     * 刪除文件
      */
     public function del()
     {
@@ -324,7 +324,7 @@ class Archives extends Base
     }
     
     /**
-     * 移动
+     * 移動
      */
     public function move()
     {
@@ -334,21 +334,21 @@ class Archives extends Base
             $aids = !empty($post['aids']) ? eyIntval($post['aids']) : '';
 
             if (empty($typeid) || empty($aids)) {
-                $this->error('参数有误，请联系技术支持');
+                $this->error('參數有誤，請聯繫技術支援');
             }
 
-            // 获取移动栏目的模型ID
+            // 獲取移動欄目的模型ID
             $current_channel = Db::name('arctype')->where([
                     'id'    => $typeid,
                     'lang'  => $this->admin_lang,
                 ])->getField('current_channel');
-            // 抽取相符合模型ID的文档aid
+            // 抽取相符合模型ID的文件aid
             $aids = Db::name('archives')->where([
                     'aid'   =>  ['IN', $aids],
                     'channel'   =>  $current_channel,
                     'lang'  => $this->admin_lang,
                 ])->column('aid');
-            // 移动文档处理
+            // 移動文件處理
             $update_data = array(
                 'typeid'    => $typeid,
                 'update_time'   => getTime(),
@@ -357,16 +357,16 @@ class Archives extends Base
                     'aid' => ['IN', $aids],
                 ])->update($update_data);
             if($r){
-                adminLog('移动文档-id：'.$aids);
+                adminLog('移動文件-id：'.$aids);
                 $this->success('操作成功');
             }else{
-                $this->error('操作失败');
+                $this->error('操作失敗');
             }
         }
 
         $typeid = input('param.typeid/d', 0);
 
-        /*允许发布文档列表的栏目*/
+        /*允許發佈文件列表的欄目*/
         $allowReleaseChannel = [];
         if (!empty($typeid)) {
             $channelId = Db::name('arctype')->where('id',$typeid)->getField('current_channel');
@@ -376,7 +376,7 @@ class Archives extends Base
         $this->assign('arctype_html', $arctype_html);
         /*--end*/
 
-        /*不允许发布文档的模型ID，用于JS判断*/
+        /*不允許發佈文件的模型ID，用於JS判斷*/
         // $js_allow_channel_arr = '[]';
         // if (!empty($allowReleaseChannel)) {
         //     $js_allow_channel_arr = '[';
@@ -391,7 +391,7 @@ class Archives extends Base
         // $this->assign('js_allow_channel_arr', $js_allow_channel_arr);
         /*--end*/
 
-        /*表单提交URL*/
+        /*表單提交URL*/
         $form_action = url('Archives/move');
         $this->assign('form_action', $form_action);
         /*--end*/
@@ -400,7 +400,7 @@ class Archives extends Base
     }
 
     /**
-     * 发布内容
+     * 發佈內容
      */
     public function release()
     {
@@ -413,9 +413,9 @@ class Archives extends Base
                 ->join('__CHANNELTYPE__ b', 'a.current_channel = b.id', 'LEFT')
                 ->where('a.id', 'eq', $typeid)
                 ->find();
-            /*针对不支持发布文档的模型*/
+            /*針對不支援發佈文件的模型*/
             if (!in_array($row['id'], $this->allowReleaseChannel)) {
-                $this->error('该栏目不支持发布文档！', url('Archives/release'));
+                $this->error('該欄目不支援發佈文件！', url('Archives/release'));
                 exit;
             }
             /*-----end*/
@@ -428,12 +428,12 @@ class Archives extends Base
 
         $iframe = input('param.iframe/d',0);
 
-        /*允许发布文档列表的栏目*/
+        /*允許發佈文件列表的欄目*/
         $select_html = allow_release_arctype();
         $this->assign('select_html',$select_html);
         /*--end*/
 
-        /*不允许发布文档的模型ID，用于JS判断*/
+        /*不允許發佈文件的模型ID，用於JS判斷*/
         $js_allow_channel_arr = '[';
         foreach ($this->allowReleaseChannel as $key => $val) {
             if ($key > 0) {
@@ -464,7 +464,7 @@ class Archives extends Base
             $row = model('Arctype')->getAll('id,typename', $map, 'id');
             if (!empty($row)) {
                 $status = 1;
-                $html = '<option value="0">请选择栏目…</option>';
+                $html = '<option value="0">請選擇欄目…</option>';
                 foreach ($row as $key => $val) {
                     $html .= '<option value="'.$val['id'].'">'.$val['typename'].'</option>';
                 }

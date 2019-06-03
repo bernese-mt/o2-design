@@ -6,25 +6,25 @@
 <div class="page" style="min-width: auto;">
     <div id="explanation" class="explanation" style="color: rgb(44, 188, 163); background-color: rgb(237, 251, 248); width: 99%; height: 100%;">
         <div id="checkZoom" class="title"><i class="fa fa-lightbulb-o"></i>
-            <h4 title="提示相关设置操作时应注意的要点">操作提示</h4>
+            <h4 title="提示相關設定操作時應注意的要點">操作提示</h4>
             <span title="收起提示" id="explanationZoom" style="display: block;"></span>
         </div>
         <ul>
-            <li>若填写了统一配送金额，则其他没有设置配送金额的城市默认使用统一配送金额。</li>
+            <li>若填寫了統一配送金額，則其他沒有設定配送金額的城市預設使用統一配送金額。</li>
         </ul>
     </div>
     <div class="flexigrid">
         <div class="mDiv">
             <div class="ftitle">
                 <h3>{$info.template_region}：￥</h3>
-                <input type="text" value="{$info.template_money}" onchange="changeTableVal('shop_shipping_template','template_id','{$info.template_id}','template_money',this);" style="padding: 0px 6px;width: 80px;" title="输入价格后，点击空白处即可保存！">
+                <input type="text" value="{$info.template_money}" onchange="changeTableVal('shop_shipping_template','template_id','{$info.template_id}','template_money',this);" style="padding: 0px 6px;width: 80px;" title="輸入價格后，點選空白處即可儲存！">
             </div>
-            <form class="navbar-form form-inline" action="{:url('Shop/shipping_template')}" method="get" onsubmit="layer_loading('正在处理');">
+            <form class="navbar-form form-inline" action="{:url('Shop/shipping_template')}" method="get" onsubmit="layer_loading('正在處理');">
                 {$searchform.hidden|default=''}
                 <div class="sDiv">
-                    <!-- 区域查询 -->
+                    <!-- 區域查詢 -->
                     <div class="sDiv2">
-                        <input type="text" size="50"  name="region_name" class="qsbox" style="width: 150px;" value="{$Request.param.region_name}" placeholder="搜索区域...">
+                        <input type="text" size="50"  name="region_name" class="qsbox" style="width: 150px;" value="{$Request.param.region_name}" placeholder="搜索區域...">
                         <input type="submit" class="btn" value="搜索">
                     </div>
                     <div class="sDiv2">
@@ -42,10 +42,10 @@
                             <div class="tc"></div>
                         </th>
                         <th abbr="ac_id" axis="col4">
-                            <div class="">配送区域</div>
+                            <div class="">配送區域</div>
                         </th>
                         <th abbr="article_time" axis="col4" class="w100">
-                            <div class="tc">配送金额</div>
+                            <div class="tc">配送金額</div>
                         </th>
                     </tr>
                     </thead>
@@ -59,7 +59,7 @@
                     {empty name="Template"}
                         <tr>
                             <td class="no-data" align="center" axis="col0" colspan="50">
-                                <i class="fa fa-exclamation-circle"></i>没有符合条件的记录
+                                <i class="fa fa-exclamation-circle"></i>沒有符合條件的記錄
                             </td>
                         </tr>
                     {else/}
@@ -76,7 +76,7 @@
                                 </td>
                                 <td class="">
                                     <div class="w100 tc">
-                                        ￥<input type="text" onchange="changeTableVal('shop_shipping_template','template_id','{$vo.template_id}','template_money',this);"  size="4"  value="{$vo.template_money}" style="width: 60px;" title="输入价格后，点击空白处即可保存！"/>
+                                        ￥<input type="text" onchange="changeTableVal('shop_shipping_template','template_id','{$vo.template_id}','template_money',this);"  size="4"  value="{$vo.template_money}" style="width: 60px;" title="輸入價格后，點選空白處即可儲存！"/>
                                     </div>
                                 </td>
                             </tr>
@@ -91,12 +91,12 @@
 </div>
 <script>
     $(document).ready(function(){
-        // 表格行点击选中切换
+        // 表格行點選選中切換
         $('#flexigrid > table>tbody >tr').click(function(){
             $(this).toggleClass('trSelected');
         });
 
-        // 点击刷新数据
+        // 點選重新整理數據
         $('.fa-refresh').click(function(){
             location.href = location.href;
         });

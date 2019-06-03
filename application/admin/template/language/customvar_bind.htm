@@ -10,7 +10,7 @@
             <input type="hidden" name="attr_id" value="{$attr_id}" />
             <dl class="row">
                 <dt class="tit">
-                    <label for="title"><em>*</em>选择关联栏目</label>
+                    <label for="title"><em>*</em>選擇關聯欄目</label>
                 </dt>
                 <dd class="opt" style="width: auto;">
                     <select name="typeid" id="typeid" style="width: 300px;" size="22">
@@ -27,16 +27,16 @@
     $(function () {
         $('#typeid').find('option').click(function(){
             if (!$('#typeid').val()) {
-                layer.alert('请选择栏目…！', {icon:5, title:false}, function(index){
+                layer.alert('請選擇欄目…！', {icon:5, title:false}, function(index){
                     $('#typeid').val('');
                     layer.close(index);
                 });
                 return false;
             }
 
-            var parentObj = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+            var parentObj = parent.layer.getFrameIndex(window.name); //先得到目前iframe層的索引
 
-            layer_loading('正在处理');
+            layer_loading('正在處理');
             $.ajax({
                 url: "{:url('Language/customvar_bind')}",
                 type: 'POST',
@@ -56,7 +56,7 @@
                 },
                 error: function(e){
                     layer.closeAll();
-                    layer.alert('操作失败', {icon:5, title:false});
+                    layer.alert('操作失敗', {icon:5, title:false});
                     return false;
                 }
             });

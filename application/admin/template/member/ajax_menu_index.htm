@@ -6,10 +6,10 @@
     <div class="flexigrid">
         <div class="mDiv">
             <div class="ftitle">
-                <h3>会员菜单列表</h3>
-                <h5>(共{$pager->totalRows}条记录)</h5>
+                <h3>會員菜單列表</h3>
+                <h5>(共{$pager->totalRows}條記錄)</h5>
             </div>
-            <div title="刷新数据" class="pReload"><i class="fa fa-refresh"></i></div>
+            <div title="重新整理數據" class="pReload"><i class="fa fa-refresh"></i></div>
         </div>
         <div class="hDiv">
             <div class="hDivBox">
@@ -20,10 +20,10 @@
                             <div class="tc"></div>
                         </th>
                         <th abbr="ac_id" axis="col4">
-                            <div class="">菜单名称</div>
+                            <div class="">菜單名稱</div>
                         </th>
                         <th abbr="article_time" axis="col4" class="w100">
-                            <div class="tc">默认会员首页</div>
+                            <div class="tc">預設會員首頁</div>
                         </th>
                         <th abbr="article_time" axis="col6" class="w60">
                             <div class="tc">排序</div>
@@ -40,7 +40,7 @@
                     {empty name="list"}
                         <tr>
                             <td class="no-data" align="center" axis="col0" colspan="50">
-                                <i class="fa fa-exclamation-circle"></i>没有符合条件的记录
+                                <i class="fa fa-exclamation-circle"></i>沒有符合條件的記錄
                             </td>
                         </tr>
                     {else/}
@@ -77,18 +77,18 @@
             </div>
             <div class="iDiv" style="display: none;"></div>
         </div>
-        <!--分页位置-->
+        <!--分頁位置-->
         {$page}
     </div>
 </div>
 <script>
     $(document).ready(function(){
-        // 表格行点击选中切换
+        // 表格行點選選中切換
         $('#flexigrid > table>tbody >tr').click(function(){
             $(this).toggleClass('trSelected');
         });
 
-        // 点击刷新数据
+        // 點選重新整理數據
         $('.fa-refresh').click(function(){
             location.href = location.href;
         });

@@ -19,7 +19,7 @@
                                     <div class="tc"></div>
                                 </th>
                                 <th abbr="article_title" axis="col3" class="w10">
-                                    <div class="tc">基本信息</div>
+                                    <div class="tc">基本資訊</div>
                                 </th>
                                 <th abbr="ac_id" axis="col4">
                                     <div class=""></div>
@@ -33,7 +33,7 @@
             <div class="ncap-form-default">
                 <dl class="row">
                     <dt class="tit">
-                        <label>订单编号</label>
+                        <label>訂單編號</label>
                     </dt>
                     <dd class="opt">          
                         {$OrderData.order_code}
@@ -41,7 +41,7 @@
                 </dl>
                 <dl class="row">
                     <dt class="tit">
-                        <label>订单类型</label>
+                        <label>訂單型別</label>
                     </dt>
                     <dd class="opt">          
                         {$OrderData.prom_type_name}
@@ -49,7 +49,7 @@
                 </dl>
                 <dl class="row">
                     <dt class="tit">
-                        <label>下单时间</label>
+                        <label>下單時間</label>
                     </dt>
                     <dd class="opt">          
                         {$OrderData.add_time|MyDate='Y-m-d H:i:s',###}
@@ -58,15 +58,15 @@
                 {eq name="$OrderData.prom_type" value="0"}
                     <dl class="row">
                         <dt class="tit">
-                            <label>发货方式</label>
+                            <label>發貨方式</label>
                         </dt>
                         <dd class="opt">          
                             <select name="prom_type" id="prom_type">
                                 <option value="0" {eq name="$OrderData.prom_type" value="0"} selected="selected" {/eq}>
-                                    录入物流单号
+                                    錄入物流單號
                                 </option>
                                 <option value="1" {eq name="$OrderData.prom_type" value="1"} selected="selected" {/eq}>
-                                    无需物流
+                                    無需物流
                                 </option>
                             </select>
                             <span class="err"></span>
@@ -84,7 +84,7 @@
                         </dt>
                         <dd class="opt">          
                             <span id="express_name_new">{$OrderData.express_name}</span>
-                            &nbsp;<a href="javascript:void(0);" onclick="Express();" class="ncap-btn ncap-btn-green">选择快递</a>
+                            &nbsp;<a href="javascript:void(0);" onclick="Express();" class="ncap-btn ncap-btn-green">選擇快遞</a>
                             <input type="hidden" name="express_name" value="{$OrderData.express_name}" id="express_name">
                             <input type="hidden" name="express_id" value="{$OrderData.express_id}" id="express_id"/>
                             <input type="hidden" name="express_code" value="{$OrderData.express_code}" id="express_code">
@@ -92,7 +92,7 @@
                     </dl>
                     <dl class="row">
                         <dt class="tit">
-                            <label>配送费用</label>
+                            <label>配送費用</label>
                         </dt>
                         <dd class="opt">          
                             ￥{$OrderData.shipping_fee}
@@ -100,7 +100,7 @@
                     </dl>
                     <dl class="row">
                         <dt class="tit">
-                            <label><em>*</em>配送单号</label>
+                            <label><em>*</em>配送單號</label>
                         </dt>
                         <dd class="opt">
                             <input type="text" value="{$OrderData.express_order}" name="express_order" id="express_order" class="input-txt">
@@ -111,7 +111,7 @@
                 <div class="{eq name='$OrderData.prom_type' value='0'}none{/eq}" id="VirtualDelivery">
                     <dl class="row">
                         <dt class="tit">
-                            <label>给买家回复</label>
+                            <label>給買家回覆</label>
                         </dt>
                         <dd class="opt">          
                             <textarea rows="5" cols="60" name="virtual_delivery" style="height:60px;">{$OrderData.virtual_delivery}</textarea>
@@ -131,7 +131,7 @@
                                 <div class="tc"></div>
                             </th>
                             <th abbr="article_title" axis="col3" class="w10">
-                                <div class="tc">收货信息</div>
+                                <div class="tc">收貨資訊</div>
                             </th>
                             <th abbr="ac_id" axis="col4">
                                 <div class=""></div>
@@ -145,7 +145,7 @@
                 {eq name="$OrderData.prom_type" value="0"}
                     <dl class="row">
                         <dt class="tit">
-                            <label>收货人</label>
+                            <label>收貨人</label>
                         </dt>
                         <dd class="opt">          
                             {$OrderData.consignee}
@@ -153,7 +153,7 @@
                     </dl>
                     <dl class="row">
                         <dt class="tit">
-                            <label>联系方式</label>
+                            <label>聯繫方式</label>
                         </dt>
                         <dd class="opt">          
                             {$OrderData.mobile}
@@ -161,7 +161,7 @@
                     </dl>
                     <dl class="row">
                         <dt class="tit">
-                            <label>收货地址</label>
+                            <label>收貨地址</label>
                         </dt>
                         <dd class="opt">          
                             {$OrderData.country} {$OrderData.province} {$OrderData.city} {$OrderData.district} {$OrderData.address}
@@ -170,7 +170,7 @@
                 {/eq}
                 <dl class="row">
                     <dt class="tit">
-                        <label>订单留言</label>
+                        <label>訂單留言</label>
                     </dt>
                     <dd class="opt">          
                         {$OrderData.user_note}
@@ -178,7 +178,7 @@
                 </dl>
                 <dl class="row">
                     <dt class="tit">
-                        <label>管理员备注</label>
+                        <label>管理員備註</label>
                     </dt>
                     <dd class="opt">
                         {$OrderData.admin_note}
@@ -191,10 +191,10 @@
                 <div class="bot" style="padding-bottom:0px;">
                     <a href="JavaScript:void(0);" onclick="checkForm();" class="ncap-btn-big ncap-btn-green" id="submitBtn">
                         {eq name="$OrderData['order_status']" value='1'}
-                            确认发货
+                            確認發貨
                         {/eq}
                         {eq name="$OrderData['order_status']" value='2'}
-                            修改保存
+                            修改儲存
                         {/eq}
                     </a>
                 </div>
@@ -205,12 +205,12 @@
 <script type="text/javascript">
 
     $(document).ready(function(){
-        // 表格行点击选中切换
+        // 表格行點選選中切換
         $('#flexigrid > table>tbody >tr').click(function(){
             $(this).toggleClass('trSelected');
         });
 
-        // 点击刷新数据
+        // 點選重新整理數據
         $('.fa-refresh').click(function(){
             location.href = location.href;
         });
@@ -227,21 +227,21 @@
         });
     });
 
-    // 物流公司选择框
+    // 物流公司選擇框
     function Express(){
         var url = "{:url('Shop/order_express')}";
         //iframe窗
         layer.open({
             type: 2,
-            title: '选择快递',
+            title: '選擇快遞',
             shadeClose: false,
-            maxmin: false, //开启最大化最小化按钮
+            maxmin: false, //開啟最大化最小化按鈕
             area: ['60%', '80%'],
             content: url
         });
     }
 
-    // 选中地址，关闭物流公司弹框
+    // 選中地址，關閉物流公司彈框
     function express(obj, express_id){
         var express_name = $(obj).parent().find('#express_name_'+express_id).val();
         var express_code = $(obj).parent().find('#express_code_'+express_id).val();
@@ -252,21 +252,21 @@
         layer.closeAll();
     }
 
-    // 表单提交
+    // 表單提交
     function checkForm(){
         if(0 == $('#prom_type').val() && $('input[name=express_order]').val() == ''){
-            showErrorMsg('配送单号不能为空！');
+            showErrorMsg('配送單號不能為空！');
             $('input[name=express_order]').focus();
             return false;
         }
 
         var _parent = parent;
 
-        layer.confirm('此操作不可逆，确认发货？', {
+        layer.confirm('此操作不可逆，確認發貨？', {
             title: false,
-            btn: ['确定','取消']
+            btn: ['確定','取消']
         },function(){
-            layer_loading('正在处理');
+            layer_loading('正在處理');
             $.ajax({
                 type: "POST",
                 url: $('#postForm').attr('action'),
@@ -285,7 +285,7 @@
                 },
                 error:function(){
                     layer.closeAll();
-                    layer.alert('网络失败，请刷新页面后重试', {icon: 2, title:false});
+                    layer.alert('網路失敗，請重新整理頁面後重試', {icon: 2, title:false});
                 }
             });
         });

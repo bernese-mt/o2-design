@@ -1,11 +1,11 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
@@ -55,16 +55,16 @@ class AuthRole extends Model{
 
         $permission = $input['permission'] ? $input['permission'] : null;
 
-        // 角色权限
+        // 角色許可權
         $permission_rules = !empty($permission['rules']) ? $permission['rules'] : [];
-        /*栏目与内容权限*/
+        /*欄目與內容許可權*/
         if (!empty($permission['arctype'])) {
-            $permission_rules[] = 2; // 内容管理的权限ID，在conf/auth_rule.php配置文件
+            $permission_rules[] = 2; // 內容管理的許可權ID，在conf/auth_rule.php配置檔案
         }
         /*--end*/
-        /*插件应用权限*/
+        /*外掛應用許可權*/
         if (!empty($permission['plugins'])) {
-            $permission_rules[] = 15; // 插件应用的权限ID，在conf/auth_rule.php配置文件
+            $permission_rules[] = 15; // 外掛應用的許可權ID，在conf/auth_rule.php配置檔案
         }
         /*--end*/
         $permission['rules'] = $permission_rules;
@@ -101,7 +101,7 @@ class AuthRole extends Model{
     }
 
     /**
-     * 同步栏目ID到权限组，默认是赋予该栏目的权限
+     * 同步欄目ID到許可權組，預設是賦予該欄目的許可權
      * @param int $typeid
      */
     public function syn_auth_role($typeid = 0)
@@ -128,7 +128,7 @@ class AuthRole extends Model{
                 }
                 $r = $this->saveAll($saveData);
                 if (false != $r && 0 < intval(session('admin_info.role_id'))) {
-                    /*及时更新当前管理员权限*/
+                    /*及時更新目前管理員許可權*/
                     $auth_role_info = $this->getRole(array('id' => session('admin_info.role_id')));
                     session('admin_info.auth_role_info', $auth_role_info);
                     /*--end*/

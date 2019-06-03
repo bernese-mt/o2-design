@@ -8,16 +8,16 @@
     <div class="flexigrid">
         <div class="mDiv">
             <div class="ftitle">
-                <h3>栏目回收列表</h3>
-                <h5>(共{$pageObj->totalRows}条记录)</h5>
+                <h3>欄目回收列表</h3>
+                <h5>(共{$pageObj->totalRows}條記錄)</h5>
             </div>
-            <div title="刷新数据" class="pReload"><i class="fa fa-refresh"></i></div>
-            <form class="navbar-form form-inline" action="{:url('RecycleBin/arctype_index')}" method="get" onsubmit="layer_loading('正在处理');">
+            <div title="重新整理數據" class="pReload"><i class="fa fa-refresh"></i></div>
+            <form class="navbar-form form-inline" action="{:url('RecycleBin/arctype_index')}" method="get" onsubmit="layer_loading('正在處理');">
                 {$searchform.hidden|default=''}
                 <div class="sDiv">
                     {include file="recycle_bin/btn" /}
                     <div class="sDiv2">
-                        <input type="text" size="30" name="keywords" value="{$Request.param.keywords}" class="qsbox" placeholder="名称搜索...">
+                        <input type="text" size="30" name="keywords" value="{$Request.param.keywords}" class="qsbox" placeholder="名稱搜索...">
                         <input type="submit" class="btn" value="搜索">
                     </div>
                     <!-- <div class="sDiv2">
@@ -35,13 +35,13 @@
                             <div class="tc">ID</div>
                         </th>
                         <th abbr="ac_id" axis="col4">
-                            <div class="">栏目名称</div>
+                            <div class="">欄目名稱</div>
                         </th>
                         <th axis="col2" class="w150">
-                            <div class="tc">所属模型</div>
+                            <div class="tc">所屬模型</div>
                         </th>
                         <th abbr="article_time" axis="col6" class="w100">
-                            <div class="tc">删除时间</div>
+                            <div class="tc">刪除時間</div>
                         </th>
                         <th axis="col1" class="w150">
                             <div class="tc">操作</div>
@@ -58,7 +58,7 @@
                     {empty name="list"}
                         <tr>
                             <td class="no-data" align="center" axis="col0" colspan="50">
-                                <i class="fa fa-exclamation-circle"></i>没有符合条件的记录
+                                <i class="fa fa-exclamation-circle"></i>沒有符合條件的記錄
                             </td>
                         </tr>
                     {else/}
@@ -87,10 +87,10 @@
                             <td>
                                 <div class="w150 tc">
                                     {eq name="'RecycleBin@arctype_recovery'|is_check_access" value="1"}
-                                    <a class="btn blue" href="javascript:void(0);" data-url="{:url('RecycleBin/arctype_recovery')}" data-id="{$vo.id}" data-typename="{$vo.typename}" onClick="recovery(this);"><i class="fa fa-trash-o"></i>还原</a>
+                                    <a class="btn blue" href="javascript:void(0);" data-url="{:url('RecycleBin/arctype_recovery')}" data-id="{$vo.id}" data-typename="{$vo.typename}" onClick="recovery(this);"><i class="fa fa-trash-o"></i>還原</a>
                                     {/eq}
                                     {eq name="'RecycleBin@arctype_del'|is_check_access" value="1"}
-                                    <a class="btn red" href="javascript:void(0);" data-url="{:url('RecycleBin/arctype_del')}" data-id="{$vo.id}" data-typename="{$vo.typename}" onClick="delfun(this);"><i class="fa fa-trash-o"></i>彻底删除</a>
+                                    <a class="btn red" href="javascript:void(0);" data-url="{:url('RecycleBin/arctype_del')}" data-id="{$vo.id}" data-typename="{$vo.typename}" onClick="delfun(this);"><i class="fa fa-trash-o"></i>徹底刪除</a>
                                     {/eq}
                                 </div>
                             </td>
@@ -105,31 +105,31 @@
         <div class="tDiv">
             <div style="clear:both"></div>
         </div>
-        <!--分页位置-->
+        <!--分頁位置-->
         {$pageStr}
     </div>
 </div>
 <script>
     $(document).ready(function(){
-        // 表格行点击选中切换
+        // 表格行點選選中切換
         $('#flexigrid > table>tbody >tr').click(function(){
             $(this).toggleClass('trSelected');
         });
 
-        // 点击刷新数据
+        // 點選重新整理數據
         $('.fa-refresh').click(function(){
             location.href = location.href;
         });
     });
 
-    // 还原
+    // 還原
     function recovery(obj){
-        layer.confirm('<font color="red">如有父级栏目及文档将一起还原</font>，确认还原？', {
+        layer.confirm('<font color="red">如有父級欄目及文件將一起還原</font>，確認還原？', {
             title: false,//$(obj).attr('data-typename'),
-            btn: ['确定','取消'] //按钮
+            btn: ['確定','取消'] //按鈕
         }, function(){
-            layer_loading('正在处理');
-            // 确定
+            layer_loading('正在處理');
+            // 確定
             $.ajax({
                 type : 'post',
                 url : $(obj).attr('data-url'),
@@ -151,14 +151,14 @@
         return false;
     }
 
-    // 删除
+    // 刪除
     function delfun(obj){
-        layer.confirm('<font color="red">如有子栏目及文档将一起清空</font>，确认彻底删除？', {
+        layer.confirm('<font color="red">如有子欄目及文件將一起清空</font>，確認徹底刪除？', {
             title: false,//$(obj).attr('data-typename'),
-            btn: ['确定','取消'] //按钮
+            btn: ['確定','取消'] //按鈕
         }, function(){
-            layer_loading('正在处理');
-            // 确定
+            layer_loading('正在處理');
+            // 確定
             $.ajax({
                 type : 'post',
                 url : $(obj).attr('data-url'),
@@ -181,7 +181,7 @@
     }
 
     /**
-     * 批量删除提交
+     * 批量刪除提交
      */
     function batch_del(obj, name) {
         var a = [];
@@ -191,15 +191,15 @@
             }
         })
         if(a.length == 0){
-            layer.alert('请至少选择一项', {icon: 2, title:false});
+            layer.alert('請至少選擇一項', {icon: 2, title:false});
             return;
         }
-        // 删除按钮
-        layer.confirm('此操作不可逆，确认批量彻底删除？', {
+        // 刪除按鈕
+        layer.confirm('此操作不可逆，確認批量徹底刪除？', {
             title: false,
-            btn: ['确定', '取消'] //按钮
+            btn: ['確定', '取消'] //按鈕
         }, function () {
-            layer_loading('正在处理');
+            layer_loading('正在處理');
             $.ajax({
                 type: "POST",
                 url: $(obj).attr('data-url'),
@@ -216,7 +216,7 @@
                 },
                 error:function(){
                     layer.closeAll();
-                    layer.alert('网络失败，请刷新页面后重试', {icon: 2, title:false});
+                    layer.alert('網路失敗，請重新整理頁面後重試', {icon: 2, title:false});
                 }
             });
         }, function (index) {

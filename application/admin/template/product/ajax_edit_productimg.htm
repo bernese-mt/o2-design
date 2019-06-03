@@ -5,7 +5,7 @@
     <div class="ncap-form-default">
         <dl class="row">
             <dt class="tit">
-                <label for="title"><em>*</em>标题</label>
+                <label for="title"><em>*</em>標題</label>
             </dt>
             <dd class="opt">
                 <input type="text" name="title" value="{$field.title}" id="title" class="input-txt">
@@ -14,9 +14,9 @@
             </dd>
         </dl>
         <div class="bot">
-            <a href="JavaScript:void(0);" class="ncap-btn-big ncap-btn-green" id="submitBtn">确认提交</a>
+            <a href="JavaScript:void(0);" class="ncap-btn-big ncap-btn-green" id="submitBtn">確認提交</a>
             &nbsp;
-            <a href="JavaScript:void(0);" class="ncap-btn-big ncap-btn-red" id="closeBtn">关闭</a>
+            <a href="JavaScript:void(0);" class="ncap-btn-big ncap-btn-red" id="closeBtn">關閉</a>
         </div>
     </div>
 </form>
@@ -32,10 +32,10 @@
         });
         
         $("#productimg_form").validate({
-            debug: false, //调试模式取消submit的默认提交功能   
-            focusInvalid: false, //当为false时，验证无效时，没有焦点响应  
+            debug: false, //除錯模式取消submit的預設提交功能   
+            focusInvalid: false, //當爲false時，驗證無效時，沒有焦點響應  
             onkeyup: false,   
-            submitHandler: function(form){   //表单提交句柄,为一回调函数，带一个参数：form   
+            submitHandler: function(form){   //表單提交控制代碼,為一回調函式，帶一個參數：form   
                 $.ajax({
                     url:"{:U('Product/ajax_edit_productimg')}",
                     type:'post',
@@ -52,7 +52,7 @@
                     }
                 });
             },  
-            ignore:":button",   //不验证的元素
+            ignore:":button",   //不驗證的元素
             rules:{
                 title:{
                     required:true
@@ -60,7 +60,7 @@
             },
             messages:{
                 title:{
-                    required:"标题不能为空"
+                    required:"標題不能為空"
                 }
             }
         });

@@ -6,14 +6,14 @@
     <div class="fixed-bar">
         <div class="item-title">
             <div class="subject">
-                <h3>邮件模板</h3>
+                <h3>郵件模板</h3>
                 <h5></h5>
             </div>
             <ul class="tab-base nc-row">
                 <li><a href="{:url("System/smtp_tpl")}" class="tab {eq name="$Request.action" value="smtp_tpl"}current{/eq}"><span>模板列表</span></a></li>
 
                 {eq name="'System@smtp_edit'|is_check_access" value="1"}
-                <li><a href="javascript:void(0);" class="tab {if condition="in_array($Request.action, array('smtp_tpl_edit'))"}current{/if}"><span>编辑模板</span></a></li>
+                <li><a href="javascript:void(0);" class="tab {if condition="in_array($Request.action, array('smtp_tpl_edit'))"}current{/if}"><span>編輯模板</span></a></li>
                 {/eq}
             </ul>
         </div>
@@ -23,7 +23,7 @@
         <div class="ncap-form-default">
             <dl class="row">
                 <dt class="tit">
-                    <label for="tpl_title"><em>*</em>邮件标题</label>
+                    <label for="tpl_title"><em>*</em>郵件標題</label>
                 </dt>
                 <dd class="opt">
                     <input id="tpl_title" name="tpl_title" value="{$row.tpl_title}" class="input-txt" type="text"/>
@@ -32,28 +32,28 @@
             </dl>
             <!-- <dl class="row">
                 <dt class="tit">
-                    <label for="tpl_content">发送邮件内容</label>
+                    <label for="tpl_content">發送郵件內容</label>
                 </dt>
                 <dd class="opt">
                     <textarea class="span12 ckeditor" id="post_content" name="tpl_content" title="">{$row.tpl_content}</textarea>   
-                    <p class="notic"> 发送模板邮件内容，请按照格式进行修改 </p>
+                    <p class="notic"> 發送模板郵件內容，請按照格式進行修改 </p>
                 </dd>
             </dl> -->
-            <div class="bot"><a href="JavaScript:void(0);" onclick="checkForm();" class="ncap-btn-big ncap-btn-green" id="submitBtn">确认提交</a></div>
+            <div class="bot"><a href="JavaScript:void(0);" onclick="checkForm();" class="ncap-btn-big ncap-btn-green" id="submitBtn">確認提交</a></div>
         </div>
     </form>
 </div>
 <script type="text/javascript">
 
-    // 判断输入框是否为空
+    // 判斷輸入框是否為空
     function checkForm(){
         if($.trim($('input[name=tpl_title]').val()) == ''){
-            showErrorMsg('邮件标题不能为空！');
+            showErrorMsg('郵件標題不能為空！');
             $('input[name=tpl_title]').focus();
             return false;
         }
 
-        layer_loading('正在处理');
+        layer_loading('正在處理');
         $.ajax({
             url: "{:U('System/smtp_tpl_edit')}",
             type: 'POST',
@@ -71,7 +71,7 @@
             },
             error: function(e){
                 layer.closeAll();
-                layer.alert('网络失败，请刷新页面后重试', {icon:2, title:false});
+                layer.alert('網路失敗，請重新整理頁面後重試', {icon:2, title:false});
             }
         });
 

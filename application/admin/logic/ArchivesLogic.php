@@ -1,11 +1,11 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
@@ -16,7 +16,7 @@ namespace app\admin\logic;
 use think\Model;
 use think\Db;
 /**
- * 文档逻辑定义
+ * 文件邏輯定義
  * Class CatsLogic
  * @package admin\Logic
  */
@@ -28,14 +28,14 @@ class ArchivesLogic extends Model
     private $admin_lang = 'cn';
 
     /**
-     * 析构函数
+     * 解構函式
      */
     function  __construct() {
         $this->admin_lang = get_admin_lang();
     }
 
     /**
-     * 删除文档
+     * 刪除文件
      */
     public function del($del_id = array())
     {
@@ -45,7 +45,7 @@ class ArchivesLogic extends Model
 
         $id_arr = eyIntval($del_id);
         if(!empty($id_arr)){
-            /*分离并组合相同模型下的文档ID*/
+            /*分離並組合相同模型下的文件ID*/
             $row = db('archives')
                 ->alias('a')
                 ->field('a.channel,a.aid,b.ctl_name')
@@ -62,9 +62,9 @@ class ArchivesLogic extends Model
             }
             /*--end*/
 
-            $info['is_del']     = '1'; // 伪删除状态
-            $info['update_time']= getTime(); // 更新修改时间
-            $info['del_method'] = '1'; // 恢复删除方式为默认
+            $info['is_del']     = '1'; // 偽刪除狀態
+            $info['update_time']= getTime(); // 更新修改時間
+            $info['del_method'] = '1'; // 恢復刪除方式為預設
 
             $err = 0;
             foreach ($data as $key => $val) {
@@ -72,26 +72,26 @@ class ArchivesLogic extends Model
                 $r = M('archives')->where('aid','IN',$val['aid'])->update($info);
                 if ($r) {
                     // model($val['ctl_name'])->afterDel($val['aid']);
-                    adminLog('删除文档-id：'.implode(',', $val['aid']));
+                    adminLog('刪除文件-id：'.implode(',', $val['aid']));
                 } else {
                     $err++;
                 }
             }
 
             if (0 == $err) {
-                $this->success('删除成功');
+                $this->success('刪除成功');
             } else if ($err < count($data)) {
-                $this->success('删除部分成功');
+                $this->success('刪除部分成功');
             } else {
-                $this->error('删除失败');
+                $this->error('刪除失敗');
             }
         }else{
-            $this->error('参数有误');
+            $this->error('參數有誤');
         }
     }
 
     /**
-     * 获取文档模板文件列表
+     * 獲取文件模板檔案列表
      */
     public function getTemplateList($nid = 'article')
     {   
@@ -99,7 +99,7 @@ class ArchivesLogic extends Model
         $dirRes   = opendir($planPath);
         $view_suffix = config('template.view_suffix');
 
-        /*模板PC目录文件列表*/
+        /*模板PC目錄檔案列表*/
         $templateArr = array();
         while($filename = readdir($dirRes))
         {
@@ -110,7 +110,7 @@ class ArchivesLogic extends Model
         }
         /*--end*/
 
-        /*多语言全部标识*/
+        /*多語言全部標識*/
         $markArr = Db::name('language_mark')->column('mark');
         /*--end*/
 

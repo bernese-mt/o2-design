@@ -9,7 +9,7 @@
         <div class="ncap-form-default">
             <dl class="row">
                 <dt class="tit">
-                    <label for="title">中文名称</label>
+                    <label for="title">中文名稱</label>
                 </dt>
                 <dd class="opt">
                     {$row.cn_title}
@@ -19,7 +19,7 @@
             </dl>
             <dl class="row">
                 <dt class="tit">
-                    <label for="title">语言名称</label>
+                    <label for="title">語言名稱</label>
                 </dt>
                 <dd class="opt">
                     <input type="text" name="title" id="title" value="{$row.title}" class="input-txt">
@@ -29,7 +29,7 @@
             </dl>
             <dl class="row">
                 <dt class="tit">
-                    <label for="logo">国旗标志</label>
+                    <label for="logo">國旗標誌</label>
                 </dt>
                 <dd class="opt">
                     <img src="__STATIC__/common/images/language/{$row.mark}.gif" alt="{$row.title}"/>
@@ -39,12 +39,12 @@
             </dl>
             <dl class="row">
                 <dt class="tit">
-                    <label>语言状态</label>
+                    <label>語言狀態</label>
                 </dt>
                 <dd class="opt">
                     <div class="onoff">
-                        <label for="status1" class="cb-enable {if condition='$row.status eq 1'}selected{/if}">开启</label>
-                        <label for="status0" class="cb-disable {if condition='$row.status eq 0'}selected{/if}">关闭</label>
+                        <label for="status1" class="cb-enable {if condition='$row.status eq 1'}selected{/if}">開啟</label>
+                        <label for="status0" class="cb-disable {if condition='$row.status eq 0'}selected{/if}">關閉</label>
                         <input id="status1" name="status" value="1" type="radio" {if condition="$row.status eq 1"} checked="checked"{/if}>
                         <input id="status0" name="status" value="0" type="radio" {if condition="$row.status eq 0"} checked="checked"{/if}>
                     </div>
@@ -53,12 +53,12 @@
             </dl>
             <dl class="row">
                 <dt class="tit">
-                    <label>前台默认语言</label>
+                    <label>前臺預設語言</label>
                 </dt>
                 <dd class="opt">
                     <div class="onoff">
-                        <label for="is_home_default1" class="cb-enable {if condition='$row.is_home_default eq 1'}selected{/if}">开启</label>
-                        <label for="is_home_default0" class="cb-disable {if condition='$row.is_home_default eq 0'}selected{/if}">关闭</label>
+                        <label for="is_home_default1" class="cb-enable {if condition='$row.is_home_default eq 1'}selected{/if}">開啟</label>
+                        <label for="is_home_default0" class="cb-disable {if condition='$row.is_home_default eq 0'}selected{/if}">關閉</label>
                         <input id="is_home_default1" name="is_home_default" value="1" type="radio" {if condition="$row.is_home_default eq 1"} checked="checked"{/if}>
                         <input id="is_home_default0" name="is_home_default" value="0" type="radio" {if condition="$row.is_home_default eq 0"} checked="checked"{/if}>
                     </div>
@@ -68,7 +68,7 @@
             </dl>
             <dl class="row">
                 <dt class="tit">
-                    <label>新窗口打开</label>
+                    <label>新視窗打開</label>
                 </dt>
                 <dd class="opt">
                     <div class="onoff">
@@ -82,12 +82,12 @@
             </dl>
             <!-- <dl class="row">
                 <dt class="tit">
-                    <label for="url">单独域名</label>
+                    <label for="url">單獨域名</label>
                 </dt>
                 <dd class="opt">
                     <input type="text" name="url" value="{$row.url}" id="url" class="input-txt">
                     <span class="err"></span>
-                    <p class=""><font color="red">务必包含http://或https://，访问该域名程序将自动跳转到此语言（需先做好域名解析绑定），或者做外部链接用。</font></p>
+                    <p class=""><font color="red">務必包含http://或https://，訪問該域名程式將自動跳轉到此語言（需先做好域名解析繫結），或者做外部鏈接用。</font></p>
                 </dd>
             </dl> -->
             <dl class="row">
@@ -103,7 +103,7 @@
             <div class="bot">
                 <input type="hidden" name="id" value="{$row.id}" />
                 <input type="hidden" name="mark" value="{$row.mark}" />
-                <a href="JavaScript:void(0);" onclick="checkForm();" class="ncap-btn-big ncap-btn-green" id="submitBtn">确认提交</a>
+                <a href="JavaScript:void(0);" onclick="checkForm();" class="ncap-btn-big ncap-btn-green" id="submitBtn">確認提交</a>
             </div>
         </div>
     </form>
@@ -111,7 +111,7 @@
 <script type="text/javascript">
 
     $(function(){
-        /*选择多语言*/
+        /*選擇多語言*/
         $('#langautor').change(function(){
             var title = $(this).find("option:selected").text();
             $('input[name=title]').val(title);
@@ -119,19 +119,19 @@
         /*--end*/
     });
 
-    // 判断输入框是否为空
+    // 判斷輸入框是否為空
     function checkForm(){
         if($('#langautor').val() == ''){
-            showErrorMsg('请选择语言！');
+            showErrorMsg('請選擇語言！');
             $('#langautor').focus();
             return false;
         }
         if($('input[name=title]').val() == ''){
-            showErrorMsg('语言名称不能为空！');
+            showErrorMsg('語言名稱不能為空！');
             $('input[name=title]').focus();
             return false;
         }
-        layer_loading('正在处理');
+        layer_loading('正在處理');
         $('#post_form').submit();
     }
 </script>

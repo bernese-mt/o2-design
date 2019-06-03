@@ -1,8 +1,8 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:46:"./application/admin/template/index\welcome.htm";i:1559289673;s:66:"D:\site\ada\o2-design\application\admin\template\public\footer.htm";i:1558667897;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:46:"./application/admin/template/index\welcome.htm";i:1559529925;s:66:"D:\site\ada\o2-design\application\admin\template\public\footer.htm";i:1559529926;}*/ ?>
 <!doctype html>
 <html>
 <head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -56,7 +56,7 @@
                             <li>
                                 <a href="<?php echo url('System/index', array('inc_type'=>'web')); ?>">
                                     <i class="fa fa-newspaper-o"></i>
-                                    基本信息
+                                    基本資訊
                                 </a>
                                 <i class="fa fa-angle-right"></i>
                             </li>
@@ -72,7 +72,7 @@
                             <li>
                                 <a href="<?php echo url('Filemanager/index'); ?>">
                                     <i class="fa fa-folder-open"></i>
-                                    模板管理
+                                    版型管理
                                 </a>
                                 <i class="fa fa-angle-right"></i>
                             </li>
@@ -80,7 +80,7 @@
                             <li>
                                 <a href="<?php echo url('Archives/release'); ?>">
                                     <i class="fa fa-plus"></i>
-                                    發布内容
+                                    發布內容
                                 </a>
                                 <i class="fa fa-angle-right" style="display:none"></i>
                             </li>
@@ -117,7 +117,7 @@
                 <div class="system_section_con hide">
                     <div class="sc_title" style="padding: 26px 0 14px;border-bottom: 1px solid #e4eaec;">
                         <i class="sc_icon"></i>
-                        <h3>程序信息</h3>
+                        <h3>程式資訊</h3>
                     </div>
                     <div class="sc_warp" id="system_warp" style="display: block;">
                         <table cellpadding="0" cellspacing="0" class="system_table">
@@ -134,17 +134,17 @@
                                     <td><?php echo (isset($sys_info['curent_version']) && ($sys_info['curent_version'] !== '')?$sys_info['curent_version']:'v1.0'); ?></td>
                                 </tr>
                                 <tr>
-                                    <td class="gray_bg">程序名稱：</td>
+                                    <td class="gray_bg">程式名稱：</td>
                                     <td><?php echo (isset($sys_info['web_name']) && ($sys_info['web_name'] !== '')?$sys_info['web_name']:'Eyoucms企業網站管理系統'); ?></td>
                                     <td class="gray_bg">版權所有：</td>
                                     <td><?php if(!(empty($is_eyou_authortoken) || (($is_eyou_authortoken instanceof \think\Collection || $is_eyou_authortoken instanceof \think\Paginator ) && $is_eyou_authortoken->isEmpty()))): ?>盜版必究<?php else: ?>正版軟件<?php endif; ?></td>
                                 </tr>
                                 <?php if(!(empty($is_eyou_authortoken) || (($is_eyou_authortoken instanceof \think\Collection || $is_eyou_authortoken instanceof \think\Paginator ) && $is_eyou_authortoken->isEmpty()))): ?>
                                 <tr>
-                                    <td class="gray_bg">更新日志：</td>
-                                    <td><a href="http://www.eyoucms.com/news/rizhi/" target="_blank">查看</a></td>
+                                    <td class="gray_bg">更新日誌：</td>
+                                    <td><a href="http://www.eyoucms.com/news/rizhi/" target="_blank">檢視</a></td>
                                     <td class="gray_bg">幫助中心:</td>
-                                    <td><a href="http://www.eyoucms.com/bbs/" target="_blank">查看</a></td>
+                                    <td><a href="http://www.eyoucms.com/bbs/" target="_blank">檢視</a></td>
                                 </tr>
                                 <?php endif; ?>
                             </tbody>
@@ -155,7 +155,7 @@
                     <div class="sc_title" style="padding: 26px 0 14px;border-bottom: 1px solid #e4eaec;">
                         <i class="sc_icon"></i>
                         <h3>
-                            服務器信息
+                            服務器資訊
                         </h3>
                     </div>
                     <div class="sc_warp" id="system_warp" style="display: block;padding-bottom: 20px;">
@@ -179,9 +179,9 @@
                                 <td><?php echo $sys_info['gdinfo']; ?></td>
                             </tr>
                             <tr>
-                                <td class="gray_bg">文件上傳限制：</td>
+                                <td class="gray_bg">檔案上傳限制：</td>
                                 <td><?php echo $sys_info['fileupload']; ?></td>
-                                <td class="gray_bg">最大占用内存：</td>
+                                <td class="gray_bg">最大佔用記憶體：</td>
                                 <td><?php echo $sys_info['memory_limit']; ?></td>
                             </tr>
                             <tr>
@@ -191,9 +191,9 @@
                                 <td><?php echo $sys_info['max_ex_time']; ?></td>
                             </tr>
                             <tr>
-                                <td class="gray_bg">Zip支持：</td>
+                                <td class="gray_bg">Zip支援：</td>
                                 <td><?php echo $sys_info['zip']; ?></td>
-                                <td class="gray_bg">Zlib支持：</td>
+                                <td class="gray_bg">Zlib支援：</td>
                                 <td><?php echo $sys_info['zlib']; ?></td>
                             </tr>
                             </tbody>
@@ -229,7 +229,7 @@
                             $('#a_upgrade').attr('data-version', res.data.msg.key_num)
                             .attr('data-max_version', res.data.msg.max_version)
                             .attr('title', res.data.msg.tips);
-                            $('#a_upgrade').html('檢測到新版本'+res.data.msg.key_num+'[點擊查看]').css('color', '#F00');
+                            $('#a_upgrade').html('檢測到新版本'+res.data.msg.key_num+'[點擊檢視]').css('color', '#F00');
 
                             <?php if(-1 != $web_show_popup_upgrade AND (0 >= \think\Session::get('admin_info.role_id') OR 1 == \think\Session::get('admin_info.auth_role_info.online_update'))): ?>
                                 btn_upgrade($("#a_upgrade"), 1);
@@ -258,10 +258,10 @@
             $.get("<?php echo url('Ajax/explanation_welcome'); ?>");
         });
 
-        checkInlet(); // 自動檢測隐藏index.php
+        checkInlet(); // 自動檢測隱藏index.php
     });
 
-    // 自動檢測隐藏index.php
+    // 自動檢測隱藏index.php
     function checkInlet() {
         layer.open({
             type: 2,

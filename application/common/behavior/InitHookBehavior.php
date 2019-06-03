@@ -5,14 +5,14 @@ namespace app\common\behavior;
 use think\Hook;
 // defined('THINK_PATH') or exit();
 /**
- * 初始化钩子信息
+ * 初始化鉤子資訊
  */
 class InitHookBehavior {
 
-    // 行为扩展的执行入口必须是run
+    // 行為擴充套件的執行入口必須是run
     public function run(&$params){
 /*        if (!defined('BIND_MODULE')) {
-            throw new \Exception("非法访问，系统尚未绑定插件模块");
+            throw new \Exception("非法訪問，系統尚未繫結外掛模組");
         }*/
         
         // file_put_contents ( DATA_PATH."log.txt", date ( "Y-m-d H:i:s" ) . "  " . var_export('core_InitHookBehavior',true) . "\r\n", FILE_APPEND );

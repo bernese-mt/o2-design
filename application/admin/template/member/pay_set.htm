@@ -7,15 +7,15 @@
     <div class="flexigrid">
         <div class="mDiv">
             <div class="ftitle">
-                <h3>接口配置</h3>
+                <h3>介面配置</h3>
             </div>
-            <div title="刷新数据" class="pReload"><i class="fa fa-refresh"></i></div>
+            <div title="重新整理數據" class="pReload"><i class="fa fa-refresh"></i></div>
             <div class="sDiv">
                 <div class="sDiv2 addartbtn fl" style="margin-right: 6px;">
-                    <input type="button" class="btn" value="接口配置" onclick="window.location.href='{:url("Member/pay_set")}';">
+                    <input type="button" class="btn" value="介面配置" onclick="window.location.href='{:url("Member/pay_set")}';">
                 </div>
                 <div class="sDiv2 addartbtn fl" style="margin-right: 6px;">
-                    <input type="button" class="btn current" value="账户充值记录" onclick="window.location.href='{:url("Member/money_index")}';">
+                    <input type="button" class="btn current" value="賬戶充值記錄" onclick="window.location.href='{:url("Member/money_index")}';">
                 </div>
             </div>
         </div>
@@ -46,8 +46,8 @@
                     </dt>
                     <dd class="opt">
                         <div class="onoff">
-                            <label for="is_open_wechat0" class="cb-enable {if condition="!isset($wechat.is_open_wechat) || empty($wechat.is_open_wechat)"}selected{/if}">开启</label>
-                            <label for="is_open_wechat1" class="cb-disable {if condition="$wechat.is_open_wechat == 1"}selected{/if}">关闭</label>
+                            <label for="is_open_wechat0" class="cb-enable {if condition="!isset($wechat.is_open_wechat) || empty($wechat.is_open_wechat)"}selected{/if}">開啟</label>
+                            <label for="is_open_wechat1" class="cb-disable {if condition="$wechat.is_open_wechat == 1"}selected{/if}">關閉</label>
                             <input id="is_open_wechat0" name="wechat[is_open_wechat]" value="0" type="radio" {if condition="!isset($wechat.is_open_wechat) || empty($wechat.is_open_wechat)"} checked="checked"{/if}>
                             <input id="is_open_wechat1" name="wechat[is_open_wechat]" value="1" type="radio" {if condition="$wechat.is_open_wechat == 1"} checked="checked"{/if}>
                         </div>
@@ -59,7 +59,7 @@
                     </dt>
                     <dd class="opt">
                         <input type="text" name="wechat[appid]" id="appid" value="{$wechat.appid}" class="input-txt">
-                        <p class="notic">请输入您的微信公众平台中的微信AppId，用于微信支付。</p>
+                        <p class="notic">請輸入您的微信公眾平臺中的微信AppId，用於微信支付。</p>
                     </dd>
                 </dl>
                 <dl class="row">
@@ -68,7 +68,7 @@
                     </dt>
                     <dd class="opt">
                         <input type="text" name="wechat[mchid]" id="mchid" value="{$wechat.mchid}" class="input-txt">
-                        <p class="notic">请输入您的微信公众平台中的微信MchId，用于微信支付。</p>
+                        <p class="notic">請輸入您的微信公眾平臺中的微信MchId，用於微信支付。</p>
                     </dd>
                 </dl>
                 <dl class="row">
@@ -77,12 +77,12 @@
                     </dt>
                     <dd class="opt">
                         <input type="text" name="wechat[key]" id="key" value="{$wechat.key}" class="input-txt">
-                        <p class="notic">请输入您的微信公众平台中的微信KEY值，用于微信支付。</p>
+                        <p class="notic">請輸入您的微信公眾平臺中的微信KEY值，用於微信支付。</p>
                     </dd>
                 </dl>
                 <dl class="row">
                     <div class="bot" style="padding-bottom:0px;">
-                        <a href="JavaScript:void(0);" onclick="wechatset();" class="ncap-btn-big ncap-btn-green" id="submitWechatBtn">确认提交</a>
+                        <a href="JavaScript:void(0);" onclick="wechatset();" class="ncap-btn-big ncap-btn-green" id="submitWechatBtn">確認提交</a>
                     </div>
                 </dl>
             </div>
@@ -99,7 +99,7 @@
                                 <div class="tc"></div>
                             </th>
                             <th abbr="article_title" axis="col3" class="w10">
-                                <div class="tc">支付宝支付配置</div>
+                                <div class="tc">支付寶支付配置</div>
                             </th>
                             <th abbr="ac_id" axis="col4">
                                 <div class=""></div>
@@ -117,8 +117,8 @@
                     </dt>
                     <dd class="opt">
                         <div class="onoff">
-                            <label for="is_open_alipay0" class="cb-enable {if condition="!isset($alipay.is_open_alipay) || empty($alipay.is_open_alipay)"}selected{/if}">开启</label>
-                            <label for="is_open_alipay1" class="cb-disable {if condition="$alipay.is_open_alipay == 1"}selected{/if}">关闭</label>
+                            <label for="is_open_alipay0" class="cb-enable {if condition="!isset($alipay.is_open_alipay) || empty($alipay.is_open_alipay)"}selected{/if}">開啟</label>
+                            <label for="is_open_alipay1" class="cb-disable {if condition="$alipay.is_open_alipay == 1"}selected{/if}">關閉</label>
                             <input id="is_open_alipay0" name="alipay[is_open_alipay]" value="0" type="radio" {if condition="!isset($alipay.is_open_alipay) || empty($alipay.is_open_alipay)"} checked="checked"{/if}>
                             <input id="is_open_alipay1" name="alipay[is_open_alipay]" value="1" type="radio" {if condition="$alipay.is_open_alipay == 1"} checked="checked"{/if}>
                         </div>
@@ -126,17 +126,17 @@
                 </dl>
                 <dl class="row">
                     <dt class="tit">
-                        <label for="uname"><em></em>使用支付宝版本</label>
+                        <label for="uname"><em></em>使用支付寶版本</label>
                     </dt>
                     <dd class="opt">
                         <label>
-                            <input type="radio" name="alipay[version]" onclick="switch_set(this);" value="0" {if condition="empty($php_version) && empty($alipay.version)"}checked="checked"{/if} />新版接口
-                            <span style="padding-left: 10px; color: #C0C0C0;">支持<font color="red">php5.5.0</font>或更高版本！</span>
+                            <input type="radio" name="alipay[version]" onclick="switch_set(this);" value="0" {if condition="empty($php_version) && empty($alipay.version)"}checked="checked"{/if} />新版介面
+                            <span style="padding-left: 10px; color: #C0C0C0;">支援<font color="red">php5.5.0</font>或更高版本！</span>
                         </label>
                         <br/>
                         <label>
-                            <input type="radio" name="alipay[version]" onclick="switch_set(this);" value="1" {if condition="$alipay.version == 1 || $php_version == 1"}checked="checked"{/if} />旧版接口
-                            <span style="padding-left: 10px; color: #C0C0C0;">可支持<font color="red">php5.4</font>或更高版本！</span>
+                            <input type="radio" name="alipay[version]" onclick="switch_set(this);" value="1" {if condition="$alipay.version == 1 || $php_version == 1"}checked="checked"{/if} />舊版介面
+                            <span style="padding-left: 10px; color: #C0C0C0;">可支援<font color="red">php5.4</font>或更高版本！</span>
                         </label>
                     </dd>
                 </dl>
@@ -144,29 +144,29 @@
                 <div id="new_version" {if condition="$alipay.version == 1 || $php_version == 1"}class="none"{/if}>
                     <dl class="row">
                         <dt class="tit">
-                            <label for="username"><em>*</em>支付宝APPID</label>
+                            <label for="username"><em>*</em>支付寶APPID</label>
                         </dt>
                         <dd class="opt">
                             <input type="text" name="alipay[app_id]" id="app_id" value="{$alipay.app_id}" class="input-txt">
-                            <p class="notic">请输入您的支付宝APPID，用于支付宝支付。</p>
+                            <p class="notic">請輸入您的支付寶APPID，用於支付寶支付。</p>
                         </dd>
                     </dl>
                     <dl class="row">
                         <dt class="tit">
-                            <label for="username"><em>*</em>商户私钥</label>
+                            <label for="username"><em>*</em>商戶私鑰</label>
                         </dt>
                         <dd class="opt">
                             <textarea rows="5" cols="80" id="merchant_private_key" name="alipay[merchant_private_key]" style="height:120px;">{$alipay.merchant_private_key}</textarea>
-                            <p class="notic">请输入您的商户私钥，用于支付宝支付。</p>
+                            <p class="notic">請輸入您的商戶私鑰，用於支付寶支付。</p>
                         </dd>
                     </dl>
                     <dl class="row">
                         <dt class="tit">
-                            <label for="username"><em>*</em>支付宝公钥</label>
+                            <label for="username"><em>*</em>支付寶公鑰</label>
                         </dt>
                         <dd class="opt">
                             <textarea rows="5" cols="80" id="alipay_public_key" name="alipay[alipay_public_key]" style="height:106px;">{$alipay.alipay_public_key}</textarea>
-                            <p class="notic">请输入您的支付宝公钥，用于支付宝支付。</p>
+                            <p class="notic">請輸入您的支付寶公鑰，用於支付寶支付。</p>
                         </dd>
                     </dl>
                 </div>
@@ -174,20 +174,20 @@
                 <div id="old_version" {if condition="empty($php_version) && empty($alipay.version)"}class="none"{/if}>
                     <dl class="row">
                         <dt class="tit">
-                            <label for="username"><em>*</em>支付宝账号</label>
+                            <label for="username"><em>*</em>支付寶賬號</label>
                         </dt>
                         <dd class="opt">
                             <input type="text" name="alipay[account]" id="account" value="{$alipay.account}" class="input-txt">
-                            <p class="notic">请输入您的支付宝账号，用于支付宝支付。</p>
+                            <p class="notic">請輸入您的支付寶賬號，用於支付寶支付。</p>
                         </dd>
                     </dl>
                     <dl class="row">
                         <dt class="tit">
-                            <label for="username"><em>*</em>交易安全校验码</label>
+                            <label for="username"><em>*</em>交易安全校驗碼</label>
                         </dt>
                         <dd class="opt">
                             <input type="text" name="alipay[code]" id="code" value="{$alipay.code}" class="input-txt">
-                            <p class="notic">请输入您的交易安全校验码，用于支付宝支付。</p>
+                            <p class="notic">請輸入您的交易安全校驗碼，用於支付寶支付。</p>
                         </dd>
                     </dl>
                     <dl class="row">
@@ -196,13 +196,13 @@
                         </dt>
                         <dd class="opt">
                             <input type="text" name="alipay[id]" id="id" value="{$alipay.id}" class="input-txt">
-                            <p class="notic">请输入您的合作者身份ID，用于支付宝支付。</p>
+                            <p class="notic">請輸入您的合作者身份ID，用於支付寶支付。</p>
                         </dd>
                     </dl>
                 </div>
                 <dl class="row">
                     <div class="bot">
-                        <a href="JavaScript:void(0);" onclick="alipayset();" class="ncap-btn-big ncap-btn-green" id="submitAlipayBtn">确认提交</a>
+                        <a href="JavaScript:void(0);" onclick="alipayset();" class="ncap-btn-big ncap-btn-green" id="submitAlipayBtn">確認提交</a>
                     </div>
                 </dl>
             </div>
@@ -211,12 +211,12 @@
 </div>
 <script>
     $(document).ready(function(){
-        // 表格行点击选中切换
+        // 表格行點選選中切換
         $('#flexigrid > table>tbody >tr').click(function(){
             $(this).toggleClass('trSelected');
         });
 
-        // 点击刷新数据
+        // 點選重新整理數據
         $('.fa-refresh').click(function(){
             location.href = location.href;
         });
@@ -225,21 +225,21 @@
     /*微信支付配置*/
     function wechatset(){
         if($('#postWechatForm input[id=appid]').val() == ''){
-            layer.alert('微信AppId不能为空！', {icon: 2, title:false});
+            layer.alert('微信AppId不能為空！', {icon: 2, title:false});
             return false;
         }
 
         if($('#postWechatForm input[id=mchid]').val() == ''){
-            layer.alert('微信MchId不能为空！', {icon: 2, title:false});
+            layer.alert('微信MchId不能為空！', {icon: 2, title:false});
             return false;
         }
 
         if($('#postWechatForm input[id=key]').val() == ''){
-            layer.alert('微信KEY值不能为空！', {icon: 2, title:false});
+            layer.alert('微信KEY值不能為空！', {icon: 2, title:false});
             return false;
         }
 
-        layer_loading('正在处理');
+        layer_loading('正在處理');
         $.ajax({
             url: $('#postWechatForm').attr('action'),
             type: 'POST',
@@ -257,7 +257,7 @@
             },
             error: function(e){
                 layer.closeAll();
-                showErrorMsg('网络失败，请刷新页面后重试');
+                showErrorMsg('網路失敗，請重新整理頁面後重試');
                 return false;
             }
         });
@@ -265,10 +265,10 @@
 
     function php_version(is){
         var php_version = {$php_version};
-        // php_version=1，表示php本版低于5.5.0，不可用新版支付方式
+        // php_version=1，表示php本版低於5.5.0，不可用新版支付方式
         if (php_version == 1) {
             if (is == true) {
-                layer.alert('PHP版本低于5.5.0，不可用新版支付方式，请使用旧版！', {icon: 2, title:false});
+                layer.alert('PHP版本低於5.5.0，不可用新版支付方式，請使用舊版！', {icon: 2, title:false});
             }
             $("#postAlipayForm input[name='alipay[version]'][value=1]").attr("checked","checked");
             return false;
@@ -292,40 +292,40 @@
     function alipayset(){
         var switch_set = $("#postAlipayForm input[name='alipay[version]']:checked").val();
         if (switch_set == 0) {
-            // 新版判断
+            // 新版判斷
             if($('#postAlipayForm #app_id').val() == ''){
-                layer.alert('支付APPID不能为空！', {icon: 2, title:false});
+                layer.alert('支付APPID不能為空！', {icon: 2, title:false});
                 return false;
             }
 
             if($('#postAlipayForm #merchant_private_key').val() == ''){
-                layer.alert('商户私钥不能为空！', {icon: 2, title:false});
+                layer.alert('商戶私鑰不能為空！', {icon: 2, title:false});
                 return false;
             }
 
             if($('#postAlipayForm #alipay_public_key').val() == ''){
-                layer.alert('支付宝公钥不能为空！', {icon: 2, title:false});
+                layer.alert('支付寶公鑰不能為空！', {icon: 2, title:false});
                 return false;
             }
         }else if (switch_set == 1) {
-            // 旧版判断
+            // 舊版判斷
             if($('#postAlipayForm #account').val() == ''){
-                layer.alert('支付宝账号不能为空！', {icon: 2, title:false});
+                layer.alert('支付寶賬號不能為空！', {icon: 2, title:false});
                 return false;
             }
 
             if($('#postAlipayForm #code').val() == ''){
-                layer.alert('交易安全校验码不能为空！', {icon: 2, title:false});
+                layer.alert('交易安全校驗碼不能為空！', {icon: 2, title:false});
                 return false;
             }
 
             if($('#postAlipayForm #id').val() == ''){
-                layer.alert('合作者身份ID不能为空！', {icon: 2, title:false});
+                layer.alert('合作者身份ID不能為空！', {icon: 2, title:false});
                 return false;
             }
         }
 
-        layer_loading('正在处理');
+        layer_loading('正在處理');
         $.ajax({
             url: $('#postAlipayForm').attr('action'),
             type: 'POST',
@@ -343,7 +343,7 @@
             },
             error: function(e){
                 layer.closeAll();
-                showErrorMsg('网络失败，请刷新页面后重试');
+                showErrorMsg('網路失敗，請重新整理頁面後重試');
                 return false;
             }
         });

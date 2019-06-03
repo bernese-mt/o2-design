@@ -1,11 +1,11 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
@@ -36,15 +36,15 @@ class Uiset extends Base
         }
         /*--end*/
 
-        /*权限控制 by 小虎哥*/
+        /*許可權控制 by 小虎哥*/
         $admin_info = session('admin_info');
         if (0 < intval($admin_info['role_id'])) {
             $auth_role_info = $admin_info['auth_role_info'];
             $permission = $auth_role_info['permission'];
             $auth_rule = get_auth_rule();
-            $all_auths = []; // 系统全部权限对应的菜单ID
-            $admin_auths = []; // 用户当前拥有权限对应的菜单ID
-            $diff_auths = []; // 用户没有被授权的权限对应的菜单ID
+            $all_auths = []; // 系統全部許可權對應的菜單ID
+            $admin_auths = []; // 使用者目前擁有許可權對應的菜單ID
+            $diff_auths = []; // 使用者沒有被授權的許可權對應的菜單ID
             foreach($auth_rule as $key => $val){
                 $all_auths = array_merge($all_auths, explode(',', $val['menu_id']), explode(',', $val['menu_id2']));
                 if (in_array($val['id'], $permission['rules'])) {
@@ -56,34 +56,34 @@ class Uiset extends Base
             $diff_auths = array_diff($all_auths, $admin_auths);
 
             if(in_array(2002, $diff_auths)){
-                $this->error('您没有操作权限，请联系超级管理员分配权限');
+                $this->error('您沒有操作許可權，請聯繫超級管理員分配許可權');
             }
         }
         /*--end*/
     }
 
     /**
-     * PC调试外观
+     * PC除錯外觀
      */
     public function pc()
     {
-        // 支持子目录
+        // 支援子目錄
         $index_url = ROOT_DIR.'/index.php?m=home&c=Index&a=index&uiset=on&v=pc&lang='.$this->admin_lang;
         $this->redirect($index_url);
     }
 
     /**
-     * 手机调试外观
+     * 手機除錯外觀
      */
     public function mobile()
     {
-        // 支持子目录
+        // 支援子目錄
         $index_url = ROOT_DIR.'/index.php?m=home&c=Index&a=index&uiset=on&v=mobile&lang='.$this->admin_lang;
         $this->redirect($index_url);
     }
 
     /**
-     * 调试外观
+     * 除錯外觀
      */
     public function index()
     {
@@ -91,18 +91,18 @@ class Uiset extends Base
     }
 
     /**
-     * 数据列表
+     * 數據列表
      */
     public function ui_index()
     {
         $condition = array();
-        // 获取到所有GET参数
+        // 獲取到所有GET參數
         $param = input('param.');
-        /*模板主题*/
+        /*模板主題*/
         $param['theme_style'] = $this->theme_style = input('param.theme_style/s', 'pc');
         /*--end*/
 
-        // 应用搜索条件
+        // 應用搜索條件
         foreach (['keywords','theme_style'] as $key) {
             if (isset($param[$key]) && $param[$key] !== '') {
                 if ($key == 'keywords') {
@@ -113,29 +113,29 @@ class Uiset extends Base
             }
         }
 
-        /*多语言*/
+        /*多語言*/
         $condition['a.lang'] = $this->admin_lang;
         /*--end*/
 
         $list = array();
 
         $uiconfigM =  M('ui_config');
-        $count = $uiconfigM->alias('a')->where($condition)->count('id');// 查询满足要求的总记录数
-        $Page = $pager = new Page($count, config('paginate.list_rows'));// 实例化分页类 传入总记录数和每页显示的记录数
+        $count = $uiconfigM->alias('a')->where($condition)->count('id');// 查詢滿足要求的總記錄數
+        $Page = $pager = new Page($count, config('paginate.list_rows'));// 實例化分頁類 傳入總記錄數和每頁顯示的記錄數
         $list = $uiconfigM->alias('a')->where($condition)->order('id desc')->limit($Page->firstRow.','.$Page->listRows)->select();
 
-        $show = $Page->show();// 分页显示输出
-        $this->assign('page',$show);// 赋值分页输出
-        $this->assign('list',$list);// 赋值数据集
-        $this->assign('pager',$pager);// 赋值分页对象
-        $this->assign('theme_style',$this->theme_style);// 模板主题
+        $show = $Page->show();// 分頁顯示輸出
+        $this->assign('page',$show);// 賦值分頁輸出
+        $this->assign('list',$list);// 賦值數據集
+        $this->assign('pager',$pager);// 賦值分頁對像
+        $this->assign('theme_style',$this->theme_style);// 模板主題
         $this->assign('templateArr',$this->templateArr);// 模板列表
 
         return $this->fetch();
     }
     
     /**
-     * 删除
+     * 刪除
      */
     public function del()
     {
@@ -147,13 +147,13 @@ class Uiset extends Base
             if($r){
                 \think\Cache::clear('ui_config');
                 delFile(RUNTIME_PATH.'ui/'.$result['theme_style']);
-                adminLog('删除可视化数据 e-id：'.implode(array_keys($result)));
-                $this->success('删除成功');
+                adminLog('刪除視覺化數據 e-id：'.implode(array_keys($result)));
+                $this->success('刪除成功');
             }else{
-                $this->error('删除失败');
+                $this->error('刪除失敗');
             }
         }else{
-            $this->error('参数有误');
+            $this->error('參數有誤');
         }
     }
 }

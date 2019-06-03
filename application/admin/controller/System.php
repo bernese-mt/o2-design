@@ -1,11 +1,11 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
@@ -19,7 +19,7 @@ use think\Page;
 
 class System extends Base
 {
-    // 选项卡是否显示
+    // 選項卡是否顯示
     public $tabase = '';
     
     public function _initialize() {
@@ -33,26 +33,26 @@ class System extends Base
     }
 
     /**
-     * 网站设置
+     * 網站設定
      */
     public function web()
     {
         $inc_type =  'web';
-        $root_dir = ROOT_DIR; // 支持子目录
+        $root_dir = ROOT_DIR; // 支援子目錄
 
         if (IS_POST) {
             $param = input('post.');
             $param['web_keywords'] = str_replace('，', ',', $param['web_keywords']);
             $param['web_description'] = filter_line_return($param['web_description']);
             
-            // 网站根网址
+            // 網站根網址
             $web_basehost = rtrim($param['web_basehost'], '/');
             if (!is_http_url($web_basehost) && !empty($web_basehost)) {
                 $web_basehost = 'http://'.$web_basehost;
             }
             $param['web_basehost'] = $web_basehost;
 
-            // 网站logo
+            // 網站logo
             $web_logo_is_remote = !empty($param['web_logo_is_remote']) ? $param['web_logo_is_remote'] : 0;
             $web_logo = '';
             if ($web_logo_is_remote == 1) {
@@ -65,7 +65,7 @@ class System extends Base
             unset($param['web_logo_remote']);
             unset($param['web_logo_local']);
 
-            // 浏览器地址图标
+            // 瀏覽器地址圖示
             if (!empty($param['web_ico']) && !is_http_url($param['web_ico'])) {
                 $source = realpath(preg_replace('#^'.$root_dir.'/#i', '', $param['web_ico']));
                 $destination = realpath('favicon.ico');
@@ -75,13 +75,13 @@ class System extends Base
             }
 
             tpCache($inc_type, $param);
-            write_global_params(); // 写入全局内置参数
+            write_global_params(); // 寫入全域性內建參數
             $this->success('操作成功', url('System/web'));
             exit;
         }
 
         $config = tpCache($inc_type);
-        // 网站logo
+        // 網站logo
         if (is_http_url($config['web_logo'])) {
             $config['web_logo_is_remote'] = 1;
             $config['web_logo_remote'] = handle_subdir_pic($config['web_logo']);
@@ -90,14 +90,14 @@ class System extends Base
             $config['web_logo_local'] = handle_subdir_pic($config['web_logo']);
         }
 
-        $config['web_ico'] = preg_replace('#^(/[/\w]+)?(/)#i', $root_dir.'$2', $config['web_ico']); // 支持子目录
+        $config['web_ico'] = preg_replace('#^(/[/\w]+)?(/)#i', $root_dir.'$2', $config['web_ico']); // 支援子目錄
         
-        /*系统模式*/
+        /*系統模式*/
         $web_cmsmode = isset($config['web_cmsmode']) ? $config['web_cmsmode'] : 2;
         $this->assign('web_cmsmode', $web_cmsmode);
         /*--end*/
 
-        /*自定义变量*/
+        /*自定義變數*/
         $eyou_row = M('config_attribute')->field('a.attr_id, a.attr_name, a.attr_var_name, a.attr_input_type, b.value, b.id, b.name')
             ->alias('a')
             ->join('__CONFIG__ b', 'b.name = a.attr_var_name AND b.lang = a.lang', 'LEFT')
@@ -109,96 +109,96 @@ class System extends Base
             ->order('a.attr_id asc')
             ->select();
         foreach ($eyou_row as $key => $val) {
-            $val['value'] = handle_subdir_pic($val['value'], 'html'); // 支持子目录
-            $val['value'] = handle_subdir_pic($val['value']); // 支持子目录
+            $val['value'] = handle_subdir_pic($val['value'], 'html'); // 支援子目錄
+            $val['value'] = handle_subdir_pic($val['value']); // 支援子目錄
             $eyou_row[$key] = $val;
         }
         $this->assign('eyou_row',$eyou_row);
         /*--end*/
 
-        $this->assign('config',$config);//当前配置项
+        $this->assign('config',$config);//目前配置項
         return $this->fetch();
     }
 
     /**
-     * 核心设置
+     * 核心設定
      */
     public function web2()
     {
-        $this->language_access(); // 多语言功能操作权限
+        $this->language_access(); // 多語言功能操作許可權
 
         $inc_type = 'web';
 
         if (IS_POST) {
             $param = input('post.');
 
-            /*EyouCMS安装目录*/
-            empty($param['web_cmspath']) && $param['web_cmspath'] = ROOT_DIR; // 支持子目录
+            /*EyouCMS安裝目錄*/
+            empty($param['web_cmspath']) && $param['web_cmspath'] = ROOT_DIR; // 支援子目錄
             $web_cmspath = trim($param['web_cmspath'], '/');
             $web_cmspath = !empty($web_cmspath) ? '/'.$web_cmspath : '';
             $param['web_cmspath'] = $web_cmspath;
             /*--end*/
-            /*插件入口*/
+            /*外掛入口*/
             $web_weapp_switch = $param['web_weapp_switch'];
             $web_weapp_switch_old = tpCache('web.web_weapp_switch');
             /*--end*/
-            /*会员入口*/
+            /*會員入口*/
             $web_users_switch = $param['web_users_switch'];
             $web_users_switch_old = tpCache('web.web_users_switch');
             /*--end*/
-            /*自定义后台路径名*/
-            $adminbasefile = trim($param['adminbasefile']).'.php'; // 新的文件名
-            $param['web_adminbasefile'] = ROOT_DIR.'/'.$adminbasefile; // 支持子目录
-            $adminbasefile_old = trim($param['adminbasefile_old']).'.php'; // 旧的文件名
+            /*自定義後臺路徑名*/
+            $adminbasefile = trim($param['adminbasefile']).'.php'; // 新的檔名
+            $param['web_adminbasefile'] = ROOT_DIR.'/'.$adminbasefile; // 支援子目錄
+            $adminbasefile_old = trim($param['adminbasefile_old']).'.php'; // 舊的檔名
             unset($param['adminbasefile']);
             unset($param['adminbasefile_old']);
             if ('index.php' == $adminbasefile) {
-                $this->error("新后台地址禁止使用index", null, '', 1);
+                $this->error("新後臺地址禁止使用index", null, '', 1);
             }
             /*--end*/
-            $param['web_sqldatapath'] = '/'.trim($param['web_sqldatapath'], '/'); // 数据库备份目录
-            $param['web_htmlcache_expires_in'] = intval($param['web_htmlcache_expires_in']); // 页面缓存有效期
-            /*多语言入口*/
+            $param['web_sqldatapath'] = '/'.trim($param['web_sqldatapath'], '/'); // 數據庫備份目錄
+            $param['web_htmlcache_expires_in'] = intval($param['web_htmlcache_expires_in']); // 頁面快取有效期
+            /*多語言入口*/
             $web_language_switch = $param['web_language_switch'];
             $web_language_switch_old = tpCache('web.web_language_switch');
             /*--end*/
 
-            /*多语言*/
+            /*多語言*/
             if (is_language()) {
                 $langRow = \think\Db::name('language')->order('id asc')
                     ->cache(true, EYOUCMS_CACHE_TIME, 'language')
                     ->select();
                 foreach ($langRow as $key => $val) {
                     tpCache($inc_type,$param,$val['mark']);
-                    write_global_params($val['mark']); // 写入全局内置参数
+                    write_global_params($val['mark']); // 寫入全域性內建參數
                 }
             } else {
                 tpCache($inc_type,$param);
-                write_global_params(); // 写入全局内置参数
+                write_global_params(); // 寫入全域性內建參數
             }
             /*--end*/
 
             $refresh = false;
-            $gourl = request()->domain().ROOT_DIR.'/'.$adminbasefile; // 支持子目录
-            /*更改自定义后台路径名*/
+            $gourl = request()->domain().ROOT_DIR.'/'.$adminbasefile; // 支援子目錄
+            /*更改自定義後臺路徑名*/
             if ($adminbasefile_old != $adminbasefile && eyPreventShell($adminbasefile_old)) {
                 if (file_exists($adminbasefile_old)) {
                     if(rename($adminbasefile_old, $adminbasefile)) {
                         $refresh = true;
                     }
                 } else {
-                    $this->error("根目录{$adminbasefile_old}文件不存在！", null, '', 2);
+                    $this->error("根目錄{$adminbasefile_old}檔案不存在！", null, '', 2);
                 }
             }
             /*--end*/
 
-            /*更改之后，需要刷新后台的参数*/
+            /*更改之後，需要重新整理後臺的參數*/
             if ($web_weapp_switch_old != $web_weapp_switch || $web_language_switch_old != $web_language_switch || $web_users_switch_old != $web_users_switch) {
                 $refresh = true;
             }
             /*--end*/
             
-            /*刷新整个后台*/
+            /*重新整理整個後臺*/
             if ($refresh) {
                 $this->success('操作成功', $gourl, '', 1, [], '_parent');
             }
@@ -208,21 +208,21 @@ class System extends Base
         }
 
         $config = tpCache($inc_type);
-        //自定义后台路径名
+        //自定義後臺路徑名
         $baseFile = explode('/', $this->request->baseFile());
         $web_adminbasefile = end($baseFile);
         $adminbasefile = preg_replace('/^(.*)\.([^\.]+)$/i', '$1', $web_adminbasefile);
         $this->assign('adminbasefile', $adminbasefile);
-        // 数据库备份目录
+        // 數據庫備份目錄
         $sqlbackuppath = config('DATA_BACKUP_PATH');
         $this->assign('sqlbackuppath', $sqlbackuppath);
 
-        $this->assign('config',$config);//当前配置项
+        $this->assign('config',$config);//目前配置項
         return $this->fetch();
     }
 
     /**
-     * 附件设置
+     * 附件設定
      */
     public function basic()
     {
@@ -231,7 +231,7 @@ class System extends Base
         if (IS_POST) {
             $param = input('post.');
 
-            // 禁止php扩展名的附件类型
+            // 禁止php副檔名的附件型別
             $param['image_type'] = str_ireplace('|php|', '|', '|'.$param['image_type'].'|');
             $param['image_type'] = trim($param['image_type'], '|');
             $param['file_type'] = str_ireplace('|php|', '|', '|'.$param['file_type'].'|');
@@ -239,12 +239,12 @@ class System extends Base
             $param['media_type'] = str_ireplace('|php|', '|', '|'.$param['media_type'].'|');
             $param['media_type'] = trim($param['media_type'], '|');
 
-            /*多语言*/
+            /*多語言*/
             if (is_language()) {
                 $newParam['basic_indexname'] = $param['basic_indexname'];
                 tpCache($inc_type,$newParam);
 
-                $synLangParam = $param; // 同步更新多语言的数据
+                $synLangParam = $param; // 同步更新多語言的數據
                 unset($synLangParam['basic_indexname']);
                 $langRow = \think\Db::name('language')->order('id asc')
                     ->cache(true, EYOUCMS_CACHE_TIME, 'language')
@@ -260,16 +260,16 @@ class System extends Base
         }
 
         $config = tpCache($inc_type);
-        $this->assign('config',$config);//当前配置项
+        $this->assign('config',$config);//目前配置項
         return $this->fetch();
     }
 
     /**
-     * 图片水印
+     * 圖片水印
      */
     public function water()
     {
-        $this->language_access(); // 多语言功能操作权限
+        $this->language_access(); // 多語言功能操作許可權
 
         $inc_type =  'water';
 
@@ -290,7 +290,7 @@ class System extends Base
             unset($param['mark_img_remote']);
             unset($param['mark_img_local']);
 
-            /*多语言*/
+            /*多語言*/
             if (is_language()) {
                 $langRow = \think\Db::name('language')->order('id asc')
                     ->cache(true, EYOUCMS_CACHE_TIME, 'language')
@@ -314,16 +314,16 @@ class System extends Base
             $config['mark_img_local'] = handle_subdir_pic($config['mark_img']);
         }
 
-        $this->assign('config',$config);//当前配置项
+        $this->assign('config',$config);//目前配置項
         return $this->fetch();
     }
 
     /**
-     * 缩略图配置
+     * 縮圖配置
      */
     public function thumb()
     {
-        $this->language_access(); // 多语言功能操作权限
+        $this->language_access(); // 多語言功能操作許可權
 
         $inc_type =  'thumb';
 
@@ -334,9 +334,9 @@ class System extends Base
             isset($param['thumb_width']) && $param['thumb_width'] = preg_replace('/[^0-9]/', '', $param['thumb_width']);
             isset($param['thumb_height']) && $param['thumb_height'] = preg_replace('/[^0-9]/', '', $param['thumb_height']);
 
-            $thumbConfig = tpCache('thumb'); // 旧数据
+            $thumbConfig = tpCache('thumb'); // 舊數據
 
-            /*多语言*/
+            /*多語言*/
             if (is_language()) {
                 $langRow = \think\Db::name('language')->order('id asc')
                     ->cache(true, EYOUCMS_CACHE_TIME, 'language')
@@ -349,11 +349,11 @@ class System extends Base
             }
             /*--end*/
 
-            /*校验配置是否改动，若改动将会清空缩略图目录*/
+            /*校驗配置是否改動，若改動將會清空縮圖目錄*/
             unset($param['__token__']);
             if (md5(serialize($param)) != md5(serialize($thumbConfig))) {
-                delFile(RUNTIME_PATH.'html'); // 清空缓存页面
-                delFile(UPLOAD_PATH.'thumb'); // 清空缩略图
+                delFile(RUNTIME_PATH.'html'); // 清空快取頁面
+                delFile(UPLOAD_PATH.'thumb'); // 清空縮圖
             }
             /*--end*/
 
@@ -362,9 +362,9 @@ class System extends Base
 
         $config = tpCache($inc_type);
 
-        // 设置缩略图默认配置
+        // 設定縮圖預設配置
         if (!isset($config['thumb_open'])) {
-            /*多语言*/
+            /*多語言*/
             $thumbextra = config('global.thumb');
             $param = [
                 'thumb_open'    => $thumbextra['open'],
@@ -385,12 +385,12 @@ class System extends Base
             /*--end*/
         }
 
-        $this->assign('config',$config);//当前配置项
+        $this->assign('config',$config);//目前配置項
         return $this->fetch();
     }
 
     /**
-     * 邮件配置
+     * 郵件配置
      */
     public function smtp()
     {
@@ -398,7 +398,7 @@ class System extends Base
 
         if (IS_POST) {
             $param = input('post.');
-            /*多语言*/
+            /*多語言*/
             if (is_language()) {
                 $langRow = \think\Db::name('language')->order('id asc')
                     ->cache(true, EYOUCMS_CACHE_TIME, 'language')
@@ -414,12 +414,12 @@ class System extends Base
         }
 
         $config = tpCache($inc_type);
-        $this->assign('config',$config);//当前配置项
+        $this->assign('config',$config);//目前配置項
         return $this->fetch();
     }
 
     /**
-     * 邮件模板列表
+     * 郵件模板列表
      */
     public function smtp_tpl()
     {
@@ -431,25 +431,25 @@ class System extends Base
             $map['tpl_name'] = array('LIKE', "%{$keywords}%");
         }
 
-        // 多语言
+        // 多語言
         $map['lang'] = array('eq', $this->admin_lang);
 
-        $count = Db::name('smtp_tpl')->where($map)->count('tpl_id');// 查询满足要求的总记录数
-        $pageObj = new Page($count, config('paginate.list_rows'));// 实例化分页类 传入总记录数和每页显示的记录数
+        $count = Db::name('smtp_tpl')->where($map)->count('tpl_id');// 查詢滿足要求的總記錄數
+        $pageObj = new Page($count, config('paginate.list_rows'));// 實例化分頁類 傳入總記錄數和每頁顯示的記錄數
         $list = Db::name('smtp_tpl')->where($map)
             ->order('tpl_id asc')
             ->limit($pageObj->firstRow.','.$pageObj->listRows)
             ->select();
-        $pageStr = $pageObj->show(); // 分页显示输出
-        $this->assign('list', $list); // 赋值数据集
-        $this->assign('pageStr', $pageStr); // 赋值分页输出
-        $this->assign('pageObj', $pageObj); // 赋值分页对象
+        $pageStr = $pageObj->show(); // 分頁顯示輸出
+        $this->assign('list', $list); // 賦值數據集
+        $this->assign('pageStr', $pageStr); // 賦值分頁輸出
+        $this->assign('pageObj', $pageObj); // 賦值分頁對像
         
         return $this->fetch();
     }
     
     /**
-     * 邮件模板列表 - 编辑
+     * 郵件模板列表 - 編輯
      */
     public function smtp_tpl_edit()
     {
@@ -459,7 +459,7 @@ class System extends Base
             if(!empty($post['tpl_id'])){
                 $post['tpl_title'] = trim($post['tpl_title']);
 
-                /*组装存储数据*/
+                /*組裝儲存數據*/
                 $nowData = array(
                     'update_time'   => getTime(),
                 );
@@ -475,11 +475,11 @@ class System extends Base
                             'tpl_id'    => $post['tpl_id'],
                             'lang'      => $this->home_lang,
                         ])->getField('tpl_name');
-                    adminLog('编辑邮件模板：'.$tpl_name); // 写入操作日志
+                    adminLog('編輯郵件模板：'.$tpl_name); // 寫入操作日誌
                     $this->success("操作成功", url('System/smtp_tpl'));
                 }
             }
-            $this->error("操作失败");
+            $this->error("操作失敗");
         }
 
         $id = input('id/d', 0);
@@ -488,7 +488,7 @@ class System extends Base
                 'lang'      => $this->home_lang,
             ])->find();
         if (empty($row)) {
-            $this->error('数据不存在，请联系管理员！');
+            $this->error('數據不存在，請聯繫管理員！');
             exit;
         }
 
@@ -497,7 +497,7 @@ class System extends Base
     }
 
     /**
-     * 清空缓存 - 兼容升级没刷新后台，点击报错404，过1.2.5版本之后清除掉代码
+     * 清空快取 - 相容升級沒重新整理後臺，點選報錯404，過1.2.5版本之後清除掉程式碼
      */
     public function clearCache()
     {
@@ -505,29 +505,29 @@ class System extends Base
     }
 
     /**
-     * 清空缓存
+     * 清空快取
      */
     public function clear_cache()
     {
         if (IS_POST) {
             if (!function_exists('unlink')) {
-                $this->error('php.ini未开启unlink函数，请联系空间商处理！');
+                $this->error('php.ini未開啟unlink函式，請聯繫空間商處理！');
             }
 
             $post = input('post.');
 
-            if (!empty($post['clearHtml'])) { // 清除页面缓存
+            if (!empty($post['clearHtml'])) { // 清除頁面快取
                 $this->clearHtmlCache($post['clearHtml']);
             }
 
-            if (!empty($post['clearCache'])) { // 清除数据缓存
+            if (!empty($post['clearCache'])) { // 清除數據快取
                 $this->clearSystemCache($post['clearCache']);
             }
 
-            // 清除其他临时文件
+            // 清除其他臨時檔案
             $this->clearOtherCache();
 
-            /*兼容每个用户的自定义字段，重新生成数据表字段缓存文件*/
+            /*相容每個使用者的自定義欄位，重新產生數據表字段快取檔案*/
             $systemTables = ['arctype'];
             $data = Db::name('channeltype')
                 ->where('nid','NEQ','guestbook')
@@ -543,7 +543,7 @@ class System extends Base
             }
             /*--end*/
 
-            /*清除旧升级备份包，保留最后一个备份文件*/
+            /*清除舊升級備份包，保留最後一個備份檔案*/
             $backupArr = glob(DATA_PATH.'backup/v*_www');
             for ($i=0; $i < count($backupArr) - 1; $i++) { 
                 delFile($backupArr[$i], true);
@@ -561,7 +561,7 @@ class System extends Base
             }
             /*--end*/
 
-            // cache('admin_ModuleInitBehavior_isset_checkInlet', 1); // 配合ModuleInitBehavior.php行为的checkInlet方法，进行自动隐藏index.php
+            // cache('admin_ModuleInitBehavior_isset_checkInlet', 1); // 配合ModuleInitBehavior.php行為的checkInlet方法，進行自動隱藏index.php
 
             $request = Request::instance();
             $gourl = $request->baseFile();
@@ -576,7 +576,7 @@ class System extends Base
     }
 
     /**
-     * 清空数据缓存
+     * 清空數據快取
      */
     public function fastClearCache($arr = array())
     {
@@ -586,7 +586,7 @@ class System extends Base
     }
 
     /**
-     * 清空数据缓存
+     * 清空數據快取
      */
     public function clearSystemCache($arr = array())
     {
@@ -598,7 +598,7 @@ class System extends Base
             }
         }
 
-        /*多语言*/
+        /*多語言*/
         if (is_language()) {
             $langRow = Db::name('language')->order('id asc')
                 ->cache(true, EYOUCMS_CACHE_TIME, 'language')
@@ -606,7 +606,7 @@ class System extends Base
             foreach ($langRow as $key => $val) {
                 tpCache('global', '', $val['mark']);
             }
-        } else { // 单语言
+        } else { // 單語言
             tpCache('global');
         }
         /*--end*/
@@ -615,7 +615,7 @@ class System extends Base
     }
 
     /**
-     * 清空页面缓存
+     * 清空頁面快取
      */
     public function clearHtmlCache($arr = array())
     {
@@ -646,7 +646,7 @@ class System extends Base
     }
 
     /**
-     * 清除其他临时文件
+     * 清除其他臨時檔案
      */
     private function clearOtherCache()
     {
@@ -661,16 +661,16 @@ class System extends Base
     }
       
     /**
-     * 发送测试邮件
+     * 發送測試郵件
      */
     public function send_email()
     {
         $param = $smtp_config = input('post.');
-        $title = '演示标题';
-        $content = '演示一串随机数字：' . mt_rand(100000,999999);
+        $title = '演示標題';
+        $content = '演示一串隨機數字：' . mt_rand(100000,999999);
         $res = send_email($param['smtp_from_eamil'], $title, $content, 0, $smtp_config);
         if (intval($res['code']) == 1) {
-            /*多语言*/
+            /*多語言*/
             if (is_language()) {
                 $langRow = \think\Db::name('language')->order('id asc')
                     ->cache(true, EYOUCMS_CACHE_TIME, 'language')
@@ -689,7 +689,7 @@ class System extends Base
     }
       
     /**
-     * 发送测试短信
+     * 發送測試簡訊
      */
     public function send_mobile()
     {
@@ -699,11 +699,11 @@ class System extends Base
     }
 
     /**
-     * 新增自定义变量
+     * 新增自定義變數
      */
     public function customvar_add()
     {
-        $this->language_access(); // 多语言功能操作权限
+        $this->language_access(); // 多語言功能操作許可權
 
         if (IS_POST) {
             $configAttributeM = model('ConfigAttribute');
@@ -712,7 +712,7 @@ class System extends Base
             $attr_input_type = isset($post_data['attr_input_type']) ? $post_data['attr_input_type'] : '';
 
             if ($attr_input_type == 3) {
-                // 本地/远程图片上传的处理
+                // 本地/遠端圖片上傳的處理
                 $is_remote = !empty($post_data['is_remote']) ? $post_data['is_remote'] : 0;
                 $litpic = '';
                 if ($is_remote == 1) {
@@ -723,8 +723,8 @@ class System extends Base
                 $attr_values = $litpic;
             } else {
                 $attr_values = input('attr_values');
-                // $attr_values = str_replace('_', '', $attr_values); // 替换特殊字符
-                // $attr_values = str_replace('@', '', $attr_values); // 替换特殊字符
+                // $attr_values = str_replace('_', '', $attr_values); // 替換特殊字元
+                // $attr_values = str_replace('@', '', $attr_values); // 替換特殊字元
                 $attr_values = trim($attr_values);
                 $attr_values = isset($attr_values) ? $attr_values : '';
             }
@@ -737,7 +737,7 @@ class System extends Base
                 'update_time'   => getTime(),
             );
 
-            // 数据验证            
+            // 數據驗證            
             $validate = \think\Loader::validate('ConfigAttribute');
             if(!$validate->batch()->check($savedata))
             {
@@ -754,7 +754,7 @@ class System extends Base
                     $savedata['add_time'] = getTime();
                     $savedata['lang'] = $val['mark'];
                     $insert_id = Db::name('config_attribute')->insertGetId($savedata);
-                    // 更新变量名
+                    // 更新變數名
                     if (!empty($insert_id)) {
                         if (0 == $key) {
                             $attr_var_name = $post_data['inc_type'].'_attr_'.$insert_id;
@@ -765,20 +765,20 @@ class System extends Base
                             ])->update(array('attr_var_name'=>$attr_var_name));
                     }
                 }
-                adminLog('新增自定义变量：'.$savedata['attr_name']);
+                adminLog('新增自定義變數：'.$savedata['attr_name']);
 
-                // 保存到config表，更新缓存
+                // 儲存到config表，更新快取
                 $inc_type = $post_data['inc_type'];
                 $configData = array(
                     $attr_var_name  => $attr_values,
                 );
 
-                // 多语言
+                // 多語言
                 if (is_language()) {
                     foreach ($langRow as $key => $val) {
                         tpCache($inc_type, $configData, $val['mark']);
                     }
-                } else { // 单语言
+                } else { // 單語言
                     tpCache($inc_type, $configData);
                 }
 
@@ -793,7 +793,7 @@ class System extends Base
     }
 
     /**
-     * 编辑自定义变量
+     * 編輯自定義變數
      */
     public function customvar_edit()
     {
@@ -804,7 +804,7 @@ class System extends Base
             $attr_input_type = isset($post_data['attr_input_type']) ? $post_data['attr_input_type'] : '';
 
             if ($attr_input_type == 3) {
-                // 本地/远程图片上传的处理
+                // 本地/遠端圖片上傳的處理
                 $is_remote = !empty($post_data['is_remote']) ? $post_data['is_remote'] : 0;
                 $litpic = '';
                 if ($is_remote == 1) {
@@ -815,8 +815,8 @@ class System extends Base
                 $attr_values = $litpic;
             } else {
                 $attr_values = input('attr_values');
-                // $attr_values = str_replace('_', '', $attr_values); // 替换特殊字符
-                // $attr_values = str_replace('@', '', $attr_values); // 替换特殊字符
+                // $attr_values = str_replace('_', '', $attr_values); // 替換特殊字元
+                // $attr_values = str_replace('@', '', $attr_values); // 替換特殊字元
                 $attr_values = trim($attr_values);
                 $attr_values = isset($attr_values) ? $attr_values : '';
             }
@@ -829,7 +829,7 @@ class System extends Base
                 'update_time'   => getTime(),
             );
 
-            // 数据验证            
+            // 數據驗證            
             $validate = \think\Loader::validate('ConfigAttribute');
             if(!$validate->batch()->check($savedata))
             {
@@ -841,16 +841,16 @@ class System extends Base
                     ->cache(true, EYOUCMS_CACHE_TIME, 'language')
                     ->select();
 
-                $configAttributeM->data($savedata,true); // 收集数据
+                $configAttributeM->data($savedata,true); // 收集數據
                 $configAttributeM->isUpdate(true, [
                         'attr_id'   => $post_data['attr_id'],
                         'lang'  => $this->admin_lang,
-                    ])->save(); // 写入数据到数据库  
-                // 更新变量名
+                    ])->save(); // 寫入數據到數據庫  
+                // 更新變數名
                 $attr_var_name = $post_data['name'];
-                adminLog('编辑自定义变量：'.$savedata['attr_name']);
+                adminLog('編輯自定義變數：'.$savedata['attr_name']);
 
-                // 保存到config表，更新缓存
+                // 儲存到config表，更新快取
                 $inc_type = $post_data['inc_type'];
                 $configData = array(
                     $attr_var_name  => $attr_values,
@@ -889,11 +889,11 @@ class System extends Base
     }
 
     /**
-     * 删除自定义变量
+     * 刪除自定義變數
      */
     public function customvar_del()
     {
-        $this->language_access(); // 多语言功能操作权限
+        $this->language_access(); // 多語言功能操作許可權
 
         $id = input('del_id/d');
         if(!empty($id)){
@@ -905,18 +905,18 @@ class System extends Base
             $r = M('config')->where('name', $attr_var_name)->update(array('is_del'=>1, 'update_time'=>getTime()));
             if($r){
                 M('config_attribute')->where('attr_var_name', $attr_var_name)->update(array('update_time'=>getTime()));
-                adminLog('删除自定义变量：'.$attr_var_name);
-                $this->success('删除成功');
+                adminLog('刪除自定義變數：'.$attr_var_name);
+                $this->success('刪除成功');
             }else{
-                $this->error('删除失败');
+                $this->error('刪除失敗');
             }
         }else{
-            $this->error('参数有误');
+            $this->error('參數有誤');
         }
     }
 
     /**
-     * 标签调用的弹窗说明
+     * 標籤呼叫的彈窗說明
      */
     public function ajax_tag_call()
     {
@@ -924,12 +924,12 @@ class System extends Base
             $name = input('post.name/s');
             $msg = '';
             switch ($name) {
-                case 'web_users_switch': // 会员功能入口标签
+                case 'web_users_switch': // 會員功能入口標籤
                     {
                         $msg = '
 <div yne-bulb-block="paragraph">
-    <strong>前台会员登录注册标签调用</strong><br data-filtered="filtered">
-    比如需要在PC通用头部加入会员入口，复制下方代码在\template\pc\header.htm模板文件里找到合适位置粘贴
+    <strong>前臺會員登錄註冊標籤呼叫</strong><br data-filtered="filtered">
+    比如需要在PC通用頭部加入會員入口，複製下方程式碼在\template\pc\header.htm模板檔案里找到合適位置貼上
 </div>
 <br data-filtered="filtered">
 <div yne-bulb-block="paragraph" style="color:red;">
@@ -939,7 +939,7 @@ class System extends Base
     <div>
         &nbsp; &nbsp; &nbsp; &nbsp; {eyou:user type=\'login\'}</div>
     <div>
-        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;a href="{$field.url}" id="{$field.id}" &gt;登录&lt;/a&gt;</div>
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;a href="{$field.url}" id="{$field.id}" &gt;登錄&lt;/a&gt;</div>
     <div>
         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {$field.hidden}</div>
     <div>
@@ -949,7 +949,7 @@ class System extends Base
     <div>
         &nbsp; &nbsp; &nbsp; &nbsp; {eyou:user type=\'reg\'}</div>
     <div>
-        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;a href="{$field.url}" id="{$field.id}" &gt;注册&lt;/a&gt;</div>
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;a href="{$field.url}" id="{$field.id}" &gt;註冊&lt;/a&gt;</div>
     <div>
         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {$field.hidden}</div>
     <div>
@@ -972,12 +972,12 @@ class System extends Base
                     }
                     break;
 
-                case 'web_language_switch': // 多语言入口标签
+                case 'web_language_switch': // 多語言入口標籤
                     {
                         $msg = '
 <div yne-bulb-block="paragraph">
-    <strong>前台多语言切换入口标签调用</strong><br data-filtered="filtered">
-    比如需要在PC通用头部加入多语言切换，复制下方代码在\template\pc\header.htm模板文件里找到合适位置粘贴
+    <strong>前臺多語言切換入口標籤呼叫</strong><br data-filtered="filtered">
+    比如需要在PC通用頭部加入多語言切換，複製下方程式碼在\template\pc\header.htm模板檔案里找到合適位置貼上
 </div>
 <br data-filtered="filtered">
 <div yne-bulb-block="paragraph" style="color:red">
@@ -992,32 +992,32 @@ class System extends Base
                     {
                         $msg = '
 <div yne-bulb-block="paragraph">
-    <span style="color:red">（温馨提示：高级调用不会受缩略图功能的开关影响！）</span></div>
+    <span style="color:red">（溫馨提示：高級呼叫不會受縮圖功能的開關影響！）</span></div>
 <div yne-bulb-block="paragraph">
-    【标签方法的格式】</div>
+    【標籤方法的格式】</div>
 <div yne-bulb-block="paragraph">
-    &nbsp;&nbsp;&nbsp;&nbsp;thumb_img=###,宽度,高度,生成方式</div>
+    &nbsp;&nbsp;&nbsp;&nbsp;thumb_img=###,寬度,高度,產生方式</div>
 <br data-filtered="filtered">
 <div yne-bulb-block="paragraph">
-    【指定宽高度的调用】</div>
+    【指定寬高度的呼叫】</div>
 <div yne-bulb-block="paragraph">
-    &nbsp;&nbsp;&nbsp;&nbsp;列表页/内容页：{$eyou.field.litpic<span style="color:red">|thumb_img=###,500,500</span>}</div>
+    &nbsp;&nbsp;&nbsp;&nbsp;列表頁/內容頁：{$eyou.field.litpic<span style="color:red">|thumb_img=###,500,500</span>}</div>
 <div yne-bulb-block="paragraph">
-    &nbsp;&nbsp;&nbsp;&nbsp;标签arclist/list里：{$field.litpic<span style="color:red">|thumb_img=###,500,500</span>}</div>
+    &nbsp;&nbsp;&nbsp;&nbsp;標籤arclist/list里：{$field.litpic<span style="color:red">|thumb_img=###,500,500</span>}</div>
 <br data-filtered="filtered">
 <div yne-bulb-block="paragraph">
-    【指定生成方式的调用】</div>
+    【指定產生方式的呼叫】</div>
 <div yne-bulb-block="paragraph">
-    &nbsp;&nbsp;&nbsp;&nbsp;生成方式：1 = 拉伸；2 = 留白；3 = 截减；<br data-filtered="filtered">
-    &nbsp;&nbsp;&nbsp;&nbsp;以标签arclist为例：</div>
+    &nbsp;&nbsp;&nbsp;&nbsp;產生方式：1 = 拉伸；2 = 留白；3 = 截減；<br data-filtered="filtered">
+    &nbsp;&nbsp;&nbsp;&nbsp;以標籤arclist為例：</div>
 <div yne-bulb-block="paragraph">
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;缩略图拉伸：{$field.litpic<span style="color:red">|thumb_img=###,500,500,1</span>}</div>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;縮圖拉伸：{$field.litpic<span style="color:red">|thumb_img=###,500,500,1</span>}</div>
 <div yne-bulb-block="paragraph">
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;缩略图留白：{$field.litpic<span style="color:red">|thumb_img=###,500,500,2</span>}</div>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;縮圖留白：{$field.litpic<span style="color:red">|thumb_img=###,500,500,2</span>}</div>
 <div yne-bulb-block="paragraph">
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;缩略图截减：{$field.litpic<span style="color:red">|thumb_img=###,500,500,3</span>}</div>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;縮圖截減：{$field.litpic<span style="color:red">|thumb_img=###,500,500,3</span>}</div>
 <div yne-bulb-block="paragraph">
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默&nbsp;认&nbsp;生&nbsp;成：{$field.litpic<span style="color:red">|thumb_img=###,500,500</span>}&nbsp;&nbsp;&nbsp;&nbsp;(以默认全局配置的生成方式)</div>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默&nbsp;認&nbsp;生&nbsp;成：{$field.litpic<span style="color:red">|thumb_img=###,500,500</span>}&nbsp;&nbsp;&nbsp;&nbsp;(以預設全域性配置的產生方式)</div>
 ';
                     }
                     break;
@@ -1026,12 +1026,12 @@ class System extends Base
                     {
                         $msg = '
 <div yne-bulb-block="paragraph">
-    <strong>前台产品内容页的购买入口标签调用</strong><br data-filtered="filtered">
-    比如需要在产品模型的内容页加入购买功能，复制下方代码在\template\pc\view_product.htm模板文件里找到合适位置粘贴
+    <strong>前臺產品內容頁的購買入口標籤呼叫</strong><br data-filtered="filtered">
+    比如需要在產品模型的內容頁加入購買功能，複製下方程式碼在\template\pc\view_product.htm模板檔案里找到合適位置貼上
 </div>
 <br data-filtered="filtered">
 <div yne-bulb-block="paragraph" style="color:red">
-  &lt;!--购物车组件start--&gt; 
+  &lt;!--購物車元件start--&gt; 
   <br data-filtered="filtered">
   {eyou:sppurchase id=\'field\'}
   <br data-filtered="filtered">&nbsp;&nbsp;&nbsp;&nbsp;
@@ -1039,7 +1039,7 @@ class System extends Base
       <br data-filtered="filtered">&nbsp;&nbsp;&nbsp;&nbsp;
       &lt;div class="ey-number"&gt;
       <br data-filtered="filtered">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &lt;label&gt;数量&lt;/label&gt;
+        &lt;label&gt;數量&lt;/label&gt;
         <br data-filtered="filtered">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         &lt;div class="btn-input"&gt;
         <br data-filtered="filtered">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -1055,9 +1055,9 @@ class System extends Base
       <br data-filtered="filtered">&nbsp;&nbsp;&nbsp;&nbsp;
       &lt;div class="ey-buyaction"&gt;
       <br data-filtered="filtered">&nbsp;&nbsp;&nbsp;&nbsp;
-      &lt;a class="ey-joinin" href="JavaScript:void(0);" {$field.ShopAddCart}&gt;加入购物车&lt;/a&gt;
+      &lt;a class="ey-joinin" href="JavaScript:void(0);" {$field.ShopAddCart}&gt;加入購物車&lt;/a&gt;
       <br data-filtered="filtered">&nbsp;&nbsp;&nbsp;&nbsp;
-      &lt;a class="ey-joinbuy" href="JavaScript:void(0);" {$field.BuyNow}&gt;立即购买&lt;/a&gt;
+      &lt;a class="ey-joinbuy" href="JavaScript:void(0);" {$field.BuyNow}&gt;立即購買&lt;/a&gt;
       <br data-filtered="filtered">&nbsp;&nbsp;&nbsp;&nbsp;
       &lt;/div&gt;
       <br data-filtered="filtered">&nbsp;&nbsp;&nbsp;&nbsp;
@@ -1065,7 +1065,7 @@ class System extends Base
       <br data-filtered="filtered">
   {/eyou:sppurchase}
   <br data-filtered="filtered">
-  &lt;!--购物车组件end--&gt; 
+  &lt;!--購物車元件end--&gt; 
 </div>
 ';
                     }
@@ -1075,8 +1075,8 @@ class System extends Base
                     # code...
                     break;
             }
-            $this->success('请求成功', null, ['msg'=>$msg]);
+            $this->success('請求成功', null, ['msg'=>$msg]);
         }
-        $this->error('非法访问！');
+        $this->error('非法訪問！');
     }
 }

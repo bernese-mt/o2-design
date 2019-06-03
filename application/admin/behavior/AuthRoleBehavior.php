@@ -3,7 +3,7 @@
 namespace app\admin\behavior;
 
 /**
- * 管理员权限控制
+ * 管理員許可權控制
  */
 load_trait('controller/Jump');
 class AuthRoleBehavior
@@ -16,8 +16,8 @@ class AuthRoleBehavior
     protected static $admin_info;
 
     /**
-     * 构造方法
-     * @param Request $request Request对象
+     * 構造方法
+     * @param Request $request Request對像
      * @access public
      */
     public function __construct()
@@ -30,8 +30,8 @@ class AuthRoleBehavior
     }
 
     /**
-     * 模块初始化
-     * @param array $params 传入参数
+     * 模組初始化
+     * @param array $params 傳入參數
      * @access public
      */
     public function moduleInit(&$params)
@@ -40,27 +40,27 @@ class AuthRoleBehavior
     }
 
     /**
-     * 操作开始执行
-     * @param array $params 传入参数
+     * 操作開始執行
+     * @param array $params 傳入參數
      * @access public
      */
     public function actionBegin(&$params)
     {
         if (0 < intval(self::$admin_info['role_id'])) {
-            // 检测全局的增、改、删的权限——优先级最高
+            // 檢測全域性的增、改、刪的許可權——優先順序最高
             $this->cud_access();
-            // 检测每个小插件的权限
+            // 檢測每個小外掛的許可權
             $this->weapp_access();
-            // 检测栏目管理的每个栏目权限
+            // 檢測欄目管理的每個欄目許可權
             $this->arctype_access();
-            // 检测内容管理每个栏目对应的内容里列表等权限
+            // 檢測內容管理每個欄目對應的內容里列表等許可權
             $this->archives_access();
         }
     }
 
     /**
-     * 视图内容过滤
-     * @param array $params 传入参数
+     * 檢視內容過濾
+     * @param array $params 傳入參數
      * @access public
      */
     public function viewFilter(&$params)
@@ -69,8 +69,8 @@ class AuthRoleBehavior
     }
 
     /**
-     * 应用结束
-     * @param array $params 传入参数
+     * 應用結束
+     * @param array $params 傳入參數
      * @access public
      */
     public function appEnd(&$params)
@@ -79,38 +79,38 @@ class AuthRoleBehavior
     }
 
     /**
-     * 检测全局的增、改、删的权限
+     * 檢測全域性的增、改、刪的許可權
      * @access private
      */
     private function cud_access()
     {
-        /*只有相应的控制器和操作名才执行，以便提高性能*/
+        /*只有相應的控制器和操作名才執行，以便提高效能*/
         $ctl = strtolower(self::$controllerName);
         $act = strtolower(self::$actionName);
         $actArr = ['add','edit','del'];
         if ('weapp' == $ctl && 'execute' == $act) {
             $sa = input('param.sa/s');
             foreach ($actArr as $key => $cud) {
-                $sa = preg_replace('/^(.*)_('.$cud.')$/i', '$2', $sa); // 同名add 或者以_add类似结尾都符合
+                $sa = preg_replace('/^(.*)_('.$cud.')$/i', '$2', $sa); // 同名add 或者以_add類似結尾都符合
                 if ($sa == $cud) {
                     $admin_info = self::$admin_info;
                     $auth_role_info = !empty($admin_info['auth_role_info']) ? $admin_info['auth_role_info'] : [];
                     $cudArr = !empty($auth_role_info['cud']) ? $auth_role_info['cud'] : [];
                     if (!in_array($sa, $cudArr)) {
-                        $this->error('您没有操作权限，请联系超级管理员分配权限');
+                        $this->error('您沒有操作許可權，請聯繫超級管理員分配許可權');
                     }
                     break;
                 }
             }
         } else {
             foreach ($actArr as $key => $cud) {
-                $act = preg_replace('/^(.*)_('.$cud.')$/i', '$2', $act); // 同名add 或者以_add类似结尾都符合
+                $act = preg_replace('/^(.*)_('.$cud.')$/i', '$2', $act); // 同名add 或者以_add類似結尾都符合
                 if ($act == $cud) {
                     $admin_info = self::$admin_info;
                     $auth_role_info = !empty($admin_info['auth_role_info']) ? $admin_info['auth_role_info'] : [];
                     $cudArr = !empty($auth_role_info['cud']) ? $auth_role_info['cud'] : [];
                     if (!in_array($act, $cudArr)) {
-                        $this->error('您没有操作权限，请联系超级管理员分配权限');
+                        $this->error('您沒有操作許可權，請聯繫超級管理員分配許可權');
                     }
                     break;
                 }
@@ -120,12 +120,12 @@ class AuthRoleBehavior
     }
 
     /**
-     * 检测每个小插件的权限
+     * 檢測每個小外掛的許可權
      * @access private
      */
     private function weapp_access()
     {
-        /*只有相应的控制器和操作名才执行，以便提高性能*/
+        /*只有相應的控制器和操作名才執行，以便提高效能*/
         $ctl = strtolower(self::$controllerName);
         $act = strtolower(self::$actionName);
         if ('weapp' == $ctl && 'execute' == $act) {
@@ -135,14 +135,14 @@ class AuthRoleBehavior
             $admin_info = self::$admin_info;
             $auth_role_info = !empty($admin_info['auth_role_info']) ? $admin_info['auth_role_info'] : [];
             $plugins = !empty($auth_role_info['permission']['plugins']) ? $auth_role_info['permission']['plugins'] : [];
-            // 插件本身设置的权限列表
+            // 外掛本身設定的許可權列表
             $config = include WEAPP_PATH.$sc.DS.'config.php';
             $plugins_permission = !empty($config['permission']) ? array_keys($config['permission']) : [];
-            // 管理员拥有的插件具体权限
+            // 管理員擁有的外掛具體許可權
             $admin_permission = !empty($plugins[$sc]['child']) ? $plugins[$sc]['child'] : [];
-            // 没有赋给管理员的插件具体权限
+            // 沒有賦給管理員的外掛具體許可權
             $diff_plugins_perm = array_diff($plugins_permission, $admin_permission);
-            // 检测插件权限
+            // 檢測外掛許可權
             $bool = true;
             if (empty($plugins_permission) && !isset($plugins[$sc])) {
                 $bool = false;
@@ -155,19 +155,19 @@ class AuthRoleBehavior
                 }
             }
             if (!$bool) {
-                $this->error('您没有操作权限，请联系超级管理员分配权限');
+                $this->error('您沒有操作許可權，請聯繫超級管理員分配許可權');
             }
         }
         /*--end*/
     }
 
     /**
-     * 检测栏目管理的每个栏目权限
+     * 檢測欄目管理的每個欄目許可權
      * @access private
      */
     private function arctype_access()
     {
-        /*只有相应的控制器和操作名才执行，以便提高性能*/
+        /*只有相應的控制器和操作名才執行，以便提高效能*/
         $ctl_all = strtolower(self::$controllerName.'@*');
         $ctlArr = ['arctype@*'];
         if (in_array($ctl_all, $ctlArr)) {
@@ -178,19 +178,19 @@ class AuthRoleBehavior
                 $typeids[] = input('parent_id/d', 0);
             }
             if (!$this->is_check_arctype($typeids)) {
-                $this->error('您没有操作权限，请联系超级管理员分配权限');
+                $this->error('您沒有操作許可權，請聯繫超級管理員分配許可權');
             }
         }
         /*--end*/
     }
 
     /**
-     * 检测内容管理每个栏目对应的内容里列表等权限
+     * 檢測內容管理每個欄目對應的內容里列表等許可權
      * @access private
      */
     private function archives_access()
     {
-        /*只有相应的控制器和操作名才执行，以便提高性能*/
+        /*只有相應的控制器和操作名才執行，以便提高效能*/
         $ctl = strtolower(self::$controllerName);
         $act = strtolower(self::$actionName);
         $ctl_act = $ctl.'@'.$act;
@@ -227,14 +227,14 @@ class AuthRoleBehavior
                 $typeids[] = input('typeid/d', 0);
             }
             if (!$this->is_check_arctype($typeids)) {
-                $this->error('您没有操作权限，请联系超级管理员分配权限');
+                $this->error('您沒有操作許可權，請聯繫超級管理員分配許可權');
             }
         }
         /*--end*/
     }
 
     /**
-     * 检测栏目是否有权限
+     * 檢測欄目是否有許可權
      */
     private function is_check_arctype($typeids = []) {  
         $bool_flag = true;

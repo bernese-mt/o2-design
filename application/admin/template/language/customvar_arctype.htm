@@ -8,15 +8,15 @@
     <div class="flexigrid">
         <div class="mDiv">
             <div class="ftitle">
-                <h3>模板变量列表</h3>
-                <h5>(共{$pageObj->totalRows}条记录)</h5>
+                <h3>模板變數列表</h3>
+                <h5>(共{$pageObj->totalRows}條記錄)</h5>
             </div>
-            <div title="刷新数据" class="pReload"><i class="fa fa-refresh"></i></div>
-            <form class="navbar-form form-inline" action="{:url('Language/customvar_arctype')}" method="get" onsubmit="layer_loading('正在处理');">
+            <div title="重新整理數據" class="pReload"><i class="fa fa-refresh"></i></div>
+            <form class="navbar-form form-inline" action="{:url('Language/customvar_arctype')}" method="get" onsubmit="layer_loading('正在處理');">
                 {$searchform.hidden|default=''}
                 <div class="sDiv">
                     <div class="sDiv2">
-                        <input type="text" size="30" name="keywords" class="qsbox" placeholder="搜索相关数据...">
+                        <input type="text" size="30" name="keywords" class="qsbox" placeholder="搜索相關數據...">
                         <input type="submit" class="btn" value="搜索">
                     </div>
                     <!-- <div class="sDiv2">
@@ -34,13 +34,13 @@
                             <div class="tc"></div>
                         </th>
                         <th abbr="ac_id" axis="col4">
-                            <div class="">变量说明</div>
+                            <div class="">變數說明</div>
                         </th>
                         <th abbr="article_title" axis="col3" class="w350">
-                            <div class="tc" style="text-align: left;">关联绑定数据</div>
+                            <div class="tc" style="text-align: left;">關聯繫結數據</div>
                         </th>
                         <th abbr="article_time" axis="col6" class="w100">
-                            <div class="tc">更新时间</div>
+                            <div class="tc">更新時間</div>
                         </th>
                         <th axis="col1" class="w180">
                             <div class="tc">操作</div>
@@ -57,7 +57,7 @@
                     {empty name="list"}
                         <tr>
                             <td class="no-data" align="center" axis="col0" colspan="50">
-                                <i class="fa fa-exclamation-circle"></i>没有符合条件的记录
+                                <i class="fa fa-exclamation-circle"></i>沒有符合條件的記錄
                             </td>
                         </tr>
                     {else/}
@@ -94,9 +94,9 @@
                             </td>
                             <td>
                                 <div class="w180 tc">
-                                    <a href="javascript:void(0);" onclick="showtext('{$vo['attr_name']}');" class="btn blue {$vo['attr_name']}" data-clipboard-text="${php}echo 'lang.';{/php}{$vo['attr_name']}">复制标签</a>
+                                    <a href="javascript:void(0);" onclick="showtext('{$vo['attr_name']}');" class="btn blue {$vo['attr_name']}" data-clipboard-text="${php}echo 'lang.';{/php}{$vo['attr_name']}">複製標籤</a>
                                     {neq name="$admin_lang" value="$main_lang"}
-                                    <a class="btn blue" href="javascript:void(0)" data-url="{:url('Language/customvar_bind', ['attr_id'=>$vo.attr_id])}" onClick="customvar_bind(this);"><i class="fa fa-trash-o"></i>关联绑定</a>
+                                    <a class="btn blue" href="javascript:void(0)" data-url="{:url('Language/customvar_bind', ['attr_id'=>$vo.attr_id])}" onClick="customvar_bind(this);"><i class="fa fa-trash-o"></i>關聯繫結</a>
                                     {/neq}
                                 </div>
                             </td>
@@ -113,42 +113,42 @@
             </div>
             <div style="clear:both"></div>
         </div>
-        <!--分页位置-->
+        <!--分頁位置-->
         {$pageStr}
     </div>
 </div>
 <script>
     $(document).ready(function(){
-        // 表格行点击选中切换
+        // 表格行點選選中切換
         $('#flexigrid > table>tbody >tr').click(function(){
             $(this).toggleClass('trSelected');
         });
 
-        // 点击刷新数据
+        // 點選重新整理數據
         $('.fa-refresh').click(function(){
             location.href = location.href;
         });
     });
 
-    // 关联绑定
+    // 關聯繫結
     function customvar_bind(obj)
     {
         //iframe窗
         layer.open({
             type: 2,
-            title: '关联绑定',
+            title: '關聯繫結',
             fixed: true, //不固定
             shadeClose: false,
             shade: 0.3,
-            maxmin: true, //开启最大化最小化按钮
+            maxmin: true, //開啟最大化最小化按鈕
             area: ['600px', '520px'],
             content: $(obj).data('url')
         });
     }
 
-    // 复制标签
+    // 複製標籤
     function showtext(classname){
-        var clipboard1 = new Clipboard("."+classname);clipboard1.on("success", function(e) {layer.msg("复制成功");});clipboard1.on("error", function(e) {layer.msg("复制失败！请手动复制", {icon:2});}); 
+        var clipboard1 = new Clipboard("."+classname);clipboard1.on("success", function(e) {layer.msg("複製成功");});clipboard1.on("error", function(e) {layer.msg("複製失敗！請手動複製", {icon:2});}); 
     }
 </script>
 {include file="public/footer" /}

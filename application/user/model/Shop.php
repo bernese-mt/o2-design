@@ -1,13 +1,13 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
- * Author: 陈风任 <491085389@qq.com>
+ * Author: 陳風任 <491085389@qq.com>
  * Date: 2019-3-20
  */
 
@@ -26,12 +26,12 @@ class Shop extends Model
     //初始化
     protected function initialize()
     {
-        // 需要调用`Model`的`initialize`方法
+        // 需要呼叫`Model`的`initialize`方法
         parent::initialize();
         $this->home_lang = get_home_lang();
     }
 
-    // 处理购买订单，超过指定时间修改为已订单过期，针对未付款订单
+    // 處理購買訂單，超過指定時間修改爲已訂單過期，針對未付款訂單
     public function UpdateShopOrderData($users_id){
         $time  = getTime() - Config::get('global.get_shop_order_validity');
         $where = array(
@@ -40,45 +40,45 @@ class Shop extends Model
             'add_time'     => array('<',$time),
         );
         $data = [
-            'order_status' => 4, // 订单取消
+            'order_status' => 4, // 訂單取消
             'update_time'  => getTime(),
         ];
 
-        // 查询订单id数组用于添加订单操作记录
+        // 查詢訂單id陣列用於新增訂單操作記錄
         $OrderIds = Db::name('shop_order')->field('order_id')->where($where)->select();
 
-        //批量修改订单状态 
+        //批量修改訂單狀態 
         Db::name('shop_order')->where($where)->update($data);
         
-        // 添加订单操作记录
+        // 新增訂單操作記錄
         if (!empty($OrderIds)) {
-	        AddOrderAction($OrderIds,$users_id,'0','4','0','0','订单过期！','会员未在订单有效期内支付，订单过期！');
+	        AddOrderAction($OrderIds,$users_id,'0','4','0','0','訂單過期！','會員未在訂單有效期內支付，訂單過期！');
         }
     }
 
-    // 通过商品名称模糊查询订单信息
+    // 通過商品名稱模糊查詢訂單資訊
     public function QueryOrderList($pagesize,$users_id,$keywords,$query_get){
-        // 商品名称模糊查询订单明细表，获取订单主表ID
+        // 商品名稱模糊查詢訂單明細表，獲取訂單主表ID
         $DetailsWhere = [
             'users_id' => $users_id,
             'lang'     => $this->home_lang,
         ];
         $DetailsWhere['product_name'] =  ['LIKE', "%{$keywords}%"];
         $DetailsData = Db::name('shop_order_details')->field('order_id')->where($DetailsWhere)->select();
-        // 若查无数据，则返回false
+        // 若查無數據，則返回false
         if (empty($DetailsData)) {
             return false;
         }
 
         $order_ids = '';
-        // 处理订单ID，查询订单主表信息
+        // 處理訂單ID，查詢訂單主表資訊
         foreach ($DetailsData as $key => $value) {
             if ('0' < $key) {
                 $order_ids .= ',';
             }
             $order_ids .= $value['order_id'];
         }
-        // 查询条件
+        // 查詢條件
         $OrderWhere = [
             'users_id' => $users_id,
             'lang'     => $this->home_lang,
@@ -109,18 +109,18 @@ class Shop extends Model
     }
 
     public function GetOrderIsEmpty($users_id,$keywords,$select_status){
-        // 基础查询条件
+        // 基礎查詢條件
         $OrderWhere = [
             'users_id' => $users_id,
             'lang'     => $this->home_lang,
         ];
 
-        // 应用搜索条件
+        // 應用搜索條件
         if (!empty($keywords)) {
             $OrderWhere['order_code'] =  ['LIKE', "%{$keywords}%"];
         }
 
-        // 订单状态搜索
+        // 訂單狀態搜索
         if (!empty($select_status)) {
             if ('dzf' === $select_status) {
                 $select_status = 0;
@@ -129,14 +129,14 @@ class Shop extends Model
         }
 
         $order = Db::name('shop_order')->where($OrderWhere)->count();
-        // 查询存在数据，则返回1
+        // 查詢存在數據，則返回1
         if (!empty($order)) {
             $data = '1';
             return $data;
             exit;
         }
         
-        // 查询订单明细表
+        // 查詢訂單明細表
         if (empty($order) && !empty($keywords)) {
             $DetailsWhere = [
                 'users_id' => $users_id,
@@ -144,7 +144,7 @@ class Shop extends Model
             ];
             $DetailsWhere['product_name'] =  ['LIKE', "%{$keywords}%"];
             $DetailsData = Db::name('shop_order_details')->field('order_id')->where($DetailsWhere)->select();
-            // 查询无数据，则返回0
+            // 查詢無數據，則返回0
             if (empty($DetailsData)) {
                 $data = '0';
                 return $data;
@@ -152,14 +152,14 @@ class Shop extends Model
             }
 
             $order_ids = '';
-            // 处理订单ID，查询订单主表信息
+            // 處理訂單ID，查詢訂單主表資訊
             foreach ($DetailsData as $key => $value) {
                 if ('0' < $key) {
                     $order_ids .= ',';
                 }
                 $order_ids .= $value['order_id'];
             }
-            // 查询条件
+            // 查詢條件
             $OrderWhere = [
                 'users_id' => $users_id,
                 'lang'     => $this->home_lang,

@@ -2,10 +2,10 @@
 /**
  * eyoucms
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
@@ -29,7 +29,7 @@ class WeappLogic extends Model
     // public $code;
     
     /**
-     * 析构函数
+     * 解構函式
      */
     function  __construct() {
         // $this->code = input('param.code/s', '');
@@ -38,7 +38,7 @@ class WeappLogic extends Model
         $this->root_path = ROOT_PATH; // 
         $this->weapp_path = WEAPP_DIR_NAME.DS; // 
         $this->data_path = DATA_PATH; // 
-        // $this->config_path = $this->weapp_path.$this->code.DS.'config.php'; // 版本配置文件路径
+        // $this->config_path = $this->weapp_path.$this->code.DS.'config.php'; // 版本配置檔案路徑
         // api_Weapp_checkVersion
         $tmp_str = 'L2luZGV4LnBocD9tPWFwaSZjPVdlYXBwJmE9Y2hlY2tWZXJzaW9u';
         $this->service_url = base64_decode($this->service_ey).base64_decode($tmp_str).'&domain='.request()->host(true);
@@ -46,36 +46,36 @@ class WeappLogic extends Model
     }
 
     /**
-     * 更新插件到数据库
-     * @param $weapp_list array 本地插件数组
+     * 更新外掛到數據庫
+     * @param $weapp_list array 本地外掛陣列
      */
     public function insertWeapp(){
-        $row = M('weapp')->field('id,code,config')->getAllWithIndex('code'); // 数据库
+        $row = M('weapp')->field('id,code,config')->getAllWithIndex('code'); // 數據庫
         $new_arr = array(); // 本地
-        $addData = array(); // 数据存储变量
-        $updateData = array(); // 数据存储变量
+        $addData = array(); // 數據儲存變數
+        $updateData = array(); // 數據儲存變數
         $weapp_list = $this->scanWeapp();
-        //  本地对比数据库
+        //  本地對比數據庫
         foreach($weapp_list as $k=>$v){
             $code = isset($v['code']) ? $v['code'] : 'error_'.date('Ymd');
-            /*初步过滤不规范插件*/
+            /*初步過濾不規範外掛*/
             if ($k != $code) {
                 continue;
             }
             /*--end*/
             $new_arr[] = $code;
-            // 对比数据库 本地有 数据库没有
+            // 對比數據庫 本地有 數據庫沒有
             $data = array(
                 'code'          => $code,
-                'name'          => isset($v['name']) ? $v['name'] : '配置信息不完善',
+                'name'          => isset($v['name']) ? $v['name'] : '配置資訊不完善',
                 'config'        => empty($v) ? '' : json_encode($v),
                 'position'      => isset($v['position']) ? $v['position'] : 'default',
                 'sort_order'    => 100,
             );
-            if(empty($row[$code])){ // 新增插件
+            if(empty($row[$code])){ // 新增外掛
                 $data['add_time'] = getTime();
                 $addData[] = $data;
-            } else { // 更新插件
+            } else { // 更新外掛
                 if ($row[$code]['config'] != json_encode($v)) {
                     $data['id'] = $row[$code]['id'];
                     $data['update_time'] = getTime();
@@ -90,7 +90,7 @@ class WeappLogic extends Model
             model('weapp')->saveAll($updateData);
             // \think\Cache::clear('hook');
         }
-        //数据库有 本地没有
+        //數據庫有 本地沒有
         foreach($row as $k => $v){
             if (!in_array($v['code'], $new_arr)) {
                 M('weapp')->where($v)->delete();
@@ -99,8 +99,8 @@ class WeappLogic extends Model
     }
 
     /**
-     * 插件目录扫描
-     * @return array 返回目录数组
+     * 外掛目錄掃瞄
+     * @return array 返回目錄陣列
      */
     private function scanWeapp(){
         $dir = WEAPP_DIR_NAME;
@@ -119,7 +119,7 @@ class WeappLogic extends Model
     }
 
     /**
-     * 获取插件目录列表
+     * 獲取外掛目錄列表
      * @param $dir
      * @return array
      */
@@ -128,29 +128,29 @@ class WeappLogic extends Model
         if (false != ($handle = opendir($dir))) {
             $i = 0;
             while ( false !== ($file = readdir ($handle)) ) {
-                //去掉"“.”、“..”以及带“.xxx”后缀的文件
+                //去掉"「.」、「..」以及帶「.xxx」後綴的檔案
                 if ($file != "." && $file != ".." && !strpos($file,".")) {
                     $dirArray[$i] = $file;
                     $i++;
                 }
             }
-            //关闭句柄
+            //關閉控制代碼
             closedir($handle);
         }
         return $dirArray;
     }
 
     /**
-     * 插件基类构造方法
-     * sm：module        插件模块
-     * sc：controller    插件控制器
-     * sa：action        插件操作
+     * 外掛基類構造方法
+     * sm：module        外掛模組
+     * sc：controller    外掛控制器
+     * sa：action        外掛操作
      */
     public function checkInstall()
     {
         $msg = true;
         if(!array_key_exists("sm", request()->param())){
-            $msg = '无效插件URL！';
+            $msg = '無效外掛URL！';
         } else {
             $module = request()->param('sm');
             $module = $module ?: request()->param('sc');
@@ -158,12 +158,12 @@ class WeappLogic extends Model
                 ->where(array('code'=>$module))
                 ->find();
             if (empty($row)) {
-                $msg = "插件【{$row['name']}】不存在";
+                $msg = "外掛【{$row['name']}】不存在";
             } else {
                 if ($row['status'] == -1) {
-                    $msg = "请先启用插件【{$row['name']}】";
+                    $msg = "請先啟用外掛【{$row['name']}】";
                 } else if (intval($row['status']) == 0) {
-                    $msg = "请先安装插件【{$row['name']}】";
+                    $msg = "請先安裝外掛【{$row['name']}】";
                 }
             }
         }
@@ -172,11 +172,11 @@ class WeappLogic extends Model
     }
 
     /**
-     * 检查是否有更新包
-     * @return type 提示语
+     * 檢查是否有更新包
+     * @return type 提示語
      */
     public function checkVersion($code, $serviceVersionList = false) {
-        error_reporting(0);//关闭所有错误报告
+        error_reporting(0);//關閉所有錯誤報告
         $lastupgrade = array();
         if (false === $serviceVersionList) {
             $curent_version = getWeappVersion($code);
@@ -196,10 +196,10 @@ class WeappLogic extends Model
                 $introStr .= '<br/>'.filter_line_return($val['intro'], '<br/>');
             }
             $upgradeArr = array_unique($upgradeArr);
-            $upgradeStr = implode('<br/>', $upgradeArr); // 升级提示需要覆盖哪些文件
+            $upgradeStr = implode('<br/>', $upgradeArr); // 升級提示需要覆蓋哪些檔案
 
             $introArr = explode('<br/>', $introStr);
-            $introStr = '更新日志：';
+            $introStr = '更新日誌：';
             foreach ($introArr as $key => $val) {
                 if (empty($val)) {
                     continue;
@@ -212,8 +212,8 @@ class WeappLogic extends Model
                 $introStr .= '<br/>'.$lastupgrade['upgrade_title'];
             }
             $lastupgrade['intro'] = htmlspecialchars_decode($introStr);
-            $lastupgrade['upgrade'] = htmlspecialchars_decode($upgradeStr); // 升级提示需要覆盖哪些文件
-            /*升级公告*/
+            $lastupgrade['upgrade'] = htmlspecialchars_decode($upgradeStr); // 升級提示需要覆蓋哪些檔案
+            /*升級公告*/
             if (!empty($lastupgrade['notice'])) {
                 $lastupgrade['notice'] = htmlspecialchars_decode($lastupgrade['notice']) . '<br>';
             }
@@ -225,8 +225,8 @@ class WeappLogic extends Model
     }
 
     /**
-     * 批量检查是否有更新包
-     * @return type 提示语
+     * 批量檢查是否有更新包
+     * @return type 提示語
      */
     public function checkBatchVersion($upgradeArr) 
     {
@@ -240,21 +240,21 @@ class WeappLogic extends Model
     }
 
     /**
-     * 一键更新
+     * 一鍵更新
      */
     public function OneKeyUpgrade($code){
-        error_reporting(0);//关闭所有错误报告
+        error_reporting(0);//關閉所有錯誤報告
         if (empty($code)) {
-            return ['code' => 0, 'msg' => "URL传参错误，缺少插件标识参数值！"];
+            return ['code' => 0, 'msg' => "URL傳參錯誤，缺少外掛標識參數值！"];
         }
 
         $allow_url_fopen = ini_get('allow_url_fopen');
         if (!$allow_url_fopen) {
-            return ['code' => 0, 'msg' => "请联系空间商，设置 php.ini 中参数 allow_url_fopen = 1"];
+            return ['code' => 0, 'msg' => "請聯繫空間商，設定 php.ini 中參數 allow_url_fopen = 1"];
         }     
                
         if (!extension_loaded('zip')) {
-            return ['code' => 0, 'msg' => "请联系空间商，开启 php.ini 中的php-zip扩展"];
+            return ['code' => 0, 'msg' => "請聯繫空間商，開啟 php.ini 中的php-zip擴充套件"];
         }
 
         $curent_version = getWeappVersion($code);
@@ -262,37 +262,37 @@ class WeappLogic extends Model
         $serviceVersionList = file_get_contents($upgrade_url);
         $serviceVersionList = json_decode($serviceVersionList,true);
         if (empty($serviceVersionList)) {
-            return ['code' => 0, 'msg' => "没找到升级包"];
+            return ['code' => 0, 'msg' => "沒找到升級包"];
         }
         
-        clearstatcache(); // 清除文件夹权限缓存
-        $config_path = $this->weapp_path.$code.DS.'config.php'; // 版本配置文件路径
+        clearstatcache(); // 清除資料夾許可權快取
+        $config_path = $this->weapp_path.$code.DS.'config.php'; // 版本配置檔案路徑
         if(!is_writeable($config_path)) {
-            return ['code' => 0, 'msg' => '文件'.$config_path.' 不可写，不能升级!!!'];
+            return ['code' => 0, 'msg' => '檔案'.$config_path.' 不可寫，不能升級!!!'];
         }
-        /*最新更新版本信息*/
+        /*最新更新版本資訊*/
         $lastServiceVersion = $serviceVersionList[count($serviceVersionList) - 1];
         /*--end*/
-        /*批量下载更新包*/
-        $upgradeArr = array(); // 更新的文件列表
-        $sqlfileArr = array(); // 更新SQL文件列表
+        /*批量下載更新包*/
+        $upgradeArr = array(); // 更新的檔案列表
+        $sqlfileArr = array(); // 更新SQL檔案列表
         $folderName = $code.'-'.$lastServiceVersion['key_num'];
         foreach ($serviceVersionList as $key => $val) {
-            // 下载更新包
+            // 下載更新包
             $result = $this->downloadFile($val['down_url'], $val['file_md5']);
             if (!isset($result['code']) || $result['code'] != 1) {
                 return $result;
             }
 
-            /*第一个循环执行的业务*/
+            /*第一個循環執行的業務*/
             if ($key == 0) {
-                /*解压到最后一个更新包的文件夹*/
+                /*解壓到最後一個更新包的資料夾*/
                 $lastDownFileName = explode('/', $lastServiceVersion['down_url']);    
                 $lastDownFileName = end($lastDownFileName);
-                $folderName = $code.'-'.str_replace(".zip", "", $lastDownFileName);  // 文件夹
+                $folderName = $code.'-'.str_replace(".zip", "", $lastDownFileName);  // 資料夾
                 /*--end*/
 
-                /*解压之前，删除已重复的文件夹*/
+                /*解壓之前，刪除已重複的資料夾*/
                 delFile($this->data_path.'backup'.DS.$folderName);
                 /*--end*/
             }
@@ -301,40 +301,40 @@ class WeappLogic extends Model
             $downFileName = explode('/', $val['down_url']);    
             $downFileName = end($downFileName);
 
-            /*解压文件*/
-            $zip = new \ZipArchive();//新建一个ZipArchive的对象
+            /*解壓檔案*/
+            $zip = new \ZipArchive();//新建一個ZipArchive的對象
             if($zip->open($this->data_path.'backup'.DS.$downFileName) != true) {
-                return ['code' => 0, 'msg' => "升级包读取失败!"];
+                return ['code' => 0, 'msg' => "升級包讀取失敗!"];
             }
-            $zip->extractTo($this->data_path.'backup'.DS.$folderName.DS);//假设解压缩到在当前路径下backup文件夹内
-            $zip->close();//关闭处理的zip文件
+            $zip->extractTo($this->data_path.'backup'.DS.$folderName.DS);//假設解壓縮到在目前路徑下backup資料夾內
+            $zip->close();//關閉處理的zip檔案
             /*--end*/
 
             if(!file_exists($this->data_path.'backup'.DS.$folderName.DS.'www'.DS.'weapp'.DS.$code.DS.'config.php')) {
-                return ['code' => 0, 'msg' => $code."插件目录缺少config.php文件,请联系客服"];
+                return ['code' => 0, 'msg' => $code."外掛目錄缺少config.php檔案,請聯繫客服"];
             }
 
-            /*更新的文件列表*/
+            /*更新的檔案列表*/
             $upgrade = !empty($val['upgrade']) ? $val['upgrade'] : array();
             $upgradeArr = array_merge($upgradeArr, $upgrade);
             /*--end*/
 
-            /*更新的SQL文件列表*/
+            /*更新的SQL檔案列表*/
             $sql_file = !empty($val['sql_file']) ? $val['sql_file'] : array();
             $sqlfileArr = array_merge($sqlfileArr, $val['sql_file']);
             /*--end*/
         }
         /*--end*/
 
-        /*将多个更新包重新组建一个新的完全更新包*/
-        $upgradeArr = array_unique($upgradeArr); // 移除文件列表里重复的文件
-        $sqlfileArr = array_unique($sqlfileArr); // 移除文件列表里重复的文件
+        /*將多個更新包重新組建一個新的完全更新包*/
+        $upgradeArr = array_unique($upgradeArr); // 移除檔案列表里重複的檔案
+        $sqlfileArr = array_unique($sqlfileArr); // 移除檔案列表里重複的檔案
         $serviceVersion = $lastServiceVersion;
         $serviceVersion['upgrade'] = $upgradeArr;
         $serviceVersion['sql_file'] = $sqlfileArr;
         /*--end*/
 
-        /*升级之前，备份涉及的源文件*/
+        /*升級之前，備份涉及的原始檔*/
         $upgrade = $serviceVersion['upgrade'];
         if (!empty($upgrade) && is_array($upgrade)) {
             foreach ($upgrade as $key => $val) {
@@ -344,24 +344,24 @@ class WeappLogic extends Model
                     tp_mkdir(dirname($destination_file));
                     $copy_bool = @copy($source_file, $destination_file);
                     if (false == $copy_bool) {
-                        return ['code' => 0, 'msg' => "更新前备份文件失败，请检查所有目录是否有读写权限"];
+                        return ['code' => 0, 'msg' => "更新前備份檔案失敗，請檢查所有目錄是否有讀寫許可權"];
                     }
                 }
             }
         }
         /*--end*/
 
-        /*升级的 sql文件*/
+        /*升級的 sql檔案*/
         if(!empty($serviceVersion['sql_file']))
         {
             foreach($serviceVersion['sql_file'] as $key => $val)
             {
-                //读取数据文件
+                //讀取數據檔案
                 $sqlpath = $this->data_path.'backup'.DS.$folderName.DS.'sql'.DS.trim($val);
                 $execute_sql = file_get_contents($sqlpath);
                 $sqlFormat = $this->sql_split($execute_sql, PREFIX);
                 /**
-                 * 执行SQL语句
+                 * 執行SQL語句
                  */
                 try {
                     $counts = count($sqlFormat);
@@ -378,46 +378,46 @@ class WeappLogic extends Model
                         }
                     }
                 } catch (\Exception $e) {
-                    return ['code' => 0, 'msg' => "数据库执行中途失败，请第一时间请求技术支持，否则将影响该插件后续的版本升级！"];
+                    return ['code' => 0, 'msg' => "數據庫執行中途失敗，請第一時間請求技術支援，否則將影響該外掛後續的版本升級！"];
                 }
             }
         }
         /*--end*/
 
-        // 递归复制文件夹
+        // 遞迴複製資料夾
         $copy_data = $this->recurse_copy($this->data_path.'backup'.DS.$folderName.DS.'www', rtrim($this->root_path, DS), $folderName);
 
-        // 清空缓存
+        // 清空快取
         delFile(rtrim(RUNTIME_PATH, '/'));
         tpCache('global');
 
-        /*删除下载的升级包*/
+        /*刪除下載的升級包*/
         $ziplist = glob($this->data_path.'backup'.DS.'*.zip');
         @array_map('unlink', $ziplist);
         /*--end*/
 
-        // 推送回服务器  记录升级成功
+        // 推送回伺服器  記錄升級成功
         $this->UpgradeLog($code, $serviceVersion['key_num']);
         
-        return ['code' => $copy_data['code'], 'msg' => "升级成功{$copy_data['msg']}"];
+        return ['code' => $copy_data['code'], 'msg' => "升級成功{$copy_data['msg']}"];
     }
 
     /**
-     * 自定义函数递归的复制带有多级子目录的目录
-     * 递归复制文件夹
+     * 自定義函式遞迴的複製帶有多級子目錄的目錄
+     * 遞迴複製資料夾
      *
-     * @param string $src 原目录
-     * @param string $dst 复制到的目录
-     * @param string $folderName 存放升级包目录名称
+     * @param string $src 原目錄
+     * @param string $dst 複製到的目錄
+     * @param string $folderName 存放升級包目錄名稱
      * @return string
      */                        
-    //参数说明：            
-    //自定义函数递归的复制带有多级子目录的目录
+    //參數說明：            
+    //自定義函式遞迴的複製帶有多級子目錄的目錄
     private function recurse_copy($src, $dst, $folderName)
     {
-        static $badcp = 0; // 累计覆盖失败的文件总数
-        static $n = 0; // 累计执行覆盖的文件总数
-        static $total = 0; // 累计更新的文件总数
+        static $badcp = 0; // 累計覆蓋失敗的檔案總數
+        static $n = 0; // 累計執行覆蓋的檔案總數
+        static $total = 0; // 累計更新的檔案總數
         $dir = opendir($src);
         tp_mkdir($dst);
         while (false !== $file = readdir($dir)) {
@@ -449,7 +449,7 @@ class WeappLogic extends Model
         if($badcp > 0)
         {
             $code = 2;
-            $msg = "，其中失败 <font color='red'>{$badcp}</font> 个文件，<br />请从升级包目录[<font color='red'>data/backup/{$folderName}/www</font>]中的取出全部文件覆盖到根目录，完成手工升级。";
+            $msg = "，其中失敗 <font color='red'>{$badcp}</font> 個檔案，<br />請從升級包目錄[<font color='red'>data/backup/{$folderName}/www</font>]中的取出全部檔案覆蓋到根目錄，完成手工升級。";
         }
 
         $this->copy_speed($n, $total);
@@ -458,7 +458,7 @@ class WeappLogic extends Model
     }
 
     /**
-     * 复制文件进度
+     * 複製檔案進度
      */
     private function copy_speed($n, $total)
     {
@@ -499,18 +499,18 @@ class WeappLogic extends Model
     }
  
     /**     
-     * @param type $fileUrl 下载文件地址
-     * @param type $md5File 文件MD5 加密值 用于对比下载是否完整
-     * @return string 错误或成功提示
+     * @param type $fileUrl 下載檔案地址
+     * @param type $md5File 檔案MD5 加密值 用於對比下載是否完整
+     * @return string 錯誤或成功提示
      */
     private function downloadFile($fileUrl,$md5File)
     {
         $downFileName = explode('/', $fileUrl);    
         $downFileName = end($downFileName);
-        $saveDir = $this->data_path.'backup'.DS.$downFileName; // 保存目录
+        $saveDir = $this->data_path.'backup'.DS.$downFileName; // 儲存目錄
         tp_mkdir(dirname($saveDir));
         if(!file_get_contents($fileUrl, 0, null, 0, 1)){
-            return ['code' => 0, 'msg' => '官方插件升级包不存在']; // 文件存在直接退出
+            return ['code' => 0, 'msg' => '官方外掛升級包不存在']; // 檔案存在直接退出
         }
         $ch = curl_init($fileUrl);            
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -522,12 +522,12 @@ class WeappLogic extends Model
         fclose($fp);
         if(!eyPreventShell($saveDir) || !file_exists($saveDir) || $md5File != md5_file($saveDir))
         {
-            return ['code' => 0, 'msg' => '下载保存升级包失败，请检查所有目录的权限以及用户组不能为root'];
+            return ['code' => 0, 'msg' => '下載儲存升級包失敗，請檢查所有目錄的許可權以及使用者組不能為root'];
         }
-        return ['code' => 1, 'msg' => '下载成功'];
+        return ['code' => 1, 'msg' => '下載成功'];
     }            
     
-    // 升级记录 log 日志
+    // 升級記錄 log 日誌
     private  function UpgradeLog($code, $to_key_num){
         $serial_number = DEFAULT_SERIALNUMBER;
 
@@ -539,11 +539,11 @@ class WeappLogic extends Model
         $mysqlinfo = \think\Db::query("SELECT VERSION() as version");
         $mysql_version  = $mysqlinfo[0]['version'];
         $vaules = array(
-            'domain'=>$_SERVER['HTTP_HOST'], //用户域名  
-            'code'  => $code, // 插件标识
-            'key_num'=>getWeappVersion($code), // 用户版本号
-            'to_key_num'=>$to_key_num, // 用户要升级的版本号                
-            'add_time'=>time(), // 升级时间
+            'domain'=>$_SERVER['HTTP_HOST'], //使用者域名  
+            'code'  => $code, // 外掛標識
+            'key_num'=>getWeappVersion($code), // 使用者版本號
+            'to_key_num'=>$to_key_num, // 使用者要升級的版本號                
+            'add_time'=>time(), // 升級時間
             'serial_number'=>$serial_number,
             'ip'    => GetHostByName($_SERVER['SERVER_NAME']),
             'phpv'  => phpversion(),

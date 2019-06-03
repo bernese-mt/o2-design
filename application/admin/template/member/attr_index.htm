@@ -7,21 +7,21 @@
     <div class="flexigrid">
         <div class="mDiv">
             <div class="ftitle">
-                <h3>用户属性列表</h3>
+                <h3>使用者屬性列表</h3>
             </div>
-            <div title="刷新数据" class="pReload"><i class="fa fa-refresh"></i></div>
+            <div title="重新整理數據" class="pReload"><i class="fa fa-refresh"></i></div>
             <div class="sDiv">
                 {include file="member/users_bar" /}
             </div>
         </div>
-        <!-- 操作说明 -->
+        <!-- 操作說明 -->
         <div id="explanation" class="explanation" style="color: rgb(44, 188, 163); background-color: rgb(237, 251, 248); width: 99%; height: 100%;">
             <div id="checkZoom" class="title"><i class="fa fa-lightbulb-o"></i>
-                <h4 title="提示相关设置操作时应注意的要点">操作提示</h4>
+                <h4 title="提示相關設定操作時應注意的要點">操作提示</h4>
                 <span title="收起提示" id="explanationZoom" style="display: block;"></span>
             </div>
             <ul>
-                <li>必填：只针对前台的用户属性有效。</li>
+                <li>必填：只針對前臺的使用者屬性有效。</li>
             </ul>
         </div>
         <br/>
@@ -34,10 +34,10 @@
                             <div class="tc"></div>
                         </th>
                         <th abbr="ac_id" axis="col4">
-                            <div class="">标题</div>
+                            <div class="">標題</div>
                         </th>
                         <th abbr="article_time" axis="col4" class="w150">
-                            <div class="tc">类型</div>
+                            <div class="tc">型別</div>
                         </th>
                         <th abbr="ac_id" axis="col4" class="w60">
                             <div class="tc">禁用</div>
@@ -63,7 +63,7 @@
                     {empty name="info"}
                         <tr>
                             <td class="no-data" align="center" axis="col0" colspan="50">
-                                <i class="fa fa-exclamation-circle"></i>没有符合条件的记录
+                                <i class="fa fa-exclamation-circle"></i>沒有符合條件的記錄
                             </td>
                         </tr>
                     {else/}
@@ -109,10 +109,10 @@
                                 <div class="w120 tc">
                                     {eq name="$vo.is_system" value="0"}
                                         {eq name="'Member@attr_edit'|is_check_access" value="1"}
-                                            <a href="{:url('Member/attr_edit',array('id'=>$vo['para_id']))}" class="btn blue"><i class="fa fa-pencil-square-o"></i>编辑</a>
+                                            <a href="{:url('Member/attr_edit',array('id'=>$vo['para_id']))}" class="btn blue"><i class="fa fa-pencil-square-o"></i>編輯</a>
                                         {/eq}
                                         {eq name="'Member@attr_del'|is_check_access" value="1"}
-                                            <a class="btn red"  href="javascript:void(0);" data-url="{:url('Member/attr_del')}" data-title="{$vo.title}" data-id="{$vo.para_id}" onClick="usersdel(this);"><i class="fa fa-trash-o"></i>删除</a>
+                                            <a class="btn red"  href="javascript:void(0);" data-url="{:url('Member/attr_del')}" data-title="{$vo.title}" data-id="{$vo.para_id}" onClick="usersdel(this);"><i class="fa fa-trash-o"></i>刪除</a>
                                         {/eq}
                                     {else/}
                                         ——
@@ -141,8 +141,8 @@
                 {eq name="'Member@attr_add'|is_check_access" value="1"}
                 <div class="fbutton" >
                     <a href="{:url('Member/attr_add')}">
-                        <div class="add" title="新增属性">
-                            <span class="red"><i class="fa fa-plus"></i>新增属性</span>
+                        <div class="add" title="新增屬性">
+                            <span class="red"><i class="fa fa-plus"></i>新增屬性</span>
                         </div>
                     </a>
                 </div>
@@ -150,31 +150,31 @@
             </div>
             <div style="clear:both"></div>
         </div>
-        <!--分页位置-->
+        <!--分頁位置-->
         {$page}
     </div>
 </div>
 <script>
     $(document).ready(function(){
-        // 表格行点击选中切换
+        // 表格行點選選中切換
         $('#flexigrid > table>tbody >tr').click(function(){
             $(this).toggleClass('trSelected');
         });
 
-        // 点击刷新数据
+        // 點選重新整理數據
         $('.fa-refresh').click(function(){
             location.href = location.href;
         });
     });
 
-    // 删除
+    // 刪除
     function usersdel(obj){
-        layer.confirm('<font color="#ff0000">该属性的数据将一起清空</font>，确认彻底删除？', {
+        layer.confirm('<font color="#ff0000">該屬性的數據將一起清空</font>，確認徹底刪除？', {
             title: false, // $(obj).data('title'),
-            btn: ['确定','取消'] //按钮
+            btn: ['確定','取消'] //按鈕
         }, function(){
-            layer_loading('正在处理');
-            // 确定
+            layer_loading('正在處理');
+            // 確定
             $.ajax({
                 type : 'post',
                 url : $(obj).attr('data-url'),

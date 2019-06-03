@@ -1,11 +1,11 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
@@ -17,7 +17,7 @@ use think\Model;
 use think\Db;
 
 /**
- * 逻辑定义
+ * 邏輯定義
  * Class CatsLogic
  * @package admin\Logic
  */
@@ -26,35 +26,35 @@ class AjaxLogic extends Model
     private $request = null;
 
     /**
-     * 析构函数
+     * 解構函式
      */
     function  __construct() {
         $this->request = request();
     }
 
     /**
-     * 进入登录页面需要异步处理的业务
+     * 進入登錄頁面需要非同步處理的業務
      */
     public function login_handle()
     {
-        $this->saveBaseFile(); // 存储后台入口文件路径，比如：/login.php
-        $this->clear_session_file(); // 清理过期的data/session文件
+        $this->saveBaseFile(); // 儲存後臺入口檔案路徑，比如：/login.php
+        $this->clear_session_file(); // 清理過期的data/session檔案
     }
 
     /**
-     * 进入欢迎页面需要异步处理的业务
+     * 進入歡迎頁面需要非同步處理的業務
      */
     public function welcome_handle()
     {
-        $this->saveBaseFile(); // 存储后台入口文件路径，比如：/login.php
-        $this->renameInstall(); // 重命名安装目录，提高网站安全性
-        $this->del_adminlog(); // 只保留最近三个月的操作日志
-        $this->syn_smtp_config(); // 同步插件【邮箱发送】的配置信息到内置表中
-        tpversion(); // 统计装载量，请勿删除，谢谢支持！
+        $this->saveBaseFile(); // 儲存後臺入口檔案路徑，比如：/login.php
+        $this->renameInstall(); // 重新命名安裝目錄，提高網站安全性
+        $this->del_adminlog(); // 只保留最近三個月的操作日誌
+        $this->syn_smtp_config(); // 同步外掛【郵箱發送】的配置資訊到內建表中
+        tpversion(); // 統計裝載量，請勿刪除，謝謝支援！
     }
     
     /**
-     * 只保留最近三个月的操作日志
+     * 只保留最近三個月的操作日誌
      */
     private function del_adminlog()
     {
@@ -65,7 +65,7 @@ class AjaxLogic extends Model
     }
 
     /**
-     * 重命名安装目录，提高网站安全性
+     * 重新命名安裝目錄，提高網站安全性
      * 在 Admin@login 和 Index@index 操作下
      */
     private function renameInstall()
@@ -80,7 +80,7 @@ class AjaxLogic extends Model
             }
             $new_path = ROOT_PATH.'install_'.$install_time;
             @rename($install_path, $new_path);
-        } else { // 修补v1.1.6版本删除的安装文件 install.lock
+        } else { // 修補v1.1.6版本刪除的安裝檔案 install.lock
             if(!empty($_SESSION['isset_install_lock']))
                 return true;
             $_SESSION['isset_install_lock'] = 1;
@@ -99,32 +99,32 @@ class AjaxLogic extends Model
     }
 
     /**
-     * 存储后台入口文件路径，比如：/login.php
+     * 儲存後臺入口檔案路徑，比如：/login.php
      * 在 Admin@login 和 Index@index 操作下
      */
     private function saveBaseFile()
     {
         $baseFile = $this->request->baseFile();
-        /*多语言*/
+        /*多語言*/
         if (is_language()) {
             $langRow = \think\Db::name('language')->field('mark')->order('id asc')->select();
             foreach ($langRow as $key => $val) {
                 tpCache('web', ['web_adminbasefile'=>$baseFile], $val['mark']);
             }
-        } else { // 单语言
+        } else { // 單語言
             tpCache('web', ['web_adminbasefile'=>$baseFile]);
         }
         /*--end*/
     }
 
     /**
-     * 自动纠正蜘蛛抓取文件rotots.txt
+     * 自動糾正蜘蛛抓取檔案rotots.txt
      */
     public function update_robots()
     {
         $filename = 'robots.txt';
         if (file_exists($filename) && is_file($filename)) {
-            // 系统设置的抓取规则
+            // 系統設定的抓取規則
             $validList = [
                 'disallow:/extend/',
                 'disallow:/install/',
@@ -132,7 +132,7 @@ class AjaxLogic extends Model
                 'disallow:/core/',
                 'disallow:/vendor/',
             ];
-            // 系统移除的抓取规则
+            // 系統移除的抓取規則
             $removeList = [
                 'disallow:/*.php*',
                 'disallow:/*.js*',
@@ -162,13 +162,13 @@ class AjaxLogic extends Model
                     $is_unset = true;
                 }
 
-                // 移除系统指定的抓取规则
+                // 移除系統指定的抓取規則
                 if (true === $is_unset) {
                     unset($arr[$key]);
                     continue;
                 }
 
-                // 系统之前设置的抓取规则，将移除尾部的斜杆
+                // 系統之前設定的抓取規則，將移除尾部的斜桿
                 if (in_array($str, $validList)) {
                     $val = trim($val, '/');
                 }
@@ -183,7 +183,7 @@ class AjaxLogic extends Model
     }
 
     /**
-     * 清理过期的data/session文件
+     * 清理過期的data/session檔案
      */
     private function clear_session_file()
     {
@@ -200,14 +200,14 @@ class AjaxLogic extends Model
     }
 
     /**
-     * 同步插件【邮箱发送】的配置信息到内置表中 -- 兼容1.3.0之前版本
+     * 同步外掛【郵箱發送】的配置資訊到內建表中 -- 相容1.3.0之前版本
      */
     private function syn_smtp_config()
     {
-        $smtp_syn_weapp = tpCache('smtp.smtp_syn_weapp'); // 是否同步插件【邮箱发送】的配置
+        $smtp_syn_weapp = tpCache('smtp.smtp_syn_weapp'); // 是否同步外掛【郵箱發送】的配置
         if (empty($smtp_syn_weapp)) {
 
-            /*同步之前安装邮箱插件的配置信息*/
+            /*同步之前安裝郵箱外掛的配置資訊*/
             $data = \think\Db::name('weapp')->where('code','Smtpmail')->getField('data');
             if (!empty($data)) {
                 $data = unserialize($data);
@@ -223,7 +223,7 @@ class AjaxLogic extends Model
 
             $data['smtp_syn_weapp'] = 1;
 
-            /*多语言*/
+            /*多語言*/
             if (!is_language()) {
                 tpCache('smtp',$data);
             } else {
@@ -236,7 +236,7 @@ class AjaxLogic extends Model
 
                 $langRow = \think\Db::name('language')->order('id asc')->select();
                 foreach ($langRow as $key => $val) {
-                    /*同步多语言邮件模板表数据*/
+                    /*同步多語言郵件模板表數據*/
                     if (empty($smtptplList[$val['mark']]) && !empty($smtptplRow)) {
                         foreach ($smtptplRow as $key2 => $val2) {
                             $smtptplRow[$key2]['lang'] = $val['mark'];
@@ -252,14 +252,14 @@ class AjaxLogic extends Model
     }
 
     /**
-     * 升级前台会员中心的模板文件
+     * 升級前臺會員中心的模板檔案
      */
     public function update_template($type = '')
     {
         if (!empty($type)) {
             if ('users' == $type) {
                 if (file_exists(ROOT_PATH.'template/pc/users') || file_exists(ROOT_PATH.'template/mobile/users')) {
-                    /*升级之前，备份涉及的源文件*/
+                    /*升級之前，備份涉及的原始檔*/
                     $upgrade = getDirFile(DATA_PATH.'backup'.DS.'tpl');
                     if (!empty($upgrade) && is_array($upgrade)) {
                         delFile(DATA_PATH.'backup'.DS.'template_www');
@@ -272,7 +272,7 @@ class AjaxLogic extends Model
                             }
                         }
 
-                        // 递归复制文件夹
+                        // 遞迴複製資料夾
                         $this->recurse_copy(DATA_PATH.'backup'.DS.'tpl', rtrim(ROOT_PATH, DS));
                     }
                     /*--end*/
@@ -282,22 +282,22 @@ class AjaxLogic extends Model
     }
 
     /**
-     * 自定义函数递归的复制带有多级子目录的目录
-     * 递归复制文件夹
+     * 自定義函式遞迴的複製帶有多級子目錄的目錄
+     * 遞迴複製資料夾
      *
-     * @param string $src 原目录
-     * @param string $dst 复制到的目录
+     * @param string $src 原目錄
+     * @param string $dst 複製到的目錄
      * @return string
      */                        
-    //参数说明：            
-    //自定义函数递归的复制带有多级子目录的目录
+    //參數說明：            
+    //自定義函式遞迴的複製帶有多級子目錄的目錄
     private function recurse_copy($src, $dst)
     {
         $planPath_pc = 'template/pc/';
         $planPath_m = 'template/mobile/';
         $dir = opendir($src);
 
-        /*pc和mobile目录存在的情况下，才拷贝会员模板到相应的pc或mobile里*/
+        /*pc和mobile目錄存在的情況下，才拷貝會員模板到相應的pc或mobile里*/
         $dst_tmp = str_replace('\\', '/', $dst);
         $dst_tmp = rtrim($dst_tmp, '/').'/';
         if (stristr($dst_tmp, $planPath_pc) && file_exists($planPath_pc)) {
@@ -314,7 +314,7 @@ class AjaxLogic extends Model
                 }
                 else {
                     if (file_exists($src . DIRECTORY_SEPARATOR . $file)) {
-                        /*pc和mobile目录存在的情况下，才拷贝会员模板到相应的pc或mobile里*/
+                        /*pc和mobile目錄存在的情況下，才拷貝會員模板到相應的pc或mobile里*/
                         $rs = true;
                         $src_tmp = str_replace('\\', '/', $src . DIRECTORY_SEPARATOR . $file);
                         if (stristr($src_tmp, $planPath_pc) && !file_exists($planPath_pc)) {

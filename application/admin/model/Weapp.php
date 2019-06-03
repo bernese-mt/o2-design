@@ -1,11 +1,11 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
@@ -17,7 +17,7 @@ use think\Model;
 // use app\admin\logic\WeappLogic;
 
 /**
- * 插件模型
+ * 外掛模型
  */
 class Weapp extends Model
 {
@@ -26,13 +26,13 @@ class Weapp extends Model
     //初始化
     protected function initialize()
     {
-        // 需要调用`Model`的`initialize`方法
+        // 需要呼叫`Model`的`initialize`方法
         parent::initialize();
         // $this->weappLogic = new WeappLogic();
     }
 
     /**
-     * 获取插件列表
+     * 獲取外掛列表
      */
     public function getList($where = array()){
         $result = M('weapp')->where($where)->getAllWithIndex('code');

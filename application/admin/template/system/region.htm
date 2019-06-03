@@ -7,30 +7,30 @@
         <div class="fixed-bar">
             <div class="item-title">
                 <div class="subject">
-                    <h3>地区设置</h3>
-                    <h5>可对系统内置的地区进行编辑</h5>
+                    <h3>地區設定</h3>
+                    <h5>可對系統內建的地區進行編輯</h5>
                 </div>
             </div>
         </div>
-        <!-- 操作说明 -->
+        <!-- 操作說明 -->
         <div id="explanation" class="explanation" style=" width: 99%; height: 100%;">
             <div id="checkZoom" class="title"><i class="fa fa-lightbulb-o"></i>
-                <h4 title="提示相关设置操作时应注意的要点">操作提示</h4>
+                <h4 title="提示相關設定操作時應注意的要點">操作提示</h4>
                 <span title="收起提示" id="explanationZoom" style="display: block;"></span>
             </div>
             <ul>
-                <li>系统省市县区镇基础数据都在此处设置, 请谨慎操作。</li>
-                <li>"所在层级"位该区域所在层级，如省层级为1，市层级为2，区县层级为3 乡镇层级为4</li>
+                <li>系統省市縣區鎮基礎數據都在此處設定, 請謹慎操作。</li>
+                <li>"所在層級"位該區域所在層級，如省層級為1，市層級為2，區縣層級為3 鄉鎮層級為4</li>
             </ul>
         </div>
         <div class="flexigrid">
             <div class="mDiv">
                 <div class="ftitle">
-                    <h3>地区列表</h3>
-                    <h5>(共{$region|count}张记录)</h5>
+                    <h3>地區列表</h3>
+                    <h5>(共{$region|count}張記錄)</h5>
                 </div>
-                <div title="刷新数据" class="pReload"><i class="fa fa-refresh"></i></div>
-                {notempty name="parent_path"}<div title="上级区域" class="pReload">上级区域:{$parent_path}</div>{/notempty}
+                <div title="重新整理數據" class="pReload"><i class="fa fa-refresh"></i></div>
+                {notempty name="parent_path"}<div title="上級區域" class="pReload">上級區域:{$parent_path}</div>{/notempty}
             </div>
             <div class="hDiv">
                 <div class="hDivBox">
@@ -46,13 +46,13 @@
                                 <div style="text-align: center; width: 150px;">操作</div>
                             </th>
                             <th axis="col2" class="" align="left">
-                                <div style="text-align: left; width: 200px;">地区</div>
+                                <div style="text-align: left; width: 200px;">地區</div>
                             </th>
                             <th axis="col4" class="" align="left">
-                                <div style="text-align: left; width: 100px;">所在层级</div>
+                                <div style="text-align: left; width: 100px;">所在層級</div>
                             </th>
                             <th axis="col5" class="" align="center">
-                                <div style="text-align: center; width: 140px;">上级地区ID</div>
+                                <div style="text-align: center; width: 140px;">上級地區ID</div>
                             </th>
                             <th style="width:100%" axis="col6"><div></div></th>
                         </tr>
@@ -64,14 +64,14 @@
                 <div class="tDiv2">
                     {eq name="$Think.const.CONTROLLER_NAME.'@region_add'|is_check_access" value="1"}
                     <div class="fbutton">
-                        <div class="add" title="新增数据">
-                            <span onclick="add_region(1);"><i class="fa fa-plus"></i>新增数据</span>
+                        <div class="add" title="新增數據">
+                            <span onclick="add_region(1);"><i class="fa fa-plus"></i>新增數據</span>
                         </div>
                     </div>
                     {/eq}
                     <div class="fbutton">
-                        <div class="up" title="返回上级地区">
-                            <span onclick="return_top_level();"><i class="fa fa-level-up"></i>返回上级地区</span>
+                        <div class="up" title="返回上級地區">
+                            <span onclick="return_top_level();"><i class="fa fa-level-up"></i>返回上級地區</span>
                         </div>
                     </div>
                 </div>
@@ -89,13 +89,13 @@
                                 <td class="handle" align="center">
                                     <div style="text-align: center; width: 150px;">
                                         {eq name="$Think.const.CONTROLLER_NAME.'@region_del'|is_check_access" value="1"}
-                                        <a class="btn red" data-url="{:U('System/region_del',array('id'=>$vo['id']))}"  onclick="delRegion(this);"><i class="fa fa-trash-o"></i>删除</a>
+                                        <a class="btn red" data-url="{:U('System/region_del',array('id'=>$vo['id']))}"  onclick="delRegion(this);"><i class="fa fa-trash-o"></i>刪除</a>
                                         {/eq}
-                                        <span class="btn"><em><i class="fa fa-cog"></i>设置 <i class="arrow"></i></em><ul>
+                                        <span class="btn"><em><i class="fa fa-cog"></i>設定 <i class="arrow"></i></em><ul>
                                         {eq name="$Think.const.CONTROLLER_NAME.'@region_add'|is_check_access" value="1"}
-                                        <li><a href="{:U('System/region',array('op'=>'add','parent_id'=>$vo['id']))}">新增下级</a></li>
+                                        <li><a href="{:U('System/region',array('op'=>'add','parent_id'=>$vo['id']))}">新增下級</a></li>
                                         {/eq}
-                                        <li><a href="{:U('System/region',array('parent_id'=>$vo['id']))}">查看下级</a></li>
+                                        <li><a href="{:U('System/region',array('parent_id'=>$vo['id']))}">檢視下級</a></li>
                                     </ul></span></div>
                                 </td>
                                 <td class="" align="left">
@@ -117,7 +117,7 @@
                 </div>
                 <div class="iDiv" style="display: none;"></div>
             </div>
-            <!--分页位置-->
+            <!--分頁位置-->
         </div>
     </div>
     {eq name="$Think.const.CONTROLLER_NAME.'@region_add'|is_check_access" value="1"}
@@ -126,8 +126,8 @@
             <div class="fixed-bar">
                 <div class="item-title"><a class="back" onclick="add_region(0);" title="返回列表"><i class="fa fa-arrow-circle-o-left"></i></a>
                     <div class="subject">
-                        <h3>地区设置 - 新增</h3>
-                        <h5>地区新增与编辑</h5>
+                        <h3>地區設定 - 新增</h3>
+                        <h5>地區新增與編輯</h5>
                     </div>
                 </div>
             </div>
@@ -138,22 +138,22 @@
                     {notempty name="parent_path"}
                         <dl class="row">
                             <dt class="tit">
-                                <label for="name"><em></em>上级区域:</label>
+                                <label for="name"><em></em>上級區域:</label>
                             </dt>
                             <dd class="opt"><label for="name">{$parent_path}</label></dd>
                         </dl>
                     {/notempty}
                     <dl class="row">
                         <dt class="tit">
-                            <label for="name"><em>*</em>地区名</label>
+                            <label for="name"><em>*</em>地區名</label>
                         </dt>
                         <dd class="opt">
                             <input id="name" name="name" value="" maxlength="20" class="input-txt" type="text">
                             <span class="err"></span>
-                            <p class="notic">请认真填写地区名称，地区设定后将直接影响订单、收货地址等重要信息，请谨慎操作。</p>
+                            <p class="notic">請認真填寫地區名稱，地區設定后將直接影響訂單、收貨地址等重要資訊，請謹慎操作。</p>
                         </dd>
                     </dl>
-                    <div class="bot"><a href="JavaScript:void(0);" class="ncap-btn-big ncap-btn-green" onclick="$('#add_region_form').submit();">确认提交</a></div>
+                    <div class="bot"><a href="JavaScript:void(0);" class="ncap-btn-big ncap-btn-green" onclick="$('#add_region_form').submit();">確認提交</a></div>
                 </div>
             </form>
         </div>
@@ -166,12 +166,12 @@
     {/if}
 
     $(document).ready(function(){
-        // 表格行点击选中切换
+        // 表格行點選選中切換
         $('#flexigrid > table>tbody >tr').click(function(){
             $(this).toggleClass('trSelected');
         });
 
-        // 点击刷新数据
+        // 點選重新整理數據
         $('.fa-refresh').click(function(){
             location.href = location.href;
         });
@@ -194,7 +194,7 @@
     }
 
     function delRegion(obj){
-        layer.confirm('确定删除此地区？', {icon: 3, title:false}, function(index){
+        layer.confirm('確定刪除此地區？', {icon: 3, title:false}, function(index){
             layer.close(index);
             window.location.href = $(obj).attr('data-url');
         });

@@ -9,37 +9,37 @@
         <div class="ncap-form-default">
             <dl class="row">
                 <dt class="tit">
-                    <label for="code"><em>*</em>插件标识</label>
+                    <label for="code"><em>*</em>外掛標識</label>
                 </dt>
                 <dd class="opt">
                     <input type="text" name="code" placeholder="比如：Demo" id="code" class="input-txt" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/g,'');" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^a-zA-Z0-9]/g,''));">
-                    <input type="button" class="btn" value="生成文件列表" onclick="createPackfiles();">
+                    <input type="button" class="btn" value="產生檔案列表" onclick="createPackfiles();">
                     <span class="err"></span>
                     <p class="notic"></p>
                 </dd>
             </dl>
             <dl class="row">
                 <dt class="tit">
-                    <label for="additional_file"><em>*</em>打包文件列表</label>
+                    <label for="additional_file"><em>*</em>打包檔案列表</label>
                 </dt>
                 <dd class="opt">
-                    <textarea rows="5" cols="80" id="additional_file" name="additional_file" style="width: 375px;height:250px;" placeholder="列举插件涉及的独立文件，尽量不改动原系统代码：
+                    <textarea rows="5" cols="80" id="additional_file" name="additional_file" style="width: 375px;height:250px;" placeholder="列舉外掛涉及的獨立檔案，儘量不改動原系統程式碼：
 weapp/Sample
 template/plugins/sample
 application/plugins/controller/Sample.php
 application/plugins/logic/SampleLogic.php
 application/plugins/model/Sample.php"></textarea>
-                    <p class="notic">一行代表一个可选值</p>
-                    <p class="">一行代表一个可选值</p>
+                    <p class="notic">一行代表一個可選值</p>
+                    <p class="">一行代表一個可選值</p>
                 </dd>
             </dl>
-            <div class="bot"><a href="JavaScript:void(0);" onclick="checkForm();" class="ncap-btn-big ncap-btn-green" id="submitBtn">确认提交</a></div>
+            <div class="bot"><a href="JavaScript:void(0);" onclick="checkForm();" class="ncap-btn-big ncap-btn-green" id="submitBtn">確認提交</a></div>
         </div>
     </form>
 </div>
 <script type="text/javascript">
 
-    /*插件标准涉及的文件及目录*/
+    /*外掛標準涉及的檔案及目錄*/
     var packlistArr = new Array();
     packlistArr[0] = 'weapp/Sample';
     packlistArr[1] = 'template/plugins/sample';
@@ -49,7 +49,7 @@ application/plugins/model/Sample.php"></textarea>
     /*--end*/
 
     /**
-     * 插件标识格式判断
+     * 外掛標識格式判斷
      * @param str
      */
     function checkCode(str){
@@ -61,34 +61,34 @@ application/plugins/model/Sample.php"></textarea>
         }
     }
 
-    // 判断输入框是否为空
+    // 判斷輸入框是否為空
     function checkForm(){
         var code = $.trim($('input[name=code]').val());
         if(!checkCode(code)){
-            showErrorMsg('插件标识格式不正确！');
+            showErrorMsg('外掛標識格式不正確！');
             $('input[name=code]').focus();
             return false;
         }
         if ('Sample' == code) {
-            showErrorMsg('样本插件禁止打包！');
+            showErrorMsg('樣本外掛禁止打包！');
             $('input[name=code]').focus();
             return false;
         }
-        layer_loading('正在处理');
+        layer_loading('正在處理');
         $('#post_form').submit();
     }
 
-    // 生成打包文件列表
+    // 產生打包檔案列表
     function createPackfiles()
     {
         var code = $.trim($('input[name=code]').val());
         if(!checkCode(code)){
-            showErrorMsg('插件标识格式不正确！');
+            showErrorMsg('外掛標識格式不正確！');
             $('input[name=code]').focus();
             return false;
         }
         if ('Sample' == code) {
-            showErrorMsg('样本插件禁止打包！');
+            showErrorMsg('樣本外掛禁止打包！');
             $('input[name=code]').focus();
             return false;
         }
@@ -103,7 +103,7 @@ application/plugins/model/Sample.php"></textarea>
             }
         }
         $('#additional_file').val(additional_file);
-        var index = layer.alert("请检查打包文件或目录是否完整！", {icon: 6, title:false}, function(){
+        var index = layer.alert("請檢查打包檔案或目錄是否完整！", {icon: 6, title:false}, function(){
             layer.close(index);
             $('#additional_file').focus();
         });

@@ -1,18 +1,18 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
  */
 
 //------------------------
-// EyouCms 助手函数
+// EyouCms 助手函式
 //-------------------------
 
 use think\Url;
@@ -21,24 +21,24 @@ use think\Config;
 if (!function_exists('memcache')) 
 {
     /**
-     * 缓存管理
-     * @param mixed     $name 缓存标识，具体查看./app/extra/admin_memcache.php
-     * @param mixed     $value 缓存值
+     * 快取管理
+     * @param mixed     $name 快取標識，具體檢視./app/extra/admin_memcache.php
+     * @param mixed     $value 快取值
      * @return mixed
      */
     function memcache($name = null, $value = null, $options = false)
     {
-        //暂时改用memcached
+        //暫時改用memcached
         return memcached($name, $value, $options);
         exit;
 
 
-        //暂这么连接  后期更改
+        //暫這麼連線  後期更改
         static $memcache;
         // $module = strtolower(MODULE_NAME);
         $data = Config::get('memcache_key');
 
-        // 关闭memcached时，自动改用cache方式
+        // 關閉memcached時，自動改用cache方式
         if (Config::get('memcache.switch') == 0) {
             if (empty($name) || empty($data[$name])) {
                 return false;
@@ -65,14 +65,14 @@ if (!function_exists('memcache'))
         $tag = $data[$name]['tag'];
 
         if (is_null($value)) {
-            // 获取缓存
+            // 獲取快取
             return true === $memcache->has($key) ? $memcache->get($key) : false;
         } elseif ('' === $value) {
-            // 删除缓存
+            // 刪除快取
             return $memcache->rm($key);
         } else {
-            // 缓存数据
-            $expire = is_numeric($expire) ? $expire : null; //默认快捷缓存设置过期时间
+            // 快取數據
+            $expire = is_numeric($expire) ? $expire : null; //預設快捷快取設定過期時間
 
             if (is_null($tag) || empty($tag)) {
                 return $memcache->set($key, $value, $expire);
@@ -87,19 +87,19 @@ if (!function_exists('memcache'))
 if (!function_exists('memcached')) 
 {
     /**
-     * 缓存管理
-     * @param mixed     $name 缓存标识，具体查看./app/extra/admin_memcache.php
-     * @param mixed     $value 缓存值
+     * 快取管理
+     * @param mixed     $name 快取標識，具體檢視./app/extra/admin_memcache.php
+     * @param mixed     $value 快取值
      * @return mixed
      */
     function memcached($name = null, $value = null, $options = false)
     {
-        //暂这么连接  后期更改
+        //暫這麼連線  後期更改
         static $memcached;
         // $module = strtolower(MODULE_NAME);
         $data = Config::get('memcache_key');
 
-        // 关闭memcached时，自动改用cache方式
+        // 關閉memcached時，自動改用cache方式
         if (Config::get('memcache.switch') == 0) {
             if (empty($name) || empty($data[$name])) {
                 return false;
@@ -126,14 +126,14 @@ if (!function_exists('memcached'))
         $tag = $data[$name]['tag'];
 
         if (is_null($value)) {
-            // 获取缓存
+            // 獲取快取
             return true === $memcached->has($key) ? $memcached->get($key) : false;
         } elseif ('' === $value) {
-            // 删除缓存
+            // 刪除快取
             return $memcached->rm($key);
         } else {
-            // 缓存数据
-            $expire = is_numeric($expire) ? $expire : null; //默认快捷缓存设置过期时间
+            // 快取數據
+            $expire = is_numeric($expire) ? $expire : null; //預設快捷快取設定過期時間
 
             if (is_null($tag) || empty($tag)) {
                 return $memcached->set($key, $value, $expire);
@@ -147,10 +147,10 @@ if (!function_exists('memcached'))
 
 if (!function_exists('extra_cache')) {
 /**
- * 获取和设置配置参数 支持批量定义
- * @param string|array $name 配置变量
+ * 獲取和設定配置參數 支援批量定義
+ * @param string|array $name 配置變數
  * @param mixed $value 配置值
- * @param mixed $default 默认值
+ * @param mixed $default 預設值
  * @return mixed
  */
     function extra_cache($name, $value = '', $expire = 0) {
@@ -186,10 +186,10 @@ if (!function_exists('extra_cache')) {
 
 if (!function_exists('html_cache')) {
 /**
- * 获取和设置配置参数 支持批量定义
- * @param string|array $name 配置变量
+ * 獲取和設定配置參數 支援批量定義
+ * @param string|array $name 配置變數
  * @param mixed $value 配置值
- * @param mixed $default 默认值
+ * @param mixed $default 預設值
  * @return mixed
  */
     function html_cache($name, $value = '', $options = array()) {
@@ -232,10 +232,10 @@ if (!function_exists('html_cache')) {
 
 if (!function_exists('typeurl')) {
     /**
-     * 栏目Url生成
+     * 欄目Url產生
      * @param string        $url 路由地址
-     * @param string|array  $param 变量
-     * @param bool|string   $suffix 生成的URL后缀
+     * @param string|array  $param 變數
+     * @param bool|string   $suffix 產生的URL後綴
      * @param bool|string   $domain 域名
      * @param string          $seo_pseudo URL模式
      * @param string          $seo_pseudo_format URL格式
@@ -283,12 +283,12 @@ if (!function_exists('typeurl')) {
             } else {
                 $vars = $param;
             }
-            /*伪静态格式*/
+            /*偽靜態格式*/
             $seo_rewrite_format = config('ey_config.seo_rewrite_format');
             if (1 == intval($seo_rewrite_format)) {
                 $eyouUrl = url('home/Lists/index', $vars, $suffix, $domain, $seo_pseudo, $seo_pseudo_format).'/';
             } else {
-                $eyouUrl = url($url, $vars, $suffix, $domain, $seo_pseudo, $seo_pseudo_format); // 兼容v1.1.6之前被搜索引擎收录的URL
+                $eyouUrl = url($url, $vars, $suffix, $domain, $seo_pseudo, $seo_pseudo_format); // 相容v1.1.6之前被搜索引擎收錄的URL
             }
             /*--end*/
         } else {
@@ -310,10 +310,10 @@ if (!function_exists('typeurl')) {
 
 if (!function_exists('arcurl')) {
     /**
-     * 文档Url生成
+     * 文件Url產生
      * @param string        $url 路由地址
-     * @param string|array  $param 变量
-     * @param bool|string   $suffix 生成的URL后缀
+     * @param string|array  $param 變數
+     * @param bool|string   $suffix 產生的URL後綴
      * @param bool|string   $domain 域名
      * @param string          $seo_pseudo URL模式
      * @param string          $seo_pseudo_format URL格式
@@ -356,11 +356,11 @@ if (!function_exists('arcurl')) {
             $url = $param['dirpath']."/{$aid}.html";
             $eyouUrl = url($url, $vars, false, request()->domain(), $seo_pseudo, $seo_pseudo_format);
         } elseif ($seo_pseudo == 3 && $uiset != 'on') {
-            /*伪静态格式*/
+            /*偽靜態格式*/
             $seo_rewrite_format = config('ey_config.seo_rewrite_format');
             if (1 == intval($seo_rewrite_format)) {
                 $url = 'home/View/index';
-                /*URL里第一层级固定是顶级栏目的目录名称*/
+                /*URL里第一層級固定是頂級欄目的目錄名稱*/
                 $tdirnameArr = every_top_dirname_list();
                 if (!empty($param['dirname']) && isset($tdirnameArr[md5($param['dirname'])]['tdirname'])) {
                     $param['dirname'] = $tdirnameArr[md5($param['dirname'])]['tdirname'];
@@ -397,8 +397,8 @@ if (!function_exists('arcurl')) {
 
 if (!function_exists('eyIntval')) {
     /**
-     * 强制把数值转为整型
-     * @param mixed        $data 任意数值
+     * 強制把數值轉為整型
+     * @param mixed        $data 任意數值
      * @return mixed
      */
     function eyIntval($data)
@@ -423,8 +423,8 @@ if (!function_exists('eyIntval')) {
 
 if (!function_exists('eyPreventShell')) {
     /**
-     * 验证是否shell注入
-     * @param mixed        $data 任意数值
+     * 驗證是否shell注入
+     * @param mixed        $data 任意數值
      * @return mixed
      */
     function eyPreventShell($data = '')

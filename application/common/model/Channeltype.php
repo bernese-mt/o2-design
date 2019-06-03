@@ -1,11 +1,11 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
@@ -23,12 +23,12 @@ class Channeltype extends Model
     //初始化
     protected function initialize()
     {
-        // 需要调用`Model`的`initialize`方法
+        // 需要呼叫`Model`的`initialize`方法
         parent::initialize();
     }
 
     /**
-     * 获取单条记录
+     * 獲取單條記錄
      * @author 小虎哥 by 2018-4-16
      */
     public function getInfo($id)
@@ -39,7 +39,7 @@ class Channeltype extends Model
     }
 
     /**
-     * 获取单条记录
+     * 獲取單條記錄
      * @author 小虎哥 by 2018-4-16
      */
     public function getInfoByWhere($where, $field = '*')
@@ -50,7 +50,7 @@ class Channeltype extends Model
     }
 
     /**
-     * 获取多条记录
+     * 獲取多條記錄
      * @author 小虎哥 by 2018-4-16
      */
     public function getListByIds($ids, $field = '*')
@@ -67,7 +67,7 @@ class Channeltype extends Model
     }
 
     /**
-     * 默认获取全部
+     * 預設獲取全部
      * @author 小虎哥 by 2018-4-16
      */
     public function getAll($field = '*', $map = array(), $index_key = '')
@@ -100,8 +100,8 @@ class Channeltype extends Model
     }
 
     /**
-     * 获取有栏目的模型列表
-     * @param string $type yes表示存在栏目的模型列表，no表示不存在栏目的模型列表
+     * 獲取有欄目的模型列表
+     * @param string $type yes表示存在欄目的模型列表，no表示不存在欄目的模型列表
      * @author 小虎哥 by 2018-4-16
      */
     public function getArctypeChannel($type = 'yes')
@@ -139,7 +139,7 @@ class Channeltype extends Model
     }
 
     /**
-     * 根据文档ID获取模型信息
+     * 根據文件ID獲取模型資訊
      * @author 小虎哥 by 2018-4-16
      */
     public function getInfoByAid($aid)
@@ -156,7 +156,7 @@ class Channeltype extends Model
     }
 
     /**
-     * 根据前端模板自动开启系统模型
+     * 根據前端模板自動開啟系統模型
      */
     public function setChanneltypeStatus()
     {

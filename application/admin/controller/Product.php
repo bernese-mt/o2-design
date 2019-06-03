@@ -1,11 +1,11 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
@@ -20,11 +20,11 @@ use app\admin\logic\ProductLogic;
 
 class Product extends Base
 {
-    // 模型标识
+    // 模型標識
     public $nid = 'product';
     // 模型ID
     public $channeltype = '';
-    // 表单类型
+    // 表單型別
     public $attrInputTypeArr = array();
     
     public function _initialize() {
@@ -43,14 +43,14 @@ class Product extends Base
     {
         $assign_data = array();
         $condition = array();
-        // 获取到所有GET参数
+        // 獲取到所有GET參數
         $param = input('param.');
         $flag = input('flag/s');
         $typeid = input('typeid/d', 0);
         $begin = strtotime(input('add_time_begin'));
         $end = strtotime(input('add_time_end'));
 
-        // 应用搜索条件
+        // 應用搜索條件
         foreach (['keywords','typeid','flag'] as $key) {
             if (isset($param[$key]) && $param[$key] !== '') {
                 if ($key == 'keywords') {
@@ -59,7 +59,7 @@ class Product extends Base
                     $typeid = $param[$key];
                     $hasRow = model('Arctype')->getHasChildren($typeid);
                     $typeids = get_arr_column($hasRow, 'id');
-                    /*权限控制 by 小虎哥*/
+                    /*許可權控制 by 小虎哥*/
                     $admin_info = session('admin_info');
                     if (0 < intval($admin_info['role_id'])) {
                         $auth_role_info = $admin_info['auth_role_info'];
@@ -84,7 +84,7 @@ class Product extends Base
             }
         }
 
-        // 时间检索
+        // 時間檢索
         if ($begin > 0 && $end > 0) {
             $condition['a.add_time'] = array('between',"$begin,$end");
         } else if ($begin > 0) {
@@ -95,16 +95,16 @@ class Product extends Base
 
         // 模型ID
         $condition['a.channel'] = array('eq', $this->channeltype);
-        // 多语言
+        // 多語言
         $condition['a.lang'] = array('eq', $this->admin_lang);
         // 回收站
         $condition['a.is_del'] = array('eq', 0);
 
         /**
-         * 数据查询，搜索出主键ID的值
+         * 數據查詢，搜索出主鍵ID的值
          */
-        $count = DB::name('archives')->alias('a')->where($condition)->count('aid');// 查询满足要求的总记录数
-        $Page = new Page($count, config('paginate.list_rows'));// 实例化分页类 传入总记录数和每页显示的记录数
+        $count = DB::name('archives')->alias('a')->where($condition)->count('aid');// 查詢滿足要求的總記錄數
+        $Page = new Page($count, config('paginate.list_rows'));// 實例化分頁類 傳入總記錄數和每頁顯示的記錄數
         $list = DB::name('archives')
             ->field("a.aid")
             ->alias('a')
@@ -114,8 +114,8 @@ class Product extends Base
             ->getAllWithIndex('aid');
 
         /**
-         * 完善数据集信息
-         * 在数据量大的情况下，经过优化的搜索逻辑，先搜索出主键ID，再通过ID将其他信息补充完整；
+         * 完善數據集資訊
+         * 在數據量大的情況下，經過優化的搜索邏輯，先搜索出主鍵ID，再通過ID將其他資訊補充完整；
          */
         if ($list) {
             $aids = array_keys($list);
@@ -128,18 +128,18 @@ class Product extends Base
                 ->getAllWithIndex('aid');
             foreach ($list as $key => $val) {
                 $row[$val['aid']]['arcurl'] = get_arcurl($row[$val['aid']]);
-                $row[$val['aid']]['litpic'] = handle_subdir_pic($row[$val['aid']]['litpic']); // 支持子目录
+                $row[$val['aid']]['litpic'] = handle_subdir_pic($row[$val['aid']]['litpic']); // 支援子目錄
                 $list[$key] = $row[$val['aid']];
             }
         }
-        $show = $Page->show(); // 分页显示输出
-        $assign_data['page'] = $show; // 赋值分页输出
-        $assign_data['list'] = $list; // 赋值数据集
-        $assign_data['pager'] = $Page; // 赋值分页对象
+        $show = $Page->show(); // 分頁顯示輸出
+        $assign_data['page'] = $show; // 賦值分頁輸出
+        $assign_data['list'] = $list; // 賦值數據集
+        $assign_data['pager'] = $Page; // 賦值分頁對像
 
-        // 栏目ID
-        $assign_data['typeid'] = $typeid; // 栏目ID
-        /*当前栏目信息*/
+        // 欄目ID
+        $assign_data['typeid'] = $typeid; // 欄目ID
+        /*目前欄目資訊*/
         $arctype_info = array();
         if ($typeid > 0) {
             $arctype_info = M('arctype')->field('typename')->find($typeid);
@@ -147,7 +147,7 @@ class Product extends Base
         $assign_data['arctype_info'] = $arctype_info;
         /*--end*/
 
-        /*选项卡*/
+        /*選項卡*/
         $tab = input('param.tab/d', 3);
         $assign_data['tab'] = $tab;
         /*--end*/
@@ -157,7 +157,7 @@ class Product extends Base
     }
 
     /**
-     * 添加
+     * 新增
      */
     public function add()
     {
@@ -165,13 +165,13 @@ class Product extends Base
             $post = input('post.');
             $content = input('post.addonFieldExt.content', '', null);
 
-            // 根据标题自动提取相关的关键字
+            // 根據標題自動提取相關的關鍵字
             $seo_keywords = $post['seo_keywords'];
             // if (empty($seo_keywords)) {
             //     $seo_keywords = get_split_word($post['title'], $content);
             // }
 
-            // 自动获取内容第一张图片作为封面图
+            // 自動獲取內容第一張圖片作為封面圖
             $is_remote = !empty($post['is_remote']) ? $post['is_remote'] : 0;
             $litpic = '';
             if ($is_remote == 1) {
@@ -192,20 +192,20 @@ class Product extends Base
                 $seo_description = $post['seo_description'];
             }
 
-            // 外部链接跳转
+            // 外部鏈接跳轉
             $jumplinks = '';
             $is_jump = isset($post['is_jump']) ? $post['is_jump'] : 0;
             if (intval($is_jump) > 0) {
                 $jumplinks = $post['jumplinks'];
             }
 
-            // 模板文件，如果文档模板名与栏目指定的一致，默认就为空。让它跟随栏目的指定而变
+            // 模板檔案，如果文件模板名與欄目指定的一致，預設就為空。讓它跟隨欄目的指定而變
             if ($post['type_tempview'] == $post['tempview']) {
                 unset($post['type_tempview']);
                 unset($post['tempview']);
             }
 
-            // --存储数据
+            // --儲存數據
             $newData = array(
                 'typeid'=> empty($post['typeid']) ? 0 : $post['typeid'],
                 'channel'   => $this->channeltype,
@@ -228,30 +228,30 @@ class Product extends Base
             $aid = M('archives')->insertGetId($data);
             $_POST['aid'] = $aid;
             if ($aid) {
-                // ---------后置操作
+                // ---------後置操作
                 model('Product')->afterSave($aid, $data, 'add');
                 // ---------end
-                adminLog('新增产品：'.$data['title']);
+                adminLog('新增產品：'.$data['title']);
                 $this->success("操作成功!", $post['gourl']);
                 exit;
             }
 
-            $this->error("操作失败!");
+            $this->error("操作失敗!");
             exit;
         }
 
         $typeid = input('param.typeid/d', 0);
-        $assign_data['typeid'] = $typeid; // 栏目ID
+        $assign_data['typeid'] = $typeid; // 欄目ID
 
-        // 栏目信息
+        // 欄目資訊
         $arctypeInfo = Db::name('arctype')->find($typeid);
 
-        /*允许发布文档列表的栏目*/
+        /*允許發佈文件列表的欄目*/
         $arctype_html = allow_release_arctype($typeid, array($this->channeltype));
         $assign_data['arctype_html'] = $arctype_html;
         /*--end*/
 
-        /*自定义字段*/
+        /*自定義欄位*/
         $addonFieldExtList = model('Field')->getChannelFieldList($this->channeltype);
         $channelfieldBindRow = Db::name('channelfield_bind')->where([
                 'typeid'    => ['IN', [0,$typeid]],
@@ -267,11 +267,11 @@ class Product extends Base
         $assign_data['aid'] = 0;
         /*--end*/
 
-        // 阅读权限
+        // 閱讀許可權
         $arcrank_list = get_arcrank_list();
         $assign_data['arcrank_list'] = $arcrank_list;
 
-        /*产品参数*/
+        /*產品參數*/
         $assign_data['canshu'] = $this->ajax_get_attr_input($typeid);
         /*--end*/
         
@@ -281,13 +281,13 @@ class Product extends Base
         $this->assign('templateList', $templateList);
         /*--end*/
 
-        /*默认模板文件*/
+        /*預設模板檔案*/
         $tempview = 'view_'.$this->nid.'.'.config('template.view_suffix');
         !empty($arctypeInfo['tempview']) && $tempview = $arctypeInfo['tempview'];
         $this->assign('tempview', $tempview);
         /*--end*/
 
-        /*返回上一层*/
+        /*返回上一層*/
         $gourl = input('param.gourl/s', '');
         if (empty($gourl)) {
             $gourl = url('Product/index', array('typeid'=>$typeid));
@@ -304,7 +304,7 @@ class Product extends Base
     }
     
     /**
-     * 编辑
+     * 編輯
      */
     public function edit()
     {
@@ -313,13 +313,13 @@ class Product extends Base
             $typeid = input('post.typeid/d', 0);
             $content = input('post.addonFieldExt.content', '', null);
 
-            // 根据标题自动提取相关的关键字
+            // 根據標題自動提取相關的關鍵字
             $seo_keywords = $post['seo_keywords'];
             // if (empty($seo_keywords)) {
             //     $seo_keywords = get_split_word($post['title'], $content);
             // }
 
-            // 自动获取内容第一张图片作为封面图
+            // 自動獲取內容第一張圖片作為封面圖
             $is_remote = !empty($post['is_remote']) ? $post['is_remote'] : 0;
             $litpic = '';
             if ($is_remote == 1) {
@@ -340,22 +340,22 @@ class Product extends Base
                 $seo_description = $post['seo_description'];
             }
 
-            // --外部链接
+            // --外部鏈接
             $jumplinks = '';
             $is_jump = isset($post['is_jump']) ? $post['is_jump'] : 0;
             if (intval($is_jump) > 0) {
                 $jumplinks = $post['jumplinks'];
             }
 
-            // 模板文件，如果文档模板名与栏目指定的一致，默认就为空。让它跟随栏目的指定而变
+            // 模板檔案，如果文件模板名與欄目指定的一致，預設就為空。讓它跟隨欄目的指定而變
             if ($post['type_tempview'] == $post['tempview']) {
                 unset($post['type_tempview']);
                 unset($post['tempview']);
             }
 
-            // 同步栏目切换模型之后的文档模型
+            // 同步欄目切換模型之後的文件模型
             $channel = Db::name('arctype')->where(['id'=>$typeid])->getField('current_channel');
-            // --存储数据
+            // --儲存數據
             $newData = array(
                 'typeid'=> $typeid,
                 'channel'   => $channel,
@@ -378,15 +378,15 @@ class Product extends Base
                 ])->update($data);
             
             if ($r) {
-                // ---------后置操作
+                // ---------後置操作
                 model('Product')->afterSave($data['aid'], $data, 'edit');
                 // ---------end
-                adminLog('编辑产品：'.$data['title']);
+                adminLog('編輯產品：'.$data['title']);
                 $this->success("操作成功!", $post['gourl']);
                 exit;
             }
 
-            $this->error("操作失败!");
+            $this->error("操作失敗!");
             exit;
         }
 
@@ -395,10 +395,10 @@ class Product extends Base
         $id = input('id/d');
         $info = model('Product')->getInfo($id);
         if (empty($info)) {
-            $this->error('数据不存在，请联系管理员！');
+            $this->error('數據不存在，請聯繫管理員！');
             exit;
         }
-        /*兼容采集没有归属栏目的文档*/
+        /*相容採集沒有歸屬欄目的文件*/
         if (empty($info['channel'])) {
             $channelRow = Db::name('channeltype')->field('id as channel')
                 ->where('id',$this->channeltype)
@@ -408,7 +408,7 @@ class Product extends Base
         /*--end*/
         $typeid = $info['typeid'];
 
-        // 栏目信息
+        // 欄目資訊
         $arctypeInfo = Db::name('arctype')->find($typeid);
 
         $info['channel'] = $arctypeInfo['current_channel'];
@@ -427,19 +427,19 @@ class Product extends Base
 
         $assign_data['field'] = $info;
 
-        // 产品相册
+        // 產品相簿
         $proimg_list = model('ProductImg')->getProImg($id);
         foreach ($proimg_list as $key => $val) {
-            $proimg_list[$key]['image_url'] = handle_subdir_pic($val['image_url']); // 支持子目录
+            $proimg_list[$key]['image_url'] = handle_subdir_pic($val['image_url']); // 支援子目錄
         }
         $assign_data['proimg_list'] = $proimg_list;
 
-        /*允许发布文档列表的栏目，文档所在模型以栏目所在模型为主，兼容切换模型之后的数据编辑*/
+        /*允許發佈文件列表的欄目，文件所在模型以欄目所在模型為主，相容切換模型之後的數據編輯*/
         $arctype_html = allow_release_arctype($typeid, array($info['channel']));
         $assign_data['arctype_html'] = $arctype_html;
         /*--end*/
         
-        /*自定义字段*/
+        /*自定義欄位*/
         $addonFieldExtList = model('Field')->getChannelFieldList($info['channel'], 0, $id, $info);
         $channelfieldBindRow = Db::name('channelfield_bind')->where([
                 'typeid'    => ['IN', [0,$typeid]],
@@ -455,11 +455,11 @@ class Product extends Base
         $assign_data['aid'] = $id;
         /*--end*/
 
-        // 阅读权限
+        // 閱讀許可權
         $arcrank_list = get_arcrank_list();
         $assign_data['arcrank_list'] = $arcrank_list;
 
-        /*产品参数*/
+        /*產品參數*/
         $assign_data['canshu'] = $this->ajax_get_attr_input($typeid, $id);
         /*--end*/
 
@@ -469,13 +469,13 @@ class Product extends Base
         $this->assign('templateList', $templateList);
         /*--end*/
 
-        /*默认模板文件*/
+        /*預設模板檔案*/
         $tempview = $info['tempview'];
         empty($tempview) && $tempview = $arctypeInfo['tempview'];
         $this->assign('tempview', $tempview);
         /*--end*/
 
-        /*返回上一层*/
+        /*返回上一層*/
         $gourl = input('param.gourl/s', '');
         if (empty($gourl)) {
             $gourl = url('Product/index', array('typeid'=>$typeid));
@@ -483,7 +483,7 @@ class Product extends Base
         $assign_data['gourl'] = $gourl;
         /*--end*/
 
-        // 处理产品价格属性
+        // 處理產品價格屬性
         $ShopType = getUsersConfigData('shop.shop_type');
         if (empty($ShopType) || '1' == $ShopType) {
             if ($ShopType == $assign_data['field']['prom_type']) {
@@ -501,7 +501,7 @@ class Product extends Base
     }
     
     /**
-     * 删除
+     * 刪除
      */
     public function del()
     {
@@ -512,7 +512,7 @@ class Product extends Base
     }
 
     /**
-     * 删除商品相册图
+     * 刪除商品相簿圖
      */
     public function del_proimg()
     {
@@ -523,7 +523,7 @@ class Product extends Base
             if(eyPreventShell($filename) && !empty($filename)){
                 $filename_new = trim($filename,'/');
                 $filetype = preg_replace('/^(.*)\.(\w+)$/i', '$2', $filename);
-                $phpfile = strtolower(strstr($filename,'.php'));  //排除PHP文件
+                $phpfile = strtolower(strstr($filename,'.php'));  //排除PHP檔案
                 $size = getimagesize($filename_new);
                 $fileInfo = explode('/',$size['mime']);
                 if((file_exists($filename_new) && $fileInfo[0] != 'image') || $phpfile || !in_array($filetype, explode(',', config('global.image_ext')))){
@@ -537,17 +537,17 @@ class Product extends Base
     }
 
     /**
-     * 产品参数
+     * 產品參數
      */
     public function attribute_index()
     {
         $assign_data = array();
         $condition = array();
-        // 获取到所有GET参数
+        // 獲取到所有GET參數
         $get = input('get.');
         $typeid = input('typeid/d', 0);
 
-        // 应用搜索条件
+        // 應用搜索條件
         foreach (['keywords','typeid'] as $key) {
             if (isset($get[$key]) && $get[$key] !== '') {
                 if ($key == 'keywords') {
@@ -561,14 +561,14 @@ class Product extends Base
         }
 
         $condition['a.is_del'] = 0;
-        // 多语言
+        // 多語言
         $condition['a.lang'] = $this->admin_lang;
 
         /**
-         * 数据查询，搜索出主键ID的值
+         * 數據查詢，搜索出主鍵ID的值
          */
-        $count = DB::name('product_attribute')->alias('a')->where($condition)->count();// 查询满足要求的总记录数
-        $Page = new Page($count, config('paginate.list_rows'));// 实例化分页类 传入总记录数和每页显示的记录数
+        $count = DB::name('product_attribute')->alias('a')->where($condition)->count();// 查詢滿足要求的總記錄數
+        $Page = new Page($count, config('paginate.list_rows'));// 實例化分頁類 傳入總記錄數和每頁顯示的記錄數
         $list = DB::name('product_attribute')
             ->field("a.attr_id")
             ->alias('a')
@@ -578,8 +578,8 @@ class Product extends Base
             ->getAllWithIndex('attr_id');
 
         /**
-         * 完善数据集信息
-         * 在数据量大的情况下，经过优化的搜索逻辑，先搜索出主键ID，再通过ID将其他信息补充完整；
+         * 完善數據集資訊
+         * 在數據量大的情況下，經過優化的搜索邏輯，先搜索出主鍵ID，再通過ID將其他資訊補充完整；
          */
         if ($list) {
             $attr_ids = array_keys($list);
@@ -591,8 +591,8 @@ class Product extends Base
                 ->where('a.attr_id', 'in', $attr_ids)
                 ->getAllWithIndex('attr_id');
             
-            /*获取多语言关联绑定的值*/
-            $row = model('LanguageAttr')->getBindValue($row, 'product_attribute', $this->main_lang); // 多语言
+            /*獲取多語言關聯繫結的值*/
+            $row = model('LanguageAttr')->getBindValue($row, 'product_attribute', $this->main_lang); // 多語言
             /*--end*/
 
             foreach ($row as $key => $val) {
@@ -603,12 +603,12 @@ class Product extends Base
                 $list[$key] = $row[$val['attr_id']];
             }
         }
-        $show = $Page->show(); // 分页显示输出
-        $assign_data['page'] = $show; // 赋值分页输出
-        $assign_data['list'] = $list; // 赋值数据集
-        $assign_data['pager'] = $Page; // 赋值分页对象
+        $show = $Page->show(); // 分頁顯示輸出
+        $assign_data['page'] = $show; // 賦值分頁輸出
+        $assign_data['list'] = $list; // 賦值數據集
+        $assign_data['pager'] = $Page; // 賦值分頁對像
 
-        /*获取当前模型栏目*/
+        /*獲取目前模型欄目*/
         $selected = $typeid;
         $arctypeLogic = new ArctypeLogic();
         $map = array(
@@ -619,9 +619,9 @@ class Product extends Base
         $this->assign('select_html',$select_html);
         /*--end*/
 
-        // 栏目ID
-        $assign_data['typeid'] = $typeid; // 栏目ID
-        /*当前栏目信息*/
+        // 欄目ID
+        $assign_data['typeid'] = $typeid; // 欄目ID
+        /*目前欄目資訊*/
         $arctype_info = array();
         if ($typeid > 0) {
             $arctype_info = M('arctype')->field('typename')->find($typeid);
@@ -629,31 +629,31 @@ class Product extends Base
         $assign_data['arctype_info'] = $arctype_info;
         /*--end*/
         
-        /*选项卡*/
+        /*選項卡*/
         $tab = input('param.tab/d', 3);
         $assign_data['tab'] = $tab;
         /*--end*/
         
-        $assign_data['attrInputTypeArr'] = $this->attrInputTypeArr; // 表单类型
+        $assign_data['attrInputTypeArr'] = $this->attrInputTypeArr; // 表單型別
 
         $this->assign($assign_data);
         return $this->fetch();
     }
 
     /**
-     * 新增产品参数
+     * 新增產品參數
      */
     public function attribute_add()
     {
-        //防止php超时
+        //防止php超時
         function_exists('set_time_limit') && set_time_limit(0);
         
-        if(IS_AJAX && IS_POST)//ajax提交验证
+        if(IS_AJAX && IS_POST)//ajax提交驗證
         {
             $model = model('ProductAttribute');
 
-            $attr_values = str_replace('_', '', input('attr_values')); // 替换特殊字符
-            $attr_values = str_replace('@', '', $attr_values); // 替换特殊字符            
+            $attr_values = str_replace('_', '', input('attr_values')); // 替換特殊字元
+            $attr_values = str_replace('@', '', $attr_values); // 替換特殊字元            
             $attr_values = trim($attr_values);
             
             $post_data = input('post.');
@@ -670,7 +670,7 @@ class Product extends Base
                 'update_time'   => getTime(),
             );
 
-            // 数据验证            
+            // 數據驗證            
             $validate = \think\Loader::validate('ProductAttribute');
             if(!$validate->batch()->check($savedata))
             {
@@ -683,11 +683,11 @@ class Product extends Base
                 );
                 respose($return_arr);
             } else {
-                $model->data($savedata,true); // 收集数据
-                $model->save(); // 写入数据到数据库
+                $model->data($savedata,true); // 收集數據
+                $model->save(); // 寫入數據到數據庫
                 $insertId = $model->getLastInsID();
 
-                /*同步产品属性ID到多语言的模板变量里*/
+                /*同步產品屬性ID到多語言的模板變數里*/
                 $this->syn_add_language_attribute($insertId);
                 /*--end*/
 
@@ -696,7 +696,7 @@ class Product extends Base
                      'msg'   => '操作成功',                        
                      'data'  => array('url'=>url('Product/attribute_index', array('typeid'=>$post_data['typeid']))),
                 );
-                adminLog('新增产品参数：'.$savedata['attr_name']);
+                adminLog('新增產品參數：'.$savedata['attr_name']);
                 respose($return_arr);
             }  
         }
@@ -704,7 +704,7 @@ class Product extends Base
         $typeid = input('param.typeid/d', 0);
         $assign_data = array();
 
-        /*允许发布文档列表的栏目*/
+        /*允許發佈文件列表的欄目*/
         $arctype_html = allow_release_arctype($typeid, array($this->channeltype));
         $assign_data['arctype_html'] = $arctype_html;
         /*--end*/
@@ -714,16 +714,16 @@ class Product extends Base
     }
 
     /**
-     * 编辑产品参数
+     * 編輯產品參數
      */
     public function attribute_edit()
     {
-        if(IS_AJAX && IS_POST)//ajax提交验证
+        if(IS_AJAX && IS_POST)//ajax提交驗證
         {
             $model = model('ProductAttribute');
 
-            $attr_values = str_replace('_', '', input('attr_values')); // 替换特殊字符
-            $attr_values = str_replace('@', '', $attr_values); // 替换特殊字符            
+            $attr_values = str_replace('_', '', input('attr_values')); // 替換特殊字元
+            $attr_values = str_replace('@', '', $attr_values); // 替換特殊字元            
             $attr_values = trim($attr_values);
             
             $post_data = input('post.');
@@ -739,7 +739,7 @@ class Product extends Base
                 'update_time'   => getTime(),
             );
 
-            // 数据验证            
+            // 數據驗證            
             $validate = \think\Loader::validate('ProductAttribute');
             if(!$validate->batch()->check($savedata))
             {
@@ -752,17 +752,17 @@ class Product extends Base
                 );
                 respose($return_arr);
             } else {
-                $model->data($savedata,true); // 收集数据
+                $model->data($savedata,true); // 收集數據
                 $model->isUpdate(true, [
                         'attr_id'   => $post_data['attr_id'],
                         'lang'  => $this->admin_lang,
-                    ])->save(); // 写入数据到数据库     
+                    ])->save(); // 寫入數據到數據庫     
                 $return_arr = array(
                      'status' => 1,
                      'msg'   => '操作成功',                        
                      'data'  => array('url'=>url('Product/attribute_index', array('typeid'=>$post_data['typeid']))),
                 );
-                adminLog('编辑产品参数：'.$savedata['attr_name']);
+                adminLog('編輯產品參數：'.$savedata['attr_name']);
                 respose($return_arr);
             }  
         }  
@@ -770,8 +770,8 @@ class Product extends Base
         $assign_data = array();
 
         $id = input('id/d');
-        /*获取多语言关联绑定的值*/
-        $new_id = model('LanguageAttr')->getBindValue($id, 'product_attribute'); // 多语言
+        /*獲取多語言關聯繫結的值*/
+        $new_id = model('LanguageAttr')->getBindValue($id, 'product_attribute'); // 多語言
         !empty($new_id) && $id = $new_id;
         /*--end*/
         $info = M('ProductAttribute')->where([
@@ -779,12 +779,12 @@ class Product extends Base
                 'lang'  => $this->admin_lang,
             ])->find();
         if (empty($info)) {
-            $this->error('数据不存在，请联系管理员！');
+            $this->error('數據不存在，請聯繫管理員！');
             exit;
         }
         $assign_data['field'] = $info;
 
-        /*允许发布文档列表的栏目*/
+        /*允許發佈文件列表的欄目*/
         $arctype_html = allow_release_arctype($info['typeid'], array($this->channeltype));
         $assign_data['arctype_html'] = $arctype_html;
         /*--end*/
@@ -794,14 +794,14 @@ class Product extends Base
     }
     
     /**
-     * 删除产品参数
+     * 刪除產品參數
      */
     public function attribute_del()
     {
         $id_arr = input('del_id/a');
         $id_arr = eyIntval($id_arr);
         if(!empty($id_arr)){
-            /*多语言*/
+            /*多語言*/
             if (is_language()) {
                 $attr_name_arr = [];
                 foreach ($id_arr as $key => $val) {
@@ -821,25 +821,25 @@ class Product extends Base
                     'update_time'   => getTime(),
                 ]);
             if($r){
-                adminLog('删除产品参数-id：'.implode(',', $id_arr));
-                $this->success('删除成功');
+                adminLog('刪除產品參數-id：'.implode(',', $id_arr));
+                $this->success('刪除成功');
             }else{
-                $this->error('删除失败');
+                $this->error('刪除失敗');
             }
         }else{
-            $this->error('参数有误');
+            $this->error('參數有誤');
         }
     }
 
     /**
-     * 动态获取产品参数输入框 根据不同的数据返回不同的输入框类型
+     * 動態獲取產品參數輸入框 根據不同的數據返回不同的輸入框型別
      */
     public function ajax_get_attr_input($typeid = '', $aid = '')
     {
         $productLogic = new ProductLogic();
         $str = $productLogic->getAttrInput($aid, $typeid);
         if (empty($str)) {
-            $str = '<div style="font-size: 12px;text-align: center;">提示：该主栏目还没有参数值，若有需要请点击【<a href="'.url('Product/attribute_index', array('typeid'=>$typeid)).'">产品参数</a>】进行更多操作。</div>';
+            $str = '<div style="font-size: 12px;text-align: center;">提示：該主欄目還沒有參數值，若有需要請點選【<a href="'.url('Product/attribute_index', array('typeid'=>$typeid)).'">產品參數</a>】進行更多操作。</div>';
         }
 
         if (IS_AJAX) {
@@ -850,11 +850,11 @@ class Product extends Base
     }
 
     /**
-     * 同步新增产品属性ID到多语言的模板变量里
+     * 同步新增產品屬性ID到多語言的模板變數里
      */
     private function syn_add_language_attribute($attr_id)
     {
-        /*单语言情况下不执行多语言代码*/
+        /*單語言情況下不執行多語言程式碼*/
         if (!is_language()) {
             return true;
         }
@@ -864,7 +864,7 @@ class Product extends Base
         $admin_lang = $this->admin_lang;
         $main_lang = $this->main_lang;
         $languageRow = Db::name('language')->field('mark')->order('id asc')->select();
-        if (!empty($languageRow) && $admin_lang == $main_lang) { // 当前语言是主体语言，即语言列表最早新增的语言
+        if (!empty($languageRow) && $admin_lang == $main_lang) { // 目前語言是主體語言，即語言列表最早新增的語言
             $result = Db::name('product_attribute')->find($attr_id);
             $attr_name = 'attr_'.$attr_id;
             $r = Db::name('language_attribute')->save([
@@ -877,7 +877,7 @@ class Product extends Base
             if (false !== $r) {
                 $data = [];
                 foreach ($languageRow as $key => $val) {
-                    /*同步新产品属性到其他语言产品属性列表*/
+                    /*同步新產品屬性到其他語言產品屬性列表*/
                     if ($val['mark'] != $admin_lang) {
                         $addsaveData = $result;
                         $addsaveData['lang'] = $val['mark'];
@@ -892,7 +892,7 @@ class Product extends Base
                     }
                     /*--end*/
                     
-                    /*所有语言绑定在主语言的ID容器里*/
+                    /*所有語言繫結在主語言的ID容器里*/
                     $data[] = [
                         'attr_name' => $attr_name,
                         'attr_value'    => $attr_id,

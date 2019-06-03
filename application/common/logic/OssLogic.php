@@ -1,11 +1,11 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
@@ -20,7 +20,7 @@ require_once './vendor/aliyun-oss-php-sdk/autoload.php';
 
 /**
  * Class OssLogic
- * 对象存储逻辑类
+ * 對像儲存邏輯類
  */
 class OssLogic
 {
@@ -35,15 +35,15 @@ class OssLogic
     static private $errorMsg = '';
     
     static private $waterPos = [
-        1 => 'nw',     //标识左上角水印
-        2 => 'north',  //标识上居中水印
-        3 => 'ne',     //标识右上角水印
-        4 => 'west',   //标识左居中水印
-        5 => 'center', //标识居中水印
-        6 => 'east',   //标识右居中水印
-        7 => 'sw',     //标识左下角水印
-        8 => 'south',  //标识下居中水印
-        9 => 'se',     //标识右下角水印
+        1 => 'nw',     //標識左上角水印
+        2 => 'north',  //標識上居中水印
+        3 => 'ne',     //標識右上角水印
+        4 => 'west',   //標識左居中水印
+        5 => 'center', //標識居中水印
+        6 => 'east',   //標識右居中水印
+        7 => 'sw',     //標識左下角水印
+        8 => 'south',  //標識下居中水印
+        9 => 'se',     //標識右下角水印
     ];
     
     public function __construct()
@@ -52,7 +52,7 @@ class OssLogic
     }
     
     /**
-     * 获取错误信息，一旦其他接口返回false时，可调用此接口查看具体错误信息
+     * 獲取錯誤資訊，一旦其他介面返回false時，可呼叫此介面檢視具體錯誤資訊
      * @return type
      */
     public function getError()
@@ -86,7 +86,7 @@ class OssLogic
             try {
                 self::$ossClient = new OssClient(self::$accessKeyId, self::$accessKeySecret, self::$endpoint, false);
             } catch (OssException $e) {
-                self::$errorMsg = "创建oss对象失败，".$e->getMessage();
+                self::$errorMsg = "建立oss對像失敗，".$e->getMessage();
                 return null;
             }
         }
@@ -121,7 +121,7 @@ class OssLogic
         try {
             $ossClient->uploadFile(self::$bucket, $object, $filePath);
         } catch (OssException $e) {
-            self::$errorMsg = "oss上传文件失败，".$e->getMessage();
+            self::$errorMsg = "oss上傳檔案失敗，".$e->getMessage();
             return false;
         }
         
@@ -129,7 +129,7 @@ class OssLogic
     }
     
     /**
-     * 获取产品图片的url
+     * 獲取產品圖片的url
      * @param type $originalImg
      * @param type $width
      * @param type $height
@@ -142,7 +142,7 @@ class OssLogic
             return $defaultImg;
         }
         
-        // 图片缩放（等比缩放）
+        // 圖片縮放（等比縮放）
         $url = $originalImg."?x-oss-process=image/resize,m_pad,h_$height,w_$width";
         
         $water = tpCache('water');
@@ -161,7 +161,7 @@ class OssLogic
     }
     
     /**
-     * 获取产品相册的url
+     * 獲取產品相簿的url
      * @param type $originalImg
      * @param type $width
      * @param type $height
@@ -174,13 +174,13 @@ class OssLogic
             return $defaultImg;
         }
         
-        // 图片缩放（等比缩放）
+        // 圖片縮放（等比縮放）
         $url = $originalImg."?x-oss-process=image/resize,m_pad,h_$height,w_$width";
         return $url;
     }
     
     /**
-     * 链接加上文本水印参数（文字水印(方针黑体，黑色)）
+     * 鏈接加上文字水印參數（文字水印(方針黑體，黑色)）
      * @param string $url
      * @param type $text
      * @param type $size
@@ -200,7 +200,7 @@ class OssLogic
     }
     
     /**
-     * 链接加上图片水印参数
+     * 鏈接加上圖片水印參數
      * @param string $url
      * @param type $image
      * @param type $transparency
@@ -216,7 +216,7 @@ class OssLogic
     }
     
     /**
-     * 是否是oss的链接
+     * 是否是oss的鏈接
      * @param type $url
      * @return boolean
      */

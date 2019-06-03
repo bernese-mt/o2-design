@@ -6,7 +6,7 @@
     <div class="fixed-bar">
         <div class="item-title">
             <div class="subject">
-                <h3>邮件模板</h3>
+                <h3>郵件模板</h3>
                 <h5></h5>
             </div>
             <ul class="tab-base nc-row">
@@ -24,19 +24,19 @@
                             <div class="tc">&nbsp;</div>
                         </th>
                         <th abbr="article_title" axis="col3" class="w150">
-                            <div class="">模板名称</div>
+                            <div class="">模板名稱</div>
                         </th>
                         <th abbr="article_title" axis="col3" class="">
-                            <div class="">邮件标题</div>
+                            <div class="">郵件標題</div>
                         </th>
                         <!-- <th abbr="ac_id" axis="col4">
-                            <div class="">发送邮件内容格式</div>
+                            <div class="">發送郵件內容格式</div>
                         </th> -->
                         <th abbr="article_time" axis="col6" class="w50">
-                            <div class="tc">启用</div>
+                            <div class="tc">啟用</div>
                         </th>
                         <th abbr="article_time" axis="col6" class="w100">
-                            <div class="tc">更新时间</div>
+                            <div class="tc">更新時間</div>
                         </th>
                     </tr>
                     </thead>
@@ -50,7 +50,7 @@
                     {empty name="list"}
                         <tr>
                             <td class="no-data" align="center" axis="col0" colspan="50">
-                                <i class="fa fa-exclamation-circle"></i>没有符合条件的记录
+                                <i class="fa fa-exclamation-circle"></i>沒有符合條件的記錄
                             </td>
                         </tr>
                     {else/}
@@ -100,18 +100,18 @@
             </div>
             <div class="iDiv" style="display: none;"></div>
         </div>
-        <!--分页位置-->
+        <!--分頁位置-->
         {$pageStr}
     </div>
 </div>
 <script>
     $(document).ready(function(){
-        // 表格行点击选中切换
+        // 表格行點選選中切換
         $('#flexigrid > table>tbody >tr').click(function(){
             $(this).toggleClass('trSelected');
         });
 
-        // 点击刷新数据
+        // 點選重新整理數據
         $('.fa-refresh').click(function(){
             location.href = location.href;
         });

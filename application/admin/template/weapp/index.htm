@@ -6,12 +6,12 @@
     <div class="fixed-bar">
         <div class="item-title">
             <div class="subject">
-                <h3>插件应用</h3>
+                <h3>外掛應用</h3>
                 <h5></h5>
             </div>
             <ul class="tab-base nc-row">
                 {eq name="$Think.const.CONTROLLER_NAME.'@index'|is_check_access" value="1"}
-                <li><a href="{:url("Weapp/index")}" class="tab {eq name="$Request.action" value="index"}current{/eq}"><span>插件列表</span></a></li>
+                <li><a href="{:url("Weapp/index")}" class="tab {eq name="$Request.action" value="index"}current{/eq}"><span>外掛列表</span></a></li>
                 {/eq}
             </ul>
         </div>
@@ -19,22 +19,22 @@
     <div class="flexigrid">
         <div class="mDiv">
             <div class="ftitle">
-                <h3>插件列表</h3>
-                <h5>(共{$pager->totalRows}条记录)</h5>
+                <h3>外掛列表</h3>
+                <h5>(共{$pager->totalRows}條記錄)</h5>
             </div>
-            <div title="刷新数据" class="pReload"><i class="fa fa-refresh"></i></div>
-            <form class="navbar-form form-inline" action="{:url('Weapp/index')}" method="get" onsubmit="layer_loading('正在处理');">
+            <div title="重新整理數據" class="pReload"><i class="fa fa-refresh"></i></div>
+            <form class="navbar-form form-inline" action="{:url('Weapp/index')}" method="get" onsubmit="layer_loading('正在處理');">
                 {$searchform.hidden|default=''}
                 <div class="sDiv">
                     <div class="sDiv2 fl" style="margin-right: 6px;">
-                        <input type="text" size="30" name="keywords" class="qsbox" placeholder="搜索相关数据...">
+                        <input type="text" size="30" name="keywords" class="qsbox" placeholder="搜索相關數據...">
                         <input type="submit" class="btn" value="搜索">
                     </div>
                     <!-- <div class="sDiv2">
                         <input type="button" class="btn" value="重置" onClick="window.location.href='{:url('Weapp/index')}';">
                     </div> -->
                     <div class="sDiv2 addartbtn fl" style="margin-right: 6px;">
-                        <input type="button" class="btn current" value="插件开发者" onclick="window.location.href='{:url("Weapp/create")}';">
+                        <input type="button" class="btn current" value="外掛開發者" onclick="window.location.href='{:url("Weapp/create")}';">
                     </div>
                 </div>
             </form>
@@ -45,13 +45,13 @@
                     <thead>
                     <tr>
                         <th abbr="article_title" axis="col3" class="w150">
-                            <div class="tc" style="text-align: left; padding-left: 10px;">名称</div>
+                            <div class="tc" style="text-align: left; padding-left: 10px;">名稱</div>
                         </th>
                         <th abbr="ac_id" axis="col4">
                             <div class="" style="padding-left: 10px;">描述</div>
                         </th>
                         <th abbr="article_title" axis="col3" class="w150">
-                            <div class="tc">标识</div>
+                            <div class="tc">標識</div>
                         </th>
                         <th abbr="article_show" axis="col5" class="w120">
                             <div class="tc">作者</div>
@@ -60,7 +60,7 @@
                             <div class="tc">版本</div>
                         </th>
                         <th abbr="article_time" axis="col6" class="w50">
-                            <div class="tc">启用</div>
+                            <div class="tc">啟用</div>
                         </th>
                         <th axis="col1" class="w130">
                             <div class="tc">操作</div>
@@ -80,7 +80,7 @@
                     {empty name="list"}
                         <tr>
                             <td class="no-data" align="center" axis="col0" colspan="50">
-                                <i class="fa fa-exclamation-circle"></i>没有符合条件的记录
+                                <i class="fa fa-exclamation-circle"></i>沒有符合條件的記錄
                             </td>
                         </tr>
                     {else/}
@@ -133,10 +133,10 @@
                                 <div class="w130 tc">
                                 {empty name="$vo.status"}
                                     {eq name="'Weapp@install'|is_check_access" value="1"}
-                                    <a href="javascript:void(0);" onclick="install(this);" data-id="{$vo['id']}" class="btn blue"><i class="fa fa-check"></i>一键安装</a>
+                                    <a href="javascript:void(0);" onclick="install(this);" data-id="{$vo['id']}" class="btn blue"><i class="fa fa-check"></i>一鍵安裝</a>
                                     {/eq}
                                     {eq name="'Weapp@del'|is_check_access" value="1"}
-                                    <a class="btn red"  href="javascript:void(0);" data-url="{:url('Weapp/del')}" data-id="{$vo.id}" data-name="{$vo.name}" onClick="delfun(this);"><i class="fa fa-trash-o"></i>删除</a>
+                                    <a class="btn red"  href="javascript:void(0);" data-url="{:url('Weapp/del')}" data-id="{$vo.id}" data-name="{$vo.name}" onClick="delfun(this);"><i class="fa fa-trash-o"></i>刪除</a>
                                     {/eq}
                                 {else /}
                                     {eq name="'Weapp@execute'|is_check_access" value="1"}
@@ -145,7 +145,7 @@
                                         {/if}
                                     {/eq}
                                     {eq name="'Weapp@uninstall'|is_check_access" value="1"}
-                                    <a href="javascript:void(0);" onclick="uninstall(this);" data-id="{$vo['id']}" data-name="{$vo.name}" class="btn red"><i class="fa fa-trash-o"></i>卸载</a>
+                                    <a href="javascript:void(0);" onclick="uninstall(this);" data-id="{$vo['id']}" data-name="{$vo.name}" class="btn red"><i class="fa fa-trash-o"></i>解除安裝</a>
                                     {/eq}
                                 {/empty}
                                 </div>
@@ -172,14 +172,14 @@
                 {eq name="'Weapp@upload'|is_check_access" value="1"}
                 <div class="fbutton">
                     <form class="navbar-form form-inline" action="{:url('Weapp/upload')}" name="change_System" id="change_System" method="post" enctype="multipart/form-data">
-                        <a href="javascript:void(0);" class="a-upload"><input type="file" name="weappfile" id="weappfile" title="请选择…"><i class="fa fa-upload"></i>上传安装插件</a>
+                        <a href="javascript:void(0);" class="a-upload"><input type="file" name="weappfile" id="weappfile" title="請選擇…"><i class="fa fa-upload"></i>上傳安裝外掛</a>
                     </form>
                 </div>
                 {/eq}
             </div>
             <div style="clear:both"></div>
         </div>
-        <!--分页位置-->
+        <!--分頁位置-->
         {$page}
     </div>
 </div>
@@ -189,12 +189,12 @@
 </form>
 <script>
     $(document).ready(function(){
-        // 表格行点击选中切换
+        // 表格行點選選中切換
         $('#flexigrid > table>tbody >tr').click(function(){
             $(this).toggleClass('trSelected');
         });
 
-        // 点击刷新数据
+        // 點選重新整理數據
         $('.fa-refresh').click(function(){
             location.href = location.href;
         });
@@ -208,16 +208,16 @@
             var weappfile = $('input[name=weappfile]').val();
             var ext = weappfile.substr(weappfile.lastIndexOf('.')).toLowerCase();
             if ($.trim(weappfile) == '' || ext != '.zip') {
-                showErrorMsg('请上传zip压缩包！');
+                showErrorMsg('請上傳zip壓縮包！');
                 return false;
             }
 
-            layer_loading('正在处理');
+            layer_loading('正在處理');
             $('#change_System').submit();
             return false;
         }
 
-        /*检测更新包*/
+        /*檢測更新包*/
         // $('.testing_upgrade').each(function(index, item){
         //     var that = $(this);
         //     var aobj = $(item).find('a.a_upgrade');
@@ -241,7 +241,7 @@
         var name = $(obj).attr('data-name');
         var status = $(obj).attr('data-status');
         if (0 == status) {
-            layer.alert('请先安装该插件！', {
+            layer.alert('請先安裝該外掛！', {
                 title:false,//name,
                 icon: 0
             });
@@ -255,22 +255,22 @@
         var notice = $("#"+code+"_notice").val(); 
         // v = v.replace(/\n/g,"<br/>");
         v = notice + intro + '<br/>' + v;
-        //询问框
+        //詢問框
         layer.confirm(v, {
-            title: false,//'检测插件更新',
+            title: false,//'檢測外掛更新',
             area: ['580px','400px'],
-            btn: ['升级','取消'] //按钮
+            btn: ['升級','取消'] //按鈕
             
         }, function(){
             layer.closeAll();
             setTimeout(function(){
-                upgrade(code); // 请求后台
+                upgrade(code); // 請求後臺
             },200);
             
         }, function(){  
-            layer.msg('不升级可能有安全隐患', {
+            layer.msg('不升級可能有安全隱患', {
                 btnAlign: 'c',
-                time: 20000, //20s后自动关闭
+                time: 20000, //20s后自動關閉
                 btn: ['明白了']
             });
             return false;
@@ -280,22 +280,22 @@
 
 
     function upgrade(code){
-        layer_loading('升级中');
+        layer_loading('升級中');
         $.ajax({
             type : "GET",
             url  : "{:url('Weapp/OneKeyUpgrade')}",
-            timeout : 360000, //超时时间设置，单位毫秒 设置了 1小时
+            timeout : 360000, //超時時間設定，單位毫秒 設定了 1小時
             data : {code:code},
             error: function(request) {
                 layer.closeAll();
-                layer.alert("升级失败，请第一时间联系技术协助！", {icon: 2, title:false}, function(){
+                layer.alert("升級失敗，請第一時間聯繫技術協助！", {icon: 2, title:false}, function(){
                     window.location.reload();
                 });
             },
             success: function(res) {
                 layer.closeAll();
                 if(1 == res.code){
-                    layer.alert('已升级最新版本!', {icon: 1, title:false}, function(){
+                    layer.alert('已升級最新版本!', {icon: 1, title:false}, function(){
                         window.location.reload();
                     });
                 }
@@ -315,7 +315,7 @@
         form2.find('input[name=id]').val(id);
         var url = "{:url('Weapp/install')}";
         form2.attr('action', url);
-        layer_loading('正在处理');
+        layer_loading('正在處理');
         form2.submit();
     }
 
@@ -328,15 +328,15 @@
         var url = "{:url('Weapp/uninstall')}";
         form2.attr('action', url);
 
-        //询问框
-        var confirm = layer.confirm('<font color="red">此操作数据不可恢复</font>，是否卸载移除？', {
+        //詢問框
+        var confirm = layer.confirm('<font color="red">此運算元據不可恢復</font>，是否解除安裝移除？', {
                 title: false,//name,
-                btn: ['确定', '取消'] //按钮
+                btn: ['確定', '取消'] //按鈕
 
             }, function(){
                 form2.find('input[name=thorough]').val(0);
-                layer_loading('正在处理');
-                // 确定
+                layer_loading('正在處理');
+                // 確定
                 $.ajax({
                     type : 'post',
                     url : url,
@@ -354,9 +354,9 @@
                     },
                     error: function(e) {
                         layer.closeAll();
-                        // 处理插件行为app_end影响到的卸载问题
+                        // 處理外掛行為app_end影響到的解除安裝問題
                         if (e.responseText.indexOf("\\behavior\\admin\\") >= 0 && e.responseText.indexOf("not found") >= 0) {
-                            layer.msg('卸载成功', {icon: 1, time: 1500}, function(){
+                            layer.msg('解除安裝成功', {icon: 1, time: 1500}, function(){
                                 window.location.reload();
                             });
                         } else {
@@ -364,7 +364,7 @@
                         }
                     }
                 });
-                // layer_loading('正在处理');
+                // layer_loading('正在處理');
                 // form2.submit();
                 
             }, function(){
@@ -378,12 +378,12 @@
 
     function delfun(obj){
         var name = $(obj).attr('data-name');
-        layer.confirm('<font color="#ff0000">将移除该插件相关文件</font>，确认移除？', {
+        layer.confirm('<font color="#ff0000">將移除該外掛相關檔案</font>，確認移除？', {
             title: false,//name,
-            btn: ['确定','取消'] //按钮
+            btn: ['確定','取消'] //按鈕
         }, function(){
-            layer_loading('正在处理');
-            // 确定
+            layer_loading('正在處理');
+            // 確定
             $.ajax({
                 type : 'post',
                 url : $(obj).attr('data-url'),

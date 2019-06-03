@@ -9,7 +9,7 @@
     <form class="form-horizontal" id="post_form" action="{:url('Filemanager/newdir')}" method="post">
         <div class="ncap-form-default">
             <dl class="row">
-                <dt class="tit">当前目录</dt>
+                <dt class="tit">目前目錄</dt>
                 <dd class="opt">
                     {$info['activepathname']|default=''}
                     <input type="hidden" name="activepath" value="{$info['activepath']|default=''}">
@@ -19,7 +19,7 @@
             </dl>
             <dl class="row">
                 <dt class="tit">
-                    <label for="url">新目录</label>
+                    <label for="url">新目錄</label>
                 </dt>
                 <dd class="opt">
                     <input type="text" name="newpath" value="" id="newpath" class="input-txt">
@@ -27,19 +27,19 @@
                     <p class="notic"></p>
                 </dd>
             </dl>
-            <div class="bot"><a href="JavaScript:void(0);" onclick="checkForm();" class="ncap-btn-big ncap-btn-green" id="submitBtn">确认提交</a></div>
+            <div class="bot"><a href="JavaScript:void(0);" onclick="checkForm();" class="ncap-btn-big ncap-btn-green" id="submitBtn">確認提交</a></div>
         </div>
     </form>
 </div>
 <script type="text/javascript">
-    // 判断输入框是否为空
+    // 判斷輸入框是否為空
     function checkForm(){
         if($.trim($('input[name=newpath]').val()) == ''){
-            showErrorMsg('新目录不能为空！');
+            showErrorMsg('新目錄不能為空！');
             $('input[name=newpath]').focus();
             return false;
         }
-        layer_loading('正在处理');
+        layer_loading('正在處理');
         $('#post_form').submit();
     }
 </script>

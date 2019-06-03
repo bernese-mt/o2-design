@@ -3,7 +3,7 @@
 namespace app\admin\behavior;
 
 /**
- * 系统行为扩展：
+ * 系統行為擴充套件：
  */
 class AppEndBehavior {
     protected static $actionName;
@@ -12,8 +12,8 @@ class AppEndBehavior {
     protected static $method;
 
     /**
-     * 构造方法
-     * @param Request $request Request对象
+     * 構造方法
+     * @param Request $request Request對像
      * @access public
      */
     public function __construct()
@@ -21,7 +21,7 @@ class AppEndBehavior {
 
     }
 
-    // 行为扩展的执行入口必须是run
+    // 行為擴充套件的執行入口必須是run
     public function run(&$params){
         self::$actionName = request()->action();
         self::$controllerName = request()->controller();
@@ -32,19 +32,19 @@ class AppEndBehavior {
     }
 
     private function _initialize() {
-        $this->resetAuthor(); // 临时处理授权问题
-        $this->clearHtmlCache(); // 变动数据之后，清除页面缓存和数据
-        $this->seodescriptionHandle(); // 发布或编辑时，截取SEO描述长度
-        $this->sitemap(); // 自动生成sitemap
+        $this->resetAuthor(); // 臨時處理授權問題
+        $this->clearHtmlCache(); // 變動數據之後，清除頁面快取和數據
+        $this->seodescriptionHandle(); // 發佈或編輯時，擷取SEO描述長度
+        $this->sitemap(); // 自動產生sitemap
     }
 
     /**
-     * 自动生成sitemap
+     * 自動產生sitemap
      * @access public
      */
     private function sitemap()
     {
-        /*只有相应的控制器和操作名才执行，以便提高性能*/
+        /*只有相應的控制器和操作名才執行，以便提高效能*/
         $systemCtl= ['Arctype'];
         $ctlArr = \think\Db::name('channeltype')
             ->where('nid','NOTIN', ['guestbook','single'])
@@ -58,11 +58,11 @@ class AppEndBehavior {
     }
 
     /**
-     * 临时处理授权问题
+     * 臨時處理授權問題
      */
     private function resetAuthor()
     {
-        /*在以下相应的控制器和操作名里执行，以便提高性能*/
+        /*在以下相應的控制器和操作名里執行，以便提高效能*/
         $ctlActArr = array(
             'Index@index',
         );
@@ -78,11 +78,11 @@ class AppEndBehavior {
     }
 
     /**
-     * 数据变动之后，清理页面和数据缓存
+     * 數據變動之後，清理頁面和數據快取
      */
     private function clearHtmlCache()
     {
-        /*在以下相应的控制器和操作名里执行，以便提高性能*/
+        /*在以下相應的控制器和操作名里執行，以便提高效能*/
         $actArr = ['add','edit','del','recovery','changeTableVal'];
         if ('POST' == self::$method) {
             foreach ($actArr as $key => $val) {
@@ -97,19 +97,19 @@ class AppEndBehavior {
     }
 
     /**
-     * 发布或编辑时，截取SEO描述长度
+     * 發佈或編輯時，擷取SEO描述長度
      * @access private
      */
     private function seodescriptionHandle()
     {
-        /*只有相应的控制器和操作名才执行，以便提高性能*/
+        /*只有相應的控制器和操作名才執行，以便提高效能*/
         if ('POST' == self::$method) {
             $ctlArr = \think\Db::name('channeltype')->field('id,ctl_name')
                 ->where('ifsystem',0)
                 ->getAllWithIndex('ctl_name');
             $actArr = ['add','edit'];
             if (!empty($ctlArr[self::$controllerName]) && in_array(self::$actionName, $actArr)) {
-                /*截取SEO描述长度*/
+                /*擷取SEO描述長度*/
                 $contentField = \think\Db::name('channelfield')->where([
                         'channel_id'    => $ctlArr[self::$controllerName]['id'],
                         'dtype'         => 'htmltext',

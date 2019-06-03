@@ -1,11 +1,11 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
@@ -28,30 +28,30 @@ class Links extends Base
             $condition['title'] = array('LIKE', "%{$keywords}%");
         }
 
-        // 多语言
+        // 多語言
         $condition['lang'] = array('eq', $this->admin_lang);
 
         $linksM =  M('links');
-        $count = $linksM->where($condition)->count('id');// 查询满足要求的总记录数
-        $Page = $pager = new Page($count, config('paginate.list_rows'));// 实例化分页类 传入总记录数和每页显示的记录数
+        $count = $linksM->where($condition)->count('id');// 查詢滿足要求的總記錄數
+        $Page = $pager = new Page($count, config('paginate.list_rows'));// 實例化分頁類 傳入總記錄數和每頁顯示的記錄數
         $list = $linksM->where($condition)->order('id desc')->limit($Page->firstRow.','.$Page->listRows)->select();
 
-        $show = $Page->show();// 分页显示输出
-        $this->assign('page',$show);// 赋值分页输出
-        $this->assign('list',$list);// 赋值数据集
-        $this->assign('pager',$pager);// 赋值分页对象
+        $show = $Page->show();// 分頁顯示輸出
+        $this->assign('page',$show);// 賦值分頁輸出
+        $this->assign('list',$list);// 賦值數據集
+        $this->assign('pager',$pager);// 賦值分頁對像
         return $this->fetch();
     }
 
     /**
-     * 添加友情链接
+     * 新增友情鏈接
      */
     public function add()
     {
         if (IS_POST) {
             $post = input('post.');
 
-            // 处理LOGO
+            // 處理LOGO
             $is_remote = !empty($post['is_remote']) ? $post['is_remote'] : 0;
             $logo = '';
             if ($is_remote == 1) {
@@ -60,7 +60,7 @@ class Links extends Base
                 $logo = $post['logo_local'];
             }
             $post['logo'] = $logo;
-            // --存储数据
+            // --儲存數據
             $nowData = array(
                 'typeid'    => empty($post['typeid']) ? 1 : $post['typeid'],
                 'url'    => trim($post['url']),
@@ -73,10 +73,10 @@ class Links extends Base
             $insertId = M('links')->insertGetId($data);
             if (false !== $insertId) {
                 Cache::clear('links');
-                adminLog('新增友情链接：'.$post['title']);
+                adminLog('新增友情鏈接：'.$post['title']);
                 $this->success("操作成功!", url('Links/index'));
             }else{
-                $this->error("操作失败!", url('Links/index'));
+                $this->error("操作失敗!", url('Links/index'));
             }
             exit;
         }
@@ -85,7 +85,7 @@ class Links extends Base
     }
     
     /**
-     * 编辑友情链接
+     * 編輯友情鏈接
      */
     public function edit()
     {
@@ -93,7 +93,7 @@ class Links extends Base
             $post = input('post.');
             $r = false;
             if(!empty($post['id'])){
-                // 处理LOGO
+                // 處理LOGO
                 $is_remote = !empty($post['is_remote']) ? $post['is_remote'] : 0;
                 $logo = '';
                 if ($is_remote == 1) {
@@ -102,7 +102,7 @@ class Links extends Base
                     $logo = $post['logo_local'];
                 }
                 $post['logo'] = $logo;
-                // --存储数据
+                // --儲存數據
                 $nowData = array(
                     'typeid'    => empty($post['typeid']) ? 1 : $post['typeid'],
                     'url'    => trim($post['url']),
@@ -117,10 +117,10 @@ class Links extends Base
                     ->update($data);
             }
             if (false !== $r) {
-                adminLog('编辑友情链接：'.$post['title']);
+                adminLog('編輯友情鏈接：'.$post['title']);
                 $this->success("操作成功!",url('Links/index'));
             }else{
-                $this->error("操作失败!",url('Links/index'));
+                $this->error("操作失敗!",url('Links/index'));
             }
             exit;
         }
@@ -131,7 +131,7 @@ class Links extends Base
                 'lang'  => $this->admin_lang,
             ])->find();
         if (empty($info)) {
-            $this->error('数据不存在，请联系管理员！');
+            $this->error('數據不存在，請聯繫管理員！');
             exit;
         }
         if (is_http_url($info['logo'])) {
@@ -147,7 +147,7 @@ class Links extends Base
     }
     
     /**
-     * 删除友情链接
+     * 刪除友情鏈接
      */
     public function del()
     {
@@ -169,15 +169,15 @@ class Links extends Base
                     ->cache(true, null, "links")
                     ->delete();
                 if($r){
-                    adminLog('删除友情链接：'.implode(',', $title_list));
-                    $this->success('删除成功');
+                    adminLog('刪除友情鏈接：'.implode(',', $title_list));
+                    $this->success('刪除成功');
                 }else{
-                    $this->error('删除失败');
+                    $this->error('刪除失敗');
                 }
             } else {
-                $this->error('参数有误');
+                $this->error('參數有誤');
             }
         }
-        $this->error('非法访问');
+        $this->error('非法訪問');
     }
 }

@@ -3,7 +3,7 @@
 namespace app\home\behavior;
 
 /**
- * 系统行为扩展：
+ * 系統行為擴充套件：
  */
 class ViewFilterBehavior {
     protected static $actionName;
@@ -12,8 +12,8 @@ class ViewFilterBehavior {
     protected static $method;
 
     /**
-     * 构造方法
-     * @param Request $request Request对象
+     * 構造方法
+     * @param Request $request Request對像
      * @access public
      */
     public function __construct()
@@ -21,7 +21,7 @@ class ViewFilterBehavior {
 
     }
 
-    // 行为扩展的执行入口必须是run
+    // 行為擴充套件的執行入口必須是run
     public function run(&$params){
         self::$actionName = request()->action();
         self::$controllerName = request()->controller();
@@ -32,16 +32,16 @@ class ViewFilterBehavior {
     }
 
     private function _initialize(&$params) {
-        $this->thirdcode($params); // 自动加上第三方统计代码
+        $this->thirdcode($params); // 自動加上第三方統計程式碼
     }
 
     /**
-     * 给模板加上第三方统计代码
+     * 給模板加上第三方統計程式碼
      * @access public
      */
     private function thirdcode(&$params)
     {
-        /*PC端与手机端的变量名自适应，可彼此通用*/
+        /*PC端與手機端的變數名自適應，可彼此通用*/
         $name = 'web_thirdcode_' . (isMobile() ? 'wap' : 'pc');
         /*--end*/
         $web_thirdcode = tpCache('web.'.$name);

@@ -7,11 +7,11 @@
 <div class="page">
     {include file="field/channel_bar" /}
     <form class="form-horizontal" id="post_form" action="{:url('Field/channel_add')}" method="post">
-        <!-- 常规选项 -->
+        <!-- 常規選項 -->
         <div class="ncap-form-default tab_div_1">
             <dl class="row">
                 <dt class="tit">
-                    <label for="title"><em>*</em>字段标题</label>
+                    <label for="title"><em>*</em>欄位標題</label>
                 </dt>
                 <dd class="opt">
                     <input type="text" value="" name="title" id="title" class="input-txt">
@@ -20,16 +20,16 @@
             </dl>
             <dl class="row">
                 <dt class="tit">
-                    <label for="name"><em>*</em>字段名称</label>
+                    <label for="name"><em>*</em>欄位名稱</label>
                 </dt>
                 <dd class="opt">
-                    <input type="text" value="" name="name" id="name" placeholder="只允许字母、数字和下划线的任意组合" class="input-txt" onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z_]/g,'');" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^0-9a-zA-Z_]/g,''));">
-                    <p class="notic">保持唯一性，不可与主表、附加表重复</p>
+                    <input type="text" value="" name="name" id="name" placeholder="只允許字母、數字和下劃線的任意組合" class="input-txt" onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z_]/g,'');" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^0-9a-zA-Z_]/g,''));">
+                    <p class="notic">保持唯一性，不可與主表、附加表重複</p>
                 </dd>
             </dl>
             <dl class="row">
                 <dt class="tit">
-                    <label for="dtype"><em>*</em>字段类型</label>
+                    <label for="dtype"><em>*</em>欄位型別</label>
                 </dt>
                 <dd class="opt">
                     <select name="dtype" id="dtype">
@@ -43,21 +43,21 @@
             </dl>
             <dl class="row" id="dl_dfvalue">
                 <dt class="tit">
-                    <label id="label_dfvalue">默认值</label>
+                    <label id="label_dfvalue">預設值</label>
                 </dt>
                 <dd class="opt">
-                    <textarea rows="5" cols="60" id="dfvalue" name="dfvalue" placeholder="如果定义字段类型为下拉框、单选项、多选项时，此处填写被选择的项目(用“,”分开，如“男,女,人妖”)。" style="height:60px;"></textarea>
+                    <textarea rows="5" cols="60" id="dfvalue" name="dfvalue" placeholder="如果定義欄位型別為下拉框、單選項、多選項時，此處填寫被選擇的專案(用「,」分開，如「男,女,人妖」)。" style="height:60px;"></textarea>
                     <span class="err"></span>
-                    <p class="notic">如果定义字段类型为下拉框、单选项、多选项时，此处填写被选择的项目(用“,”分开，如“男,女,人妖”)。</p>
+                    <p class="notic">如果定義欄位型別為下拉框、單選項、多選項時，此處填寫被選擇的專案(用「,」分開，如「男,女,人妖」)。</p>
                 </dd>
             </dl>
             <dl class="row" id="dl_dfvalue_unit">
                 <dt class="tit">
-                    <label for="dfvalue_unit">数值单位</label>
+                    <label for="dfvalue_unit">數值單位</label>
                 </dt>
                 <dd class="opt">
-                    <input type="text" value="" name="dfvalue_unit" id="dfvalue_unit" placeholder="比如：元、个、件等等" class="input-txt">
-                    <p class="notic">比如：元、个、件等等</p>
+                    <input type="text" value="" name="dfvalue_unit" id="dfvalue_unit" placeholder="比如：元、個、件等等" class="input-txt">
+                    <p class="notic">比如：元、個、件等等</p>
                 </dd>
             </dl>
             <dl class="row">
@@ -65,22 +65,22 @@
                     <label>提示文字</label>
                 </dt>
                 <dd class="opt">          
-                    <textarea rows="5" cols="60" id="remark" name="remark" placeholder="问号提示文字" style="height:60px;"></textarea>
+                    <textarea rows="5" cols="60" id="remark" name="remark" placeholder="問號提示文字" style="height:60px;"></textarea>
                     <span class="err"></span>
-                    <p class="notic">问号提示文字</p>
+                    <p class="notic">問號提示文字</p>
                 </dd>
             </dl>
             <dl class="row">
                 <dt class="tit">
-                    <label for="title">可见栏目</label>
+                    <label for="title">可見欄目</label>
                 </dt>
                 <dd class="opt">
                     <select name="typeids[]" id="typeid" style="width: 300px;" size="15" multiple="true">
-                        <option value="0" selected="true">—所有栏目可见—</option>
+                        <option value="0" selected="true">—所有欄目可見—</option>
                         {$select_html}
                     </select>
                     <span class="err"></span>
-                    <p class="red">(按 Ctrl 可以进行多选)</p>
+                    <p class="red">(按 Ctrl 可以進行多選)</p>
                 </dd>
             </dl>
 <!--             <dl class="row">
@@ -93,11 +93,11 @@
                 </dd>
             </dl> -->
         </div>
-        <!-- 常规选项 -->
+        <!-- 常規選項 -->
         <div class="ncap-form-default">
             <div class="bot">
                 <input type="hidden" name="channel_id" id="channel_id" value="{$channel_id|default=''}">
-                <a href="JavaScript:void(0);" onclick="check_submit();" class="ncap-btn-big ncap-btn-green" id="submitBtn">确认提交</a>
+                <a href="JavaScript:void(0);" onclick="check_submit();" class="ncap-btn-big ncap-btn-green" id="submitBtn">確認提交</a>
             </div>
         </div> 
     </form>
@@ -115,9 +115,9 @@
                 $('#dl_dfvalue').hide();
             } else {
                 if (1 == ifoption) {
-                    $('#label_dfvalue').html('<em>*</em>默认值');
+                    $('#label_dfvalue').html('<em>*</em>預設值');
                 } else {
-                    $('#label_dfvalue').html('默认值');
+                    $('#label_dfvalue').html('預設值');
                 }
                 $('#dl_dfvalue').show();
             }
@@ -131,7 +131,7 @@
 
     function check_submit(){
         if($('input[name="title"]').val() == ''){
-            showErrorMsg('字段标题不能为空！');
+            showErrorMsg('欄位標題不能為空！');
             $('input[name=title]').focus();
             return false;
         }
@@ -140,16 +140,16 @@
         var ret2 = /^[\w]+$/;
         var ret3 = /^[0-9]+$/;
         if (ret1.test(name) || !ret2.test(name)) {
-            showErrorMsg('字段名称格式不正确！');
+            showErrorMsg('欄位名稱格式不正確！');
             $('input[name=name]').focus();
             return false;
         } else if (ret3.test(name)) {
-            showErrorMsg('字段名称不能纯数字！');
+            showErrorMsg('欄位名稱不能純數字！');
             $('input[name=name]').focus();
             return false;
         }
         if($('#dtype').val() == ''){
-            showErrorMsg('请选择字段类型！');
+            showErrorMsg('請選擇欄位型別！');
             $('input[name=dtype]').focus();
             return false;
         } else {
@@ -157,19 +157,19 @@
             console.log(ifoption)
             if (1 == ifoption) {
                 if ($.trim($('#dfvalue').val()) == '') {
-                    showErrorMsg('默认值不能为空！');
+                    showErrorMsg('預設值不能為空！');
                     $('#dfvalue').focus();
                     return false;
                 }
             }
         }
         if (0 >= parseInt($('#typeid').find('option:selected').length)) {
-            showErrorMsg('请选择可见栏目！');
+            showErrorMsg('請選擇可見欄目！');
             $('#typeid').focus();
             return false;
         }
 
-        layer_loading('正在处理');
+        layer_loading('正在處理');
         $('#post_form').submit();
     }
 </script>

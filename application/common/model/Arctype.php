@@ -1,11 +1,11 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
@@ -17,19 +17,19 @@ use think\Db;
 use think\Model;
 
 /**
- * 栏目
+ * 欄目
  */
 class Arctype extends Model
 {
     //初始化
     protected function initialize()
     {
-        // 需要调用`Model`的`initialize`方法
+        // 需要呼叫`Model`的`initialize`方法
         parent::initialize();
     }
 
     /**
-     * 获取单条记录
+     * 獲取單條記錄
      * @author wengxianhu by 2017-7-26
      */
     public function getInfo($id, $field = '', $get_parent = false)
@@ -39,7 +39,7 @@ class Arctype extends Model
         }
         $field .= ', a.id as typeid';
 
-        /*当前栏目信息*/
+        /*目前欄目資訊*/
         $result = db('Arctype')->field($field)
             ->alias('a')
             ->where('a.id', $id)
@@ -48,10 +48,10 @@ class Arctype extends Model
             ->find();
         /*--end*/
         if (!empty($result)) {
-            $result['typeurl'] = $this->getTypeUrl($result); // 当前栏目的URL
+            $result['typeurl'] = $this->getTypeUrl($result); // 目前欄目的URL
 
             if ($get_parent) {
-                /*获取当前栏目父级栏目信息*/
+                /*獲取目前欄目父級欄目資訊*/
                 if ($result['parent_id'] > 0) {
                     $parent_row = db('Arctype')->field($field)
                         ->alias('a')
@@ -66,7 +66,7 @@ class Arctype extends Model
                 }
                 /*--end*/
                 
-                /*给每个父类字段开头加上p*/
+                /*給每個父類欄位開頭加上p*/
                 foreach ($parent_row as $key => $val) {
                     $newK = 'p'.$key;
                     $parent_row[$newK] = $val;
@@ -75,14 +75,14 @@ class Arctype extends Model
                 $result = array_merge($result, $parent_row);
             } else {
                 if (!empty($result['parent_id'])) {
-                    // 当前栏目的父级栏目信息
+                    // 目前欄目的父級欄目資訊
                     $parent_row = M('arctype')->where('id', $result['parent_id'])
                         ->cache(true,EYOUCMS_CACHE_TIME,"arctype")
                         ->find();
                     $ptypeurl = $this->getTypeUrl($parent_row);
                     $ptypename = $parent_row['typename'];
                     $pdirname = $parent_row['dirname'];
-                    // 当前栏目的顶级栏目信息
+                    // 目前欄目的頂級欄目資訊
                     if (!isset($result['toptypeurl'])) {
                         $allPid = $this->getAllPid($id);
                         $toptypeinfo = current($allPid);
@@ -92,16 +92,16 @@ class Arctype extends Model
                     }
                     // end
                 } else {
-                    // 当前栏目的父级栏目信息 或 顶级栏目的信息
+                    // 目前欄目的父級欄目資訊 或 頂級欄目的資訊
                     $toptypeurl = $ptypeurl = $result['typeurl'];
                     $toptypename = $ptypename = $result['typename'];
                     $topdirname = $pdirname = $result['dirname'];
                 }
-                // 当前栏目的父级栏目信息
+                // 目前欄目的父級欄目資訊
                 $result['ptypeurl'] = $ptypeurl;
                 $result['ptypename'] = $ptypename;
                 $result['pdirname'] = $pdirname;
-                // 当前栏目的顶级栏目信息
+                // 目前欄目的頂級欄目資訊
                 !isset($result['toptypeurl']) && $result['toptypeurl'] = $toptypeurl;
                 !isset($result['toptypename']) && $result['toptypename'] = $toptypename;
                 !isset($result['topdirname']) && $result['topdirname'] = $topdirname;
@@ -113,7 +113,7 @@ class Arctype extends Model
     }
 
     /**
-     * 根据目录名称获取单条记录
+     * 根據目錄名稱獲取單條記錄
      * @author wengxianhu by 2018-4-20
      */
     public function getInfoByDirname($dirname)
@@ -137,7 +137,7 @@ class Arctype extends Model
     }
 
     /**
-     * 检测是否有子栏目
+     * 檢測是否有子欄目
      * @author wengxianhu by 2017-7-26
      */
     public function hasChildren($id)
@@ -148,7 +148,7 @@ class Arctype extends Model
     }
 
     /**
-     * 获取栏目的URL
+     * 獲取欄目的URL
      */
     public function getTypeUrl($res)
     {
@@ -164,8 +164,8 @@ class Arctype extends Model
 
 
     /**
-     * 获取指定级别的栏目列表
-     * @param string type son表示下一级栏目,self表示同级栏目,top顶级栏目
+     * 獲取指定級別的欄目列表
+     * @param string type son表示下一級欄目,self表示同級欄目,top頂級欄目
      * @param boolean $self 包括自己本身
      * @author wengxianhu by 2018-4-26
      */
@@ -194,8 +194,8 @@ class Arctype extends Model
     }
 
     /**
-     * 获取下一级栏目
-     * @param string $self true表示没有子栏目时，获取同级栏目
+     * 獲取下一級欄目
+     * @param string $self true表示沒有子欄目時，獲取同級欄目
      * @author wengxianhu by 2017-7-26
      */
     public function getSon($id, $self = false)
@@ -238,7 +238,7 @@ class Arctype extends Model
     }
 
     /**
-     * 获取同级栏目
+     * 獲取同級欄目
      * @author wengxianhu by 2017-7-26
      */
     public function getSelf($id)
@@ -284,7 +284,7 @@ class Arctype extends Model
     }
 
     /**
-     * 获取顶级栏目
+     * 獲取頂級欄目
      * @author wengxianhu by 2017-7-26
      */
     public function getTop()
@@ -319,13 +319,13 @@ class Arctype extends Model
     }
 
     /**
-     * 获取当前栏目及所有子栏目
+     * 獲取目前欄目及所有子欄目
      * @param boolean $self 包括自己本身
      * @author wengxianhu by 2017-7-26
      */
     public function getHasChildren($id, $self = true)
     {
-        $lang = get_current_lang(); // 多语言
+        $lang = get_current_lang(); // 多語言
         $cacheKey = "common_model_Arctype_getHasChildren_{$id}_{$self}_{$lang}";
         $result = cache($cacheKey);
         if (empty($result)) {
@@ -357,10 +357,10 @@ class Arctype extends Model
     }
 
     /**
-     * 获取所有栏目
-     * @param   int     $id     栏目的ID
-     * @param   int     $selected   当前选中栏目的ID
-     * @param   int     $channeltype      查询条件
+     * 獲取所有欄目
+     * @param   int     $id     欄目的ID
+     * @param   int     $selected   目前選中欄目的ID
+     * @param   int     $channeltype      查詢條件
      * @author wengxianhu by 2017-7-26
      */
     public function getList($id = 0, $select = 0, $re_type = true, $map = array())
@@ -377,12 +377,12 @@ class Arctype extends Model
 
 
     /**
-     * 默认获取全部
+     * 預設獲取全部
      * @author 小虎哥 by 2018-4-16
      */
     public function getAll($field = '*', $map = array(), $index_key = '')
     {
-        $lang = get_current_lang(); // 多语言
+        $lang = get_current_lang(); // 多語言
         $result = db('arctype')->field($field)
             ->where($map)
             ->where('lang',$lang)
@@ -398,7 +398,7 @@ class Arctype extends Model
     }
 
     /**
-     * 获取当前栏目的所有父级
+     * 獲取目前欄目的所有父級
      * @author wengxianhu by 2018-4-26
      */
     public function getAllPid($id)
@@ -422,7 +422,7 @@ class Arctype extends Model
                 ])
                 ->getAllWithIndex('id');
             if (isset($arctype_list[$typeid])) {
-                // 第一个先装起来
+                // 第一個先裝起來
                 $arctype_list[$typeid]['typeurl'] = $this->getTypeUrl($arctype_list[$typeid]);
                 $data[$typeid] = $arctype_list[$typeid];
             } else {
@@ -450,15 +450,15 @@ class Arctype extends Model
     }
 
     /**
-     * 伪删除指定栏目（包括子栏目、所有相关文档）
+     * 偽刪除指定欄目（包括子欄目、所有相關文件）
      */
     public function pseudo_del($typeid)
     {
-        $childrenList = $this->getHasChildren($typeid); // 获取当前栏目以及所有子栏目
-        $typeidArr = get_arr_column($childrenList, 'id'); // 获取栏目数组里的所有栏目ID作为新的数组
+        $childrenList = $this->getHasChildren($typeid); // 獲取目前欄目以及所有子欄目
+        $typeidArr = get_arr_column($childrenList, 'id'); // 獲取欄目陣列里的所有欄目ID作為新的陣列
         $typeidArr2 = $typeidArr;
 
-        /*多语言*/
+        /*多語言*/
         $attr_name_arr = [];
         foreach ($typeidArr as $key => $val) {
             $attr_name = 'tid'.$val;
@@ -471,7 +471,7 @@ class Arctype extends Model
         !empty($attr_values) && $typeidArr = $attr_values;
         /*--end*/
 
-        /*标记当前栏目以及子栏目为被动伪删除*/
+        /*標記目前欄目以及子欄目為被動偽刪除*/
         $sta1 = Db::name('arctype')
             ->where([
                 'id'    => ['IN', $typeidArr],
@@ -481,13 +481,13 @@ class Arctype extends Model
             ->cache(true,null,"arctype")
             ->update([
                 'is_del'    => 1,
-                'del_method'    => 2, // 1为主动删除，2为跟随上级栏目被动删除
+                'del_method'    => 2, // 1為主動刪除，2為跟隨上級欄目被動刪除
                 'update_time'   => getTime(),
-            ]); // 伪删除栏目
+            ]); // 偽刪除欄目
         /*--end*/
 
-        /*标记当前栏目为主动伪删除*/
-        // 多语言
+        /*標記目前欄目為主動偽刪除*/
+        // 多語言
         $attr_values = Db::name('language_attr')->where([
                 'attr_name'    => 'tid'.$typeid,
                 'attr_group'    => 'arctype',
@@ -501,14 +501,14 @@ class Arctype extends Model
             ->cache(true,null,"arctype")
             ->update([
                 'is_del'    => 1,
-                'del_method'    => 1, // 1为主动删除，2为跟随上级栏目被动删除
+                'del_method'    => 1, // 1為主動刪除，2為跟隨上級欄目被動刪除
                 'update_time'   => getTime(),
-            ]); // 伪删除栏目
+            ]); // 偽刪除欄目
         /*--end*/
 
         if ($sta1 && $sta2) {
-            model('Archives')->pseudo_del($typeidArr); // 删除文档
-            // 删除多语言栏目关联绑定
+            model('Archives')->pseudo_del($typeidArr); // 刪除文件
+            // 刪除多語言欄目關聯繫結
             if (!empty($attr_name_arr)) {
                 Db::name('language_attribute')->where([
                     'attr_name'     => ['IN',$attr_name_arr],
@@ -519,7 +519,7 @@ class Arctype extends Model
             }
             /*--end*/
 
-            /*清除页面缓存*/
+            /*清除頁面快取*/
             // $htmlCacheLogic = new \app\common\logic\HtmlCacheLogic;
             // $htmlCacheLogic->clear_arctype();
             /*--end*/
@@ -531,13 +531,13 @@ class Arctype extends Model
     }
 
     /**
-     * 删除指定栏目（包括子栏目、所有相关文档）
+     * 刪除指定欄目（包括子欄目、所有相關文件）
      */
     public function del($typeid)
     {
-        $childrenList = $this->getHasChildren($typeid); // 获取当前栏目以及所有子栏目
-        $typeidArr = get_arr_column($childrenList, 'id'); // 获取栏目数组里的所有栏目ID作为新的数组
-        /*多语言*/
+        $childrenList = $this->getHasChildren($typeid); // 獲取目前欄目以及所有子欄目
+        $typeidArr = get_arr_column($childrenList, 'id'); // 獲取欄目陣列里的所有欄目ID作為新的陣列
+        /*多語言*/
         $attr_name_arr = [];
         foreach ($typeidArr as $key => $val) {
             $attr_name = 'tid'.$val;
@@ -554,10 +554,10 @@ class Arctype extends Model
                 'id'    => ['IN', $typeidArr],
             ])
             ->cache(true,null,"arctype")
-            ->delete(); // 删除栏目
+            ->delete(); // 刪除欄目
         if ($sta) {
-            model('Archives')->del($typeidArr); // 删除文档
-            // 删除多语言栏目关联绑定
+            model('Archives')->del($typeidArr); // 刪除文件
+            // 刪除多語言欄目關聯繫結
             if (!empty($attr_name_arr)) {
                 Db::name('language_attribute')->where([
                     'attr_name'     => ['IN',$attr_name_arr],
@@ -568,7 +568,7 @@ class Arctype extends Model
             }
             /*--end*/
 
-            /*清除页面缓存*/
+            /*清除頁面快取*/
             // $htmlCacheLogic = new \app\common\logic\HtmlCacheLogic;
             // $htmlCacheLogic->clear_arctype();
             /*--end*/
@@ -580,14 +580,14 @@ class Arctype extends Model
     }
 
     /**
-     * 每个栏目的顶级栏目的目录名称
+     * 每個欄目的頂級欄目的目錄名稱
      */
     public function getEveryTopDirnameList()
     {
         $result = extra_cache('common_getEveryTopDirnameList_model');
         if ($result === false)
         {
-            $lang = get_current_lang(); // 多语言
+            $lang = get_current_lang(); // 多語言
             $fields = "c.id, c.parent_id, c.dirname, c.grade, count(s.id) as has_children";
             $row = db('arctype')
                 ->field($fields)
@@ -618,7 +618,7 @@ class Arctype extends Model
     }
 
     /**
-     * 新增栏目数据
+     * 新增欄目數據
      *
      * @param array $data
      * @return intval|boolean
@@ -629,7 +629,7 @@ class Arctype extends Model
         if (!empty($data)) {
             $insertId = M('arctype')->insertGetId($data);
             if($insertId){
-                // --存储单页模型
+                // --儲存單頁模型
                 if ($data['current_channel'] == 6) {
                     $archivesData = array(
                         'title' => $data['typename'],
@@ -642,7 +642,7 @@ class Arctype extends Model
                     // $archivesData = array_merge($archivesData, $data);
                     $aid = M('archives')->insertGetId($archivesData);
                     if ($aid) {
-                        // ---------后置操作
+                        // ---------後置操作
                         if (!isset($post['addonFieldExt'])) {
                             $post['addonFieldExt'] = array(
                                 'typeid'    => $archivesData['typeid'],
@@ -659,11 +659,11 @@ class Arctype extends Model
                     }
                 }
 
-                /*同步栏目ID到权限组，默认是赋予该栏目的权限*/
+                /*同步欄目ID到許可權組，預設是賦予該欄目的許可權*/
                 model('AuthRole')->syn_auth_role($insertId);
                 /*--end*/
 
-                /*清除页面缓存*/
+                /*清除頁面快取*/
                 // $htmlCacheLogic = new \app\common\logic\HtmlCacheLogic;
                 // $htmlCacheLogic->clear_arctype();
                 /*--end*/
@@ -677,7 +677,7 @@ class Arctype extends Model
     }
 
     /**
-     * 编辑栏目数据
+     * 編輯欄目數據
      *
      * @param array $data
      * @return intval|boolean
@@ -694,8 +694,8 @@ class Arctype extends Model
                 ->cache(true,null,"arctype")
                 ->update($data);
             if($bool){
-                /*批量更新所有子孙栏目的最顶级模型ID*/
-                $allSonTypeidArr = $this->getHasChildren($data['id'], false); // 获取当前栏目的所有子孙栏目（不包含当前栏目）
+                /*批量更新所有子孫欄目的最頂級模型ID*/
+                $allSonTypeidArr = $this->getHasChildren($data['id'], false); // 獲取目前欄目的所有子孫欄目（不包含目前欄目）
                 if (!empty($allSonTypeidArr)) {
                     $i = 1;
                     $minuendGrade = 0;
@@ -720,7 +720,7 @@ class Arctype extends Model
                 }
                 /*--end*/
 
-                // --存储单页模型
+                // --儲存單頁模型
                 if ($data['current_channel'] == 6) {
                     $archivesData = array(
                         'title' => $data['typename'],
@@ -744,7 +744,7 @@ class Arctype extends Model
                             ])->update($archivesData);
                     }
                     if ($up) {
-                        // ---------后置操作
+                        // ---------後置操作
                         if (!isset($post['addonFieldExt'])) {
                             $post['addonFieldExt'] = array(
                                 'typeid'    => $data['id'],
@@ -761,7 +761,7 @@ class Arctype extends Model
                     }
                 }
 
-                /*同步更改其他语言关联绑定的栏目模型*/
+                /*同步更改其他語言關聯繫結的欄目模型*/
                 $attr_name = Db::name('language_attr')->where([
                         'attr_value'     => $data['id'],
                         'attr_group'    => 'arctype',
@@ -779,7 +779,7 @@ class Arctype extends Model
                     ]);
                 /*--end*/
 
-                /*清除页面缓存*/
+                /*清除頁面快取*/
                 // $htmlCacheLogic = new \app\common\logic\HtmlCacheLogic;
                 // $htmlCacheLogic->clear_arctype();
                 /*--end*/

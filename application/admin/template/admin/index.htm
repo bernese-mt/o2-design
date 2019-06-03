@@ -7,15 +7,15 @@
     <div class="flexigrid">
         <div class="mDiv">
             <div class="ftitle">
-                <h3>管理员列表</h3>
-                <h5>(共{$pager->totalRows}条记录)</h5>
+                <h3>管理員列表</h3>
+                <h5>(共{$pager->totalRows}條記錄)</h5>
             </div>
-            <div title="刷新数据" class="pReload"><i class="fa fa-refresh"></i></div>
-            <form class="navbar-form form-inline" action="{:url('Admin/index')}" method="get" onsubmit="layer_loading('正在处理');">
+            <div title="重新整理數據" class="pReload"><i class="fa fa-refresh"></i></div>
+            <form class="navbar-form form-inline" action="{:url('Admin/index')}" method="get" onsubmit="layer_loading('正在處理');">
                 {$searchform.hidden|default=''}
                 <div class="sDiv">
                     <div class="sDiv2">
-                        <input type="text" size="30" name="keywords" value="{$Request.param.keywords}" class="qsbox" placeholder="搜索相关数据...">
+                        <input type="text" size="30" name="keywords" value="{$Request.param.keywords}" class="qsbox" placeholder="搜索相關數據...">
                         <input type="submit" class="btn" value="搜索">
                     </div>
                     <!-- <div class="sDiv2">
@@ -31,26 +31,26 @@
                     <tr>
                         {eq name='$main_lang' value='$admin_lang'}
                         <th class="sign w40" axis="col0">
-                            <div class="tc">选择</div>
+                            <div class="tc">選擇</div>
                         </th>
                         {/eq}
                         <th abbr="article_title" axis="col3" class="w40">
                             <div class="tc">ID</div>
                         </th>
                         <th abbr="ac_id" axis="col4">
-                            <div class="">用户名</div>
+                            <div class="">使用者名稱</div>
                         </th>
                         <th abbr="ac_id" axis="col4" class="w150">
-                            <div class="tc">真实姓名</div>
+                            <div class="tc">真實姓名</div>
                         </th>
                         <th abbr="article_show" axis="col5" class="w150">
-                            <div class="tc">权限组</div>
+                            <div class="tc">許可權組</div>
                         </th>
                         <th abbr="article_time" axis="col6" class="w120">
-                            <div class="tc">手机号码</div>
+                            <div class="tc">手機號碼</div>
                         </th>
                         <th abbr="article_time" axis="col6" class="w160">
-                            <div class="tc">最后登录时间</div>
+                            <div class="tc">最後登錄時間</div>
                         </th>
                         <th axis="col1" class="w120">
                             <div class="tc">操作</div>
@@ -68,7 +68,7 @@
                     {empty name="list"}
                         <tr>
                             <td class="no-data" align="center" axis="col0" colspan="50">
-                                <i class="fa fa-exclamation-circle"></i>没有符合条件的记录
+                                <i class="fa fa-exclamation-circle"></i>沒有符合條件的記錄
                             </td>
                         </tr>
                     {else/}
@@ -101,7 +101,7 @@
                                 </div>
                             </td>
                             <td>
-                                <div class="w150 tc">{$vo.role_name|default='<em class="red">数据出错</em>'}</div>
+                                <div class="w150 tc">{$vo.role_name|default='<em class="red">數據出錯</em>'}</div>
                             </td>
                             <td>
                                 <div class="w120 tc">
@@ -111,7 +111,7 @@
                             <td class="">
                                 <div class="tc w160">
                                 {empty name="vo.last_login"}
-                                未登录
+                                未登錄
                                 {else /}
                                 {$vo.last_login|date='Y-m-d H:i:s',###}
                                 {/empty}
@@ -120,12 +120,12 @@
                             <td class="">
                                 <div class="w120 tc">
                                     {eq name="'Admin@admin_edit'|is_check_access" value="1"}
-                                    <a href="{:url('Admin/admin_edit',array('id'=>$vo['admin_id']))}" class="btn blue"><i class="fa fa-pencil-square-o"></i>编辑</a>
+                                    <a href="{:url('Admin/admin_edit',array('id'=>$vo['admin_id']))}" class="btn blue"><i class="fa fa-pencil-square-o"></i>編輯</a>
                                     {/eq}
                                     {eq name='$main_lang' value='$admin_lang'}
                                     {eq name="'Admin@admin_del'|is_check_access" value="1"}
                                         {if condition="$Think.session.admin_id != $vo.admin_id AND !empty($vo.parent_id)"}
-                                        <a class="btn red"  href="javascript:void(0);" data-url="{:url('Admin/admin_del')}" data-id="{$vo.admin_id}" onClick="delfun(this);"><i class="fa fa-trash-o"></i>删除</a>
+                                        <a class="btn red"  href="javascript:void(0);" data-url="{:url('Admin/admin_del')}" data-id="{$vo.admin_id}" onClick="delfun(this);"><i class="fa fa-trash-o"></i>刪除</a>
                                         {/if}
                                     {/eq}
                                     {/eq}
@@ -148,8 +148,8 @@
                 </div>
                 <div class="fbutton">
                     <a onclick="batch_del(this, 'ids');" data-url="{:url('Admin/admin_del')}">
-                        <div class="add" title="批量删除">
-                            <span><i class="fa fa-close"></i>批量删除</span>
+                        <div class="add" title="批量刪除">
+                            <span><i class="fa fa-close"></i>批量刪除</span>
                         </div>
                     </a>
                 </div>
@@ -157,8 +157,8 @@
                 {eq name="$Think.const.CONTROLLER_NAME.'@admin_add'|is_check_access" value="1"}
                 <div class="fbutton">
                     <a href="{:url('Admin/admin_add')}">
-                        <div class="add" title="新增管理员">
-                            <span class="red"><i class="fa fa-plus"></i>新增管理员</span>
+                        <div class="add" title="新增管理員">
+                            <span class="red"><i class="fa fa-plus"></i>新增管理員</span>
                         </div>
                     </a>
                 </div>
@@ -167,17 +167,17 @@
             </div>
             <div style="clear:both"></div>
         </div>
-        <!--分页位置-->
+        <!--分頁位置-->
         {$page} </div>
 </div>
 <script>
     $(document).ready(function(){
-        // 表格行点击选中切换
+        // 表格行點選選中切換
         $('#flexigrid > table>tbody >tr').click(function(){
             $(this).toggleClass('trSelected');
         });
 
-        // 点击刷新数据
+        // 點選重新整理數據
         $('.fa-refresh').click(function(){
             location.href = location.href;
         });

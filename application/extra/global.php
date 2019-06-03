@@ -1,11 +1,11 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
@@ -33,75 +33,75 @@ foreach ($channeltype_row as $key => $val) {
 }
 
 return array(
-    // CMS根目录文件夹
+    // CMS根目錄資料夾
     'wwwroot_dir' => ['application','core','data','extend','html','public','template','uploads','vendor','weapp'],
-    // 禁用的目录名称
+    // 禁用的目錄名稱
     'disable_dirname' => ['application','core','data','extend','html','install','public','plugins','uploads','template','vendor','weapp','tags','search','user','users','member','reg','centre','login'],
-    // 发送邮箱默认有效时间，会员中心，邮箱验证时用到
+    // 發送郵箱預設有效時間，會員中心，郵箱驗證時用到
     'email_default_time_out' => 3600,
-    // 邮箱发送倒计时 2分钟
+    // 郵箱發送倒計時 2分鐘
     'email_send_time' => 120,
-    // 充值订单默认有效时间，会员中心用到，2小时
+    // 充值訂單預設有效時間，會員中心用到，2小時
     'get_order_validity' => 7200,
-    // 支付订单默认有效时间，商城中心用到，2小时
+    // 支付訂單預設有效時間，商城中心用到，2小時
     'get_shop_order_validity' => 7200,
-    // 文档SEO描述截取长度，一个字符表示一个汉字或字母
+    // 文件SEO描述擷取長度，一個字元表示一個漢字或字母
     'arc_seo_description_length' => 125,
-    // 栏目最多级别
+    // 欄目最多級別
     'arctype_max_level' => 3,
-    // 模型标识
+    // 模型標識
     'channeltype_list' => $channeltype_list,
-    // 发布文档的模型ID
+    // 發佈文件的模型ID
     'allow_release_channel' => $allow_release_channel,
-    // 广告类型
+    // 廣告型別
     'ad_media_type' => array(
-        1   => '图片',
+        1   => '圖片',
         // 2   => 'flash',
         // 3   => '文字',
     ),
     'attr_input_type_arr' => array(
-        0   => '单行文本',
+        0   => '單行文字',
         1   => '下拉框',
-        2   => '多行文本',
-        3   => 'HTML文本',
+        2   => '多行文字',
+        3   => 'HTML文字',
     ),
-    // 栏目自定义字段的channel_id值
+    // 欄目自定義欄位的channel_id值
     'arctype_channel_id' => -99,
-    // 栏目表原始字段
+    // 欄目表原始欄位
     'arctype_table_fields' => array('id','channeltype','current_channel','parent_id','typename','dirname','dirpath','englist_name','grade','typelink','litpic','templist','tempview','seo_title','seo_keywords','seo_description','sort_order','is_hidden','is_part','admin_id','is_del','del_method','status','lang','add_time','update_time'),
-    // 网络图片扩展名
+    // 網路圖片副檔名
     'image_ext' => 'jpg,jpeg,gif,bmp,ico,png',
-    // 后台语言Cookie变量
+    // 後臺語言Cookie變數
     'admin_lang' => 'admin_lang',
-    // 前台语言Cookie变量
+    // 前臺語言Cookie變數
     'home_lang' => 'home_lang',
-    // URL全局参数（比如：可视化uiset、多模板v、多语言lang）
+    // URL全域性參數（比如：視覺化uiset、多模板v、多語言lang）
     'parse_url_param'   => ['uiset','v','lang'],
-    // 用户金额明细类型
+    // 使用者金額明細型別
     'pay_cause_type_arr' => array(
-        0   => '消费',
-        1   => '账户充值',
-        // 2   => '后续添加',
+        0   => '消費',
+        1   => '賬戶充值',
+        // 2   => '後續新增',
     ),
-    // 充值状态
+    // 充值狀態
     'pay_status_arr' => array(
-        // 0   => '失败',
+        // 0   => '失敗',
         1   => '未付款',
         // 2   => '已付款',
         3   => '已充值',
-        4   => '订单取消',
-        // 5   => '后续添加',
+        4   => '訂單取消',
+        // 5   => '後續新增',
     ),
     // 支付方式
     'pay_method_arr' => array(
         'wechat'     => '微信',
-        'alipay'     => '支付宝',
+        'alipay'     => '支付寶',
         'artificial' => '手工充值',
-        'balance'    => '余额',
-        'admin_pay'  => '管理员代付',
-        'delivery_pay' => '货到付款',
+        'balance'    => '餘額',
+        'admin_pay'  => '管理員代付',
+        'delivery_pay' => '貨到付款',
     ),
-    // 缩略图默认宽高度
+    // 縮圖預設寬高度
     'thumb' => [
         'open'  => 0,
         'mode'  => 2,
@@ -109,26 +109,26 @@ return array(
         'width' => 300,
         'height' => 300,
     ],
-    // 订单状态
+    // 訂單狀態
     'order_status_arr' => array(
-        -1  => '已关闭',
+        -1  => '已關閉',
         0   => '待付款',
-        1   => '待发货',
-        2   => '待收货',
-        3   => '订单完成',
-        4   => '订单过期',
-        // 5   => '后续添加',
+        1   => '待發貨',
+        2   => '待收貨',
+        3   => '訂單完成',
+        4   => '訂單過期',
+        // 5   => '後續新增',
     ),
-    // 订单状态，后台使用
+    // 訂單狀態，後臺使用
     'admin_order_status_arr' => array(
-        -1  => '订单关闭',
+        -1  => '訂單關閉',
         0   => '未付款',
-        1   => '待发货',
-        2   => '已发货',
+        1   => '待發貨',
+        2   => '已發貨',
         3   => '已完成',
-        4   => '订单过期',
+        4   => '訂單過期',
     ),
-    // 清理文件时，需要查询的数据表和字段
+    // 清理檔案時，需要查詢的數據表和欄位
     'get_tablearray' => array(
         0 => array(
             'table' => 'ad',
@@ -198,6 +198,6 @@ return array(
             'table' => 'shop_order_details',
             'field' => 'litpic',
         ),
-        // 后续可持续添加数据表和字段，格式参照以上
+        // 後續可持續新增數據表和欄位，格式參照以上
     ),
 );

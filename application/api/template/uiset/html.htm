@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>可视化编辑</title>
+	<title>視覺化編輯</title>
 	{load href="__STATIC__/common/js/jquery.min.js" /}
 	{load href="__PUBLIC__/plugins/Ueditor/ueditor.config.js" /}
 	{load href="__PUBLIC__/plugins/Ueditor/ueditor.all.min.js" /}
@@ -58,7 +58,7 @@
 						<input type="hidden" name="page" value="{$field.page|default=''}">
                         <input type="hidden" name="v" value="{$v|default='pc'}">
 						<input type="hidden" name="lang" value="{$field.lang|default='cn'}">
-						<a href="JavaScript:void(0);" onclick="check_submit();" class="ncap-btn-big ncap-btn-green" id="submitBtn">确认提交</a>
+						<a href="JavaScript:void(0);" onclick="check_submit();" class="ncap-btn-big ncap-btn-green" id="submitBtn">確認提交</a>
 					</div>
 				</div>
 			</form>
@@ -70,32 +70,32 @@
 	    var ue = UE.getEditor('post_content',{
 	        serverUrl :url,
 	        zIndex: 999,
-	        initialFrameWidth: "100%", //初化宽度
+	        initialFrameWidth: "100%", //初化寬度
 	        initialFrameHeight: 500, //初化高度            
-	        focus: false, //初始化时，是否让编辑器获得焦点true或false
+	        focus: false, //初始化時，是否讓編輯器獲得焦點true或false
 	        maximumWords: 99999,
-	        removeFormatAttributes: 'class,style,lang,width,height,align,hspace,valign',//允许的最大字符数 'fullscreen',
-	        pasteplain:false, //是否默认为纯文本粘贴。false为不使用纯文本粘贴，true为使用纯文本粘贴
+	        removeFormatAttributes: 'class,style,lang,width,height,align,hspace,valign',//允許的最大字元數 'fullscreen',
+	        pasteplain:false, //是否預設為純文字貼上。false為不使用純文字貼上，true為使用純文字貼上
 	        autoHeightEnabled: false,
 	        toolbars: ueditor_toolbars,
 	        initialContent: parent.eyou_getOldHtml()
 	    });
 
-	    var parentObj = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+	    var parentObj = parent.layer.getFrameIndex(window.name); //先得到目前iframe層的索引
 
         function check_submit()
         {
 	        // if(UE.getEditor('post_content').getContent() == ''){
-	        //     parent.showErrorMsg('内容不能为空！');
+	        //     parent.showErrorMsg('內容不能為空！');
 	        //     return false;
 	        // }
 
 	        if ($('input[name=id]').val() == '' || $('input[name=id]').val() == undefined || $('input[name=type]').val() == '' || $('input[name=page]').val() == '') {
-	            parent.showErrorMsg('缺少系统参数：id、type、page，尝试请求技术支持！');
+	            parent.showErrorMsg('缺少系統參數：id、type、page，嘗試請求技術支援！');
 	            return false;
 	        }
             
-	        layer_loading('正在处理');
+	        layer_loading('正在處理');
             var url = "{:url('api/Uiset/submit')}";
             $.ajax({
                 url: url,
@@ -117,25 +117,25 @@
 	        	},
 	        	error: function(e){
         			layer.closeAll();
-                    // parent.showErrorMsg('操作失败');
-                	layer.alert('操作失败', {icon:5});
+                    // parent.showErrorMsg('操作失敗');
+                	layer.alert('操作失敗', {icon:5});
                     return false;
 	        	}
 	        });
         }
 
 	    /**
-	     * 封装的加载层
+	     * 封裝的載入層
 	     */
 	    function layer_loading(msg){
 	        var loading = layer.msg(
-	        msg+'...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请勿刷新页面', 
+	        msg+'...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;請勿重新整理頁面', 
 	        {
 	            icon: 1,
-	            time: 3600000, //1小时后后自动关闭
+	            time: 3600000, //1小時後后自動關閉
 	            shade: [0.2] //0.1透明度的白色背景
 	        });
-	        //loading层
+	        //loading層
 	        var index = layer.load(3, {
 	            shade: [0.1,'#fff'] //0.1透明度的白色背景
 	        });

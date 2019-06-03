@@ -8,17 +8,17 @@
         <div class="ncap-form-default">
             <dl class="row">
                 <dt class="tit">
-                    <label for="basic_indexname">主页链接名</label>
+                    <label for="basic_indexname">主頁鏈接名</label>
                 </dt>
                 <dd class="opt">
-                    <input id="basic_indexname" name="basic_indexname" value="{$config.basic_indexname|default='首页'}" class="input-txt" type="text" />
+                    <input id="basic_indexname" name="basic_indexname" value="{$config.basic_indexname|default='首頁'}" class="input-txt" type="text" />
                     <p class="notic"></p>
                 </dd>
             </dl>
             {eq name='$main_lang' value='$admin_lang'}
             <dl class="row">
                 <dt class="tit">
-                    <label for="list_symbol">栏目位置的间隔符号</label>
+                    <label for="list_symbol">欄目位置的間隔符號</label>
                 </dt>
                 <dd class="opt">
                     <input id="list_symbol" name="list_symbol" value="{$config.list_symbol|default=' > '}" class="input-txt" type="text" />
@@ -27,34 +27,34 @@
             </dl>
             <dl class="row">
                 <dt class="tit">
-                    <label for="image_type">允许上传的图片类型</label>
+                    <label for="image_type">允許上傳的圖片型別</label>
                 </dt>
                 <dd class="opt">
                     <textarea rows="5" cols="60" id="image_type" name="image_type" style="height:40px;">{empty name='config.image_type'}jpg|gif|png|bmp|jpeg|ico{else /}{$config.image_type}{/empty}</textarea>
-                    <p class="notic">禁止非图片的扩展名，比如：php</p>
+                    <p class="notic">禁止非圖片的副檔名，比如：php</p>
                 </dd>
             </dl>
             <dl class="row">
                 <dt class="tit">
-                    <label for="file_type">允许上传的软件类型</label>
+                    <label for="file_type">允許上傳的軟體型別</label>
                 </dt>
                 <dd class="opt">
                     <textarea rows="5" cols="60" id="file_type" name="file_type" style="height:40px;">{empty name='config.file_type'}zip|gz|rar|iso|doc|xsl|ppt|wps{else /}{$config.file_type}{/empty}</textarea>
-                    <p class="notic">禁止非软件的扩展名，比如：php</p>
+                    <p class="notic">禁止非軟體的副檔名，比如：php</p>
                 </dd>
             </dl>
             <dl class="row">
                 <dt class="tit">
-                    <label for="media_type">允许多媒体文件类型</label>
+                    <label for="media_type">允許多媒體檔案型別</label>
                 </dt>
                 <dd class="opt">
                     <textarea rows="5" cols="60" id="media_type" name="media_type" style="height:40px;">{empty name='config.media_type'}swf|mpg|mp3|rm|rmvb|wmv|wma|wav|mid|mov|mp4{else /}{$config.media_type}{/empty}</textarea>
-                    <p class="notic">禁止非媒体的扩展名，比如：php</p>
+                    <p class="notic">禁止非媒體的副檔名，比如：php</p>
                 </dd>
             </dl>
             <dl class="row">
                 <dt class="tit">
-                    <label for="file_size">附件上传大小</label>
+                    <label for="file_size">附件上傳大小</label>
                 </dt>
                 <dd class="opt">
                     <select id="file_size" name="file_size">
@@ -69,18 +69,18 @@
                         <option value="500" {if condition="$config['file_size'] eq 500"}selected="selected"{/if}>500M</option>
                         <option value="1000" {if condition="$config['file_size'] eq 1000"}selected="selected"{/if}>1000M</option>
                     </select>
-                    <p class="notic">附件上传大小限制，如果空间不支持，请与空间商联系修改php.ini部分参数</p>
+                    <p class="notic">附件上傳大小限制，如果空間不支援，請與空間商聯繫修改php.ini部分參數</p>
                 </dd>
             </dl>
             {/eq}
-            <div class="bot"><a href="JavaScript:void(0);" class="ncap-btn-big ncap-btn-green" onclick="adsubmit();">确认提交</a></div>
+            <div class="bot"><a href="JavaScript:void(0);" class="ncap-btn-big ncap-btn-green" onclick="adsubmit();">確認提交</a></div>
         </div>
     </form>
 </div>
 
 <script type="text/javascript">
     function adsubmit(){
-        layer_loading("正在处理");
+        layer_loading("正在處理");
         $('#handlepost').submit();
     }
 </script>

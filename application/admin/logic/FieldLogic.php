@@ -1,11 +1,11 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
@@ -16,20 +16,20 @@ namespace app\admin\logic;
 use think\Model;
 use think\Db;
 /**
- * 字段逻辑定义
+ * 欄位邏輯定義
  * Class CatsLogic
  * @package admin\Logic
  */
 class FieldLogic extends Model
 {
     /**
-     * 获得字段创建信息
+     * 獲得欄位建立資訊
      *
      * @access    public
-     * @param     string  $dtype  字段类型
-     * @param     string  $fieldname  字段名称
-     * @param     string  $dfvalue  默认值
-     * @param     string  $fieldtitle  字段标题
+     * @param     string  $dtype  欄位型別
+     * @param     string  $fieldname  欄位名稱
+     * @param     string  $dfvalue  預設值
+     * @param     string  $fieldtitle  欄位標題
      * @return    array
      */
     function GetFieldMake($dtype, $fieldname, $dfvalue, $fieldtitle)
@@ -173,27 +173,27 @@ class FieldLogic extends Model
     }
 
     /**
-     * 检测频道模型相关的表字段是否已存在，包括：主表和附加表
+     * 檢測頻道模型相關的表字段是否已存在，包括：主表和附加表
      *
      * @access    public
      * @param     string  $slave_table  附加表
-     * @return    string $fieldname 字段名
+     * @return    string $fieldname 欄位名
      * @return    int $channel_id 模型ID
-     * @param     array  $filter  过滤哪些字段
+     * @param     array  $filter  過濾哪些欄位
      */
     public function checkChannelFieldList($slave_table, $fieldname, $channel_id, $filter = array())
     {
-        // 栏目表字段
+        // 欄目表字段
         $arctypeFieldArr = Db::getTableFields(PREFIX.'arctype'); 
         foreach ($arctypeFieldArr as $key => $val) {
             if (!preg_match('/^type/i',$val)) {
                 array_push($arctypeFieldArr, 'type'.$val);
             }
         }
-        $masterFieldArr = Db::getTableFields(PREFIX.'archives'); // 文档主表字段
-        $slaveFieldArr = Db::getTableFields($slave_table); // 文档附加表字段
-        $addfields = ['pageurl','has_children','typelitpic','arcurl','typeurl']; // 额外与字段冲突的变量名
-        $fieldArr = array_merge($slaveFieldArr, $masterFieldArr, $addfields, $arctypeFieldArr); // 合并字段
+        $masterFieldArr = Db::getTableFields(PREFIX.'archives'); // 文件主表字段
+        $slaveFieldArr = Db::getTableFields($slave_table); // 文件附加表字段
+        $addfields = ['pageurl','has_children','typelitpic','arcurl','typeurl']; // 額外與欄位衝突的變數名
+        $fieldArr = array_merge($slaveFieldArr, $masterFieldArr, $addfields, $arctypeFieldArr); // 合併欄位
         if (!empty($fieldname)) {
             if (!empty($filter) && is_array($filter)) {
                 foreach ($filter as $key => $val) {
@@ -210,12 +210,12 @@ class FieldLogic extends Model
     }
 
     /**
-     * 检测指定表的字段是否已存在
+     * 檢測指定表的欄位是否已存在
      *
      * @access    public
-     * @param     string  $table  数据表
-     * @return    string $fieldname 字段名
-     * @param     array  $filter  过滤哪些字段
+     * @param     string  $table  數據表
+     * @return    string $fieldname 欄位名
+     * @param     array  $filter  過濾哪些欄位
      */
     public function checkTableFieldList($table, $fieldname, $filter = array())
     {
@@ -236,19 +236,19 @@ class FieldLogic extends Model
     }
 
     /**
-     * 删除指定模型的表字段
+     * 刪除指定模型的表字段
      * @param int $id channelfield表ID
      * @return bool
      */
     public function delChannelField($id)
     {
         $code = 0;
-        $msg = '参数有误！';
+        $msg = '參數有誤！';
         if (!empty($id)) {
             $id = intval($id);
             $row = model('Channelfield')->getInfo($id, 'channel_id,name,ifsystem');
             if (!empty($row['ifsystem'])) {
-                return array('code'=>0, 'msg'=>'禁止删除系统字段！');
+                return array('code'=>0, 'msg'=>'禁止刪除系統欄位！');
             }
             $fieldname = $row['name'];
             $channel_id = $row['channel_id'];
@@ -257,19 +257,19 @@ class FieldLogic extends Model
             if ($this->checkChannelFieldList($table, $fieldname, $channel_id)) {
                 $sql = "ALTER TABLE `{$table}` DROP COLUMN `{$fieldname}`;";
                 if(false !== Db::execute($sql)) {
-                    /*重新生成数据表字段缓存文件*/
+                    /*重新產生數據表字段快取檔案*/
                     try {
                         schemaTable($table);
                     } catch (\Exception $e) {}
                     /*--end*/
-                    return array('code'=>1, 'msg'=>'删除成功！');
+                    return array('code'=>1, 'msg'=>'刪除成功！');
                 } else {
                     $code = 0;
-                    $msg = '删除失败！'; 
+                    $msg = '刪除失敗！'; 
                 }
             } else {
                 $code = 2;
-                $msg = '字段不存在！';
+                $msg = '欄位不存在！';
             }
         }
 
@@ -277,38 +277,38 @@ class FieldLogic extends Model
     }
 
     /**
-     * 删除栏目的表字段
+     * 刪除欄目的表字段
      * @param int $id channelfield表ID
      * @return bool
      */
     public function delArctypeField($id)
     {
         $code = 0;
-        $msg = '参数有误！';
+        $msg = '參數有誤！';
         if (!empty($id)) {
             $id = intval($id);
             $row = model('Channelfield')->getInfo($id, 'name,ifsystem');
             if (!empty($row['ifsystem'])) {
-                return array('code'=>0, 'msg'=>'禁止删除系统字段！');
+                return array('code'=>0, 'msg'=>'禁止刪除系統欄位！');
             }
             $fieldname = $row['name'];
             $table = PREFIX.'arctype';
             if ($this->checkTableFieldList($table, $fieldname)) {
                 $sql = "ALTER TABLE `{$table}` DROP COLUMN `{$fieldname}`;";
                 if(false !== Db::execute($sql)) {
-                    /*重新生成数据表字段缓存文件*/
+                    /*重新產生數據表字段快取檔案*/
                     try {
                         schemaTable($table);
                     } catch (\Exception $e) {}
                     /*--end*/
-                    return array('code'=>1, 'msg'=>'删除成功！');
+                    return array('code'=>1, 'msg'=>'刪除成功！');
                 } else {
                     $code = 0;
-                    $msg = '删除失败！'; 
+                    $msg = '刪除失敗！'; 
                 }
             } else {
                 $code = 2;
-                $msg = '字段不存在！';
+                $msg = '欄位不存在！';
             }
         }
 
@@ -316,7 +316,7 @@ class FieldLogic extends Model
     }
 
     /**
-     * 同步模型附加表的字段记录
+     * 同步模型附加表的欄位記錄
      * @author 小虎哥 by 2018-4-16
      */
     public function synChannelTableColumns($channel_id)
@@ -331,8 +331,8 @@ class FieldLogic extends Model
 
         $channelfieldArr = M('channelfield')->field('name,dtype')->where('channel_id',$channel_id)->getAllWithIndex('name');
 
-        $new_arr = array(); // 表字段数组
-        $addData = array(); // 数据存储变量
+        $new_arr = array(); // 表字段陣列
+        $addData = array(); // 數據儲存變數
 
         $table = M('channeltype')->where('id',$channel_id)->getField('table');
         $tableExt = PREFIX.$table.'_content';
@@ -343,7 +343,7 @@ class FieldLogic extends Model
                 continue;
             }
             $new_arr[] = $fieldname;
-            // 对比字段记录 表字段有 字段新增记录没有
+            // 對比欄位記錄 表字段有 欄位新增記錄沒有
             if (empty($channelfieldArr[$fieldname])) {
                 $dtype = $this->toDtype($val['Type']);
                 $dfvalue = $this->toDefault($val['Type'], $val['Default']);
@@ -375,7 +375,7 @@ class FieldLogic extends Model
             M('channelfield')->insertAll($addData);
         }
 
-        /*字段新增记录有，表字段没有*/
+        /*欄位新增記錄有，表字段沒有*/
         foreach($channelfieldArr as $k => $v){
             if (!in_array($k, $new_arr)) {
                 $map = array(
@@ -394,15 +394,15 @@ class FieldLogic extends Model
     }
 
     /**
-     * 同步文档主表的字段记录到指定模型
+     * 同步文件主表的欄位記錄到指定模型
      * @author 小虎哥 by 2018-4-16
      */
     public function synArchivesTableColumns($channel_id = '')
     {
         $channelfieldArr = M('channelfield')->field('name,dtype')->where('channel_id',$channel_id)->getAllWithIndex('name');
 
-        $new_arr = array(); // 表字段数组
-        $addData = array(); // 数据存储变量
+        $new_arr = array(); // 表字段陣列
+        $addData = array(); // 數據儲存變數
 
         $controlFields = ['litpic','author'];
 
@@ -412,7 +412,7 @@ class FieldLogic extends Model
         foreach ($row as $key => $val) {
             $fieldname = $val['Field'];
             $new_arr[] = $fieldname;
-            // 对比字段记录 表字段有 字段新增记录没有
+            // 對比欄位記錄 表字段有 欄位新增記錄沒有
             if (empty($channelfieldArr[$fieldname])) {
                 $dtype = $this->toDtype($val['Type']);
                 $dfvalue = $this->toDefault($val['Type'], $val['Default']);
@@ -444,7 +444,7 @@ class FieldLogic extends Model
             M('channelfield')->insertAll($addData);
         }
 
-        /*字段新增记录有，表字段没有*/
+        /*欄位新增記錄有，表字段沒有*/
         foreach($channelfieldArr as $k => $v){
             if (!in_array($k, $new_arr)) {
                 $map = array(
@@ -459,7 +459,7 @@ class FieldLogic extends Model
     }
 
     /**
-     * 同步栏目主表的字段记录
+     * 同步欄目主表的欄位記錄
      * @author 小虎哥 by 2018-4-16
      */
     public function synArctypeTableColumns($channel_id = '')
@@ -473,8 +473,8 @@ class FieldLogic extends Model
         $channel_id = !empty($channel_id) ? $channel_id : config('global.arctype_channel_id');
         $channelfieldArr = M('channelfield')->field('name,dtype')->where('channel_id',$channel_id)->getAllWithIndex('name');
 
-        $new_arr = array(); // 表字段数组
-        $addData = array(); // 数据存储变量
+        $new_arr = array(); // 表字段陣列
+        $addData = array(); // 數據儲存變數
 
         $table = PREFIX.'arctype';
         $row = Db::query("SHOW FULL COLUMNS FROM {$table}");
@@ -483,7 +483,7 @@ class FieldLogic extends Model
         foreach ($row as $key => $val) {
             $fieldname = $val['Field'];
             $new_arr[] = $fieldname;
-            // 对比字段记录 表字段有 字段新增记录没有
+            // 對比欄位記錄 表字段有 欄位新增記錄沒有
             if (empty($channelfieldArr[$fieldname])) {
                 $dtype = $this->toDtype($val['Type']);
                 $dfvalue = $this->toDefault($val['Type'], $val['Default']);
@@ -515,7 +515,7 @@ class FieldLogic extends Model
             M('channelfield')->insertAll($addData);
         }
 
-        /*字段新增记录有，表字段没有*/
+        /*欄位新增記錄有，表字段沒有*/
         foreach($channelfieldArr as $k => $v){
             if (!in_array($k, $new_arr)) {
                 $map = array(
@@ -527,7 +527,7 @@ class FieldLogic extends Model
         }
         /*--end*/
 
-        /*修复v1.1.9版本的admin_id为系统字段*/
+        /*修復v1.1.9版本的admin_id為系統欄位*/
         M('channelfield')->where('name','admin_id')->update(['ifsystem'=>1]);
         /*--end*/
 
@@ -538,7 +538,7 @@ class FieldLogic extends Model
     }
 
     /**
-     * 表字段类型转为自定义字段类型
+     * 表字段型別轉為自定義欄位型別
      * @author 小虎哥 by 2018-4-16
      */
     public function toDtype($fieldtype = '')
@@ -583,7 +583,7 @@ class FieldLogic extends Model
     }
 
     /**
-     * 表字段的默认值
+     * 表字段的預設值
      * @author 小虎哥 by 2018-4-16
      */
     public function toDefault($fieldtype, $dfvalue = '')
@@ -600,7 +600,7 @@ class FieldLogic extends Model
     }
 
     /**
-     * 处理自定义字段的值
+     * 處理自定義欄位的值
      * @author 小虎哥 by 2018-4-16
      */
     public function handleAddonField($channel_id, $dataExt)

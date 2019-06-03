@@ -1,13 +1,13 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
- * Author: 陈风任 <491085389@qq.com>
+ * Author: 陳風任 <491085389@qq.com>
  * Date: 2019-2-20
  */
 namespace app\admin\model;
@@ -17,30 +17,30 @@ use think\Config;
 use think\Db;
 
 /**
- * 会员
+ * 會員
  */
 class Pay extends Model
 {
-    private $key = ''; // key密钥
+    private $key = ''; // key金鑰
 
     //初始化
     protected function initialize()
     {
-        // 需要调用`Model`的`initialize`方法
+        // 需要呼叫`Model`的`initialize`方法
         parent::initialize();
     }
 
     /*
-     *   微信二维码支付
-     *   @params string $openid : 用户的openid
-     *   @params string $out_trade_no : 商户订单号
-     *   @params number $total_fee : 订单金额，单位分
-     *   return string $code_url : 二维码URL链接
+     *   微信二維碼支付
+     *   @params string $openid : 使用者的openid
+     *   @params string $out_trade_no : 商戶訂單號
+     *   @params number $total_fee : 訂單金額，單位分
+     *   return string $code_url : 二維碼URL鏈接
      */
-    public function payForQrcode($wechat,$out_trade_no='',$total_fee='',$body="充值",$attach="微信扫码支付")
+    public function payForQrcode($wechat,$out_trade_no='',$total_fee='',$body="充值",$attach="微信掃碼支付")
     {
         $this->key = $wechat['key'];
-        //支付数据
+        //支付數據
         $data['out_trade_no']     = getTime();
         $data['total_fee']        = '1';
         $data['spbill_create_ip'] = $this->get_client_ip();
@@ -78,7 +78,7 @@ class Pay extends Model
         }
     }
 
-    // 获取客户端IP
+    // 獲取客戶端IP
     private function get_client_ip() {
         if(getenv('HTTP_CLIENT_IP') && strcasecmp(getenv('HTTP_CLIENT_IP'), 'unknown')) {
             $ip = getenv('HTTP_CLIENT_IP');
@@ -92,7 +92,7 @@ class Pay extends Model
         return preg_match ( '/[\d\.]{7,15}/', $ip, $matches ) ? $matches [0] : '';
     }
 
-    //对参数排序，生成MD5加密签名
+    //對參數排序，產生MD5加密簽名
     private function getParam($paramArray, $isencode=false)
     {
         $paramStr = '';
@@ -119,7 +119,7 @@ class Pay extends Model
 
     }
 
-    //POST提交数据
+    //POST提交數據
     private function https_post($url,$data)
     {
         $ch = curl_init ();
@@ -140,9 +140,9 @@ class Pay extends Model
     }
 
     /*
-    * XML转array
-    * @params xml $xml : xml 数据
-    * return array $data : 转义后的array数组
+    * XML轉array
+    * @params xml $xml : xml 數據
+    * return array $data : 轉義后的array陣列
     */
     private function xmlToArray($xml)
     {

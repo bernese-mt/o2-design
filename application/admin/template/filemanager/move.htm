@@ -8,7 +8,7 @@
     <form class="form-horizontal" id="post_form" action="{:url('Filemanager/move')}" method="post">
         <div class="ncap-form-default">
             <dl class="row">
-                <dt class="tit">被移动文件</dt>
+                <dt class="tit">被移動檔案</dt>
                 <dd class="opt">
                     {$info['filename']|default=''}
                     <input type="hidden" name="filename" value="{$info['filename']|default=''}">
@@ -17,7 +17,7 @@
             </dl>
             <dl class="row">
                 <dt class="tit">
-                    <label for="url">当前位置</label>
+                    <label for="url">目前位置</label>
                 </dt>
                 <dd class="opt">
                     {$info['activepath']|default=''}
@@ -36,19 +36,19 @@
                     <p class="notic"></p>
                 </dd>
             </dl>
-            <div class="bot"><a href="JavaScript:void(0);" onclick="checkForm();" class="ncap-btn-big ncap-btn-green" id="submitBtn">确认提交</a></div>
+            <div class="bot"><a href="JavaScript:void(0);" onclick="checkForm();" class="ncap-btn-big ncap-btn-green" id="submitBtn">確認提交</a></div>
         </div>
     </form>
 </div>
 <script type="text/javascript">
-    // 判断输入框是否为空
+    // 判斷輸入框是否為空
     function checkForm(){
         if($.trim($('input[name=mpath]').val()) == ''){
-            showErrorMsg('新位置不能为空！');
+            showErrorMsg('新位置不能為空！');
             $('input[name=mpath]').focus();
             return false;
         }
-        layer_loading('正在处理');
+        layer_loading('正在處理');
         $('#post_form').submit();
     }
 </script>

@@ -20,7 +20,7 @@ class File
 {
 
     /**
-     * 运行于 Sae 和 LAMP
+     * 執行于 Sae 和 LAMP
      * @param $filename
      * @return bool
      */
@@ -32,7 +32,7 @@ class File
     }
 
     /**
-     * 运行于 Sae 和 LAMP
+     * 執行于 Sae 和 LAMP
      * @param $bytes
      * @return string
      */
@@ -142,7 +142,7 @@ class File
     public function delFile2($dir,$file_type='') {
     	if(is_dir($dir)){
     		$files = ey_scandir($dir);
-    		//打开目录 //列出目录中的所有文件并去掉 . 和 ..
+    		//打開目錄 //列出目錄中的所有檔案並去掉 . 和 ..
     		foreach($files as $filename){
     			if($filename!='.' && $filename!='..'){
     				if(!is_dir($dir.'/'.$filename)){
@@ -150,12 +150,12 @@ class File
     						unlink($dir.'/'.$filename);
     					}else{
     						if(is_array($file_type)){
-    							//正则匹配指定文件
+    							//正則匹配指定檔案
     							if(preg_match($file_type[0],$filename)){
     								unlink($dir.'/'.$filename);
     							}
     						}else{
-    							//指定包含某些字符串的文件
+    							//指定包含某些字串的檔案
     							if(false!=stristr($filename,$file_type)){
     								unlink($dir.'/'.$filename);
     							}
@@ -220,13 +220,13 @@ class File
     }
 
     /**
-     * 遍历获取目录下的指定类型的文件
-     * @param $path 路径
+     * 遍歷獲取目錄下的指定型別的檔案
+     * @param $path 路徑
      * @param array $files
-     *  文件类型数组
+     *  檔案型別陣列
      *
      * @param string $preg
-     * @return array 所有文件路径
+     * @return array 所有檔案路徑
      */
     public static function getFiles($path, &$files = array(), $preg = "/\.(gif|jpeg|jpg|png|bmp)$/i")
     {
@@ -266,7 +266,7 @@ class File
             $i = 0;
             $j = 0;
             while (false !== ($file = readdir($handle))) {
-                if (is_dir($dir . $file)) { //判断是否文件夹
+                if (is_dir($dir . $file)) { //判斷是否資料夾
                     if ($file[0] != '.') {
                         $dirArray ['dir'] [$i] = $file;
                         $i++;
@@ -318,13 +318,13 @@ class File
     public static function realSize($dir = null)
     {
         if (self::readable($dir)) {
-            if (is_file($dir)) { // 对文件的判断
+            if (is_file($dir)) { // 對檔案的判斷
                 return self::byteFormat(filesize($dir));
             } else
                 return self::byteFormat(self::dirSize($dir));
 
         } else
-            return "文件不存在";
+            return "檔案不存在";
 
     }
 
@@ -336,10 +336,10 @@ class File
     public static function readable($dir = null)
     {
         if (($frst = file_get_contents($dir)) && is_file($dir)) {
-            return true; // 是文件，并且可读
-        } else { // 是目录
+            return true; // 是檔案，並且可讀
+        } else { // 是目錄
             if (is_dir($dir) && ey_scandir($dir)) {
-                return true; // 目录可读
+                return true; // 目錄可讀
             } else {
                 return false;
             }
@@ -352,14 +352,14 @@ class File
      */
     public static function writeable($dir = null)
     {
-        if (is_file($dir)) { // 对文件的判断
+        if (is_file($dir)) { // 對檔案的判斷
             return is_writeable($dir);
         } elseif (is_dir($dir)) {
-            // 开始写入测试;
+            // 開始寫入測試;
             $file = '_______' . time() . rand() . '_______';
             $file = $dir . '/' . $file;
             if (file_put_contents($file, '//')) {
-                unlink($file); // 删除测试文件
+                unlink($file); // 刪除測試檔案
                 return true;
             } else {
                 return false;
@@ -425,12 +425,12 @@ class File
     }
 
     /**
-     * 功能：生成zip压缩文件，存放都 WEB_CACHE_PATH 中
+     * 功能：產生zip壓縮檔案，存放都 WEB_CACHE_PATH 中
      *
-     * @param $files        array   需要压缩的文件
-     * @param $filename     string  压缩后的zip文件名  包括zip后缀
-     * @param $path         string  文件所在目录
-     * @param $outDir       string  输出目录
+     * @param $files        array   需要壓縮的檔案
+     * @param $filename     string  壓縮后的zip檔名  包括zip後綴
+     * @param $path         string  檔案所在目錄
+     * @param $outDir       string  輸出目錄
      *
      * @return array
      */
@@ -456,10 +456,10 @@ class File
     }
 
     /**
-     * 功能：解压缩zip文件，存放都 DB_Backup_PATH 中
+     * 功能：解壓縮zip檔案，存放都 DB_Backup_PATH 中
      *
-     * @param $file         string   需要压缩的文件
-     * @param $outDir       string   解压文件存放目录
+     * @param $file         string   需要壓縮的檔案
+     * @param $outDir       string   解壓檔案存放目錄
      *
      * @return array
      */

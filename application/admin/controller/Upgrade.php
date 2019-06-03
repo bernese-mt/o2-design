@@ -2,10 +2,10 @@
 /**
  * eyoucms
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
@@ -19,13 +19,13 @@ use app\admin\model;
 class Upgrade extends Controller {
 
     /**
-     * 析构函数
+     * 解構函式
      */
     function __construct() {
         parent::__construct();
-        @ini_set('memory_limit', '1024M'); // 设置内存大小
-        @ini_set("max_execution_time", "0"); // 请求超时时间 0 为不限时
-        @ini_set('default_socket_timeout', 3600); // 设置 file_get_contents 请求超时时间 官方的说明，似乎没有不限时间的选项，也就是不能填0，你如果填0，那么socket就会立即返回失败，
+        @ini_set('memory_limit', '1024M'); // 設定記憶體大小
+        @ini_set("max_execution_time", "0"); // 請求超時時間 0 為不限時
+        @ini_set('default_socket_timeout', 3600); // 設定 file_get_contents 請求超時時間 官方的說明，似乎沒有不限時間的選項，也就是不能填0，你如果填0，那麼socket就會立即返回失敗，
         $this->assign('version', getCmsVersion());
     }
 
@@ -40,7 +40,7 @@ class Upgrade extends Controller {
         $sys_info['phpv']           = phpversion();
         $sys_info['ip']             = GetHostByName($_SERVER['SERVER_NAME']);
         $sys_info['fileupload']     = @ini_get('file_uploads') ? ini_get('upload_max_filesize') :'unknown';
-        $sys_info['max_ex_time']    = @ini_get("max_execution_time").'s'; //脚本最大执行时间
+        $sys_info['max_ex_time']    = @ini_get("max_execution_time").'s'; //指令碼最大執行時間
         $sys_info['set_time_limit'] = function_exists("set_time_limit") ? true : false;
         $sys_info['domain']         = $_SERVER['HTTP_HOST'];
         $sys_info['memory_limit']   = ini_get('memory_limit');                                  
@@ -57,11 +57,11 @@ class Upgrade extends Controller {
         $globalTpCache = tpCache('global');
 
         $upgradeLogic = new \app\admin\logic\UpgradeLogic();
-        $sys_info['curent_version'] = $upgradeLogic->curent_version; //当前程序版本
+        $sys_info['curent_version'] = $upgradeLogic->curent_version; //目前程式版本
         $sys_info['web_name'] = !empty($globalTpCache['web_name']) ? $globalTpCache['web_name'] : '';
         $this->assign('sys_info', $sys_info);
 
-        $upgradeMsg = $upgradeLogic->checkVersion(); //升级包消息     
+        $upgradeMsg = $upgradeLogic->checkVersion(); //升級包訊息     
         $this->assign('upgradeMsg',$upgradeMsg);
 
         $is_eyou_authortoken = session('web_is_authortoken');
@@ -76,25 +76,25 @@ class Upgrade extends Controller {
     }
 
     /**
-    * 一键升级
+    * 一鍵升級
     */
     public function OneKeyUpgrade(){
         header('Content-Type:application/json; charset=utf-8');
         function_exists('set_time_limit') && set_time_limit(0);
 
-        /*权限控制 by 小虎哥*/
+        /*許可權控制 by 小虎哥*/
         $auth_role_info = session('admin_info.auth_role_info');
         if(0 < intval(session('admin_info.role_id')) && ! empty($auth_role_info) && intval($auth_role_info['online_update']) <= 0){
-            $this->error('您没有操作权限，请联系超级管理员分配权限');
+            $this->error('您沒有操作許可權，請聯繫超級管理員分配許可權');
         }
         /*--end*/
 
         $upgradeLogic = new \app\admin\logic\UpgradeLogic();
-        $data = $upgradeLogic->OneKeyUpgrade(); //升级包消息
+        $data = $upgradeLogic->OneKeyUpgrade(); //升級包訊息
         if (1 <= intval($data['code'])) {
             $this->success($data['msg'], null, ['code'=>$data['code']]);
         } else {
-            $msg = '升级异常，请第一时间联系技术支持，排查问题！';
+            $msg = '升級異常，請第一時間聯繫技術支援，排查問題！';
             if (is_array($data)) {
                 $msg = $data['msg'];
             }
@@ -103,7 +103,7 @@ class Upgrade extends Controller {
     }
 
     /**
-    * 设置弹窗更新-不再提醒
+    * 設定彈窗更新-不再提醒
     */
     public function setPopupUpgrade()
     {
@@ -114,11 +114,11 @@ class Upgrade extends Controller {
     }
 
     /**
-    * 检测目录权限、当前版本的数据库是否与官方一致
+    * 檢測目錄許可權、目前版本的數據庫是否與官方一致
     */
     public function check_authority()
     {
-        /*------------------检测目录读写权限----------------------*/
+        /*------------------檢測目錄讀寫許可權----------------------*/
         $filelist = tpCache('system.system_upgrade_filelist');
         $filelist = base64_decode($filelist);
         $filelist = htmlspecialchars_decode($filelist);
@@ -148,34 +148,34 @@ class Upgrade extends Controller {
         }
 
         $is_pass = true;
-        $msg = '检测通过';
+        $msg = '檢測通過';
         if($i > -1)
         {
             $n = 0;
             $dirinfos = '';
             foreach($dirs as $curdir)
             {
-                $dirinfos .= $curdir['name']."&nbsp;&nbsp;状态：";
+                $dirinfos .= $curdir['name']."&nbsp;&nbsp;狀態：";
                 if ($curdir['writeable']) {
                     $dirinfos .= "[√正常]";
                 } else {
                     $is_pass = false;
                     $n++;
-                    $dirinfos .= "<font color='red'>[×不可写]</font>";
+                    $dirinfos .= "<font color='red'>[×不可寫]</font>";
                 }
                 $dirinfos .= "<br />";
             }
-            $title = "本次升级需要在下面文件夹写入更新文件，已检测站点有 <font color='red'>{$n}</font> 处没有写入权限：<br />";
-            $title .= "<font color='red'>问题分析（如有问题，请咨询技术支持）：<br />";
-            $title .= "1、检查站点目录的用户组与所有者，禁止是 root ;<br />";
-            $title .= "2、检查站点目录的读写权限，一般权限值是 0755 ;<br />";
-            $title .= "</font>涉及更新目录列表如下：<br />";
+            $title = "本次升級需要在下面資料夾寫入更新檔案，已檢測站點有 <font color='red'>{$n}</font> 處沒有寫入許可權：<br />";
+            $title .= "<font color='red'>問題分析（如有問題，請諮詢技術支援）：<br />";
+            $title .= "1、檢查站點目錄的使用者組與所有者，禁止是 root ;<br />";
+            $title .= "2、檢查站點目錄的讀寫許可權，一般許可權值是 0755 ;<br />";
+            $title .= "</font>涉及更新目錄列表如下：<br />";
             $msg = $title . $dirinfos;
         }
         /*------------------end----------------------*/
 
         if (true == $is_pass) {
-            /*------------------检测目录读写权限----------------------*/
+            /*------------------檢測目錄讀寫許可權----------------------*/
             $tmp_str = 'L2luZGV4LnBocD9tPWFwaSZjPVNlcnZpY2UmYT1nZXRfZGF0YWJhc2VfdHh0';
             $service_url = base64_decode(config('service_ey')).base64_decode($tmp_str);
             $url = $service_url . '&version=' . getCmsVersion();
@@ -183,12 +183,12 @@ class Upgrade extends Controller {
             $response = @file_get_contents($url,false,$context);
             $params = json_decode($response,true);
             if (false == $params) {
-                $this->error('连接升级服务器超时，请刷新重试，或者联系技术支持！', null, ['code'=>2]);
+                $this->error('連線升級伺服器超時，請重新整理重試，或者聯繫技術支援！', null, ['code'=>2]);
             }
 
             if (is_array($params)) {
                 if (1 == intval($params['code'])) {
-                    /*------------------组合本地数据库信息----------------------*/
+                    /*------------------組合本地數據庫資訊----------------------*/
                     $dbtables = Db::query('SHOW TABLE STATUS');
                     $local_database = array();
                     foreach ($dbtables as $k => $v) {
@@ -202,7 +202,7 @@ class Upgrade extends Controller {
                     }
                     /*------------------end----------------------*/
 
-                    /*------------------组合官方远程数据库信息----------------------*/
+                    /*------------------組合官方遠端數據庫資訊----------------------*/
                     $info = $params['info'];
                     $info = preg_replace("#[\r\n]{1,}#", "\n", $info);
                     $infos = explode("\n", $info);
@@ -215,25 +215,25 @@ class Upgrade extends Controller {
                     }
                     /*------------------end----------------------*/
 
-                    /*------------------校验数据库是否合格----------------------*/
+                    /*------------------校驗數據庫是否合格----------------------*/
                     foreach ([1] as $testk => $testv) {
-                        // 对比数据表数量
+                        // 對比數據表數量
                         if (count($local_database) < count($infolists)) {
                             $is_pass = false;
                             break;
                         }
 
-                        // 对比数据表字段数量
+                        // 對比數據表字段數量
                         foreach ($infolists as $k1 => $v1) {
                             $arr1 = explode('|', $v1);
                             
                             if (1 >= count($arr1)) {
-                                continue; // 忽略不对比的数据表
+                                continue; // 忽略不對比的數據表
                             }
 
                             $fieldArr = explode(',', $arr1[1]);
                             $table = preg_replace('/^ey_/i', PREFIX, $arr1[0]);
-                            $local_fields = Db::getFields($table); // 本地数据表字段列表
+                            $local_fields = Db::getFields($table); // 本地數據表字段列表
                             $local_database[$table]['field'] = $local_fields;
                             if (count($local_fields) < count($fieldArr)) {
                                 $is_pass = false;
@@ -244,14 +244,14 @@ class Upgrade extends Controller {
                     }
                     /*------------------end----------------------*/
                 } else if (2 == intval($params['code'])) {
-                    $this->error('官方缺少版本号'.getCmsVersion().'的数据库比较文件，请第一时间联系技术支持！', null, ['code'=>2]);
+                    $this->error('官方缺少版本號'.getCmsVersion().'的數據庫比較檔案，請第一時間聯繫技術支援！', null, ['code'=>2]);
                 }
             }
 
             if (true == $is_pass) {
                 $this->success($msg);
             } else {
-                $this->error('当前版本数据库结构与官方不一致，请第一时间联系技术支持！', null, ['code'=>2]);
+                $this->error('目前版本數據庫結構與官方不一致，請第一時間聯繫技術支援！', null, ['code'=>2]);
             }
             /*------------------end----------------------*/
         } else {
@@ -260,8 +260,8 @@ class Upgrade extends Controller {
     }
 
     /**
-     * 获取文件的目录路径
-     * @param string $filename 文件路径+文件名
+     * 獲取檔案的目錄路徑
+     * @param string $filename 檔案路徑+檔名
      * @return string
      */
     private function GetDirName($filename)
@@ -272,8 +272,8 @@ class Upgrade extends Controller {
     }
 
     /**
-     * 测试目录路径是否有读写权限
-     * @param string $dirname 文件目录路径
+     * 測試目錄路徑是否有讀寫許可權
+     * @param string $dirname 檔案目錄路徑
      * @return array
      */
     private function TestIsFileDir($dirname)
@@ -290,8 +290,8 @@ class Upgrade extends Controller {
     }
 
     /**
-     * 测试目录路径是否有写入权限
-     * @param string $d 目录路劲
+     * 測試目錄路徑是否有寫入許可權
+     * @param string $d 目錄路勁
      * @return boolean
      */
     private function TestWriteAble($d)

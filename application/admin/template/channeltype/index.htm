@@ -7,16 +7,16 @@
     <div class="flexigrid">
         <div class="mDiv">
             <div class="ftitle">
-                <h3>频道模型列表</h3>
-                <h5>(共{$pageObj->totalRows}条记录)</h5>
+                <h3>頻道模型列表</h3>
+                <h5>(共{$pageObj->totalRows}條記錄)</h5>
             </div>
-            <div title="刷新数据" class="pReload"><i class="fa fa-refresh"></i></div>
+            <div title="重新整理數據" class="pReload"><i class="fa fa-refresh"></i></div>
             <div class="sDiv">
                 {eq name="'Field@arctype_index'|is_check_access" value="1"}
                     <div class="fbutton" style="float: none;">
                           <a href="{:url('Field/arctype_index')}">
                               <div class="add">
-                                  <span><i class="fa fa-cogs"></i>栏目字段管理</span>
+                                  <span><i class="fa fa-cogs"></i>欄目欄位管理</span>
                               </div>
                           </a>
                     </div>
@@ -32,13 +32,13 @@
                             <div class="tc">ID</div>
                         </th>
                         <th abbr="article_title" axis="col3" class="">
-                            <div style="text-align: left; padding-left: 10px;" class="">模型名称</div>
+                            <div style="text-align: left; padding-left: 10px;" class="">模型名稱</div>
                         </th>
                         <th abbr="article_time" axis="col6" class="w120">
-                            <div class="tc">模型标识</div>
+                            <div class="tc">模型標識</div>
                         </th>
                         <th abbr="article_time" axis="col6" class="w50">
-                            <div class="tc">启用</div>
+                            <div class="tc">啟用</div>
                         </th>
                         <th axis="col1" id="th_handle" class="w160">
                             <div class="tc">操作</div>
@@ -55,7 +55,7 @@
                     {empty name="list"}
                         <tr>
                             <td class="no-data" align="center" axis="col0" colspan="50">
-                                <i class="fa fa-exclamation-circle"></i>没有符合条件的记录
+                                <i class="fa fa-exclamation-circle"></i>沒有符合條件的記錄
                             </td>
                         </tr>
                     {else/}
@@ -97,7 +97,7 @@
                                         {eq name="$vo.nid" value="guestbook"}
                                         &nbsp;&nbsp;&nbsp;———
                                         {else /}
-                                        <a href="{:url('Channeltype/edit',array('id'=>$vo['id']))}" class="btn blue"><i class="fa fa-pencil-square-o blocki"></i>编辑</a>
+                                        <a href="{:url('Channeltype/edit',array('id'=>$vo['id']))}" class="btn blue"><i class="fa fa-pencil-square-o blocki"></i>編輯</a>
                                         {/eq}
                                     {/eq}
 
@@ -105,13 +105,13 @@
                                         {eq name="$vo.nid" value="guestbook"}
                                         &nbsp;&nbsp;&nbsp;&nbsp;—————
                                         {else /}
-                                        <a href="{:url('Field/channel_index',array('channel_id'=>$vo['id']))}" class="btn blue"><i class="fa fa-code blocki"></i>内容字段</a>
+                                        <a href="{:url('Field/channel_index',array('channel_id'=>$vo['id']))}" class="btn blue"><i class="fa fa-code blocki"></i>內容欄位</a>
                                         {/eq}
                                     {/eq}
 
                                     {empty name="$vo.ifsystem"}
                                         {eq name="'Channeltype@del'|is_check_access" value="1"}
-                                        <a class="btn red"  href="javascript:void(0);" data-url="{:url('Channeltype/del')}" data-id="{$vo.id}" data-deltype="pseudo" onClick="delfun(this);"><i class="fa fa-trash-o blocki"></i>删除</a>
+                                        <a class="btn red"  href="javascript:void(0);" data-url="{:url('Channeltype/del')}" data-id="{$vo.id}" data-deltype="pseudo" onClick="delfun(this);"><i class="fa fa-trash-o blocki"></i>刪除</a>
                                         {/eq}
                                         <script type="text/javascript">
                                             $(function(){
@@ -146,18 +146,18 @@
             </div>
             <div style="clear:both"></div>
         </div>
-        <!--分页位置-->
+        <!--分頁位置-->
         {$pageStr}
     </div>
 </div>
 <script>
     $(document).ready(function(){
-        // 表格行点击选中切换
+        // 表格行點選選中切換
         $('#flexigrid > table>tbody >tr').click(function(){
             $(this).toggleClass('trSelected');
         });
 
-        // 点击刷新数据
+        // 點選重新整理數據
         $('.fa-refresh').click(function(){
             location.href = location.href;
         });
@@ -165,12 +165,12 @@
 
     function delfun(obj){
         var title = '<font color="#ff0000">重要提示！</font>';
-        layer.confirm('<font color="#ff0000">此操作将会删除与该模型所有相关的数据且不可恢复，请谨慎操作！</font>是否确认删除？', {
+        layer.confirm('<font color="#ff0000">此操作將會刪除與該模型所有相關的數據且不可恢復，請謹慎操作！</font>是否確認刪除？', {
             title: false,
-            btn: ['确定','取消'] //按钮
+            btn: ['確定','取消'] //按鈕
         }, function(){
-            layer_loading('正在处理');
-            // 确定
+            layer_loading('正在處理');
+            // 確定
             $.ajax({
                 type : 'post',
                 url : $(obj).attr('data-url'),
@@ -208,11 +208,11 @@
                     } else {
                         var confirm = layer.confirm(res.msg, {
                             title: false,
-                            btn: ['启用','取消'] //按钮
+                            btn: ['啟用','取消'] //按鈕
                         }, function(index){
                             layer.close(index);
-                            layer_loading('正在处理');
-                            // 确定
+                            layer_loading('正在處理');
+                            // 確定
                             $.ajax({
                                 type : 'post',
                                 url : "{:url('Channeltype/ajax_check_tpl')}",
@@ -236,7 +236,7 @@
                 }
             },
             error:function(){
-                layer.alert('网络失败，请刷新页面后重试', {icon: 2, title:false});
+                layer.alert('網路失敗，請重新整理頁面後重試', {icon: 2, title:false});
             }
         });
     }

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>可视化编辑</title>
-    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <title>視覺化編輯</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 檔案 -->
     <link rel="stylesheet" type="text/css" href="__PUBLIC__/plugins/bootstrap/css/bootstrap.min.css">
     {load href="__STATIC__/common/js/jquery.min.js" /}
     {load href="__PUBLIC__/plugins/layer-v3.1.0/layer.js" /}
@@ -40,7 +40,7 @@
             <div class="span12">
                 <form class="form-horizontal" id="post_form" onsubmit="return check_submit();">
                     <div class="control-group">
-                        <div class="controls"><label class="control-label" for="inputEmail">请选择栏目：</label>
+                        <div class="controls"><label class="control-label" for="inputEmail">請選擇欄目：</label>
                             <select id="typeid" name="typeid" class="select">
                                 {$arctype_html}
                             </select>
@@ -48,7 +48,7 @@
                     </div>
                     <!-- <div class="control-group">
                         <div class="controls">
-                            <label class="control-label" for="inputPassword">调用条数：</label>
+                            <label class="control-label" for="inputPassword">呼叫條數：</label>
                             <input type="text" name="row" value="{$field.info.row|default=5}" class="input">
                         </div>
                     </div> -->
@@ -59,7 +59,7 @@
                             <input type="hidden" name="page" value="{$field.page|default=''}">
                             <input type="hidden" name="v" value="{$v|default='pc'}">
                             <input type="hidden" name="lang" value="{$field.lang|default='cn'}">
-                            <label class="checkbox"><input type="button" class="btn" value="确认提交" onclick="check_submit();" /></label>
+                            <label class="checkbox"><input type="button" class="btn" value="確認提交" onclick="check_submit();" /></label>
                         </div>
                     </div>
                 </form>
@@ -67,7 +67,7 @@
         </div>
     </div>
     <script type="text/javascript">
-        var parentObj = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+        var parentObj = parent.layer.getFrameIndex(window.name); //先得到目前iframe層的索引
         
         function check_submit()
         {
@@ -75,11 +75,11 @@
             current_channel = parseInt(current_channel);
             var js_allow_channel_arr = {$js_allow_channel_arr};
             if ($.inArray(current_channel, js_allow_channel_arr) == -1) {
-                layer.msg('该栏目没有文档列表！', {icon: 5});
+                layer.msg('該欄目沒有文件列表！', {icon: 5});
                 return false;
             }
 
-            layer_loading('正在处理');
+            layer_loading('正在處理');
             var url = "{:url('api/Uiset/submit')}";
             $.ajax({
                 url: url,
@@ -101,24 +101,24 @@
                 },
                 error: function(e){
                     layer.closeAll();
-                    layer.alert('操作失败', {icon:5});
+                    layer.alert('操作失敗', {icon:5});
                     return false;
                 }
             });
         }
 
         /**
-         * 封装的加载层
+         * 封裝的載入層
          */
         function layer_loading(msg){
             var loading = layer.msg(
-            msg+'...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请勿刷新页面', 
+            msg+'...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;請勿重新整理頁面', 
             {
                 icon: 1,
-                time: 3600000, //1小时后后自动关闭
+                time: 3600000, //1小時後后自動關閉
                 shade: [0.2] //0.1透明度的白色背景
             });
-            //loading层
+            //loading層
             var index = layer.load(3, {
                 shade: [0.1,'#fff'] //0.1透明度的白色背景
             });

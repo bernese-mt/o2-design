@@ -8,7 +8,7 @@
     <div class="fixed-bar">
         <div class="item-title"><a class="back" href="{:url('Member/users_index')}" title="返回列表"><i class="fa fa-arrow-circle-o-left"></i></a>
             <div class="subject">
-                <h3>会员中心 - 批量新增用户</h3>
+                <h3>會員中心 - 批量新增使用者</h3>
                 <h5></h5>
             </div>
         </div>
@@ -17,18 +17,18 @@
         <div class="ncap-form-default">
             <dl class="row">
                 <dt class="tit">
-                    <label for="username"><em>*</em>用户名列表</label>
+                    <label for="username"><em>*</em>使用者名稱列表</label>
                 </dt>
                 <dd class="opt">
-                    <textarea style="width:200px; height:250px;" name="username" id="username" placeholder="一行代表一个用户名"></textarea>
+                    <textarea style="width:200px; height:250px;" name="username" id="username" placeholder="一行代表一個使用者名稱"></textarea>
                     <span class="err"></span>
-                    <p class="notic">只允许汉字、字母、数字和_-@#的字符组合</p>
-                    <p class="">提示：保存时系统自动过滤一些不符合的用户名</p>
+                    <p class="notic">只允許漢字、字母、數字和_-@#的字元組合</p>
+                    <p class="">提示：儲存時系統自動過濾一些不符合的使用者名稱</p>
                 </dd>
             </dl>
             <dl class="row">
                 <dt class="tit">
-                    <label for="password"><em>*</em>登录密码</label>
+                    <label for="password"><em>*</em>登錄密碼</label>
                 </dt>
                 <dd class="opt">
                     <input type="text" name="password" id="password" class="input-txt">
@@ -37,7 +37,7 @@
             </dl>
             <dl class="row">
                 <dt class="tit">
-                    <label for="level">用户级别</label>
+                    <label for="level">使用者級別</label>
                 </dt>
                 <dd class="opt">
                     <select name="level" id="level">
@@ -50,13 +50,13 @@
                 </dd>
             </dl>
             {notempty name='$users_para'}
-            <dl class="row"><dt class="tit"><label><b>更多资料</b></label></dt></dl>
-            <!-- 用户属性 开始 -->
+            <dl class="row"><dt class="tit"><label><b>更多資料</b></label></dt></dl>
+            <!-- 使用者屬性 開始 -->
             {include file="member/users_field"/}
-            <!-- 用户属性 结束 -->
+            <!-- 使用者屬性 結束 -->
             {/notempty}
             <div class="bot">
-                <a href="JavaScript:void(0);" onclick="checkForm();" class="ncap-btn-big ncap-btn-green" id="submitBtn">确认提交</a>
+                <a href="JavaScript:void(0);" onclick="checkForm();" class="ncap-btn-big ncap-btn-green" id="submitBtn">確認提交</a>
             </div>
         </div>
     </form>
@@ -65,19 +65,19 @@
 <script type="text/javascript">
     function checkForm(){
         if($('input[name=username]').val() == ''){
-            showErrorMsg('用户名不能为空！');
+            showErrorMsg('使用者名稱不能為空！');
             $('input[name=username]').focus();
             return false;
         }
 
         var password = $('#password').val();
         if(password == ''){
-            showErrorMsg('登录密码不能为空！');
+            showErrorMsg('登錄密碼不能為空！');
             $('#password').focus();
             return false;
         }
 
-        layer_loading('正在处理');
+        layer_loading('正在處理');
         $('#postForm').submit();
     }
 </script>

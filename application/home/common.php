@@ -1,22 +1,22 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
  */
 
-// 模板错误提示
+// 模板錯誤提示
 switch_exception();
 
 if (!function_exists('set_home_url_mode')) 
 {
-    // 设置前台URL模式
+    // 設定前臺URL模式
     function set_home_url_mode() {
         $uiset = I('param.uiset/s', 'off');
         $uiset = trim($uiset, '/');
@@ -37,11 +37,11 @@ if (!function_exists('set_home_url_mode'))
 if (!function_exists('set_arcseotitle')) 
 {
     /**
-     * 设置内容标题
+     * 設定內容標題
      */
     function set_arcseotitle($title = '', $seo_title = '', $typename = '')
     {
-        /*针对没有自定义SEO标题的文档*/
+        /*針對沒有自定義SEO標題的文件*/
         if (empty($seo_title)) {
             $web_name = tpCache('web.web_name');
             $seo_viewtitle_format = tpCache('seo.seo_viewtitle_format');
@@ -69,11 +69,11 @@ if (!function_exists('set_arcseotitle'))
 if (!function_exists('set_typeseotitle')) 
 {
     /**
-     * 设置栏目标题
+     * 設定欄目標題
      */
     function set_typeseotitle($typename = '', $seo_title = '')
     {
-        /*针对没有自定义SEO标题的列表*/
+        /*針對沒有自定義SEO標題的列表*/
         if (empty($seo_title)) {
             $web_name = tpCache('web.web_name');
             $seo_liststitle_format = tpCache('seo.seo_liststitle_format');
@@ -86,7 +86,7 @@ if (!function_exists('set_typeseotitle'))
                 default:
                     $page = I('param.page/d', 1);
                     if ($page > 1) {
-                        $typename .= "_第{$page}页";
+                        $typename .= "_第{$page}頁";
                     }
                     $seo_title = $typename.'_'.$web_name;
                     break;

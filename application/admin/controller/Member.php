@@ -1,13 +1,13 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
- * Author: 陈风任 <491085389@qq.com>
+ * Author: 陳風任 <491085389@qq.com>
  * Date: 2019-2-12
  */
 
@@ -21,54 +21,54 @@ use app\admin\logic\MemberLogic;
 class Member extends Base {
 
     /**
-     * 构造方法
+     * 構造方法
      */
     public function __construct(){
         parent::__construct();
-        /*会员中心数据表*/
-        $this->users_db        = Db::name('users');         // 用户信息表
-        $this->users_list_db   = Db::name('users_list');    // 用户资料表
-        $this->users_level_db  = Db::name('users_level');   // 用户等级表
-        $this->users_config_db = Db::name('users_config');  // 用户配置表
-        $this->users_money_db  = Db::name('users_money');   // 用户充值表
-        $this->field_type_db   = Db::name('field_type');    // 字段属性表
-        $this->users_parameter_db = Db::name('users_parameter'); // 用户属性表
-        /*结束*/
+        /*會員中心數據表*/
+        $this->users_db        = Db::name('users');         // 使用者資訊表
+        $this->users_list_db   = Db::name('users_list');    // 使用者資料表
+        $this->users_level_db  = Db::name('users_level');   // 使用者等級表
+        $this->users_config_db = Db::name('users_config');  // 使用者配置表
+        $this->users_money_db  = Db::name('users_money');   // 使用者充值表
+        $this->field_type_db   = Db::name('field_type');    // 欄位屬性表
+        $this->users_parameter_db = Db::name('users_parameter'); // 使用者屬性表
+        /*結束*/
 
-        /*订单中心数据表*/
-        $this->shop_address_db   = Db::name('shop_address');    // 用户地址表
-        $this->shop_cart_db      = Db::name('shop_cart');       // 用户购物车表
-        $this->shop_order_db     = Db::name('shop_order');      // 用户订单主表
-        $this->shop_order_log_db = Db::name('shop_order_log');  // 用户订单操作记录表
-        $this->shop_order_details_db = Db::name('shop_order_details');  // 用户订单副表
-        /*结束*/
+        /*訂單中心數據表*/
+        $this->shop_address_db   = Db::name('shop_address');    // 使用者地址表
+        $this->shop_cart_db      = Db::name('shop_cart');       // 使用者購物車表
+        $this->shop_order_db     = Db::name('shop_order');      // 使用者訂單主表
+        $this->shop_order_log_db = Db::name('shop_order_log');  // 使用者訂單操作記錄表
+        $this->shop_order_details_db = Db::name('shop_order_details');  // 使用者訂單副表
+        /*結束*/
 
-        // 是否开启支付功能设置
+        // 是否開啟支付功能設定
         $UsersConfigData = getUsersConfigData('all');
         $this->assign('userConfig',$UsersConfigData);
     }
 
-    // 用户列表
+    // 使用者列表
     public function users_index()
     {
         $list = array();
         $keywords = input('keywords/s');
 
         $condition = array();
-        // 应用搜索条件
+        // 應用搜索條件
         if (!empty($keywords)) {
             $condition['a.username'] = array('LIKE', "%{$keywords}%");
         }
 
         $condition['a.is_del'] = 0;
-        // 多语言
+        // 多語言
         $condition['a.lang'] = array('eq', $this->admin_lang);
 
         /**
-         * 数据查询
+         * 數據查詢
          */
-        $count = $this->users_db->alias('a')->where($condition)->count();// 查询满足要求的总记录数
-        $Page = new Page($count, config('paginate.list_rows'));// 实例化分页类 传入总记录数和每页显示的记录数
+        $count = $this->users_db->alias('a')->where($condition)->count();// 查詢滿足要求的總記錄數
+        $Page = new Page($count, config('paginate.list_rows'));// 實例化分頁類 傳入總記錄數和每頁顯示的記錄數
         $list = $this->users_db->field('a.*,b.level_name')
             ->alias('a')
             ->join('__USERS_LEVEL__ b', 'a.level = b.level_id', 'LEFT')
@@ -77,16 +77,16 @@ class Member extends Base {
             ->limit($Page->firstRow.','.$Page->listRows)
             ->select();
 
-        $show = $Page->show();// 分页显示输出
-        $this->assign('page',$show);// 赋值分页输出
-        $this->assign('list',$list);// 赋值数据集
-        $this->assign('pager',$Page);// 赋值分页集
+        $show = $Page->show();// 分頁顯示輸出
+        $this->assign('page',$show);// 賦值分頁輸出
+        $this->assign('list',$list);// 賦值數據集
+        $this->assign('pager',$Page);// 賦值分頁集
 
-        /*纠正数据*/
+        /*糾正數據*/
         $web_is_authortoken = tpCache('web.web_is_authortoken');
         (is_realdomain() && !empty($web_is_authortoken)) && getUsersConfigData('shop', ['shop_open'=>0]);
         
-        /*检测是否存在会员中心模板*/
+        /*檢測是否存在會員中心模板*/
         if ('v1.0.1' > getVersion('version_themeusers')) {
             $is_syn_theme_users = 1;
         } else {
@@ -98,10 +98,10 @@ class Member extends Base {
         return $this->fetch();
     }
 
-    // 检测并第一次从官方同步会员中心的前台模板
+    // 檢測並第一次從官方同步會員中心的前臺模板
     public function ajax_syn_theme_users()
     {
-        $msg = '下载会员中心模板包异常，请第一时间联系技术支持，排查问题！';
+        $msg = '下載會員中心模板包異常，請第一時間聯繫技術支援，排查問題！';
         $memberLogic = new MemberLogic;
         $data = $memberLogic->syn_theme_users();
         if (true !== $data) {
@@ -114,7 +114,7 @@ class Member extends Base {
             }
         }
 
-        /*多语言*/
+        /*多語言*/
         if (is_language()) {
             $langRow = \think\Db::name('language')->order('id asc')
                 ->cache(true, EYOUCMS_CACHE_TIME, 'language')
@@ -122,7 +122,7 @@ class Member extends Base {
             foreach ($langRow as $key => $val) {
                 tpCache('web', ['web_users_switch'=>0], $val['mark']);
             }
-        } else { // 单语言
+        } else { // 單語言
             tpCache('web', ['web_users_switch'=>0]);
         }
         /*--end*/
@@ -130,7 +130,7 @@ class Member extends Base {
         $this->error($msg);
     }
 
-    // 用户批量新增
+    // 使用者批量新增
     public function users_batch_add()
     {
         if (IS_POST) {
@@ -138,17 +138,17 @@ class Member extends Base {
 
             $username = $post['username'];
             if (empty($username)) {
-                $this->error('用户名不能为空！');
+                $this->error('使用者名稱不能為空！');
             }
 
             if (empty($post['password'])) {
-                $this->error('登录密码不能为空！');
+                $this->error('登錄密碼不能為空！');
             }
             
             $password = func_encrypt($post['password']);
 
             $usernameArr = explode("\r\n", $username);
-            $usernameArr = array_filter($usernameArr);//去除数组空值
+            $usernameArr = array_filter($usernameArr);//去除陣列空值
             $usernameArr = array_unique($usernameArr); //去重
 
             $addData = [];
@@ -175,10 +175,10 @@ class Member extends Base {
             if (!empty($addData)) {
                 $r = model('Member')->saveAll($addData);
                 if (!empty($r)) {
-                    adminLog('批量新增用户：'.get_arr_column($addData, 'username'));
+                    adminLog('批量新增使用者：'.get_arr_column($addData, 'username'));
                     $this->success('操作成功！', url('Member/users_index'));
                 } else {
-                    $this->error('操作失败');
+                    $this->error('操作失敗');
                 }
             } else {
                 $this->success('操作成功！', url('Member/users_index'));
@@ -194,7 +194,7 @@ class Member extends Base {
         return $this->fetch();
     }
 
-    // 用户新增
+    // 使用者新增
     // public function users_add()
     // {
     //     if (IS_POST) {
@@ -205,14 +205,14 @@ class Member extends Base {
     //                 'lang'      => $this->admin_lang,
     //             ])->count();
     //         if (!empty($count)) {
-    //             $this->error('用户名已存在！');
+    //             $this->error('使用者名稱已存在！');
     //         }
 
     //         if (empty($post['password']) && empty($post['password2'])) {
-    //             $this->error('登录密码不能为空！');
+    //             $this->error('登錄密碼不能為空！');
     //         } else {
     //             if ($post['password'] != $post['password2']) {
-    //                 $this->error('两次密码输入不一致！');
+    //                 $this->error('兩次密碼輸入不一致！');
     //             }
     //         }
 
@@ -221,17 +221,17 @@ class Member extends Base {
     //             $ParaData = $post['users_'];
     //         }
     //         unset($post['users_']);
-    //         // 处理提交的用户属性中必填项是否为空
-    //         // 必须传入提交的用户属性数组
+    //         // 處理提交的使用者屬性中必填項是否為空
+    //         // 必須傳入提交的使用者屬性陣列
     //         $EmptyData = model('Member')->isEmpty($ParaData);
     //         if ($EmptyData) {
     //             $this->error($EmptyData);
     //         }
             
-    //         // 处理提交的用户属性中邮箱和手机是否已存在
-    //         // isRequired方法传入的参数有2个
-    //         // 第一个必须传入提交的用户属性数组
-    //         // 第二个users_id，注册时不需要传入，修改时需要传入。
+    //         // 處理提交的使用者屬性中郵箱和手機是否已存在
+    //         // isRequired方法傳入的參數有2個
+    //         // 第一個必須傳入提交的使用者屬性陣列
+    //         // 第二個users_id，註冊時不需要傳入，修改時需要傳入。
     //         $RequiredData = model('Member')->isRequired($ParaData);
     //         if ($RequiredData) {
     //             $this->error($RequiredData);
@@ -240,13 +240,13 @@ class Member extends Base {
     //         $post['password'] = func_encrypt($post['password']);// MD5加密
     //         unset($post['password2']);
 
-    //         $post['register_place'] = 1; // 注册位置，后台注册不受注册验证影响，1为后台注册，2为前台注册。
+    //         $post['register_place'] = 1; // 註冊位置，後臺註冊不受註冊驗證影響，1為後臺註冊，2為前臺註冊。
     //         $post['reg_time'] = getTime();
     //         $post['lang'] = $this->admin_lang;
     //         $users_id = $this->users_db->add($post);
-    //         // 判断用户添加是否成功
+    //         // 判斷使用者新增是否成功
     //         if (!empty($users_id)) {
-    //             // 批量添加用户属性到属性信息表
+    //             // 批量新增使用者屬性到屬性資訊表
     //             if (!empty($ParaData)) {
     //                 $betchData = [];
     //                 $usersparaRow = $this->users_parameter_db->where([
@@ -266,7 +266,7 @@ class Member extends Base {
     //                 $this->users_list_db->insertAll($betchData);
     //             }
 
-    //             // 查询属性表的手机号码和邮箱地址，同步修改用户信息。
+    //             // 查詢屬性表的手機號碼和郵箱地址，同步修改使用者資訊。
     //             $UsersListData = model('Member')->getUsersListData('*',$users_id);
     //             $UsersListData['update_time'] = getTime(); 
     //             $this->users_db->where([
@@ -274,10 +274,10 @@ class Member extends Base {
     //                     'lang'      => $this->admin_lang,
     //                 ])->update($UsersListData);
 
-    //             adminLog('新增用户：'.$post['username']);
+    //             adminLog('新增使用者：'.$post['username']);
     //             $this->success('操作成功！', url('Member/users_index'));
     //         }else{
-    //             $this->error('操作失败');
+    //             $this->error('操作失敗');
     //         }
     //     }
 
@@ -287,14 +287,14 @@ class Member extends Base {
     //         ->select();
     //     $this->assign('user_level',$user_level);
 
-    //     // 资料信息
+    //     // 資料資訊
     //     $users_para = model('Member')->getDataPara();
     //     $this->assign('users_para',$users_para);
 
     //     return $this->fetch();
     // }
 
-    // 用户编辑
+    // 使用者編輯
     public function users_edit()
     {
         if (IS_POST) {
@@ -317,17 +317,17 @@ class Member extends Base {
             }
             unset($post['users_']);
 
-            // 处理提交的用户属性中必填项是否为空
-            // 必须传入提交的用户属性数组
+            // 處理提交的使用者屬性中必填項是否為空
+            // 必須傳入提交的使用者屬性陣列
             /*$EmptyData = model('Member')->isEmpty($ParaData);
             if ($EmptyData) {
                 $this->error($EmptyData);
             }*/
             
-            // 处理提交的用户属性中邮箱和手机是否已存在
-            // isRequired方法传入的参数有2个
-            // 第一个必须传入提交的用户属性数组
-            // 第二个users_id，注册时不需要传入，修改时需要传入。
+            // 處理提交的使用者屬性中郵箱和手機是否已存在
+            // isRequired方法傳入的參數有2個
+            // 第一個必須傳入提交的使用者屬性陣列
+            // 第二個users_id，註冊時不需要傳入，修改時需要傳入。
             $RequiredData = model('Member')->isRequired($ParaData,$users_id);
             if ($RequiredData) {
                 $this->error($RequiredData);
@@ -356,7 +356,7 @@ class Member extends Base {
                     $data['info']        = $value;
                     $data['update_time'] = getTime();
 
-                    // 若信息表中无数据则添加
+                    // 若資訊表中無數據則新增
                     $row = $this->users_list_db->where($where)->count();
                     if (empty($row)) {
                         $data['users_id'] = $post['users_id'];
@@ -369,39 +369,39 @@ class Member extends Base {
                     }
                 }
 
-                // 查询属性表的手机号码和邮箱地址，同步修改用户信息。
+                // 查詢屬性表的手機號碼和郵箱地址，同步修改使用者資訊。
                 $UsersListData = model('Member')->getUsersListData('*',$users_id);
                 $UsersListData['update_time'] = getTime(); 
                 $this->users_db->where($users_where)->update($UsersListData);
 
-                adminLog('编辑用户：'.$userinfo['username']);
+                adminLog('編輯使用者：'.$userinfo['username']);
                 $this->success('操作成功', url('Member/users_index'));
             }else{
-                $this->error('操作失败');
+                $this->error('操作失敗');
             }
         }
 
         $users_id = input('param.id/d');
 
-        // 用户信息
+        // 使用者資訊
         $info = $this->users_db->where([
                 'users_id'  => $users_id,
                 'lang'      => $this->admin_lang,
             ])->find();
         $this->assign('info',$info);
 
-        // 等级信息
+        // 等級資訊
         $level = $this->users_level_db->field('level_id,level_name')
             ->where(['lang'=>$this->admin_lang])
             ->order('level_value asc')
             ->select();
         $this->assign('level',$level);
 
-        // 属性信息
+        // 屬性資訊
         $users_para = model('Member')->getDataParaList($users_id);
         $this->assign('users_para',$users_para);
 
-        // 上一个页面来源
+        // 上一個頁面來源
         $from = input('param.from/s');
         if ('money_index' == $from) {
             $backurl = url('Member/money_index');
@@ -413,13 +413,13 @@ class Member extends Base {
         return $this->fetch();
     }
 
-    // 用户删除
+    // 使用者刪除
     public function users_del()
     {
         $users_id = input('del_id/a');
         $users_id = eyIntval($users_id);
         if (IS_AJAX_POST && !empty($users_id)) {
-            // 删除统一条件
+            // 刪除統一條件
             $Where = [
                 'users_id'  => ['IN', $users_id],
                 'lang'      => $this->admin_lang,
@@ -430,54 +430,54 @@ class Member extends Base {
 
             $return = $this->users_db->where($Where)->delete();
             if ($return) {
-                /*删除会员中心关联数据表*/
-                // 删除用户下的属性
+                /*刪除會員中心關聯數據表*/
+                // 刪除使用者下的屬性
                 $this->users_list_db->where($Where)->delete();
-                // 删除用户下的属性
+                // 刪除使用者下的屬性
                 $this->users_money_db->where($Where)->delete();
-                /*结束*/
+                /*結束*/
 
-                /*删除订单中心关联数据表*/
-                // 删除用户下的购物车表
+                /*刪除訂單中心關聯數據表*/
+                // 刪除使用者下的購物車表
                 $this->shop_cart_db->where($Where)->delete();
-                // 删除用户下的收货地址表
+                // 刪除使用者下的收貨地址表
                 $this->shop_address_db->where($Where)->delete();
-                // 删除用户下的订单主表
+                // 刪除使用者下的訂單主表
                 $this->shop_order_db->where($Where)->delete();
-                // 删除用户下的订单副表
+                // 刪除使用者下的訂單副表
                 $this->shop_order_log_db->where($Where)->delete();
-                // 删除用户下的订单操作记录表
+                // 刪除使用者下的訂單操作記錄表
                 $this->shop_order_details_db->where($Where)->delete();
-                /*结束*/
+                /*結束*/
 
-                adminLog('删除用户：'.implode(',', $username_list));
-                $this->success('删除成功');
+                adminLog('刪除使用者：'.implode(',', $username_list));
+                $this->success('刪除成功');
             }else{
-                $this->error('删除失败');
+                $this->error('刪除失敗');
             }
         }
-        $this->error('参数有误');
+        $this->error('參數有誤');
     }
 
-    // 级别列表
+    // 級別列表
     public function level_index()
     {
         $list = array();
         $keywords = input('keywords/s');
 
         $condition = array();
-        // 应用搜索条件
+        // 應用搜索條件
         if (!empty($keywords)) {
             $condition['a.level_name'] = array('LIKE', "%{$keywords}%");
         }
-        // 多语言
+        // 多語言
         $condition['a.lang'] = array('eq', $this->admin_lang);
 
         /**
-         * 数据查询
+         * 數據查詢
          */
-        $count = $this->users_level_db->alias('a')->where($condition)->count();// 查询满足要求的总记录数
-        $Page = new Page($count, config('paginate.list_rows'));// 实例化分页类 传入总记录数和每页显示的记录数
+        $count = $this->users_level_db->alias('a')->where($condition)->count();// 查詢滿足要求的總記錄數
+        $Page = new Page($count, config('paginate.list_rows'));// 實例化分頁類 傳入總記錄數和每頁顯示的記錄數
         $list = $this->users_level_db->field('a.*')
             ->alias('a')
             ->where($condition)
@@ -485,12 +485,12 @@ class Member extends Base {
             ->limit($Page->firstRow.','.$Page->listRows)
             ->select();
 
-        $show = $Page->show();// 分页显示输出
-        $this->assign('page',$show);// 赋值分页输出
-        $this->assign('list',$list);// 赋值数据集
-        $this->assign('pager',$Page);// 赋值分页集
+        $show = $Page->show();// 分頁顯示輸出
+        $this->assign('page',$show);// 賦值分頁輸出
+        $this->assign('list',$list);// 賦值數據集
+        $this->assign('pager',$Page);// 賦值分頁集
 
-        // 用于判断是否可以删除用户级别，当用户级别下存在用户时，不可删除。
+        // 用於判斷是否可以刪除使用者級別，當用戶級別下存在使用者時，不可刪除。
         $levelgroup = $this->users_db->field('level')
             ->where(['lang'=>$this->admin_lang])
             ->group('level')
@@ -500,7 +500,7 @@ class Member extends Base {
         return $this->fetch();
     }
 
-    // 级别 - 新增
+    // 級別 - 新增
     public function level_add()
     {   
         if (IS_POST) {
@@ -513,9 +513,9 @@ class Member extends Base {
                 ->select();
             foreach ($levelRow as $key => $val) {
                 if ($val['level_name'] == $post['level_name']) {
-                    $this->error('级别名称已存在！');
+                    $this->error('級別名稱已存在！');
                 } else if (intval($val['level_value']) == $post['level_value']) {
-                    $this->error('用户等级值不能重复！');
+                    $this->error('使用者等級值不能重複！');
                 }
             }
 
@@ -527,17 +527,17 @@ class Member extends Base {
             $data = array_merge($post, $newData);
             $r = $this->users_level_db->add($data);
             if ($r) {
-                adminLog('新增用户级别：'.$data['level_name']);
+                adminLog('新增使用者級別：'.$data['level_name']);
                 $this->success('操作成功', url('Member/level_index'));
             } else {
-                $this->error('操作失败');
+                $this->error('操作失敗');
             }
         }
 
         return $this->fetch();
     }
 
-    // 级别 - 编辑
+    // 級別 - 編輯
     public function level_edit()
     {
         if (IS_POST) {
@@ -553,9 +553,9 @@ class Member extends Base {
                 ->select();
             foreach ($levelRow as $key => $val) {
                 if ($val['level_name'] == $post['level_name']) {
-                    $this->error('级别名称已存在！');
+                    $this->error('級別名稱已存在！');
                 } else if (intval($val['level_value']) == $post['level_value']) {
-                    $this->error('用户等级值不能重复！');
+                    $this->error('使用者等級值不能重複！');
                 }
             }
 
@@ -569,10 +569,10 @@ class Member extends Base {
                     'lang'      => $this->admin_lang,
                 ])->update($data);
             if ($r) {
-                adminLog('编辑用户级别：'.$data['level_name']);
+                adminLog('編輯使用者級別：'.$data['level_name']);
                 $this->success('操作成功', url('Member/level_index'));
             } else {
-                $this->error('操作失败');
+                $this->error('操作失敗');
             }
         }
 
@@ -587,7 +587,7 @@ class Member extends Base {
         return $this->fetch();
     }
 
-    // 级别 - 删除
+    // 級別 - 刪除
     public function level_del()
     {
         $level_id = input('del_id/a');
@@ -604,7 +604,7 @@ class Member extends Base {
 
             foreach ($result as $val) {
                 if (1 == intval($val['is_system'])) {
-                    $this->error('系统内置，不可删除！');
+                    $this->error('系統內建，不可刪除！');
                 }
             }
 
@@ -613,7 +613,7 @@ class Member extends Base {
                     'lang'  => $this->admin_lang,
                 ])->count();
             if (!empty($info)) {
-                $this->error('选中的级别存在用户，不可删除！');
+                $this->error('選中的級別存在使用者，不可刪除！');
             }
 
             $return = $this->users_level_db->where([
@@ -621,19 +621,19 @@ class Member extends Base {
                     'lang'      => $this->admin_lang,
                 ])->delete();
             if ($return) {
-                adminLog('删除用户级别：'.implode(',', $level_name_list));
-                $this->success('删除成功');
+                adminLog('刪除使用者級別：'.implode(',', $level_name_list));
+                $this->success('刪除成功');
             }else{
-                $this->error('删除失败');
+                $this->error('刪除失敗');
             }
         }
-        $this->error('参数有误');
+        $this->error('參數有誤');
     }
 
-    // 属性列表
+    // 屬性列表
     public function attr_index()
     {
-        //属性数据
+        //屬性數據
         $info = $this->users_parameter_db->field('a.*,a.title,b.title as dtypetitle')
             ->alias('a')
             ->join('__FIELD_TYPE__ b', 'a.dtype = b.name', 'LEFT')
@@ -642,16 +642,16 @@ class Member extends Base {
             ->select();
         foreach ($info as $key => $value) {
             if ('email' == $value['dtype']) {
-                $info[$key]['dtypetitle'] = '邮箱地址';
+                $info[$key]['dtypetitle'] = '郵箱地址';
             } else if ('mobile' == $value['dtype']) {
-                $info[$key]['dtypetitle'] = '手机号码';
+                $info[$key]['dtypetitle'] = '手機號碼';
             }
         }
         $this->assign('info',$info);
         return $this->fetch();
     }
 
-    // 属性添加
+    // 屬性新增
     public function attr_add()
     {   
         if (IS_POST) {
@@ -659,17 +659,17 @@ class Member extends Base {
             $post['title'] = trim($post['title']);
 
             if (empty($post['title'])) {
-                $this->error('属性标题不能为空！');
+                $this->error('屬性標題不能為空！');
             }
             if (empty($post['dtype'])) {
-                $this->error('请选择属性类型！');
+                $this->error('請選擇屬性型別！');
             }
 
             $count = $this->users_parameter_db->where([
                     'title'=>$post['title']
                 ])->count();
             if (!empty($count)) {
-                $this->error('属性标题已存在！');
+                $this->error('屬性標題已存在！');
             }
 
             $post['dfvalue']     = str_replace('，', ',', $post['dfvalue']);
@@ -686,11 +686,11 @@ class Member extends Base {
                         'update_time'   => getTime(),
                     ]);
                 if ($return) {
-                    adminLog('新增用户属性：'.$post['title']);
+                    adminLog('新增使用者屬性：'.$post['title']);
                     $this->success('操作成功',url('Member/attr_index'));
                 }
             }
-            $this->error('操作失败');
+            $this->error('操作失敗');
         }
 
         $field = $this->field_type_db->field('name,title,ifoption')
@@ -702,7 +702,7 @@ class Member extends Base {
         return $this->fetch();
     }
 
-    // 属性修改
+    // 屬性修改
     public function attr_edit()
     {
         $para_id = input('param.id/d');
@@ -712,10 +712,10 @@ class Member extends Base {
             $post['title'] = trim($post['title']);
 
             if (empty($post['title'])) {
-                $this->error('属性标题不能为空！');
+                $this->error('屬性標題不能為空！');
             }
             if (empty($post['dtype'])) {
-                $this->error('请选择属性类型！');
+                $this->error('請選擇屬性型別！');
             }
 
             $count = $this->users_parameter_db->where([
@@ -723,7 +723,7 @@ class Member extends Base {
                     'para_id'   => ['NEQ', $post['para_id']],
                 ])->count();
             if ($count) {
-                $this->error('属性标题已存在！');
+                $this->error('屬性標題已存在！');
             }
 
             $post['dfvalue'] = str_replace('，', ',', $post['dfvalue']);
@@ -734,10 +734,10 @@ class Member extends Base {
                     'lang'      => $this->admin_lang,
                 ])->update($post);
             if ($return) {
-                adminLog('编辑用户属性：'.$post['title']);
+                adminLog('編輯使用者屬性：'.$post['title']);
                 $this->success('操作成功',url('Member/attr_index'));
             }else{
-                $this->error('操作失败');
+                $this->error('操作失敗');
             }
         }
 
@@ -757,7 +757,7 @@ class Member extends Base {
         return $this->fetch();
     }
 
-    // 属性删除
+    // 屬性刪除
     public function attr_del()
     {
         $para_id = input('del_id/a');
@@ -772,28 +772,28 @@ class Member extends Base {
                 ->select();
             $title_list = get_arr_column($result, 'title');
 
-            // 删除用户属性表数据
+            // 刪除使用者屬性表數據
             $return = $this->users_parameter_db->where([
                     'para_id'  => ['IN', $para_id],
                     'lang'      => $this->admin_lang,
                 ])->delete();
 
             if ($return) {
-                // 删除用户属性信息表数据
+                // 刪除使用者屬性資訊表數據
                 $this->users_list_db->where([
                         'para_id'  => ['IN', $para_id],
                         'lang'      => $this->admin_lang,
                     ])->delete();
-                adminLog('删除用户属性：'.implode(',', $title_list));
-                $this->success('删除成功');
+                adminLog('刪除使用者屬性：'.implode(',', $title_list));
+                $this->success('刪除成功');
             }else{
-                $this->error('删除失败');
+                $this->error('刪除失敗');
             }
         }
-        $this->error('参数有误');
+        $this->error('參數有誤');
     }
 
-    // 功能设置
+    // 功能設定
     public function users_config()
     {
         if (IS_POST) {
@@ -804,14 +804,14 @@ class Member extends Base {
             $shop_open_old = getUsersConfigData('shop.shop_open');
             /*--end*/
 
-            // 邮件验证的检测
+            // 郵件驗證的檢測
             if (2 == $post['users']['users_verification']) {
                 $users_config_email = $this->users_config_email();
                 if (!empty($users_config_email)) {
                    $this->error($users_config_email);
                 }
             }
-            // 第三方登录
+            // 第三方登錄
             if (1 == $post['oauth']['oauth_open']) {
                 empty($post['oauth']['oauth_qq']) && $post['oauth']['oauth_qq'] = 0;
                 empty($post['oauth']['oauth_weixin']) && $post['oauth']['oauth_weixin'] = 0;
@@ -823,11 +823,11 @@ class Member extends Base {
             $this->success('操作成功');
         }
 
-        // 获取用户配置信息
+        // 獲取使用者配置資訊
         $UsersConfigData = getUsersConfigData('all');
         $this->assign('info',$UsersConfigData);
 
-        /*检测是否存在订单中心模板*/
+        /*檢測是否存在訂單中心模板*/
         if ('v1.0.1' > getVersion('version_themeshop') && !empty($UsersConfigData['shop_open'])) {
             $is_syn_theme_shop = 1;
         } else {
@@ -839,7 +839,7 @@ class Member extends Base {
         return $this->fetch();
     }
 
-    // 第三方登录配置
+    // 第三方登錄配置
     public function ajax_set_oauth_config()
     {
         $oauth = input('param.oauth/s', 'qq');
@@ -847,48 +847,48 @@ class Member extends Base {
         return $this->fetch();
     }
 
-    // 邮件验证的检测
+    // 郵件驗證的檢測
     public function ajax_users_config_email()
     {   
         if (IS_AJAX) {
-            // 邮件验证的检测
+            // 郵件驗證的檢測
             $users_config_email = $this->users_config_email();
             if (!empty($users_config_email)) {
                $this->error($users_config_email);
             }
-            $this->success('检验通过');
+            $this->success('檢驗通過');
         }
-        $this->error('参数有误');
+        $this->error('參數有誤');
     }
         
     private function users_config_email(){
-        // 用户属性信息
+        // 使用者屬性資訊
         $where = array(
             'name'      => ['LIKE', "email_%"],
             'lang'      => $this->admin_lang,
             'is_system' => 1,
         );
-        // 是否要为必填项
+        // 是否要為必填項
         $param = $this->users_parameter_db->where($where)->field('title,is_hidden')->find();
         if (empty($param) || 1 == $param['is_hidden']) {
-            return "请先把用户属性的<font color='red'>{$param['title']}</font>设置为显示，且为必填项！";
+            return "請先把使用者屬性的<font color='red'>{$param['title']}</font>設定為顯示，且為必填項！";
         }
 
         $param = $this->users_parameter_db->where($where)->field('title,is_required')->find();
         if (empty($param) || 0 == $param['is_required']) {
-            return "请先把用户属性的<font color='red'>{$param['title']}</font>设置为必填项！";
+            return "請先把使用者屬性的<font color='red'>{$param['title']}</font>設定為必填項！";
         }
 
-        // 是否开启邮箱发送扩展
+        // 是否開啟郵箱發送擴充套件
         $openssl_funcs = get_extension_funcs('openssl');
         if (!$openssl_funcs) {
-            return "请联系空间商，开启php的 <font color='red'>openssl</font> 扩展！";
+            return "請聯繫空間商，開啟php的 <font color='red'>openssl</font> 擴充套件！";
         }
 
         $send_email_scene = config('send_email_scene');
         $scene = $send_email_scene[2]['scene'];
 
-        // 自动启用注册邮件模板
+        // 自動啟用註冊郵件模板
         Db::name('smtp_tpl')->where([
                 'send_scene'    => $scene,
                 'lang'          => $this->admin_lang,
@@ -897,11 +897,11 @@ class Member extends Base {
                 'update_time'   => getTime(),
             ]);
 
-        // 是否填写邮件配置
+        // 是否填寫郵件配置
         $smtp_config = tpCache('smtp');
         foreach ($smtp_config as $val) {
             if (empty($val)) {
-                return "请先完善<font color='red'>(邮件配置)</font>，具体步骤【基本信息】->【接口配置】->【邮件配置】";
+                return "請先完善<font color='red'>(郵件配置)</font>，具體步驟【基本資訊】->【介面配置】->【郵件配置】";
             }
         }
 
@@ -917,13 +917,13 @@ class Member extends Base {
         $this->assign('wechat',unserialize($wechat));
         /*--end*/
 
-        /*支付宝支付配置*/
+        /*支付寶支付配置*/
         $alipay = !empty($payConfig['pay_alipay_config']) ? $payConfig['pay_alipay_config'] : [];
         $this->assign('alipay',unserialize($alipay));
         if (version_compare(PHP_VERSION,'5.5.0','<')) {
-            $php_version = 1; // PHP5.4.0或更低版本，可使用旧版支付方式
+            $php_version = 1; // PHP5.4.0或更低版本，可使用舊版支付方式
         }else{
-            $php_version = 0;// PHP5.5.0或更高版本，可使用新版支付方式，兼容旧版支付方式
+            $php_version = 0;// PHP5.5.0或更高版本，可使用新版支付方式，相容舊版支付方式
         }
         $this->assign('php_version',$php_version);
         /*--end*/
@@ -931,28 +931,28 @@ class Member extends Base {
         return $this->fetch();
     }
     
-    // 微信配信信息
+    // 微信配信資訊
     public function wechat_set(){
         if (IS_POST) {
             $post = input('post.');
             if (empty($post['wechat']['appid'])) {
-                $this->error('微信AppId不能为空！');
+                $this->error('微信AppId不能為空！');
             }
             if (empty($post['wechat']['mchid'])) {
-                $this->error('微信MchId不能为空！');
+                $this->error('微信MchId不能為空！');
             }
             if (empty($post['wechat']['key'])) {
-                $this->error('微信KEY值不能为空！');
+                $this->error('微信KEY值不能為空！');
             }
 
             $data = model('Pay')->payForQrcode($post['wechat']);
             if ($data['return_code'] == 'FAIL') {
-                if ('签名错误' == $data['return_msg']) {
-                    $this->error('微信KEY值错误！');
+                if ('簽名錯誤' == $data['return_msg']) {
+                    $this->error('微信KEY值錯誤！');
                 }else if ('appid不存在' == $data['return_msg']) {
-                    $this->error('微信AppId错误！');
-                }else if ('商户号mch_id或sub_mch_id不存在' == $data['return_msg']) {
-                    $this->error('微信MchId错误！');
+                    $this->error('微信AppId錯誤！');
+                }else if ('商戶號mch_id或sub_mch_id不存在' == $data['return_msg']) {
+                    $this->error('微信MchId錯誤！');
                 }
             }
 
@@ -963,20 +963,20 @@ class Member extends Base {
         }
     }
 
-    // 支付宝配信信息
+    // 支付寶配信資訊
     public function alipay_set(){
         if (IS_POST) {
             $post = input('post.');
             $php_version = $post['alipay']['version'];
             if (0 == $php_version) {
                 if (empty($post['alipay']['app_id'])) {
-                    $this->error('支付APPID不能为空！');
+                    $this->error('支付APPID不能為空！');
                 }
                 if (empty($post['alipay']['merchant_private_key'])) {
-                    $this->error('商户私钥不能为空！');
+                    $this->error('商戶私鑰不能為空！');
                 }
                 if (empty($post['alipay']['alipay_public_key'])) {
-                    $this->error('支付宝公钥不能为空！');
+                    $this->error('支付寶公鑰不能為空！');
                 }
 
                 $order_number = getTime();
@@ -986,17 +986,17 @@ class Member extends Base {
                 }
             }else if (1 == $php_version) {
                 if (empty($post['alipay']['account'])) {
-                    $this->error('支付宝账号不能为空！');
+                    $this->error('支付寶賬號不能為空！');
                 }
                 if (empty($post['alipay']['code'])) {
-                    $this->error('交易安全校验码不能为空！');
+                    $this->error('交易安全校驗碼不能為空！');
                 }
                 if (empty($post['alipay']['id'])) {
-                    $this->error('合作者身份ID不能为空！');
+                    $this->error('合作者身份ID不能為空！');
                 }
             }
 
-            // 处理数据中的空格和换行
+            // 處理數據中的空格和換行
             $post['alipay']['app_id']               = preg_replace('/\r|\n/', '', $post['alipay']['app_id']);
             $post['alipay']['merchant_private_key'] = preg_replace('/\r|\n/', '', $post['alipay']['merchant_private_key']);
             $post['alipay']['alipay_public_key']    = preg_replace('/\r|\n/', '', $post['alipay']['alipay_public_key']);
@@ -1008,26 +1008,26 @@ class Member extends Base {
         }
     }
 
-    // 充值记录列表
+    // 充值記錄列表
     public function money_index()
     {
         $list = array();
         $keywords = input('keywords/s');
 
         $condition = array();
-        // 应用搜索条件
+        // 應用搜索條件
         if (!empty($keywords)) {
             $condition['a.order_number'] = array('LIKE', "%{$keywords}%");
         }
 
-        // 多语言
+        // 多語言
         $condition['a.lang'] = array('eq', $this->admin_lang);
 
         /**
-         * 数据查询
+         * 數據查詢
          */
-        $count = $this->users_money_db->alias('a')->where($condition)->count();// 查询满足要求的总记录数
-        $Page = new Page($count, config('paginate.list_rows'));// 实例化分页类 传入总记录数和每页显示的记录数
+        $count = $this->users_money_db->alias('a')->where($condition)->count();// 查詢滿足要求的總記錄數
+        $Page = new Page($count, config('paginate.list_rows'));// 實例化分頁類 傳入總記錄數和每頁顯示的記錄數
         $list = $this->users_money_db->field('a.*,b.username')
             ->alias('a')
             ->join('__USERS__ b', 'a.users_id = b.users_id', 'LEFT')
@@ -1036,16 +1036,16 @@ class Member extends Base {
             ->limit($Page->firstRow.','.$Page->listRows)
             ->select();
 
-        $show = $Page->show();// 分页显示输出
-        $this->assign('page',$show);// 赋值分页输出
-        $this->assign('list',$list);// 赋值数据集
-        $this->assign('pager',$Page);// 赋值分页集
+        $show = $Page->show();// 分頁顯示輸出
+        $this->assign('page',$show);// 賦值分頁輸出
+        $this->assign('list',$list);// 賦值數據集
+        $this->assign('pager',$Page);// 賦值分頁集
 
-        // 订单类型
+        // 訂單型別
         $pay_cause_type_arr = config('global.pay_cause_type_arr');
         $this->assign('pay_cause_type_arr',$pay_cause_type_arr);
 
-        // 充值状态
+        // 充值狀態
         $pay_status_arr = config('global.pay_status_arr');
         $this->assign('pay_status_arr',$pay_status_arr);
 
@@ -1056,7 +1056,7 @@ class Member extends Base {
         return $this->fetch();
     }
 
-    // 充值记录编辑
+    // 充值記錄編輯
     public function money_edit()
     {   
         $param = input('param.');
@@ -1065,25 +1065,25 @@ class Member extends Base {
         $UsersData = $this->users_db->find($MoneyData['users_id']);
         $this->assign('UsersData',$UsersData);
         
-        // 支付宝查询订单
+        // 支付寶查詢訂單
         if ('alipay' == $MoneyData['pay_method']) {
             $return = $this->check_alipay_order($MoneyData['order_number']);
             $this->assign('return',$return);
         }
 
-        // 微信查询订单
+        // 微信查詢訂單
         if ('wechat' == $MoneyData['pay_method']) {
             $return = $this->check_wechat_order($MoneyData['order_number']);
             $this->assign('return',$return);
         }
 
-        // 人为处理订单
+        // 人為處理訂單
         if ('artificial' == $MoneyData['pay_method']) {
-            $return = '人为处理';
+            $return = '人為處理';
             $this->assign('return',$return);
         }
 
-        // 获取订单状态
+        // 獲取訂單狀態
         $pay_status_arr = Config::get('global.pay_status_arr');
         $this->assign('pay_status_arr',$pay_status_arr);
 
@@ -1094,50 +1094,50 @@ class Member extends Base {
         return $this->fetch();
     }
 
-    // 标记订单逻辑
+    // 標記訂單邏輯
     public function money_mark_order()
     {
         if (IS_POST) {
             $moneyid     = input('param.moneyid/d');
 
-            // 查询订单信息
+            // 查詢訂單資訊
             $MoneyData = $this->users_money_db->where([
                 'moneyid'     => $moneyid,
                 'lang'         => $this->admin_lang,
             ])->find();
 
-            // 处理订单逻辑
+            // 處理訂單邏輯
             if (in_array($MoneyData['status'], [1,3])) {
 
                 $users_id = $MoneyData['users_id'];
                 $order_number = $MoneyData['order_number'];
                 $return = '';
-                if ('alipay' == $MoneyData['pay_method']) { // 支付宝查询订单
+                if ('alipay' == $MoneyData['pay_method']) { // 支付寶查詢訂單
                     $return = $this->check_alipay_order($order_number);
-                } else if ('wechat' == $MoneyData['pay_method']) { // 微信查询订单
+                } else if ('wechat' == $MoneyData['pay_method']) { // 微信查詢訂單
                     $return = $this->check_wechat_order($order_number);
-                } else if ('artificial' == $MoneyData['pay_method']) { // 手工充值订单
+                } else if ('artificial' == $MoneyData['pay_method']) { // 手工充值訂單
                     $return = '手工充值';
                 }
                 
                 $result = [
                     'users_id'    => $users_id,
                     'order_number'=> $order_number,
-                    'status'      => '手动标记为已充值订单',
-                    'details'     => '充值详情：'.$return,
-                    'pay_method'  => 'artificial', //人为处理
+                    'status'      => '手動標記為已充值訂單',
+                    'details'     => '充值詳情：'.$return,
+                    'pay_method'  => 'artificial', //人為處理
                     'money'       => $MoneyData['money'],
                     'users_money' => $MoneyData['users_money'],
                 ];
 
-                // 标记为未付款
+                // 標記為未付款
                 if (3 == $MoneyData['status']) {
-                    $result['status'] = '手动标记为未付款订单';
+                    $result['status'] = '手動標記為未付款訂單';
                 } else if (1 == $MoneyData['status']) {
-                    $result['status'] = '手动标记为已充值订单';
+                    $result['status'] = '手動標記為已充值訂單';
                 }
 
-                // 修改用户充值明细表对应的订单数据，存入返回的数据，订单标记为已付款
+                // 修改使用者充值明細表對應的訂單數據，存入返回的數據，訂單標記為已付款
                 $Where = [
                     'moneyid'  => $MoneyData['moneyid'],
                     'users_id'  => $users_id,
@@ -1148,7 +1148,7 @@ class Member extends Base {
                     'update_time'   => getTime(),
                 ];
 
-                // 标记为未付款时则状态更新为1
+                // 標記為未付款時則狀態更新為1
                 if (3 == $MoneyData['status']) {
                     $UpdateData['status'] = 1;
                 } else if (1 == $MoneyData['status']) {
@@ -1158,12 +1158,12 @@ class Member extends Base {
                 $IsMoney = $this->users_money_db->where($Where)->update($UpdateData);
 
                 if (!empty($IsMoney)) {
-                    // 同步修改用户的金额
+                    // 同步修改使用者的金額
                     $UsersData = [
                         'update_time' => getTime(),
                     ];
 
-                    // 标记为未付款时则减去金额
+                    // 標記為未付款時則減去金額
                     if (3 == $MoneyData['status']) {
                         $UsersData = $this->users_db->field('users_money')->find($users_id);
                         if ($UsersData['users_money'] <= $MoneyData['money']) {
@@ -1181,62 +1181,62 @@ class Member extends Base {
                     }
                 }
             }
-            $this->error('操作失败');
+            $this->error('操作失敗');
         }
     }
 
-    // 查询订单付款状态(微信)
+    // 查詢訂單付款狀態(微信)
     private function check_wechat_order($order_number)
     {
         if (!empty($order_number)) {
-            // 引入文件
+            // 引入檔案
             vendor('wechatpay.lib.WxPayApi');
             vendor('wechatpay.lib.WxPayConfig');
-            // 实例化加载订单号
+            // 實例化載入訂單號
             $input  = new \WxPayOrderQuery;
             $input->SetOut_trade_no($order_number);
 
-            // 处理微信配置数据
+            // 處理微信配置數據
             $pay_wechat_config = getUsersConfigData('pay.pay_wechat_config');
             $pay_wechat_config = unserialize($pay_wechat_config);
             $config_data['app_id'] = $pay_wechat_config['appid'];
             $config_data['mch_id'] = $pay_wechat_config['mchid'];
             $config_data['key']    = $pay_wechat_config['key'];
 
-            // 实例化微信配置
+            // 實例化微信配置
             $config = new \WxPayConfig($config_data);
             $wxpayapi = new \WxPayApi;
 
-            // 返回结果
+            // 返回結果
             $result = $wxpayapi->orderQuery($config, $input);
 
-            // 判断结果
+            // 判斷結果
             if ('ORDERNOTEXIST' == $result['err_code'] && 'FAIL' == $result['result_code']) {
-                return '订单在微信中不存在！';
+                return '訂單在微信中不存在！';
             }else if ('NOTPAY' == $result['trade_state'] && 'SUCCESS' == $result['result_code']) {
-                return '订单在微信中生成，但并未支付完成！';
+                return '訂單在微信中產生，但並未支付完成！';
             }else if ('SUCCESS' == $result['trade_state'] && 'SUCCESS' == $result['result_code']) {
-                return '订单已使用'.$result['attach'].'完成！';
+                return '訂單已使用'.$result['attach'].'完成！';
             }
         }else{
             return false;
         }
     }
 
-    // 查询订单付款状态(支付宝)
+    // 查詢訂單付款狀態(支付寶)
     private function check_alipay_order($order_number,$admin_pay='',$alipay='')
     {
         if (!empty($order_number)) {
-            // 引入文件
+            // 引入檔案
             vendor('alipay.pagepay.service.AlipayTradeService');
             vendor('alipay.pagepay.buildermodel.AlipayTradeQueryContentBuilder');
 
-            // 实例化加载订单号
+            // 實例化載入訂單號
             $RequestBuilder = new \AlipayTradeQueryContentBuilder;
             $out_trade_no   = trim($order_number);
             $RequestBuilder->setOutTradeNo($out_trade_no);
 
-            // 处理支付宝配置数据
+            // 處理支付寶配置數據
             if (empty($alipay)) {
                 $pay_alipay_config = getUsersConfigData('pay.pay_alipay_config');
                 if (empty($pay_alipay_config)) {
@@ -1251,10 +1251,10 @@ class Member extends Base {
             $config['gatewayUrl'] = 'https://openapi.alipay.com/gateway.do';
             $config['alipay_public_key'] = $alipay['alipay_public_key'];
 
-            // 实例化支付宝配置
+            // 實例化支付寶配置
             $aop = new \AlipayTradeService($config);
 
-            // 返回结果
+            // 返回結果
             if (!empty($admin_pay)) {
                 $result = $aop->IsQuery($RequestBuilder,$admin_pay);
             }else{
@@ -1263,22 +1263,22 @@ class Member extends Base {
 
             $result = json_decode(json_encode($result),true);
 
-            // 判断结果
+            // 判斷結果
             if ('40004' == $result['code'] && 'Business Failed' == $result['msg']) {
-                // 用于支付宝支付配置验证
+                // 用於支付寶支付配置驗證
                 if (!empty($admin_pay)) { return 'ok'; }
-                // 用于订单查询
-                return '订单在支付宝中不存在！';
+                // 用於訂單查詢
+                return '訂單在支付寶中不存在！';
             }else if ('10000' == $result['code'] && 'WAIT_BUYER_PAY' == $result['trade_status']) {
-                return '订单在支付宝中生成，但并未支付完成！';
+                return '訂單在支付寶中產生，但並未支付完成！';
             }else if ('10000' == $result['code'] && 'TRADE_SUCCESS' == $result['trade_status']) {
-                return '订单已使用支付宝支付完成！';
+                return '訂單已使用支付寶支付完成！';
             }
 
-            // 用于支付宝支付配置验证
+            // 用於支付寶支付配置驗證
             if (!empty($admin_pay) && !empty($result)) {
                 if ('40001' == $result['code'] && 'Missing Required Arguments' == $result['msg']) {
-                    return '商户私钥错误！';
+                    return '商戶私鑰錯誤！';
                 }
                 if (!is_array($result)) {
                     return $result;
@@ -1288,35 +1288,35 @@ class Member extends Base {
     }
 
     /**
-     * 版本检测更新弹窗
+     * 版本檢測更新彈窗
      */
     public function ajax_check_upgrade_version()
     {
         $memberLogic = new MemberLogic;
-        $upgradeMsg = $memberLogic->checkVersion(); // 升级包消息
-        $this->success('检测成功', null, $upgradeMsg);  
+        $upgradeMsg = $memberLogic->checkVersion(); // 升級包訊息
+        $this->success('檢測成功', null, $upgradeMsg);  
     }
 
     /**
-    * 一键升级
+    * 一鍵升級
     */
     public function OneKeyUpgrade(){
         header('Content-Type:application/json; charset=utf-8');
         function_exists('set_time_limit') && set_time_limit(0);
 
-        /*权限控制 by 小虎哥*/
+        /*許可權控制 by 小虎哥*/
         $auth_role_info = session('admin_info.auth_role_info');
         if(0 < intval(session('admin_info.role_id')) && ! empty($auth_role_info) && intval($auth_role_info['online_update']) <= 0){
-            $this->error('您没有操作权限，请联系超级管理员分配权限');
+            $this->error('您沒有操作許可權，請聯繫超級管理員分配許可權');
         }
         /*--end*/
 
         $memberLogic = new MemberLogic;
-        $data = $memberLogic->OneKeyUpgrade(); //升级包消息
+        $data = $memberLogic->OneKeyUpgrade(); //升級包訊息
         if (1 <= intval($data['code'])) {
             $this->success($data['msg'], null, ['code'=>$data['code']]);
         } else {
-            $msg = '模板升级异常，请第一时间联系技术支持，排查问题！';
+            $msg = '模板升級異常，請第一時間聯繫技術支援，排查問題！';
             if (is_array($data)) {
                 $msg = $data['msg'];
             }
@@ -1325,13 +1325,13 @@ class Member extends Base {
     }
 
     /**
-    * 检测目录权限
+    * 檢測目錄許可權
     */
     public function check_authority()
     {
         $filelist = input('param.filelist/s');
         $memberLogic = new MemberLogic;
-        $data = $memberLogic->checkAuthority($filelist); //检测目录权限
+        $data = $memberLogic->checkAuthority($filelist); //檢測目錄許可權
         if (is_array($data)) {
             if (1 == $data['code']) {
                 $this->success($data['msg']);
@@ -1339,24 +1339,24 @@ class Member extends Base {
                 $this->error($data['msg'], null, $data['data']);
             }
         } else {
-            $this->error('检测模板失败', null, ['code'=>1]);
+            $this->error('檢測模板失敗', null, ['code'=>1]);
         }
     }
 
-    // 前台会员左侧菜单
+    // 前臺會員左側菜單
     public function ajax_menu_index()
     {
         $list = array();
         $condition = array();
 
-        // 多语言
+        // 多語言
         $condition['a.lang'] = array('eq', $this->admin_lang);
 
         /**
-         * 数据查询
+         * 數據查詢
          */
-        $count = Db::name('users_menu')->alias('a')->where($condition)->count();// 查询满足要求的总记录数
-        $Page = new Page($count, config('paginate.list_rows'));// 实例化分页类 传入总记录数和每页显示的记录数
+        $count = Db::name('users_menu')->alias('a')->where($condition)->count();// 查詢滿足要求的總記錄數
+        $Page = new Page($count, config('paginate.list_rows'));// 實例化分頁類 傳入總記錄數和每頁顯示的記錄數
         $row = Db::name('users_menu')->field('a.*')
             ->alias('a')
             ->where($condition)
@@ -1367,7 +1367,7 @@ class Member extends Base {
         $list = [];
         $pay_open = getUsersConfigData('pay.pay_open');
         foreach ($row as $key => $val) {
-            /*是否开启支付功能*/
+            /*是否開啟支付功能*/
             if (1 != $pay_open && 'user/Pay/pay_consumer_details' == $val['mca']) {
                 continue;
             }
@@ -1375,10 +1375,10 @@ class Member extends Base {
             $list[] = $val;
         }
 
-        $show = $Page->show();// 分页显示输出
-        $this->assign('page',$show);// 赋值分页输出
-        $this->assign('list',$list);// 赋值数据集
-        $this->assign('pager',$Page);// 赋值分页集
+        $show = $Page->show();// 分頁顯示輸出
+        $this->assign('page',$show);// 賦值分頁輸出
+        $this->assign('list',$list);// 賦值數據集
+        $this->assign('pager',$Page);// 賦值分頁集
 
         return $this->fetch();
     }

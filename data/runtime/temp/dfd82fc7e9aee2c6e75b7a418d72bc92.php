@@ -1,8 +1,8 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:49:"./application/admin/template/ad_position\edit.htm";i:1558672259;s:66:"D:\site\ada\o2-design\application\admin\template\public\layout.htm";i:1558672259;s:66:"D:\site\ada\o2-design\application\admin\template\public\footer.htm";i:1558667897;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:49:"./application/admin/template/ad_position\edit.htm";i:1559529923;s:66:"D:\site\ada\o2-design\application\admin\template\public\layout.htm";i:1559529926;s:66:"D:\site\ada\o2-design\application\admin\template\public\footer.htm";i:1559529926;}*/ ?>
 <!doctype html>
 <html>
 <head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -48,7 +48,7 @@
     <div class="fixed-bar">
         <div class="item-title"><a class="back" href="javascript:history.back();" title="返回列表"><i class="fa fa-arrow-circle-o-left"></i></a>
             <div class="subject">
-                <h3>编辑广告</h3>
+                <h3>編輯廣告</h3>
                 <h5></h5>
             </div>
         </div>
@@ -57,24 +57,24 @@
         <div class="ncap-form-default">
             <dl class="row">
                 <dt class="tit">
-                    <label for="title"><em>*</em>广告名称</label>
+                    <label for="title"><em>*</em>廣告名稱</label>
                 </dt>
                 <dd class="opt">
                     <input type="text" name="title" value="<?php echo $field['title']; ?>" id="title" class="input-txt">
                     <span class="err"></span>
-                    <p class="notic">保持唯一性，不可重复</p>
+                    <p class="notic">保持唯一性，不可重複</p>
                 </dd>
             </dl>
            
             <dl class="row" style="z-index: 2">
                 <dt class="tit">
-                    <label>广告内容</label>
+                    <label>廣告內容</label>
                 </dt>
                 <dd class="opt">          
                     <div class="tab-pane" id="tab_imgupload">
                         <?php if($main_lang == $admin_lang): ?>
                         <a href="javascript:void(0);" onClick="GetUploadify(30,'','allimg','imgupload_call_back');" class="imgupload">
-                            <i class="fa fa-photo"></i>上传图片
+                            <i class="fa fa-photo"></i>上傳圖片
                         </a>
                         <?php endif; ?>
                         <input type="hidden" id="ImagesId">
@@ -85,15 +85,15 @@
                                     <?php if(is_array($ad_data) || $ad_data instanceof \think\Collection || $ad_data instanceof \think\Paginator): $k = 0; $__LIST__ = $ad_data;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($k % 2 );++$k;?>
                                         <div class="images_upload">
                                             <div class="ic">
-                                                <div class='upimg' title="拖动修改排序" >
+                                                <div class='upimg' title="拖動修改排序" >
                                                     <div class='icaction' style="display: none" >
                                                         <span class="load_images" onclick="Images('<?php echo $vo['litpic']; ?>');">
                                                             <a href="javascript:void(0);" style="color:white">
-                                                                <i class='fa fa-search-plus'></i>查看大图
+                                                                <i class='fa fa-search-plus'></i>檢視大圖
                                                             </a>
                                                         </span>
                                                         <span class="load_images mr5" onclick="LoadImagesId('<?php echo $vo['id']; ?>');">
-                                                            <i class='fa fa-photo'></i>更换图片
+                                                            <i class='fa fa-photo'></i>更換圖片
                                                         </span>
                                                     </div>
                                                     <div class='cover-bg' style="display: none" ></div>
@@ -104,22 +104,22 @@
                                                 <span class="span_input">
                                                     <input type="hidden" id="<?php echo $vo['id']; ?>_Litpic" name="img_litpic[]" value="<?php echo $vo['litpic']; ?>"/>
                                                 </span>
-                                                <textarea name="img_title[]" placeholder="请输入标题..."><?php echo $vo['title']; ?></textarea>
-                                                <textarea name="img_links[]" placeholder="请输入链接网址..."><?php echo $vo['links']; ?></textarea>
+                                                <textarea name="img_title[]" placeholder="請輸入標題..."><?php echo $vo['title']; ?></textarea>
+                                                <textarea name="img_links[]" placeholder="請輸入鏈接網址..."><?php echo $vo['links']; ?></textarea>
 
                                                 <div class="operation">
                                                     <a href="javascript:void(0);">
                                                         <label>
-                                                            <input type="checkbox" <?php if($vo['target'] == '1'): ?> checked="checked" <?php endif; ?> title="在新窗口打开" onclick="CheckedTarget(this)"/>新窗口
+                                                            <input type="checkbox" <?php if($vo['target'] == '1'): ?> checked="checked" <?php endif; ?> title="在新視窗打開" onclick="CheckedTarget(this)"/>新視窗
                                                             <input type="hidden" name="img_target[]" value="<?php echo $vo['target']; ?>">
                                                         </label>
                                                     </a>
                                                     <a href="javascript:void(0);" onclick="copyToClipBoard(<?php echo $vo['id']; ?>)">
-                                                        <i class="fa fa-file-code-o"></i>标签调用
+                                                        <i class="fa fa-file-code-o"></i>標籤呼叫
                                                     </a>
                                                     <?php if($main_lang == $admin_lang): ?>
                                                         <a href="javascript:void(0)" onclick="ClearPicArr(this,'<?php echo $vo['litpic']; ?>','<?php echo $vo['id']; ?>')">
-                                                            <i class="fa fa-remove"></i>删除
+                                                            <i class="fa fa-remove"></i>刪除
                                                         </a>
                                                     <?php endif; ?>
                                                 </div>
@@ -134,15 +134,15 @@
                             </tbody>
                         </table>
                     </div>
-                    <!-- 上传图片显示的样板 start -->
+                    <!-- 上傳圖片顯示的樣板 start -->
                     <div class="images_upload_tpl none">
                         <div class="images_upload ic">
                             <div class="ic">
-                                <div class='upimg' title="拖动修改排序" >
+                                <div class='upimg' title="拖動修改排序" >
                                     <div class='icaction' style="display: none">
                                         <span class="load_images" onclick="">
                                             <a href="javascript:void(0);" style="color: white">
-                                                <i class='fa fa-search-plus'></i>查看大图
+                                                <i class='fa fa-search-plus'></i>檢視大圖
                                             </a>
                                         </span>
                                     </div>
@@ -153,8 +153,8 @@
                                 <span class="span_input">
                                     <input type="hidden"/>
                                 </span>
-                                <textarea placeholder="请输入标题..."></textarea>
-                                <textarea placeholder="请输入链接网址..."></textarea>
+                                <textarea placeholder="請輸入標題..."></textarea>
+                                <textarea placeholder="請輸入鏈接網址..."></textarea>
                                 <div class="operation">
                                     <a href="javascript:void(0)">&nbsp;&nbsp;</a>
                                     <a href="javascript:void(0)">&nbsp;&nbsp;</a>
@@ -162,12 +162,12 @@
                             </div>
                         </div>
                     </div>
-                    <!-- 上传图片显示的样板 end -->
+                    <!-- 上傳圖片顯示的樣板 end -->
                 </dd>
             </dl>
             <dl class="row">
                 <dt class="tit">
-                    <label>广告备注</label>
+                    <label>廣告備註</label>
                 </dt>
                 <dd class="opt">          
                     <textarea rows="5" cols="60" id="intro" name="intro" style="height:60px;"><?php echo $field['intro']; ?></textarea>
@@ -177,13 +177,13 @@
             </dl>
             <div class="bot">
                 <input type="hidden" name="id" value="<?php echo $field['id']; ?>">
-                <a href="JavaScript:void(0);" onclick="checkForm();" class="ncap-btn-big ncap-btn-green" id="submitBtn">确认提交</a>
+                <a href="JavaScript:void(0);" onclick="checkForm();" class="ncap-btn-big ncap-btn-green" id="submitBtn">確認提交</a>
             </div>
         </div>
     </form>
 </div>
 <script type="text/javascript">
-    // 勾选新窗口打开链接
+    // 勾選新視窗打開鏈接
     function CheckedTarget(t){
         if ($(t).is(':checked')) {
             $(t).parent().find('input[name="img_target[]"]').val(1);
@@ -192,7 +192,7 @@
         }
     }
 
-    // 鼠标事件，加载查看大图和更新图片
+    // 滑鼠事件，載入檢視大圖和更新圖片
     $(document).ready(function(){
        $(".upimg").live('mouseover', function(){
             $(this).find('div.icaction').show();
@@ -203,7 +203,7 @@
        });
     });
 
-    // 查看大图
+    // 檢視大圖
     function Images(links){
         var max_width = 900;
         var max_height = 600;
@@ -235,78 +235,78 @@
                 title: false,
                 closeBtn: true,
                 area: [width, height],
-                skin: 'layui-layer-nobg', //没有背景色
+                skin: 'layui-layer-nobg', //沒有背景色
                 content: links_img
             });
         });
     }
 
-    // 判断输入框是否为空
+    // 判斷輸入框是否為空
     function checkForm(){
         if($('input[name=title]').val() == ''){
-            layer.msg('广告位名称不能为空！', {icon: 2,time: 1000});
+            layer.msg('廣告位名稱不能為空！', {icon: 2,time: 1000});
             return false;
         }
-        layer_loading('正在处理');
+        layer_loading('正在處理');
         $('#post_form').submit();
     }
 
-    // 获取点击更新图片的ID并加载隐藏域
+    // 獲取點選更新圖片的ID並載入隱藏域
     function LoadImagesId(id){
-        // 加载ID到隐藏域
+        // 載入ID到隱藏域
         $('#ImagesId').val(id);
-        // 调用图片上传JS
+        // 呼叫圖片上傳JS
         GetUploadify(1,'','allimg','UpdataImages');
     }
 
-    // 更新图片
+    // 更新圖片
     function UpdataImages(path){
-        // 获取点击的ID
+        // 獲取點選的ID
         var id = $('#ImagesId').val();
-        // 加载图片到显示层
+        // 載入圖片到顯示層
         $("#"+id+"_Id").attr('src', path);
-        // 加载图片到提交的隐藏域
+        // 載入圖片到提交的隱藏域
         $("#"+id+"_Litpic").val(path);
     }
 
-    // 上传图集相册回调函数
+    // 上傳圖集相簿回撥函式
     function imgupload_call_back(paths){
         var last_div = $(".images_upload_tpl").html();
         var inputs   = $('.span_input input');
-        // 图片数据处理
+        // 圖片數據處理
         for (var i=0;i<paths.length ;i++){
-            $(".images_upload:eq(0)").before(last_div);  // 插入一个 新图片
-            // 修改他的链接地址
+            $(".images_upload:eq(0)").before(last_div);  // 插入一個 新圖片
+            // 修改他的鏈接地址
             $(".images_upload:eq(0)").find('span:eq(0)').attr('onclick',"Images('"+paths[i]+"');");
-            // 修改他的图片路径
+            // 修改他的圖片路徑
             $(".images_upload:eq(0)").find('img').attr('src',paths[i]);
-            // 处理图片路径及隐藏域
+            // 處理圖片路徑及隱藏域
             if (inputs.length > '0') {
-                // 修改隐藏域
+                // 修改隱藏域
                 $(".images_upload:eq(0)").find('input:eq(0)').attr('name','img_id[]').attr('value','');
                 $(".span_input:eq(0)").find('input:eq(0)').attr('name','img_litpic[]').attr('value',paths[i]);
-                // 处理标题
+                // 處理標題
                 $(".images_upload:eq(0)").find('textarea:eq(0)').attr('name','img_title[]');
-                // 处理跳转链接
+                // 處理跳轉鏈接
                 $(".images_upload:eq(0)").find('textarea:eq(1)').attr('name','img_links[]');
-                // 提交新窗口选项
-                $(".images_upload:eq(0)").find('div.operation a:eq(0)').html("<label><input type='checkbox' title='在新窗口打开' onclick='CheckedTarget(this)'/>新窗口<input type='hidden' name='img_target[]' value='0'></label>");
-                // 删除按钮
-                $(".images_upload:eq(0)").find('div.operation a:eq(1)').attr('onclick',"ClearPicArr(this,'"+paths[i]+"')").html("<i class='fa fa-remove'></i>删除");
+                // 提交新視窗選項
+                $(".images_upload:eq(0)").find('div.operation a:eq(0)').html("<label><input type='checkbox' title='在新視窗打開' onclick='CheckedTarget(this)'/>新視窗<input type='hidden' name='img_target[]' value='0'></label>");
+                // 刪除按鈕
+                $(".images_upload:eq(0)").find('div.operation a:eq(1)').attr('onclick',"ClearPicArr(this,'"+paths[i]+"')").html("<i class='fa fa-remove'></i>刪除");
             }
         }
     }
 
-    // 上传之后删除组图input
+    // 上傳之後刪除組圖input
     function ClearPicArr(obj,path,id='')
     {
-        // 删除数据库记录
+        // 刪除數據庫記錄
         $.ajax({
             type:'POST',
             url:"<?php echo url('AdPosition/del_imgupload'); ?>",
             data:{del_id:id},
             success:function(){
-                $(obj).parent().parent().parent().remove(); // 删除完服务器的, 再删除 html上的图片
+                $(obj).parent().parent().parent().remove(); // 刪除完伺服器的, 再刪除 html上的圖片
                 $.ajax({
                     type:'POST',
                     url:"<?php echo url('Uploadify/delupload'); ?>",
@@ -317,22 +317,22 @@
         });
     }
 
-    // 代码调用js
+    // 程式碼呼叫js
     function copyToClipBoard(id) {
         var adstr = "{eyou:ad aid='" + id + "'}\r\n   <a href='{$"+"field.links}' {$"+"field.target}><img src='{$"+"field.litpic}' alt='{$"+"field.title}' /></a>\r\n{/eyou:ad";
-        var contentdiv = '<div class="dialog_content" style="margin: 0px; padding: 0px;"><dl style="padding:10px 30px;line-height:30px"><dd>标签 ad 调用:</dd>'
+        var contentdiv = '<div class="dialog_content" style="margin: 0px; padding: 0px;"><dl style="padding:10px 30px;line-height:30px"><dd>標籤 ad 呼叫:</dd>'
         contentdiv += '<textarea rows="4" cols="60" style="width:400px;height:80px;">' + adstr + '}</textarea>'
-        contentdiv += '<dd style="border-top: dotted 1px #E7E7E7; color: #F60;">请将对应标签代码复制并粘贴到对应模板文件中！</dd></dl></div>'
+        contentdiv += '<dd style="border-top: dotted 1px #E7E7E7; color: #F60;">請將對應標籤程式碼複製並貼上到對應模板檔案中！</dd></dl></div>'
         layer.open({
-            title: '代码调用',
+            title: '程式碼呼叫',
             type: 1,
             skin: 'layui-layer-demo',
-            area: ['480px', '240px'], //宽高
+            area: ['480px', '240px'], //寬高
             content: contentdiv
         });
     }
 
-    // 图集相册的拖动排序相关 js
+    // 圖集相簿的拖動排序相關 js
     $( ".sort-list" ).sortable({
         start: function( event, ui) {
         

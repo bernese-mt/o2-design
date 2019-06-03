@@ -7,9 +7,9 @@
  */
 
 namespace app\common\util;
-class ChineseSpell {//注意仅支持：GBK，故传入参数前须转码
+class ChineseSpell {//注意僅支援：GBK，故傳入參數前須轉碼
     /**
-     * @var array $chineseSpellList 拼音编码对应表
+     * @var array $chineseSpellList 拼音編碼對應表
      * @access private
      */
     private $chineseSpellList = array(
@@ -412,10 +412,10 @@ class ChineseSpell {//注意仅支持：GBK，故传入参数前须转码
     );
 
     /**
-     * 取汉字所有拼音
-     * @param string $chinese 要转换的汉字
+     * 取漢字所有拼音
+     * @param string $chinese 要轉換的漢字
      * @param string $delimiter 分隔符
-     * @param int $length 返回的长度
+     * @param int $length 返回的長度
      * @return string
      */
     public function getFullSpell($chinese, $delimiter = '', $length = 0){
@@ -427,9 +427,9 @@ class ChineseSpell {//注意仅支持：GBK，故传入参数前须转码
     }
 
     /**
-     * 取汉字第【一个】汉字完整拼音
-     * @param string $chinese 要转换的汉字
-     * @param int $length 返回的长度
+     * 取漢字第【一個】漢字完整拼音
+     * @param string $chinese 要轉換的漢字
+     * @param int $length 返回的長度
      * @return string
      */
     public function getFirstSpell($chinese, $length = 0){
@@ -441,9 +441,9 @@ class ChineseSpell {//注意仅支持：GBK，故传入参数前须转码
     }
 
     /**
-     * 取一个汉字码对应的拼音
-     * @param int $num 汉字码
-     * @param string $blank 空白字符
+     * 取一個漢字碼對應的拼音
+     * @param int $num 漢字碼
+     * @param string $blank 空白字元
      * @return string
      */
     public function getChineseSpell ($num, $blank = ''){
@@ -463,10 +463,10 @@ class ChineseSpell {//注意仅支持：GBK，故传入参数前须转码
     }
 
     /**
-     * 取汉字拼音
-     * @param string $chinese 要转换的汉字
+     * 取漢字拼音
+     * @param string $chinese 要轉換的漢字
      * @param string $delimiter 分隔符
-     * @param int $first 是否只返回第一个
+     * @param int $first 是否只返回第一個
      * @return string
      */
     public function getChineseSpells($chinese, $delimiter = '', $first=0){
@@ -486,7 +486,7 @@ class ChineseSpell {//注意仅支持：GBK，故传入参数前须转码
     }
 }
 //$ok=new ChineseSpell();
-//$str='%^&《》：“{}AGDFasdfas===取汉字所有拼音';
+//$str='%^&《》：「{}AGDFasdfas===取漢字所有拼音';
 //echo $ok->getFullSpell($str);
 //echo '<p />';
 //echo $ok->getChineseSpells($str);

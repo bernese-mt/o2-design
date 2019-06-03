@@ -1,11 +1,11 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
@@ -15,19 +15,19 @@ namespace app\admin\model;
 use think\Model;
 
 /**
- * 字段
+ * 欄位
  */
 class Field extends Model
 {
     //初始化
     protected function initialize()
     {
-        // 需要调用`Model`的`initialize`方法
+        // 需要呼叫`Model`的`initialize`方法
         parent::initialize();
     }
 
     /**
-     * 获取全部字段类型
+     * 獲取全部欄位型別
      * @author 小虎哥 by 2018-7-25
      */
     public function getFieldTypeAll($field = '*', $index_key = '')
@@ -49,16 +49,16 @@ class Field extends Model
     }
 
     /**
-     * 查询解析模型数据用以构造from表单
+     * 查詢解析模型數據用以構造from表單
      * @param intval $channel_id 模型ID
      * @param intval $ifmain 是否主表、附加表
-     * @param intval $aid 表主键ID
-     * @param array $archivesInfo 主表数据
+     * @param intval $aid 表主鍵ID
+     * @param array $archivesInfo 主表數據
      * @author 小虎哥 by 2018-7-25
      */
     public function getChannelFieldList($channel_id, $ifmain = false, $aid = '', $archivesInfo = [])
     {
-        $hideField = array('id','aid','add_time','update_time'); // 不显示在发布表单的字段
+        $hideField = array('id','aid','add_time','update_time'); // 不顯示在發佈表單的欄位
         $channel_id = intval($channel_id);
         $map = array(
             'channel_id'    => array('eq', $channel_id),
@@ -70,7 +70,7 @@ class Field extends Model
         }
         $row = model('Channelfield')->getListByWhere($map, '*');
 
-        /*编辑时显示的数据*/
+        /*編輯時顯示的數據*/
         $addonRow = array();
         if (0 < intval($aid)) {
             if (6 == $channel_id) {
@@ -87,14 +87,14 @@ class Field extends Model
     }
 
     /**
-     * 查询解析数据表的数据用以构造from表单
+     * 查詢解析數據表的數據用以構造from表單
      * @param intval $channel_id 模型ID
-     * @param intval $id 表主键ID
+     * @param intval $id 表主鍵ID
      * @author 小虎哥 by 2018-7-25
      */
     public function getTabelFieldList($channel_id, $id = '')
     {
-        $hideField = array('id','aid','add_time','update_time'); // 不显示在发布表单的字段
+        $hideField = array('id','aid','add_time','update_time'); // 不顯示在發佈表單的欄位
         $channel_id = intval($channel_id);
         $map = array(
             'channel_id'    => array('eq', $channel_id),
@@ -103,7 +103,7 @@ class Field extends Model
         );
         $row = model('Channelfield')->getListByWhere($map, '*');
 
-        /*编辑时显示的数据*/
+        /*編輯時顯示的數據*/
         $addonRow = array();
         if (0 < intval($id)) {
             if (config('global.arctype_channel_id') == $channel_id) {
@@ -117,11 +117,11 @@ class Field extends Model
     }
 
     /**
-     * 处理页面显示自定义字段的表单数据
-     * @param array $list 自定义字段列表
-     * @param array $formFieldStr 表单元素名称的统一数组前缀
-     * @param array $addonRow 自定义字段的数据
-     * @param array $archivesInfo 主表数据
+     * 處理頁面顯示自定義欄位的表單數據
+     * @param array $list 自定義欄位列表
+     * @param array $formFieldStr 表單元素名稱的統一陣列字首
+     * @param array $addonRow 自定義欄位的數據
+     * @param array $archivesInfo 主表數據
      * @author 小虎哥 by 2018-7-25
      */
     public function showViewFormData($list, $formFieldStr, $addonRow = array(), $archivesInfo = [])
@@ -207,7 +207,7 @@ class Field extends Model
                         $val[$val['name'].'_eyou_imgupload_list'] = array();
                         if (isset($addonRow[$val['name']]) && !empty($addonRow[$val['name']])) {
                             $eyou_imgupload_list = explode(',', $addonRow[$val['name']]);
-                            /*支持子目录*/
+                            /*支援子目錄*/
                             foreach ($eyou_imgupload_list as $k1 => $v1) {
                                 $eyou_imgupload_list[$k1] = handle_subdir_pic($v1);
                             }
@@ -227,7 +227,7 @@ class Field extends Model
                     {
                         $val['dfvalue'] = isset($addonRow[$val['name']]) ? $addonRow[$val['name']] : $val['dfvalue'];
 
-                        /*追加指定内嵌样式到编辑器内容的img标签，兼容图片自动适应页面*/
+                        /*追加指定內嵌樣式到編輯器內容的img標籤，相容圖片自動適應頁面*/
                         $title = '';
                         if (!empty($archivesInfo['title'])) {
                             $title = $archivesInfo['title'];
@@ -238,7 +238,7 @@ class Field extends Model
                         $val['dfvalue'] = htmlspecialchars(img_style_wh($content, $title));
                         /*--end*/
 
-                        /*支持子目录*/
+                        /*支援子目錄*/
                         $val['dfvalue'] = handle_subdir_pic($val['dfvalue'], 'html');
                         /*--end*/
                         break;
@@ -247,7 +247,7 @@ class Field extends Model
                     default:
                     {
                         $val['dfvalue'] = isset($addonRow[$val['name']]) ? $addonRow[$val['name']] : $val['dfvalue'];
-                        /*支持子目录*/
+                        /*支援子目錄*/
                         if (is_string($val['dfvalue'])) {
                             $val['dfvalue'] = handle_subdir_pic($val['dfvalue'], 'html');
                             $val['dfvalue'] = handle_subdir_pic($val['dfvalue']);
@@ -263,7 +263,7 @@ class Field extends Model
     }
 
     /**
-     * 查询解析模型数据用以构造from表单
+     * 查詢解析模型數據用以構造from表單
      * @author 小虎哥 by 2018-7-25
      */
     public function dealChannelPostData($channel_id, $data = array(), $dataExt = array())
@@ -333,7 +333,7 @@ class Field extends Model
 
                     // case 'htmltext':
                     // {
-                    //     /*追加指定内嵌样式到编辑器内容的img标签，兼容图片自动适应页面*/
+                    //     /*追加指定內嵌樣式到編輯器內容的img標籤，相容圖片自動適應頁面*/
                     //     $title = '';
                     //     if (!empty($data['title'])) {
                     //         $title = $data['title'];

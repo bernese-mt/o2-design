@@ -30,14 +30,14 @@
     <div class="flexigrid">
       <div class="mDiv none">
         <div class="ftitle">
-          <h3>内容列表</h3>
-          <h5>(共{$arctype_list|count}条记录)</h5>
+          <h3>內容列表</h3>
+          <h5>(共{$arctype_list|count}條記錄)</h5>
         </div>
-        <div title="刷新数据" class="pReload"><i class="fa fa-refresh"></i></div>
+        <div title="重新整理數據" class="pReload"><i class="fa fa-refresh"></i></div>
         <div class="fbutton none">
               <a href="javascript:void(0);" id="all_treeclicked" data-status="close" onclick="treeClicked(this, 'all', '');">
                   <div class="add">
-                      <span><i class="fa"></i>展开所有子栏目</span>
+                      <span><i class="fa"></i>展開所有子欄目</span>
                   </div>
               </a>
         </div>
@@ -49,7 +49,7 @@
                 <tbody>
                     <tr>
                         <td class="no-data" align="center" axis="col0" colspan="50">
-                            <i class="fa fa-exclamation-circle"></i>没有符合条件的记录
+                            <i class="fa fa-exclamation-circle"></i>沒有符合條件的記錄
                         </td>
                     </tr>
                 </tbody>
@@ -96,19 +96,19 @@
                       <a href="{:url('Arctype/single_edit',array('typeid'=>$vo['id']))}">{$vo.typename}</a>
                       {else /}
                       <a href="{:url($channeltype_list[$vo['current_channel']]['ctl_name'].'/index',array('typeid'=>$vo['id'], 'tab'=>3))}">{$vo.typename}</a>
-                      <i class="arctotal">（文档：{$vo.id|get_total_arc=###}条）</i>
+                      <i class="arctotal">（文件：{$vo.id|get_total_arc=###}條）</i>
                       {/if}
                     </div>
                   </td>
                   <td>
                       <div class="w160 tr pb0">
                          {if condition="in_array($vo['current_channel'], $allow_release_channel)"}
-                          <a href="{:url($channeltype_list[$vo['current_channel']]['ctl_name'].'/add',array('typeid'=>$vo['id'], 'tab'=>3))}" class="btn blue"><i class="fa fa-plus"></i>发布</a>
+                          <a href="{:url($channeltype_list[$vo['current_channel']]['ctl_name'].'/add',array('typeid'=>$vo['id'], 'tab'=>3))}" class="btn blue"><i class="fa fa-plus"></i>發佈</a>
                           {/if}
                         {if condition="$vo['current_channel'] == 6" /}
-                          <a href="{:url('Arctype/single_edit',array('typeid'=>$vo['id']))}" class="btn blue"><i class="fa fa-pencil-square-o"></i>内容</a>
+                          <a href="{:url('Arctype/single_edit',array('typeid'=>$vo['id']))}" class="btn blue"><i class="fa fa-pencil-square-o"></i>內容</a>
                         {else /}
-                          <a href="{:url($channeltype_list[$vo['current_channel']]['ctl_name'].'/index',array('typeid'=>$vo['id'], 'tab'=>3))}" class="btn blue"><i class="fa fa-pencil-square-o"></i>内容</a>
+                          <a href="{:url($channeltype_list[$vo['current_channel']]['ctl_name'].'/index',array('typeid'=>$vo['id'], 'tab'=>3))}" class="btn blue"><i class="fa fa-pencil-square-o"></i>內容</a>
                         {/if}
                       </div>
                   </td>
@@ -137,32 +137,32 @@
   </script>
   <script type="text/javascript">
     $(document).ready(function(){
-        // 表格行点击选中切换
+        // 表格行點選選中切換
         $('#flexigrid > table>tbody >tr').click(function(){
             $(this).toggleClass('trSelected');
         });
 
-        // 点击刷新数据
+        // 點選重新整理數據
         $('.fa-refresh').click(function(){
             location.href = location.href;
         });
 
-        // 默认全部展开
+        // 預設全部展開
         treeClicked($('#all_treeclicked'), 'all', '');
 
     });
 
-     // 点击展开 收缩节点
+     // 點選展開 收縮節點
     function treeClicked(obj,id,root_id){
       if (id == 'all') {
         var status = $(obj).attr('data-status');
         if (status == 'close') {
           $('tr[class^=parent_id_]').show().find('img').attr('src', '__SKIN__/images/tv-collapsable-last.gif');
-          $(obj).attr('data-status', 'open').find('span').html('<i class="fa"></i>关闭所有子栏目');
+          $(obj).attr('data-status', 'open').find('span').html('<i class="fa"></i>關閉所有子欄目');
         } else {
           $('tr[data-level=0]').find('img.has_children').attr('src', '/public/static/admin/images/tv-collapsable-last.gif').trigger('click');
           $('tr[class^=parent_id_]').removeClass('trSelected');
-          $(obj).attr('data-status', 'close').find('span').html('<i class="fa"></i>展开所有子栏目');
+          $(obj).attr('data-status', 'close').find('span').html('<i class="fa"></i>展開所有子欄目');
         }
         masonry(10);
       } else {
@@ -177,7 +177,7 @@
          }else{
              $(obj).attr('src','__SKIN__/images/tv-expandable.gif');           
              
-             // 如果是点击减号, 遍历循环他下面的所有都关闭
+             // 如果是點選減號, 遍歷循環他下面的所有都關閉
              var tbl = document.getElementById("arctype_table_"+root_id);
              cur_tr = obj.parentNode.parentNode.parentNode;
              var fnd = false;

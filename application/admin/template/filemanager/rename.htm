@@ -8,7 +8,7 @@
     <form class="form-horizontal" id="post_form" action="{:url('Filemanager/rename')}" method="post">
         <div class="ncap-form-default">
             <dl class="row">
-                <dt class="tit">当前路径</dt>
+                <dt class="tit">目前路徑</dt>
                 <dd class="opt">
                     {$info['activepath']|default=''}
                     <input type="hidden" name="activepath" value="{$info['activepath']|default=''}">
@@ -17,7 +17,7 @@
             </dl>
             <dl class="row">
                 <dt class="tit">
-                    <label for="url">旧名称</label>
+                    <label for="url">舊名稱</label>
                 </dt>
                 <dd class="opt">
                     {$info['filename']|default=''}
@@ -28,7 +28,7 @@
             </dl>
             <dl class="row">
                 <dt class="tit">
-                    <label for="newfilename"><em>*</em>新名称</label>
+                    <label for="newfilename"><em>*</em>新名稱</label>
                 </dt>
                 <dd class="opt">
                     <input type="text" name="newfilename" value="" id="newfilename" class="input-txt">
@@ -36,19 +36,19 @@
                     <p class="notic"></p>
                 </dd>
             </dl>
-            <div class="bot"><a href="JavaScript:void(0);" onclick="checkForm();" class="ncap-btn-big ncap-btn-green" id="submitBtn">确认提交</a></div>
+            <div class="bot"><a href="JavaScript:void(0);" onclick="checkForm();" class="ncap-btn-big ncap-btn-green" id="submitBtn">確認提交</a></div>
         </div>
     </form>
 </div>
 <script type="text/javascript">
-    // 判断输入框是否为空
+    // 判斷輸入框是否為空
     function checkForm(){
         if($.trim($('input[name=newfilename]').val()) == ''){
-            showErrorMsg('新名称不能为空！');
+            showErrorMsg('新名稱不能為空！');
             $('input[name=newfilename]').focus();
             return false;
         }
-        layer_loading('正在处理');
+        layer_loading('正在處理');
         $('#post_form').submit();
     }
 </script>

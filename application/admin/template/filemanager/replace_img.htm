@@ -9,7 +9,7 @@
     <form class="form-horizontal" id="post_form" action="{:url('Filemanager/replace_img')}" method="post" enctype="multipart/form-data">
         <div class="ncap-form-default">
             <dl class="row">
-                <dt class="tit">当前目录</dt>
+                <dt class="tit">目前目錄</dt>
                 <dd class="opt">
                     {$info['activepathname']|default=''}
                     <input type="hidden" name="activepath" value="{$info['activepath']|default=''}">
@@ -18,7 +18,7 @@
                 </dd>
             </dl>
             <dl class="row">
-                <dt class="tit">图片名</dt>
+                <dt class="tit">圖片名</dt>
                 <dd class="opt">
                     {$info['filename']|default=''}
                     <input type="hidden" name="filename" value="{$info.filename|default=''}">
@@ -28,7 +28,7 @@
             </dl>
             <dl class="row">
                 <dt class="tit">
-                    <label for="url">上传图片</label>
+                    <label for="url">上傳圖片</label>
                 </dt>
                 <dd class="opt">
                     <input type="file" name="upfile" value="" class="input-txt">
@@ -37,13 +37,13 @@
                 </dd>
             </dl>
             <div class="bot">
-                <a href="JavaScript:void(0);" onclick="checkForm();" class="ncap-btn-big ncap-btn-green" id="submitBtn">确认提交</a>
+                <a href="JavaScript:void(0);" onclick="checkForm();" class="ncap-btn-big ncap-btn-green" id="submitBtn">確認提交</a>
             </div>
         </div>
     </form>
 </div>
 <script type="text/javascript">
-    // 判断输入框是否为空
+    // 判斷輸入框是否為空
     function checkForm(){
         var isempty = true;
         $.each($('input[name^=upfile]'), function(index, item){
@@ -52,10 +52,10 @@
             }
         })
         if(isempty == true){
-            showErrorMsg('请选择上传图片！');
+            showErrorMsg('請選擇上傳圖片！');
             return false;
         }
-        layer_loading('正在处理');
+        layer_loading('正在處理');
         $('#post_form').submit();
     }
 </script>

@@ -1,11 +1,11 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
@@ -15,7 +15,7 @@ namespace app\home\controller;
 
 class Article extends Base
 {
-    // 模型标识
+    // 模型標識
     public $nid = 'article';
     // 模型ID
     public $channeltype = '';
@@ -42,17 +42,17 @@ class Article extends Base
                 $map = array('dirname'=>$tid);
             } else {
                 if (!is_numeric($tid) || strval(intval($tid)) !== strval($tid)) {
-                    abort(404,'页面不存在');
+                    abort(404,'頁面不存在');
                 }
                 $map = array('id'=>$tid);
             }
         }
-        $map['lang'] = $this->home_lang; // 多语言
+        $map['lang'] = $this->home_lang; // 多語言
         $row = M('arctype')->field('id,dirname')->where($map)->order('sort_order asc')->limit(1)->find();
         $tid = !empty($row['id']) ? intval($row['id']) : 0;
         $dirname = !empty($row['dirname']) ? $row['dirname'] : '';
 
-        /*301重定向到新的伪静态格式*/
+        /*301重定向到新的偽靜態格式*/
         $this->jumpRewriteFormat($tid, $dirname, 'lists');
         /*--end*/
 
@@ -69,12 +69,12 @@ class Article extends Base
     {
         $result = model('Article')->getInfo($aid);
         if (empty($result)) {
-            abort(404,'页面不存在');
+            abort(404,'頁面不存在');
         } elseif ($result['arcrank'] == -1) {
-            $this->success('待审核稿件，你没有权限阅读！');
+            $this->success('待審覈稿件，你沒有許可權閱讀！');
             exit;
         }
-        // 外部链接跳转
+        // 外部鏈接跳轉
         if ($result['is_jump'] == 1) {
             header('Location: '.$result['jumplinks']);
             exit;
@@ -83,7 +83,7 @@ class Article extends Base
 
         $tid = $result['typeid'];
         $arctypeInfo = model('Arctype')->getInfo($tid);
-        /*301重定向到新的伪静态格式*/
+        /*301重定向到新的偽靜態格式*/
         $this->jumpRewriteFormat($aid, $arctypeInfo['dirname'], 'view');
         /*--end*/
 

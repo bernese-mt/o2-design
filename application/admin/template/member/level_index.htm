@@ -7,26 +7,26 @@
     <div class="flexigrid">
         <div class="mDiv">
             <div class="ftitle">
-                <h3>用户级别列表</h3>
-                <h5>(共{$pager->totalRows}条记录)</h5>
+                <h3>使用者級別列表</h3>
+                <h5>(共{$pager->totalRows}條記錄)</h5>
             </div>
-            <div title="刷新数据" class="pReload"><i class="fa fa-refresh"></i></div>
-            <form class="navbar-form form-inline" action="{:url('Member/level_index')}" method="get" onsubmit="layer_loading('正在处理');">
+            <div title="重新整理數據" class="pReload"><i class="fa fa-refresh"></i></div>
+            <form class="navbar-form form-inline" action="{:url('Member/level_index')}" method="get" onsubmit="layer_loading('正在處理');">
                 {$searchform.hidden|default=''}
                 <div class="sDiv">
                     {include file="member/users_bar" /}
                 </div>
             </form>
         </div>
-        <!-- 操作说明 -->
+        <!-- 操作說明 -->
         <div id="explanation" class="explanation" style="color: rgb(44, 188, 163); background-color: rgb(237, 251, 248); width: 99%; height: 100%;">
             <div id="checkZoom" class="title"><i class="fa fa-lightbulb-o"></i>
-                <h4 title="提示相关设置操作时应注意的要点">操作提示</h4>
+                <h4 title="提示相關設定操作時應注意的要點">操作提示</h4>
                 <span title="收起提示" id="explanationZoom" style="display: block;"></span>
             </div>
             <ul>
-                <li>由于用户升级是以等级值由低向高升级的，因此增加组别时需注意此值的设置。</li>
-                <li>如果你增加新的用户组的等级值低于10，将自动被视为普通的注册会员。</li>
+                <li>由於使用者升級是以等級值由低向高昇級的，因此增加組別時需注意此值的設定。</li>
+                <li>如果你增加新的使用者組的等級值低於10，將自動被視為普通的註冊會員。</li>
             </ul>
         </div>
         <br/>
@@ -39,10 +39,10 @@
                             <div class="tc"></div>
                         </th>
                         <th abbr="ac_id" axis="col4">
-                            <div class="">级别名称</div>
+                            <div class="">級別名稱</div>
                         </th>
                         <th abbr="article_time" axis="col4" class="w160">
-                            <div class="tc">用户等级值</div>
+                            <div class="tc">使用者等級值</div>
                         </th>
                         <th axis="col1" class="w150">
                             <div class="tc">操作</div>
@@ -59,7 +59,7 @@
                     {empty name="list"}
                         <tr>
                             <td class="no-data" align="center" axis="col0" colspan="50">
-                                <i class="fa fa-exclamation-circle"></i>没有符合条件的记录
+                                <i class="fa fa-exclamation-circle"></i>沒有符合條件的記錄
                             </td>
                         </tr>
                     {else/}
@@ -90,16 +90,16 @@
                             <td class="">
                                 <div class="w150 tc">
                                     {eq name="'Member@level_del'|is_check_access" value="1"}
-                                        <!-- 判断是否属于系统定义级别，0为用户级别 -->
+                                        <!-- 判斷是否屬於系統定義級別，0為使用者級別 -->
                                         {eq name="$vo.is_system" value="0"}  
-                                            <!-- 判断是否级别下是否存在用户，是否可以删除。0可删除 -->
+                                            <!-- 判斷是否級別下是否存在使用者，是否可以刪除。0可刪除 -->
                                             {if condition="empty($levelgroup[$vo['level_id']])"}
-                                                <a class="btn red"  href="javascript:void(0);" data-url="{:url('Member/level_del')}" data-level_name="{$vo.level_name}" data-id="{$vo.level_id}" onClick="usersdel(this);"><i class="fa fa-trash-o"></i>删除</a>
+                                                <a class="btn red"  href="javascript:void(0);" data-url="{:url('Member/level_del')}" data-level_name="{$vo.level_name}" data-id="{$vo.level_id}" onClick="usersdel(this);"><i class="fa fa-trash-o"></i>刪除</a>
                                             {else/}
                                                 正在使用
                                             {/if}
                                         {else /}
-                                            系统内置
+                                            系統內建
                                         {/eq}
                                     {/eq}
                                 </div>
@@ -117,8 +117,8 @@
                 {eq name="$Think.const.CONTROLLER_NAME.'@level_add'|is_check_access" value="1"}
                 <div class="fbutton">
                     <a href="{:url('Member/level_add')}">
-                        <div class="add" title="新增级别">
-                            <span class="red"><i class="fa fa-plus"></i>新增级别</span>
+                        <div class="add" title="新增級別">
+                            <span class="red"><i class="fa fa-plus"></i>新增級別</span>
                         </div>
                     </a>
                 </div>
@@ -126,31 +126,31 @@
             </div>
             <div style="clear:both"></div>
         </div>
-        <!--分页位置-->
+        <!--分頁位置-->
         {$page}
     </div>
 </div>
 <script>
     $(document).ready(function(){
-        // 表格行点击选中切换
+        // 表格行點選選中切換
         $('#flexigrid > table>tbody >tr').click(function(){
             $(this).toggleClass('trSelected');
         });
 
-        // 点击刷新数据
+        // 點選重新整理數據
         $('.fa-refresh').click(function(){
             location.href = location.href;
         });
     });
 
-    // 删除
+    // 刪除
     function usersdel(obj){
-        layer.confirm('此操作不可逆，确认彻底删除？', {
+        layer.confirm('此操作不可逆，確認徹底刪除？', {
             title: false, // $(obj).attr('data-level_name'),
-            btn: ['确定','取消'] //按钮
+            btn: ['確定','取消'] //按鈕
         }, function(){
-            layer_loading('正在处理');
-            // 确定
+            layer_loading('正在處理');
+            // 確定
             $.ajax({
                 type : 'post',
                 url : $(obj).attr('data-url'),

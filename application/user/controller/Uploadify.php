@@ -1,11 +1,11 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
@@ -22,7 +22,7 @@ class Uploadify extends Base {
     private $upload_path = '';
     
     /**
-     * 析构函数
+     * 解構函式
      */
     public function __construct()
     {
@@ -43,8 +43,8 @@ class Uploadify extends Base {
         $func = input('func');
         $path = input('path','allimg');
         $num = input('num/d', '1');
-        $default_size = intval(tpCache('basic.file_size') * 1024 * 1024); // 单位为b
-        $size = input('size/d'); // 单位为kb
+        $default_size = intval(tpCache('basic.file_size') * 1024 * 1024); // 單位為b
+        $size = input('size/d'); // 單位為kb
         $size = empty($size) ? $default_size : $size*1024;
         $info = array(
             'num'=> $num,
@@ -61,7 +61,7 @@ class Uploadify extends Base {
     }
     
     /*
-     * 删除上传的图片
+     * 刪除上傳的圖片
      */
     public function delupload()
     {
@@ -78,7 +78,7 @@ class Uploadify extends Base {
                     return false;
                 }
                 $filetype = preg_replace('/^(.*)\.(\w+)$/i', '$2', $filename);
-                $phpfile = strtolower(strstr($filename,'.php'));  //排除PHP文件
+                $phpfile = strtolower(strstr($filename,'.php'));  //排除PHP檔案
                 $size = getimagesize($filename);
                 $fileInfo = explode('/',$size['mime']);
                 if($fileInfo[0] != 'image' || $phpfile || !in_array($filetype, explode(',', config('global.image_ext')))){
@@ -95,15 +95,15 @@ class Uploadify extends Base {
     }
     
     // public function fileList(){
-    //     /* 判断类型 */
+    //     /* 判斷型別 */
     //     $type = input('type','Images');
     //     switch ($type){
-    //         /* 列出图片 */
+    //         /* 列出圖片 */
     //         case 'Images' : $allowFiles = str_replace(',', '|', $this->image_type);break;
         
     //         case 'Flash' : $allowFiles = 'flash|swf';break;
         
-    //         /* 列出文件 */
+    //         /* 列出檔案 */
     //         default : 
     //         {
     //             $file_type = tpCache('basic.file_type');
@@ -116,7 +116,7 @@ class Uploadify extends Base {
         
     //     $key = empty($_GET['key']) ? '' : $_GET['key'];
         
-    //     /* 获取参数 */
+    //     /* 獲取參數 */
     //     $size = isset($_GET['size']) ? htmlspecialchars($_GET['size']) : $listSize;
     //     $start = isset($_GET['start']) ? htmlspecialchars($_GET['start']) : 0;
     //     $end = $start + $size;
@@ -124,7 +124,7 @@ class Uploadify extends Base {
     //     $path = input('path','allimg');
     //     if (1 == preg_match('#\.#', $path)) {
     //         echo json_encode(array(
-    //             "state" => "路径不符合规范",
+    //             "state" => "路徑不符合規範",
     //             "list" => array(),
     //             "start" => $start,
     //             "total" => 0
@@ -133,11 +133,11 @@ class Uploadify extends Base {
     //     }
     //     $path = $this->upload_path.$path;
 
-    //     /* 获取文件列表 */
+    //     /* 獲取檔案列表 */
     //     $files = $this->getfiles($path, $allowFiles, $key);
     //     if (empty($files)) {
     //         echo json_encode(array(
-    //             "state" => "没有相关文件",
+    //             "state" => "沒有相關檔案",
     //             "list" => array(),
     //             "start" => $start,
     //             "total" => count($files)
@@ -145,13 +145,13 @@ class Uploadify extends Base {
     //         exit;
     //     }
         
-    //     /* 获取指定范围的列表 */
+    //     /* 獲取指定範圍的列表 */
     //     $len = count($files);
     //     for ($i = min($end, $len) - 1, $list = array(); $i < $len && $i >= 0 && $i >= $start; $i--){
     //         $list[] = $files[$i];
     //     }
         
-    //     /* 返回数据 */
+    //     /* 返回數據 */
     //     $result = json_encode(array(
     //         "state" => "SUCCESS",
     //         "list" => $list,
@@ -163,7 +163,7 @@ class Uploadify extends Base {
     // }
 
     /**
-     * 遍历获取目录下的指定类型的文件
+     * 遍歷獲取目錄下的指定型別的檔案
      * @param $path
      * @param array $files
      * @return array
@@ -180,7 +180,7 @@ class Uploadify extends Base {
     //             } else {
     //                 if (preg_match("/\.(".$allowFiles.")$/i", $file) && preg_match("/.*". $key .".*/i", $file)) {
     //                     $files[] = array(
-    //                         'url'=> ROOT_DIR.'/'.$path2, // 支持子目录
+    //                         'url'=> ROOT_DIR.'/'.$path2, // 支援子目錄
     //                         'name'=> $file,
     //                         'mtime'=> filemtime($path2)
     //                     );
@@ -200,12 +200,12 @@ class Uploadify extends Base {
     //         case 'config':
     //             $result =  json_encode($CONFIG2);
     //             break;
-    //         /* 上传图片 */
+    //         /* 上傳圖片 */
     //         case 'uploadimage':
     //             $fieldName = $CONFIG2['imageFieldName'];
     //             $result = $this->imageUp();
     //             break;
-    //         /* 上传涂鸦 */
+    //         /* 上傳塗鴉 */
     //         case 'uploadscrawl':
     //             $config = array(
     //                 "pathFormat" => $CONFIG2['scrawlPathFormat'],
@@ -217,17 +217,17 @@ class Uploadify extends Base {
     //             $base64 = "base64";
     //             $result = $this->upBase64($config,$fieldName);
     //             break;
-    //         /* 上传视频 */
+    //         /* 上傳視訊 */
     //         case 'uploadvideo':
     //             $fieldName = $CONFIG2['videoFieldName'];
     //             $result = $this->upFile($fieldName);
     //             break;
-    //         /* 上传文件 */
+    //         /* 上傳檔案 */
     //         case 'uploadfile':
     //             $fieldName = $CONFIG2['fileFieldName'];
     //             $result = $this->upFile($fieldName);
     //             break;
-    //         /* 列出图片 */
+    //         /* 列出圖片 */
     //         case 'listimage':
     //             $allowFiles = $CONFIG2['imageManagerAllowFiles'];
     //             $listSize = $CONFIG2['imageManagerListSize'];
@@ -235,7 +235,7 @@ class Uploadify extends Base {
     //             $get = $_GET;
     //             $result =$this->fileList2($allowFiles,$listSize,$get);
     //             break;
-    //         /* 列出文件 */
+    //         /* 列出檔案 */
     //         case 'listfile':
     //             $allowFiles = $CONFIG2['fileManagerAllowFiles'];
     //             $listSize = $CONFIG2['fileManagerListSize'];
@@ -243,7 +243,7 @@ class Uploadify extends Base {
     //             $get = $_GET;
     //             $result = $this->fileList2($allowFiles,$listSize,$get);
     //             break;
-    //         /* 抓取远程文件 */
+    //         /* 抓取遠端檔案 */
     //         case 'catchimage':
     //             $config = array(
     //                 "pathFormat" => $CONFIG2['catcherPathFormat'],
@@ -252,7 +252,7 @@ class Uploadify extends Base {
     //                 "oriName" => "remote.png"
     //             );
     //             $fieldName = $CONFIG2['catcherFieldName'];
-    //             /* 抓取远程图片 */
+    //             /* 抓取遠端圖片 */
     //             $list = array();
     //             isset($_POST[$fieldName]) ? $source = $_POST[$fieldName] : $source = $_GET[$fieldName];
                 
@@ -276,18 +276,18 @@ class Uploadify extends Base {
     //             break;
     //         default:
     //             $result = json_encode(array(
-    //                 'state' => '请求地址出错'
+    //                 'state' => '請求地址出錯'
     //             ));
     //             break;
     //     }
 
-    //     /* 输出结果 */
+    //     /* 輸出結果 */
     //     if(isset($_GET["callback"])){
     //         if(preg_match("/^[\w_]+$/", $_GET["callback"])){
     //             echo htmlspecialchars($_GET["callback"]).'('.$result.')';
     //         }else{
     //             echo json_encode(array(
-    //                 'state' => 'callback参数不合法'
+    //                 'state' => 'callback參數不合法'
     //             ));
     //         }
     //     }else{
@@ -295,12 +295,12 @@ class Uploadify extends Base {
     //     }
     // }
     
-    // //上传文件
+    // //上傳檔案
     // private function upFile($fieldName){
     //     $image_upload_limit_size = intval(tpCache('basic.file_size') * 1024 * 1024);
     //     $file = request()->file($fieldName);
     //     if(empty($file)){
-    //         return json_encode(['state' =>'ERROR，请上传文件']);
+    //         return json_encode(['state' =>'ERROR，請上傳檔案']);
     //     }
     //     $error = $file->getError();
     //     if(!empty($error)){
@@ -309,19 +309,19 @@ class Uploadify extends Base {
     //     $result = $this->validate(
     //         ['file' => $file], 
     //         ['file'=>'fileSize:'.$image_upload_limit_size],
-    //         ['file.fileSize' => '上传文件过大']
+    //         ['file.fileSize' => '上傳檔案過大']
     //     );
     //     if (true !== $result || empty($file)) {
     //         $state = "ERROR" . $result;
     //         return json_encode(['state' =>$state]);
     //     }
 
-    //     // 移动到框架应用根目录/uploads/ 目录下
+    //     // 移動到框架應用根目錄/uploads/ 目錄下
     //     $savePath = $this->upload_path.$this->savePath.$this->sub_name;
 
     //     $ossConfig = tpCache('oss');
     //     if ($ossConfig['oss_switch']) {
-    //         //商品图片可选择存放在oss
+    //         //商品圖片可選擇存放在oss
     //         $object = $savePath.md5(getTime().uniqid(mt_rand(), TRUE)).'.'.pathinfo($file->getInfo('name'), PATHINFO_EXTENSION);
     //         $ossClient = new \app\common\logic\OssLogic;
     //         $return_url = $ossClient->uploadFile($file->getRealPath(), $object);
@@ -340,7 +340,7 @@ class Uploadify extends Base {
     //         @unlink($file->getRealPath());
     //         return json_encode($data);
     //     } else {
-    //         // 使用自定义的文件保存规则
+    //         // 使用自定義的檔案儲存規則
     //         $info = $file->rule(function ($file) {
     //             return  md5(mt_rand());
     //         })->move($savePath);
@@ -356,7 +356,7 @@ class Uploadify extends Base {
     //             'size' => $info->getSize(),
     //         );
 
-    //         //图片加水印
+    //         //圖片加水印
     //         if($data['state'] == 'SUCCESS'){
     //             $file_type = $file->getInfo('type');
     //             $file_ext = pathinfo($file->getInfo('name'), PATHINFO_EXTENSION);
@@ -382,8 +382,8 @@ class Uploadify extends Base {
     //                             $return_data['mark_txt'] = $water['mark_txt'];
     //                         }
     //                     }else{
-    //                         /*支持子目录*/
-    //                         $water['mark_img'] = preg_replace('#^(/[/\w]+)?(/public/upload/|/uploads/)#i', '$2', $water['mark_img']); // 支持子目录
+    //                         /*支援子目錄*/
+    //                         $water['mark_img'] = preg_replace('#^(/[/\w]+)?(/public/upload/|/uploads/)#i', '$2', $water['mark_img']); // 支援子目錄
     //                         /*--end*/
     //                         //$image->water(".".$water['mark_img'],9,$water['mark_degree'])->save($imgresource);
     //                         $waterPath = "." . $water['mark_img'];
@@ -399,39 +399,39 @@ class Uploadify extends Base {
     //             }
     //         }
 
-    //         $data['url'] = ROOT_DIR.$data['url']; // 支持子目录
+    //         $data['url'] = ROOT_DIR.$data['url']; // 支援子目錄
     //     }else{
     //         $data = array('state' => 'ERROR'.$info->getError());
     //     }
     //     return json_encode($data);
     // }
 
-    // //列出图片
+    // //列出圖片
     // private function fileList2($allowFiles,$listSize,$get){
     //     $dirname = './'.$this->upload_path;
     //     $allowFiles = substr(str_replace(".","|",join("",$allowFiles)),1);
-    //     /* 获取参数 */
+    //     /* 獲取參數 */
     //     $size = isset($get['size']) ? htmlspecialchars($get['size']) : $listSize;
     //     $start = isset($get['start']) ? htmlspecialchars($get['start']) : 0;
     //     $end = $start + $size;
-    //     /* 获取文件列表 */
+    //     /* 獲取檔案列表 */
     //     $path = $dirname;
     //     $files = $this->getFiles($path,$allowFiles);
     //     if(empty($files)){
     //         return json_encode(array(
-    //             "state" => "没有相关文件",
+    //             "state" => "沒有相關檔案",
     //             "list" => array(),
     //             "start" => $start,
     //             "total" => count($files)
     //         ));
     //     }
-    //     /* 获取指定范围的列表 */
+    //     /* 獲取指定範圍的列表 */
     //     $len = count($files);
     //     for($i = min($end, $len) - 1, $list = array(); $i < $len && $i >= 0 && $i >= $start; $i--){
     //         $list[] = $files[$i];
     //     }
 
-    //     /* 返回数据 */
+    //     /* 返回數據 */
     //     $result = json_encode(array(
     //         "state" => "SUCCESS",
     //         "list" => $list,
@@ -442,38 +442,38 @@ class Uploadify extends Base {
     //     return $result;
     // }
     
-    // //抓取远程图片
+    // //抓取遠端圖片
     // private function saveRemote($config,$fieldName){
     //     $imgUrl = htmlspecialchars($fieldName);
     //     $imgUrl = str_replace("&amp;","&",$imgUrl);
 
-    //     //http开头验证
+    //     //http開頭驗證
     //     if(strpos($imgUrl,"http") !== 0){
     //         $data=array(
-    //             'state' => '链接不是http链接',
+    //             'state' => '鏈接不是http鏈接',
     //         );
     //         return json_encode($data);
     //     }
-    //     //获取请求头并检测死链
+    //     //獲取請求頭並檢測死鏈
     //     $heads = get_headers($imgUrl);
     //     if(!(stristr($heads[0],"200") && stristr($heads[0],"OK"))){
     //         $data=array(
-    //             'state' => '链接不可用',
+    //             'state' => '鏈接不可用',
     //         );
     //         return json_encode($data);
     //     }
-    //     //格式验证(扩展名验证和Content-Type验证)
+    //     //格式驗證(副檔名驗證和Content-Type驗證)
     //     if(preg_match("/^http(s?):\/\/mmbiz.qpic.cn\/(.*)/", $imgUrl) != 1){
     //         $fileType = strtolower(strrchr($imgUrl,'.'));
     //         if(!in_array($fileType,$config['allowFiles']) || (isset($heads['Content-Type']) && stristr($heads['Content-Type'],"image"))){
     //             $data=array(
-    //                 'state' => '链接contentType不正确',
+    //                 'state' => '鏈接contentType不正確',
     //             );
     //             return json_encode($data);
     //         }
     //     }
 
-    //     //打开输出缓冲区并获取远程图片
+    //     //打開輸出緩衝區並獲取遠端圖片
     //     ob_start();
     //     $context = stream_context_create(
     //         array('http' => array(
@@ -493,37 +493,37 @@ class Uploadify extends Base {
     //     $file['fullName'] = $dirname.$file['name'];
     //     $fullName = $file['fullName'];
 
-    //     //检查文件大小是否超出限制
+    //     //檢查檔案大小是否超出限制
     //     if($file['filesize'] >= ($config["maxSize"])){
     //         $data=array(
-    //             'state' => '文件大小超出网站限制',
+    //             'state' => '檔案大小超出網站限制',
     //         );
     //         return json_encode($data);
     //     }
 
-    //     //创建目录失败
+    //     //建立目錄失敗
     //     if(!file_exists($dirname) && !mkdir($dirname,0777,true)){
     //         $data=array(
-    //             'state' => '目录创建失败',
+    //             'state' => '目錄建立失敗',
     //         );
     //         return json_encode($data);
     //     }else if(!is_writeable($dirname)){
     //         $data=array(
-    //             'state' => '目录没有写权限',
+    //             'state' => '目錄沒有寫許可權',
     //         );
     //         return json_encode($data);
     //     }
 
-    //     //移动文件
-    //     if(!(file_put_contents($fullName, $img) && file_exists($fullName))){ //移动失败
+    //     //移動檔案
+    //     if(!(file_put_contents($fullName, $img) && file_exists($fullName))){ //移動失敗
     //         $data=array(
-    //             'state' => '写入文件内容错误',
+    //             'state' => '寫入檔案內容錯誤',
     //         );
     //         return json_encode($data);
-    //     }else{ //移动成功
+    //     }else{ //移動成功
     //         $data=array(
     //             'state' => 'SUCCESS',
-    //             'url' => ROOT_DIR.substr($file['fullName'],1), // 支持子目录
+    //             'url' => ROOT_DIR.substr($file['fullName'],1), // 支援子目錄
     //             'title' => $file['name'],
     //             'original' => $file['oriName'],
     //             'type' => $file['ext'],
@@ -532,7 +532,7 @@ class Uploadify extends Base {
 
     //         $ossConfig = tpCache('oss');
     //         if ($ossConfig['oss_switch']) {
-    //             //图片可选择存放在oss
+    //             //圖片可選擇存放在oss
     //             $savePath = $this->upload_path.$this->savePath.$this->sub_name;
     //             $object = $savePath.md5(getTime().uniqid(mt_rand(), TRUE)).'.'.pathinfo($data['url'], PATHINFO_EXTENSION);
     //             $getRealPath = ltrim($data['url'], '/');
@@ -552,8 +552,8 @@ class Uploadify extends Base {
     // }
 
     // /*
-    //  * 处理base64编码的图片上传
-    //  * 例如：涂鸦图片上传
+    //  * 處理base64編碼的圖片上傳
+    //  * 例如：塗鴉圖片上傳
     // */
     // private function upBase64($config,$fieldName){
     //     $base64Data = $_POST[$fieldName];
@@ -567,33 +567,33 @@ class Uploadify extends Base {
     //     $file['fullName'] = $dirname.$file['name'];
     //     $fullName = $file['fullName'];
 
-    //     //检查文件大小是否超出限制
+    //     //檢查檔案大小是否超出限制
     //     if($file['filesize'] >= ($config["maxSize"])){
     //         $data=array(
-    //             'state' => '文件大小超出网站限制',
+    //             'state' => '檔案大小超出網站限制',
     //         );
     //         return json_encode($data);
     //     }
 
-    //     //创建目录失败
+    //     //建立目錄失敗
     //     if(!file_exists($dirname) && !mkdir($dirname,0777,true)){
     //         $data=array(
-    //             'state' => '目录创建失败',
+    //             'state' => '目錄建立失敗',
     //         );
     //         return json_encode($data);
     //     }else if(!is_writeable($dirname)){
     //         $data=array(
-    //             'state' => '目录没有写权限',
+    //             'state' => '目錄沒有寫許可權',
     //         );
     //         return json_encode($data);
     //     }
 
-    //     //移动文件
-    //     if(!(file_put_contents($fullName, $img) && file_exists($fullName))){ //移动失败
+    //     //移動檔案
+    //     if(!(file_put_contents($fullName, $img) && file_exists($fullName))){ //移動失敗
     //         $data=array(
-    //             'state' => '写入文件内容错误',
+    //             'state' => '寫入檔案內容錯誤',
     //         );
-    //     }else{ //移动成功          
+    //     }else{ //移動成功          
     //         $data=array(
     //             'state' => 'SUCCESS',
     //             'url' => substr($file['fullName'],1),
@@ -613,37 +613,37 @@ class Uploadify extends Base {
     public function imageUp()
     {
         if (!IS_POST) {
-            $return_data['state'] = '非法上传';
+            $return_data['state'] = '非法上傳';
             respose($return_data,'json');
         }
 
         $image_upload_limit_size = intval(tpCache('basic.file_size') * 1024 * 1024);
-        // 上传图片框中的描述表单名称，
+        // 上傳圖片框中的描述表單名稱，
         $pictitle = input('pictitle');
         $dir = input('dir');
         $title = htmlspecialchars($pictitle , ENT_QUOTES);        
         $path = htmlspecialchars($dir, ENT_QUOTES);
-        //$input_file ['upfile'] = $info['Filedata'];  一个是上传插件里面来的, 另外一个是 文章编辑器里面来的
-        // 获取表单上传文件
+        //$input_file ['upfile'] = $info['Filedata'];  一個是上傳外掛裡面來的, 另外一個是 文章編輯器裡面來的
+        // 獲取表單上傳檔案
         $file = request()->file('file');
         if(empty($file))
             $file = request()->file('upfile');    
 
-        // ico图片文件不进行验证
+        // ico圖片檔案不進行驗證
         if (pathinfo($file->getInfo('name'), PATHINFO_EXTENSION) != 'ico') {
             $result = $this->validate(
                 ['file' => $file], 
                 ['file'=>'image|fileSize:'.$image_upload_limit_size.'|fileExt:'.$this->fileExt],
-                ['file.image' => '上传文件必须为图片','file.fileSize' => '上传文件过大','file.fileExt'=>'上传文件后缀名必须为'.$this->fileExt]                
+                ['file.image' => '上傳檔案必須為圖片','file.fileSize' => '上傳檔案過大','file.fileExt'=>'上傳檔案後綴名必須為'.$this->fileExt]                
                );
         } else {
             $result = true;
         }
 
-        /*验证图片一句话木马*/
+        /*驗證圖片一句話木馬*/
         $imgstr = @file_get_contents($file->getInfo('tmp_name'));
         if (false !== $imgstr && preg_match('#<\?php#i', $imgstr)) {
-            $result = '上传图片不合格';
+            $result = '上傳圖片不合格';
         }
         /*--end*/
 
@@ -653,7 +653,7 @@ class Uploadify extends Base {
             $savePath = $this->upload_path.$this->savePath.$this->sub_name;
             $ossConfig = tpCache('oss');
             if ($ossConfig['oss_switch']) {
-                //商品图片可选择存放在oss
+                //商品圖片可選擇存放在oss
                 $object = $savePath.md5(getTime().uniqid(mt_rand(), TRUE)).'.'.pathinfo($file->getInfo('name'), PATHINFO_EXTENSION);
                 $ossClient = new \app\common\logic\OssLogic;
                 $return_url = $ossClient->uploadFile($file->getRealPath(), $object);
@@ -665,9 +665,9 @@ class Uploadify extends Base {
                 }
                 @unlink($file->getRealPath());
             } else {
-                // 移动到框架应用根目录/public/uploads/ 目录下
+                // 移動到框架應用根目錄/public/uploads/ 目錄下
                 $info = $file->rule(function ($file) {
-                    return  md5(mt_rand()); // 使用自定义的文件保存规则
+                    return  md5(mt_rand()); // 使用自定義的檔案儲存規則
                 })->move($savePath);
                 if ($info) {
                     $state = "SUCCESS";
@@ -676,11 +676,11 @@ class Uploadify extends Base {
                 }
                 $return_url = '/'.$savePath.$info->getSaveName();
             }
-            $return_data['url'] = ROOT_DIR.$return_url; // 支持子目录
+            $return_data['url'] = ROOT_DIR.$return_url; // 支援子目錄
         }
         
         if($state == 'SUCCESS' && pathinfo($file->getInfo('name'), PATHINFO_EXTENSION) != 'ico'){
-            if(true || $this->savePath=='news/'){ // 添加水印
+            if(true || $this->savePath=='news/'){ // 新增水印
                 $imgresource = ".".$return_url;
                 $image = \think\Image::open($imgresource);
                 $water = tpCache('water');
@@ -701,8 +701,8 @@ class Uploadify extends Base {
                             $return_data['mark_txt'] = $water['mark_txt'];
                         }
                     }else{
-                        /*支持子目录*/
-                        $water['mark_img'] = preg_replace('#^(/[/\w]+)?(/public/upload/|/uploads/)#i', '$2', $water['mark_img']); // 支持子目录
+                        /*支援子目錄*/
+                        $water['mark_img'] = preg_replace('#^(/[/\w]+)?(/public/upload/|/uploads/)#i', '$2', $water['mark_img']); // 支援子目錄
                         /*--end*/
                         //$image->water(".".$water['mark_img'],9,$water['mark_degree'])->save($imgresource);
                         $waterPath = "." . $water['mark_img'];
@@ -718,7 +718,7 @@ class Uploadify extends Base {
             }
         }
         $return_data['title'] = $title;
-        $return_data['original'] = ''; // 这里好像没啥用 暂时注释起来
+        $return_data['original'] = ''; // 這裡好像沒啥用 暫時註釋起來
         $return_data['state'] = $state;
         $return_data['path'] = $path;
         respose($return_data,'json');

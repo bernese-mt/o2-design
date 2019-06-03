@@ -12,7 +12,7 @@
     <div class="fixed-bar">
         <div class="item-title">
             <div class="subject">
-                <h3>功能开关</h3>
+                <h3>功能開關</h3>
                 <h5></h5>
             </div>
         </div>
@@ -20,55 +20,55 @@
     <div class="ncap-form-default">
         <dl class="row">
             <dt class="tit">
-                <label for="site_url">插件应用</label>
+                <label for="site_url">外掛應用</label>
             </dt>
             <dd class="opt">
                 <div class="onoff">
-                    <label for="web_weapp_switch1" class="cb-enable {if condition='isset($globalConfig.web_weapp_switch) && $globalConfig.web_weapp_switch eq 1'}selected{/if}">开启</label>
-                    <label for="web_weapp_switch0" class="cb-disable {if condition='!isset($globalConfig.web_weapp_switch) || $globalConfig.web_weapp_switch eq -1'}selected{/if}">关闭</label>
+                    <label for="web_weapp_switch1" class="cb-enable {if condition='isset($globalConfig.web_weapp_switch) && $globalConfig.web_weapp_switch eq 1'}selected{/if}">開啟</label>
+                    <label for="web_weapp_switch0" class="cb-disable {if condition='!isset($globalConfig.web_weapp_switch) || $globalConfig.web_weapp_switch eq -1'}selected{/if}">關閉</label>
                     <input id="web_weapp_switch1" name="web[web_weapp_switch]" value="1" type="radio" {if condition="isset($globalConfig.web_weapp_switch) && $globalConfig.web_weapp_switch eq 1"} checked="checked"{/if} onclick="ajax_submit(this, 'web', 'web_weapp_switch');" data-lmenuid="Weapp_index">
                     <input id="web_weapp_switch0" name="web[web_weapp_switch]" value="-1" type="radio" {if condition="!isset($globalConfig.web_weapp_switch) || $globalConfig.web_weapp_switch eq -1"} checked="checked"{/if} onclick="ajax_submit(this, 'web', 'web_weapp_switch');" data-lmenuid="Weapp_index">
                 </div>
-                <p class="notic">开启之后，左侧菜单会显示插件应用入口</p>
+                <p class="notic">開啟之後，左側菜單會顯示外掛應用入口</p>
                 <span id="guide_web_weapp_switch" style="{if condition='1 != $globalConfig.web_weapp_switch'} display: none;{/if}">
-                    &nbsp;<a href="{:url('Weapp/index')}">[上传管理]</a>
+                    &nbsp;<a href="{:url('Weapp/index')}">[上傳管理]</a>
                 </span>
             </dd>
         </dl>
         <dl class="row">
             <dt class="tit">
-                <label for="site_url">多语言</label>
+                <label for="site_url">多語言</label>
             </dt>
             <dd class="opt">
                 <div class="onoff">
-                    <label for="web_language_switch1" class="cb-enable {if condition='isset($globalConfig.web_language_switch) && $globalConfig.web_language_switch eq 1'}selected{/if}">开启</label>
-                    <label for="web_language_switch0" class="cb-disable {if condition='empty($globalConfig.web_language_switch)'}selected{/if}">关闭</label>
+                    <label for="web_language_switch1" class="cb-enable {if condition='isset($globalConfig.web_language_switch) && $globalConfig.web_language_switch eq 1'}selected{/if}">開啟</label>
+                    <label for="web_language_switch0" class="cb-disable {if condition='empty($globalConfig.web_language_switch)'}selected{/if}">關閉</label>
                     <input id="web_language_switch1" name="web[web_language_switch]" value="1" type="radio" {if condition="isset($globalConfig.web_language_switch) && $globalConfig.web_language_switch eq 1"} checked="checked"{/if} onclick="ajax_submit(this, 'web', 'web_language_switch');" data-lmenuid="Language_index">
                     <input id="web_language_switch0" name="web[web_language_switch]" value="0" type="radio" {if condition="empty($globalConfig.web_language_switch)"} checked="checked"{/if} onclick="ajax_submit(this, 'web', 'web_language_switch');" data-lmenuid="Language_index">
                 </div>
-                <p class="notic">开启之后，顶部菜单会显示多语言入口</p>
+                <p class="notic">開啟之後，頂部菜單會顯示多語言入口</p>
                 <span id="guide_web_language_switch" style="{if condition='empty($globalConfig.web_language_switch)'} display: none;{/if}">
-                    &nbsp;<a href="{:url('Language/index')}">[多语言设置]</a>
-                    &nbsp;<a href="javascript:void(0);" onclick="tag_call('web_language_switch');" class="red">[标签调用]</a>
+                    &nbsp;<a href="{:url('Language/index')}">[多語言設定]</a>
+                    &nbsp;<a href="javascript:void(0);" onclick="tag_call('web_language_switch');" class="red">[標籤呼叫]</a>
                 </span>
             </dd>
         </dl>
         <dl class="row">
             <dt class="tit">
-                <label for="site_url">会员中心</label>
+                <label for="site_url">會員中心</label>
             </dt>
             <dd class="opt">
                 <div class="onoff">
-                    <label for="web_users_switch1" class="cb-enable {if condition='isset($globalConfig.web_users_switch) && $globalConfig.web_users_switch eq 1'}selected{/if}">开启</label>
-                    <label for="web_users_switch0" class="cb-disable {if condition='empty($globalConfig.web_users_switch)'}selected{/if}">关闭</label>
+                    <label for="web_users_switch1" class="cb-enable {if condition='isset($globalConfig.web_users_switch) && $globalConfig.web_users_switch eq 1'}selected{/if}">開啟</label>
+                    <label for="web_users_switch0" class="cb-disable {if condition='empty($globalConfig.web_users_switch)'}selected{/if}">關閉</label>
                     <input id="web_users_switch1" name="web[web_users_switch]" value="1" type="radio" {if condition="isset($globalConfig.web_users_switch) && $globalConfig.web_users_switch eq 1"} checked="checked"{/if} onclick="ajax_submit(this, 'web', 'web_users_switch');" data-lmenuid="Member_users_index">
                     <input id="web_users_switch0" name="web[web_users_switch]" value="0" type="radio" {if condition="empty($globalConfig.web_users_switch)"} checked="checked"{/if} onclick="ajax_submit(this, 'web', 'web_users_switch');" data-lmenuid="Member_users_index">
                 </div>
-                <p class="notic">开启之后，左侧菜单会显示会员中心入口</p>
+                <p class="notic">開啟之後，左側菜單會顯示會員中心入口</p>
                 <span id="guide_web_users_switch" style="{if condition='empty($globalConfig.web_users_switch)'} display: none;{/if}">
-                    &nbsp;<a href="{:url('Member/users_index')}">[用户列表]</a>
+                    &nbsp;<a href="{:url('Member/users_index')}">[使用者列表]</a>
                     &nbsp;<a href="{:url('Member/users_config')}">[功能配置]</a>
-                    &nbsp;<a href="javascript:void(0);" onclick="tag_call('web_users_switch');" class="red">[标签调用]</a>
+                    &nbsp;<a href="javascript:void(0);" onclick="tag_call('web_users_switch');" class="red">[標籤呼叫]</a>
                 </span>
             </dd>
         </dl>
@@ -78,15 +78,15 @@
             </dt>
             <dd class="opt">
                 <div class="onoff">
-                    <label for="pay_open1" class="cb-enable {if condition="$userConfig.pay_open == 1"}selected{/if}">开启</label>
-                    <label for="pay_open0" class="cb-disable {if condition="!isset($userConfig.pay_open) || empty($userConfig.pay_open)"}selected{/if}">关闭</label>
+                    <label for="pay_open1" class="cb-enable {if condition="$userConfig.pay_open == 1"}selected{/if}">開啟</label>
+                    <label for="pay_open0" class="cb-disable {if condition="!isset($userConfig.pay_open) || empty($userConfig.pay_open)"}selected{/if}">關閉</label>
                     <input id="pay_open1" name="pay[pay_open]" value="1" type="radio" {if condition="$userConfig.pay_open == 1"} checked="checked"{/if} onclick="ajax_submit(this, 'pay', 'pay_open');">
                     <input id="pay_open0" name="pay[pay_open]" value="0" type="radio" {if condition="!isset($userConfig.pay_open) || empty($userConfig.pay_open)"} checked="checked"{/if} onclick="ajax_submit(this, 'pay', 'pay_open');">
                 </div>
-                <p class="notic">关闭则自动隐藏支付入口。</p>
+                <p class="notic">關閉則自動隱藏支付入口。</p>
                 <span id="guide_pay_open" style="{if condition='!isset($userConfig.pay_open) || empty($userConfig.pay_open)'} display: none;{/if}">
                     &nbsp;<a href="{:url('Member/money_index')}">[充值列表]</a>
-                    &nbsp;<a href="{:url('Member/pay_set')}">[接口配置]</a>
+                    &nbsp;<a href="{:url('Member/pay_set')}">[介面配置]</a>
                 </span>
             </dd>
         </dl>
@@ -96,16 +96,16 @@
             </dt>
             <dd class="opt">
                 <div class="onoff">
-                    <label for="shop_open1" class="cb-enable {if condition="$userConfig.shop_open == 1"}selected{/if}">开启</label>
-                    <label for="shop_open0" class="cb-disable {if condition="!isset($userConfig.shop_open) || empty($userConfig.shop_open)"}selected{/if}">关闭</label>
+                    <label for="shop_open1" class="cb-enable {if condition="$userConfig.shop_open == 1"}selected{/if}">開啟</label>
+                    <label for="shop_open0" class="cb-disable {if condition="!isset($userConfig.shop_open) || empty($userConfig.shop_open)"}selected{/if}">關閉</label>
                     <input id="shop_open1" name="shop[shop_open]" value="1" type="radio" {if condition="$userConfig.shop_open == 1"} checked="checked"{/if} data-authortoken="{$is_eyou_authortoken}" data-is_online="{$is_online}" onclick="ajax_submit(this, 'shop', 'shop_open');" data-lmenuid="Shop_index">
                     <input id="shop_open0" name="shop[shop_open]" value="0" type="radio" {if condition="!isset($userConfig.shop_open) || empty($userConfig.shop_open)"} checked="checked"{/if} data-authortoken="{$is_eyou_authortoken}" data-is_online="{$is_online}" onclick="ajax_submit(this, 'shop', 'shop_open');" data-lmenuid="Shop_index">
                 </div>
-                <p class="notic">关闭则自动隐藏商城中心入口。</p>
+                <p class="notic">關閉則自動隱藏商城中心入口。</p>
                 <span id="guide_shop_open" style="{if condition='!isset($userConfig.shop_open) || empty($userConfig.shop_open)'} display: none;{/if}">
-                    &nbsp;<a href="{:url('Shop/index')}">[订单列表]</a>
+                    &nbsp;<a href="{:url('Shop/index')}">[訂單列表]</a>
                     &nbsp;<a href="{:url('Shop/conf')}">[功能配置]</a>
-                    &nbsp;<a href="javascript:void(0);" onclick="tag_call('shop_open');" class="red">[标签调用]</a>
+                    &nbsp;<a href="javascript:void(0);" onclick="tag_call('shop_open');" class="red">[標籤呼叫]</a>
                 </span>
             </dd>
         </dl>
@@ -117,18 +117,18 @@
 
 <script type="text/javascript">
 
-    // 提交表单
+    // 提交表單
     function ajax_submit(obj, inc_type, name){
         var _parent = parent;
         var value = $(obj).val();
         var lmenuid = $(obj).attr('data-lmenuid');
         var url = "{:url('Index/switch_map')}";
-        // 验证
+        // 驗證
         switch (name)
         {
             case 'shop_open':
             case 'pay_open':
-                // 第一次使用会员中心，其他功能开关不与会员中心开关关联
+                // 第一次使用會員中心，其他功能開關不與會員中心開關關聯
                 var web_users_switch = $('input[name="web[web_users_switch]"]:checked').val();
                 if (1 == $('#is_themeusers_exist').val() && 1 != web_users_switch) {
                     $('label[for='+name+'1]').removeClass('selected');
@@ -140,7 +140,7 @@
                     } else if ('shop_open' == name) {
                         nameTitle = '商城功能';
                     }
-                    parent.layer.alert('使用【<font color="red">'+nameTitle+'</font>】请先开启【<font color="red">会员中心</font>】！', {icon: 3, title:false}, function(){
+                    parent.layer.alert('使用【<font color="red">'+nameTitle+'</font>】請先開啟【<font color="red">會員中心</font>】！', {icon: 3, title:false}, function(){
                         parent.layer.closeAll();
                         // $('label[for=web_users_switch0]').removeClass('selected');
                         // $('#web_users_switch0').attr('checked','');
@@ -155,7 +155,7 @@
                 {
                     return false;
                 }
-                // 同时开启会员中心
+                // 同時開啟會員中心
                 if (1 == value) {
                     $('label[for=web_users_switch0]').removeClass('selected');
                     $('#web_users_switch0').attr('checked','');
@@ -164,7 +164,7 @@
                 }
                 break;
         }
-        // 标签调用按钮的显示与隐藏
+        // 標籤呼叫按鈕的顯示與隱藏
         if (1 == value) {
             $('#guide_'+name).show();
         } else {
@@ -178,7 +178,7 @@
             $('#is_themeshop_exist').val(0)
             loadmsg = '初始化中';
         } else {
-            loadmsg = '正在处理';
+            loadmsg = '正在處理';
         }
         parent_layer_loading(loadmsg);
 
@@ -189,16 +189,16 @@
             dataType: 'json',
             success: function (res) {
                 if(res.code == 1){
-                    // 第一次模板同步下载
-                    if ('web_users_switch' == name && 1 == res.data.is_syn) { // 会员中心模板下载
+                    // 第一次模板同步下載
+                    if ('web_users_switch' == name && 1 == res.data.is_syn) { // 會員中心模板下載
                         syn_theme_users(value,lmenuid);
                         return false;
-                    } else if ('shop_open' == name && 1 == res.data.is_syn) { // 订单中心模板下载
+                    } else if ('shop_open' == name && 1 == res.data.is_syn) { // 訂單中心模板下載
                         syn_theme_shop(value,lmenuid);
                         return false;
                     } else {
                         _parent.layer.closeAll();
-                        // 根据不同场景进行页面加载的处理
+                        // 根據不同場景進行頁面載入的處理
                         _parent.layer.msg(res.msg, {icon: 1, time: 1000}, function(){
                             if (1 == res.data.reload) {
                                 window.location.reload();
@@ -210,7 +210,7 @@
                 }else{
                     if (1 == res.data.code) {
                         _parent.layer.closeAll();
-                        _parent.layer.alert(res.msg, {btn: ['购买授权'], icon: 2, title:false}, function(){
+                        _parent.layer.alert(res.msg, {btn: ['購買授權'], icon: 2, title:false}, function(){
                             _parent.layer.closeAll();
                             window.location.reload();
                             window.open('http://www.eyoucms.com/buy');
@@ -223,7 +223,7 @@
                         });
                     }
                 }
-                // 控制顶部与左侧菜单的显示与隐藏
+                // 控制頂部與左側菜單的顯示與隱藏
                 if (1 == value) {
                     $('#'+lmenuid, window.parent.document).show();
                 } else {
@@ -232,7 +232,7 @@
             },
             error:function(){
                 _parent.layer.closeAll();
-                _parent.layer.alert('网络失败，请刷新页面后重试', {icon: 2, title:false}, function(){
+                _parent.layer.alert('網路失敗，請重新整理頁面後重試', {icon: 2, title:false}, function(){
                     _parent.layer.closeAll();
                     window.location.reload();
                 });
@@ -240,7 +240,7 @@
         });
     }
 
-    // 会员模板初始化下载
+    // 會員模板初始化下載
     function syn_theme_users(value,lmenuid)
     {
         $.ajax({
@@ -258,7 +258,7 @@
                         window.location.reload();
                     });
                 }
-                // 控制顶部与左侧菜单的显示与隐藏
+                // 控制頂部與左側菜單的顯示與隱藏
                 if (1 == value) {
                     $('#'+lmenuid, window.parent.document).show();
                 } else {
@@ -267,7 +267,7 @@
             },
             error: function(e){
                 parent.layer.closeAll();
-                parent.layer.alert('网络失败，请刷新页面后重试', {icon: 2, title:false}, function(){
+                parent.layer.alert('網路失敗，請重新整理頁面後重試', {icon: 2, title:false}, function(){
                     parent.layer.closeAll();
                     window.location.reload();
                 });
@@ -275,7 +275,7 @@
         })
     }
 
-    // 订单模板初始化下载
+    // 訂單模板初始化下載
     function syn_theme_shop(value,lmenuid)
     {
         var url = "{:url('Index/switch_map')}";
@@ -294,7 +294,7 @@
                         window.location.reload();
                     });
                 }
-                // 控制顶部与左侧菜单的显示与隐藏
+                // 控制頂部與左側菜單的顯示與隱藏
                 if (1 == value) {
                     $('#'+lmenuid, window.parent.document).show();
                 } else {
@@ -303,7 +303,7 @@
             },
             error: function(e){
                 parent.layer.closeAll();
-                parent.layer.alert('网络失败，请刷新页面后重试', {icon: 2, title:false}, function(){
+                parent.layer.alert('網路失敗，請重新整理頁面後重試', {icon: 2, title:false}, function(){
                     parent.layer.closeAll();
                     window.location.reload();
                 });
@@ -322,10 +322,10 @@
                 $('#shop_open1').attr('checked','');
                 $('label[for=shop_open0]').addClass('selected');
                 $('#shop_open0').attr('checked','checked');
-                var alert1 = layer.alert('订单功能只限于授权域名！', {
+                var alert1 = layer.alert('訂單功能只限於授權域名！', {
                     icon: 4,
                     title:false,
-                    btn: ['购买授权']
+                    btn: ['購買授權']
                 }, function(){
                     window.open('http://www.eyoucms.com/buy');
                     layer.close(alert1);
@@ -345,11 +345,11 @@
             dataType: 'json',
             success: function (res) {
                 if(res.code == 1){
-                    //询问框
+                    //詢問框
                     var confirm = layer.confirm(res.data.msg, {
                             title: false,
                             area: ['60%','80%'],
-                            btn: ['关闭'] //按钮
+                            btn: ['關閉'] //按鈕
 
                         }, function(){
                             layer.close(confirm);
@@ -360,7 +360,7 @@
                 }
             },
             error:function(){
-                layer.alert('网络失败，请刷新页面后重试', {icon: 2, title:false});
+                layer.alert('網路失敗，請重新整理頁面後重試', {icon: 2, title:false});
             }
         });
     }

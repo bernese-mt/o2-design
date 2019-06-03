@@ -1,17 +1,17 @@
 <?php
 
-// 应用行为扩展定义文件
+// 應用行為擴充套件定義檔案
 return array(
-    // 模块初始化
+    // 模組初始化
     'module_init'  => array(),
-    // 操作开始执行
+    // 操作開始執行
     'action_begin' => array(),
-    // 视图内容过滤
+    // 檢視內容過濾
     'view_filter'  => array(
         'app\\home\\behavior\\ViewFilterBehavior',
     ),
-    // 日志写入
+    // 日誌寫入
     'log_write'    => array(),
-    // 应用结束
+    // 應用結束
     'app_end'      => array(),
 );

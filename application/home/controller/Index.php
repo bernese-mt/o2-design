@@ -1,11 +1,11 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
@@ -31,10 +31,10 @@ class Index extends Base
             @unlink($filename);
         }
 
-        //自动生成HTML版
+        //自動產生HTML版
         if(isset($_GET['clear']) || !file_exists($filename))
         {
-            /*获取当前页面URL*/
+            /*獲取目前頁面URL*/
             $result['pageurl'] = request()->url(true);
             /*--end*/
             $eyou = array(
@@ -43,11 +43,11 @@ class Index extends Base
             $this->eyou = array_merge($this->eyou, $eyou);
             $this->assign('eyou', $this->eyou);
             
-            /*模板文件*/
+            /*模板檔案*/
             $viewfile = 'index';
             /*--end*/
 
-            /*多语言内置模板文件名*/
+            /*多語言內建模板檔名*/
             if (!empty($this->home_lang)) {
                 $viewfilepath = TEMPLATE_PATH.$this->theme_style.DS.$viewfile."_{$this->home_lang}.".$this->view_suffix;
                 if (file_exists($viewfilepath)) {

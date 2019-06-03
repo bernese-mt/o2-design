@@ -43,10 +43,10 @@
             <div class="ftitle">
                 <h3>水印配置</h3>
             </div>
-            <div title="刷新数据" class="pReload"><i class="fa fa-refresh"></i></div>
+            <div title="重新整理數據" class="pReload"><i class="fa fa-refresh"></i></div>
             <div class="sDiv">
                 <div class="sDiv2 addartbtn fl" style="margin-right: 6px;">
-                    <input type="button" class="btn current" value="缩略图配置" onclick="window.location.href='{:url("System/thumb", ['tabase'=>$Request.param.tabase])}';">
+                    <input type="button" class="btn current" value="縮圖配置" onclick="window.location.href='{:url("System/thumb", ['tabase'=>$Request.param.tabase])}';">
                 </div>
             </div>
             <div class="sDiv">
@@ -61,32 +61,32 @@
                     <dt class="tit">水印功能</dt>
                     <dd class="opt">
                         <div class="onoff">
-                            <label for="is_mark1" class="cb-enable {if condition='isset($config.is_mark) && $config.is_mark eq 1'}selected{/if}" >开启</label>
-                            <label for="is_mark0" class="cb-disable {if condition='!isset($config.is_mark) || $config.is_mark eq 0'}selected{/if}" >关闭</label>
+                            <label for="is_mark1" class="cb-enable {if condition='isset($config.is_mark) && $config.is_mark eq 1'}selected{/if}" >開啟</label>
+                            <label for="is_mark0" class="cb-disable {if condition='!isset($config.is_mark) || $config.is_mark eq 0'}selected{/if}" >關閉</label>
                             <input id="is_mark1" name="is_mark" value="1" {if condition="isset($config.is_mark) && $config.is_mark eq 1"}checked{/if} type="radio">
                             <input id="is_mark0" name="is_mark" value="0" {if condition="!isset($config.is_mark) || $config.is_mark eq 0"}checked{/if} type="radio">
                         </div>
-                        <p class="notic">全站图片添加水印</p>
+                        <p class="notic">全站圖片新增水印</p>
                     </dd>
                 </dl>
                 <dl class="row">
-                    <dt class="tit">缩略图水印</dt>
+                    <dt class="tit">縮圖水印</dt>
                     <dd class="opt">
                         <div class="onoff">
-                            <label for="is_thumb_mark1" class="cb-enable {if condition='isset($config.is_thumb_mark) && $config.is_thumb_mark eq 1'}selected{/if}" >开启</label>
-                            <label for="is_thumb_mark0" class="cb-disable {if condition='!isset($config.is_thumb_mark) || $config.is_thumb_mark eq 0'}selected{/if}" >关闭</label>
+                            <label for="is_thumb_mark1" class="cb-enable {if condition='isset($config.is_thumb_mark) && $config.is_thumb_mark eq 1'}selected{/if}" >開啟</label>
+                            <label for="is_thumb_mark0" class="cb-disable {if condition='!isset($config.is_thumb_mark) || $config.is_thumb_mark eq 0'}selected{/if}" >關閉</label>
                             <input id="is_thumb_mark1" name="is_thumb_mark" value="1" {if condition="isset($config.is_thumb_mark) && $config.is_thumb_mark eq 1"}checked{/if} type="radio">
                             <input id="is_thumb_mark0" name="is_thumb_mark" value="0" {if condition="!isset($config.is_thumb_mark) || $config.is_thumb_mark eq 0"}checked{/if} type="radio">
                         </div>
-                        <p class="notic">开启之后，满足水印条件的缩略图会自动打上水印</p>
+                        <p class="notic">開啟之後，滿足水印條件的縮圖會自動打上水印</p>
                     </dd>
                 </dl>
                 <dl class="row">
-                    <dt class="tit">水印类型</dt>
+                    <dt class="tit">水印型別</dt>
                     <dd class="opt">
                         <div class="onoff">
                             <label for="mark_type1" class="cb-enable {if condition="isset($config.mark_type) && $config.mark_type eq 'text'"}selected{/if}" >文字</label>
-                            <label for="mark_type0" class="cb-disable {if condition="isset($config.mark_type) && $config.mark_type eq 'img'"}selected{/if}" >图片</label>
+                            <label for="mark_type0" class="cb-disable {if condition="isset($config.mark_type) && $config.mark_type eq 'img'"}selected{/if}" >圖片</label>
                             <input id="mark_type1" onclick="setwarter('text')" name="mark_type" value="text" {if condition="isset($config.mark_type) && $config.mark_type eq 'text'"}checked{/if} type="radio">
                             <input id="mark_type0" onclick="setwarter('img')" name="mark_type"  value="img" {if condition="isset($config.mark_type) && $config.mark_type eq 'img'"}checked{/if} type="radio">
                         </div>
@@ -94,20 +94,20 @@
                     </dd>
                 </dl>
                 <dl class="row">
-                    <dt class="tit">水印条件</dt>
+                    <dt class="tit">水印條件</dt>
                     <dd class="opt">
                         <ul class="nofloat">
                             <li>
                                 <input onKeyUp="this.value=this.value.replace(/[^\d]/g,'')" onpaste="this.value=this.value.replace(/[^\d]/g,'')" pattern="^\d{1,}$" value="{$config.mark_width|default=''}" name="mark_width" id="mark_width" checked="checked" type="text">
-                                <span class="err">只能输入整数</span>
-                                <label for="mark_width">图片宽度 单位像素(px)</label>
+                                <span class="err">只能輸入整數</span>
+                                <label for="mark_width">圖片寬度 單位畫素(px)</label>
                             </li>
                             <li>
                                 <input onKeyUp="this.value=this.value.replace(/[^\d]/g,'')" onpaste="this.value=this.value.replace(/[^\d]/g,'')" pattern="^\d{1,}$" value="{$config.mark_height|default=''}" name="mark_height" id="mark_height" checked="checked" type="text">
-                                <label for="mark_height">图片高度 单位像素(px)</label>
+                                <label for="mark_height">圖片高度 單位畫素(px)</label>
                             </li>
                         </ul>
-                        <p class="">提示：图片宽度和高度至少要达到以上像素才能添加水印</p>
+                        <p class="">提示：圖片寬度和高度至少要達到以上畫素才能新增水印</p>
                     </dd>
                 </dl>
                 <dl class="row texttr" style="display:none;">
@@ -121,7 +121,7 @@
                 </dl>
                 <dl class="row imgtr">
                     <dt class="tit">
-                        <label for="mark_img">水印图片</label>
+                        <label for="mark_img">水印圖片</label>
                     </dt>
                     <dd class="opt">
                         <div class="input-file-show div_mark_img_local" {if condition="isset($config.mark_img_is_remote) AND $config.mark_img_is_remote == 1"}style="display: none;"{/if}>
@@ -132,20 +132,20 @@
                             </span>
                             <span class="type-file-box">
                                 <input type="text"  name="mark_img_local" id="mark_img_local" value="{$config.mark_img_local|default=''}" class="type-file-text">
-                                <input type="button" name="button" id="button1" value="选择上传..." class="type-file-button">
-                                <input class="type-file-file" onClick="GetUploadify(1,'','allimg','call_back');" size="30" hidefocus="true" nc_type="change_site_logo" title="点击前方预览图可查看大图，点击按钮选择文件并提交表单后上传生效">
+                                <input type="button" name="button" id="button1" value="選擇上傳..." class="type-file-button">
+                                <input class="type-file-file" onClick="GetUploadify(1,'','allimg','call_back');" size="30" hidefocus="true" nc_type="change_site_logo" title="點選前方預覽圖可檢視大圖，點選按鈕選擇檔案並提交表單後上傳生效">
                             </span>
                         </div>
                         <input type="text" id="mark_img_remote" name="mark_img_remote" value="{$config.mark_img_remote|default=''}" placeholder="http://" class="input-txt" {if condition="!isset($config.mark_img_is_remote) OR empty($config.mark_img_is_remote)"}style="display: none;"{/if}>
                         &nbsp;
-                        <label><input type="checkbox" name="mark_img_is_remote" id="mark_img_is_remote" value="1" {if condition="isset($config.mark_img_is_remote) AND $config.mark_img_is_remote == 1"}checked="checked"{/if} onClick="clickRemote(this, 'mark_img');">远程图片</label>
+                        <label><input type="checkbox" name="mark_img_is_remote" id="mark_img_is_remote" value="1" {if condition="isset($config.mark_img_is_remote) AND $config.mark_img_is_remote == 1"}checked="checked"{/if} onClick="clickRemote(this, 'mark_img');">遠端圖片</label>
                         <span class="err"></span>
-                        <p class="notic">最佳显示尺寸为240*60像素</p>
+                        <p class="notic">最佳顯示尺寸為240*60畫素</p>
                     </dd>
                 </dl>
                 <dl class="row texttr" style="display:none;">
                     <dt class="tit">
-                        <label for="mark_txt_size">字体大小</label>
+                        <label for="mark_txt_size">字型大小</label>
                     </dt>
                     <dd class="opt">
                         <input name="mark_txt_size" id="mark_txt_size" value="{$config.mark_txt_size|default=30}" class="input-txt" type="text" />
@@ -154,7 +154,7 @@
                 </dl>
                 <dl class="row texttr" style="display:none;">
                     <dt class="tit">
-                        <label for="mark_txt_color">文字颜色</label>
+                        <label for="mark_txt_color">文字顏色</label>
                     </dt>
                     <dd class="opt">
                         <input type="text" name="mark_txt_color" value="{$config.mark_txt_color|default='#000000'}" id="mark_txt_color" style="border-color: {$config.mark_txt_color|default='#000000'};" />
@@ -173,12 +173,12 @@
                 </dl>
                 <dl class="row imgtr">
                     <dt class="tit">
-                        <label for="mark_degree">JPEG 水印质量</label>
+                        <label for="mark_degree">JPEG 水印質量</label>
                     </dt>
                     <dd class="opt">
                         <input pattern="^\d{1,}$" onblur="$('#mark_quality2').empty().html(this.value);" name="mark_quality" id="mark_quality" value="{$config.mark_quality|default=''}" class="input-txt" type="range" min="0" step="2" max="100">
                         <span class="err" id="mark_quality2">{$config.mark_quality|default=''}</span>
-                        <p class="notic">水印质量请设置为0-100之间的数字,决定 jpg 格式图片的质量</p>
+                        <p class="notic">水印質量請設定為0-100之間的數字,決定 jpg 格式圖片的質量</p>
                     </dd>
                 </dl>
                 <dl class="row">
@@ -191,7 +191,7 @@
                                     <ul>
                                         <li><input type="radio" name="mark_sel" value="1"
                                             {if condition="isset($config.mark_sel) && $config.mark_sel eq '1'"}checked{/if}
-                                            >&nbsp;顶部居左
+                                            >&nbsp;頂部居左
                                         </li>
                                         <li><input type="radio" name="mark_sel" value="4"
                                             {if condition="isset($config.mark_sel) && $config.mark_sel eq '4'"}checked{/if}
@@ -207,7 +207,7 @@
                                     <ul>
                                         <li><input type="radio" name="mark_sel" value="2"
                                             {if condition="isset($config.mark_sel) && $config.mark_sel eq '2'"}checked{/if}
-                                            >&nbsp;顶部居中
+                                            >&nbsp;頂部居中
                                         </li>
                                         <li><input type="radio" name="mark_sel" value="5"
                                             {if condition="isset($config.mark_sel) && $config.mark_sel eq '5'"}checked{/if}
@@ -223,7 +223,7 @@
                                     <ul>
                                         <li><input type="radio" name="mark_sel" value="3"
                                             {if condition="isset($config.mark_sel) && $config.mark_sel eq '3'"}checked{/if}
-                                            >&nbsp;顶部居右
+                                            >&nbsp;頂部居右
                                         </li>
                                         <li><input type="radio" name="mark_sel" value="6"
                                             {if condition="isset($config.mark_sel) && $config.mark_sel eq '6'"}checked{/if}
@@ -241,7 +241,7 @@
                 </dl>
                 <div class="bot">
                     <input type="hidden" name="tabase" value="{$Request.param.tabase}">
-                    <a href="JavaScript:void(0);" class="ncap-btn-big ncap-btn-green" onclick="adsubmit();">确认提交</a>
+                    <a href="JavaScript:void(0);" class="ncap-btn-big ncap-btn-green" onclick="adsubmit();">確認提交</a>
                 </div>
             </div>
         </form>
@@ -250,7 +250,7 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
-        // 点击刷新数据
+        // 點選重新整理數據
         $('.fa-refresh').click(function(){
             location.href = location.href;
         });
@@ -258,7 +258,7 @@
         var marktype = "{$config.mark_type|default=''}";
         setwarter(marktype);
 
-        // 颜色选择
+        // 顏色選擇
         $('#mark_txt_color').colpick({
             flat:false,
             layout:'rgbhex',
@@ -276,11 +276,11 @@
     });
 
     function adsubmit(){
-        layer_loading('正在处理');
+        layer_loading('正在處理');
         $('#handlepost').submit();
     }
 
-    // 上传水印图片成功回调函数
+    // 上傳水印圖片成功回撥函式
     function call_back(fileurl_tmp){
         $("#mark_img_local").val(fileurl_tmp);
         $("#img_a").attr('href', fileurl_tmp);

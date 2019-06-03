@@ -7,45 +7,45 @@
     <form method="get" id="handlepost" name="form1">
         <div class="ncap-form-default">
             <dl class="row">
-                <dt class="tit">请选择栏目</dt>
+                <dt class="tit">請選擇欄目</dt>
                 <dd class="opt">
                     <select name="html_typeid" id="html_typeid">
-                        <option value="0">更新所有文档…</option>
+                        <option value="0">更新所有文件…</option>
                         {$select_html}
                     </select>
-                    <p class="notic">开启静态页面模式才有效</p>
+                    <p class="notic">開啟靜態頁面模式才有效</p>
                 </dd>
             </dl>
             <dl class="row">
                 <dt class="tit">
-                    <label>文档起始ID</label>
+                    <label>文件起始ID</label>
                 </dt>
                 <dd class="opt">       
                     <input id="html_startid" name="html_startid" value="" type="text" style="width: 80px;"/>
                     <span class="err"></span>
-                    <p class="notic">（空或0表示从头开始）</p>
+                    <p class="notic">（空或0表示從頭開始）</p>
                 </dd>
             </dl>
             <dl class="row">
                 <dt class="tit">
-                    <label>文档结束ID</label>
+                    <label>文件結束ID</label>
                 </dt>
                 <dd class="opt">
                     <input id="html_endid" name="html_endid" value="" type="text" style="width: 80px;"/>
                     <span class="err"></span>
-                    <p class="notic">（空或0表示直到结束ID）</p>
+                    <p class="notic">（空或0表示直到結束ID）</p>
                 </dd>
             </dl>
             <div class="bot">
                 <input type="hidden" name="inc_type" value="{$inc_type}">
                 <a href="JavaScript:void(0);" class="ncap-btn-big ncap-btn-green a_btn" data-type="archives" data-disabled=0 onclick="
-        return adsubmit(this);">更新文档HTML</a>
+        return adsubmit(this);">更新文件HTML</a>
                 <a href="JavaScript:void(0);" class="ncap-btn-big ncap-btn-green a_btn" data-type="arctype" data-disabled=0 onclick="
-        return adsubmit(this);">更新栏目HTML</a>
+        return adsubmit(this);">更新欄目HTML</a>
                 <a href="JavaScript:void(0);" class="ncap-btn-big ncap-btn-green a_btn" data-type="index" data-disabled=0 onclick="
-        return adsubmit(this);">更新首页HTML</a>
+        return adsubmit(this);">更新首頁HTML</a>
                 <a href="JavaScript:void(0);" class="ncap-btn-big ncap-btn-green a_btn" data-type="all" data-disabled=0 onclick="
-        return adsubmit(this);">一键更新</a>
+        return adsubmit(this);">一鍵更新</a>
             </div>
             <div class="bot">
                 <div id='mdv' style='width:100%;height:200px;'> 
@@ -69,8 +69,8 @@
 
         $('.a_btn').attr('data-disabled', 1);
         $(obj).html('正在更新中……');
-        $($("#stafrm")[0].contentWindow.document.body).html('准备进入更新，请勿刷新页面！');
-        layer_loading('正在处理');
+        $($("#stafrm")[0].contentWindow.document.body).html('準備進入更新，請勿重新整理頁面！');
+        layer_loading('正在處理');
         $.ajax({
             url: "{:url('Seo/bindHtml')}",
             type: "POST",
@@ -79,7 +79,7 @@
             // async: false,
             success: function(res){
                 $('.a_btn').attr('data-disabled', 0);
-                $(obj).html('更新生成HTML');
+                $(obj).html('更新產生HTML');
                 layer.closeAll();
                 setCookies('binghtml_i', 0);
                 $.each(res.urls, function(index, item){
@@ -110,7 +110,7 @@
             error: function(e){
                 $('.a_btn').attr('data-disabled', 0);
                 layer.closeAll();
-                layer.alert('网络超时！', {icon: 2, title:false});
+                layer.alert('網路超時！', {icon: 2, title:false});
             }
         });
     }

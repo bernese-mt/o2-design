@@ -1,11 +1,11 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
@@ -16,21 +16,21 @@ namespace app\common\logic;
 use think\Model;
 use think\Db;
 /**
- * 栏目逻辑定义
+ * 欄目邏輯定義
  * @package common\Logic
  */
 class ArctypeLogic extends Model
 {
 
     /**
-     * 获得指定栏目下的子栏目的数组
+     * 獲得指定欄目下的子欄目的陣列
      *
      * @access  public
-     * @param   int     $id     栏目的ID
-     * @param   int     $selected   当前选中栏目的ID
-     * @param   boolean $re_type    返回的类型: 值为真时返回下拉列表,否则返回数组
-     * @param   int     $level      限定返回的级数。为0时返回所有级数
-     * @param   array   $map      查询条件
+     * @param   int     $id     欄目的ID
+     * @param   int     $selected   目前選中欄目的ID
+     * @param   boolean $re_type    返回的型別: 值為真時返回下拉選單,否則返回陣列
+     * @param   int     $level      限定返回的級數。為0時返回所有級數
+     * @param   array   $map      查詢條件
      * @return  mix
      */
     public function arctype_list($id = 0, $selected = 0, $re_type = true, $level = 0, $map = array(), $is_cache = true)
@@ -44,7 +44,7 @@ class ArctypeLogic extends Model
                 'status' => 1,
             );
 
-            /*权限控制 by 小虎哥*/
+            /*許可權控制 by 小虎哥*/
             $admin_info = session('admin_info');
             if (0 < intval($admin_info['role_id'])) {
                 $auth_role_info = $admin_info['auth_role_info'];
@@ -56,7 +56,7 @@ class ArctypeLogic extends Model
             }
             /*--end*/
 
-            /*多语言 by 小虎哥*/
+            /*多語言 by 小虎哥*/
             if (empty($map['lang'])) {
                 $where['lang'] = get_current_lang();
             }
@@ -87,9 +87,9 @@ class ArctypeLogic extends Model
             return $re_type ? '' : array();
         }
     
-        $options = $this->arctype_options($id, $res); // 获得指定栏目下的子栏目的数组
+        $options = $this->arctype_options($id, $res); // 獲得指定欄目下的子欄目的陣列
 
-        /* 截取到指定的缩减级别 */
+        /* 擷取到指定的縮減級別 */
         if ($level > 0)
         {
             if ($id == 0)
@@ -98,11 +98,11 @@ class ArctypeLogic extends Model
             }
             else
             {
-                $first_item = reset($options); // 获取第一个元素
+                $first_item = reset($options); // 獲取第一個元素
                 $end_level  = $first_item['level'] + $level;
             }
     
-            /* 保留level小于end_level的部分 */
+            /* 保留level小於end_level的部分 */
             foreach ($options AS $key => $val)
             {
                 if ($val['level'] >= $end_level)
@@ -154,12 +154,12 @@ class ArctypeLogic extends Model
     }
     
     /**
-     * 过滤和排序所有文章栏目，返回一个带有缩进级别的数组
+     * 過濾和排序所有文章欄目，返回一個帶有縮排級別的陣列
      *
      * @access  private
-     * @param   int     $id     上级栏目ID
-     * @param   array   $arr        含有所有栏目的数组
-     * @param   int     $level      级别
+     * @param   int     $id     上級欄目ID
+     * @param   array   $arr        含有所有欄目的陣列
+     * @param   int     $level      級別
      * @return  void
      */
     public function arctype_options($spec_id, $arr)

@@ -1,11 +1,11 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
@@ -24,7 +24,7 @@ class Rewrite extends Base
     }
 
     /**
-     * 检测服务器是否支持URL重写隐藏应用的入口文件index.php
+     * 檢測伺服器是否支援URL重寫隱藏應用的入口檔案index.php
      */
     public function testing()
     {
@@ -33,18 +33,18 @@ class Rewrite extends Base
     }
 
     /**
-     * 设置隐藏index.php
+     * 設定隱藏index.php
      */
     public function setInlet()
     {
         $seo_inlet = input('param.seo_inlet/d', 1);
-        /*多语言*/
+        /*多語言*/
         if (is_language()) {
             $langRow = \think\Db::name('language')->order('id asc')->select();
             foreach ($langRow as $key => $val) {
                 tpCache('seo', ['seo_inlet'=>$seo_inlet], $val['mark']);
             }
-        } else { // 单语言
+        } else { // 單語言
             tpCache('seo', ['seo_inlet'=>$seo_inlet]);
         }
         /*--end*/

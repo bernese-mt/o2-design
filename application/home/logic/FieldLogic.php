@@ -1,11 +1,11 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
@@ -16,15 +16,15 @@ namespace app\home\logic;
 use think\Model;
 use think\Db;
 /**
- * 字段逻辑定义
+ * 欄位邏輯定義
  * Class CatsLogic
  * @package home\Logic
  */
 class FieldLogic extends Model
 {
     /**
-     * 查询解析模型数据用以页面展示
-     * @param array $data 表数据
+     * 查詢解析模型數據用以頁面展示
+     * @param array $data 表數據
      * @param intval $channel_id 模型ID
      * @param array $batch 是否批量列表
      * @author 小虎哥 by 2018-7-25
@@ -32,7 +32,7 @@ class FieldLogic extends Model
     public function getChannelFieldList($data, $channel_id = '', $batch = false)
     {
         if (!empty($data) && !empty($channel_id)) {
-            /*获取模型对应的附加表字段信息*/
+            /*獲取模型對應的附加表字段資訊*/
             $map = array(
                 'channel_id'    => $channel_id,
             );
@@ -47,8 +47,8 @@ class FieldLogic extends Model
     }
 
     /**
-     * 查询解析单个数据表的数据用以页面展示
-     * @param array $data 表数据
+     * 查詢解析單個數據表的數據用以頁面展示
+     * @param array $data 表數據
      * @param intval $channel_id 模型ID
      * @param array $batch 是否批量列表
      * @author 小虎哥 by 2018-7-25
@@ -56,7 +56,7 @@ class FieldLogic extends Model
     public function getTableFieldList($data, $channel_id = '', $batch = false)
     {
         if (!empty($data) && !empty($channel_id)) {
-            /*获取自定义表字段信息*/
+            /*獲取自定義表字段資訊*/
             $map = array(
                 'channel_id'    => $channel_id,
             );
@@ -71,9 +71,9 @@ class FieldLogic extends Model
     }
 
     /**
-     * 处理自定义字段的值
-     * @param array $data 表数据
-     * @param array $fieldInfo 自定义字段集合
+     * 處理自定義欄位的值
+     * @param array $data 表數據
+     * @param array $fieldInfo 自定義欄位集合
      * @param array $batch 是否批量列表
      * @author 小虎哥 by 2018-7-25
      */
@@ -104,7 +104,7 @@ class FieldLogic extends Model
                         if (!is_array($val)) {
                             $val = !empty($val) ? explode(',', $val) : array();
                         }
-                        /*支持子目录*/
+                        /*支援子目錄*/
                         foreach ($val as $k1 => $v1) {
                             $val[$k1] = handle_subdir_pic($v1);
                         }
@@ -116,12 +116,12 @@ class FieldLogic extends Model
                     {
                         $val = htmlspecialchars_decode($val);
 
-                        /*追加指定内嵌样式到编辑器内容的img标签，兼容图片自动适应页面*/
+                        /*追加指定內嵌樣式到編輯器內容的img標籤，相容圖片自動適應頁面*/
                         $titleNew = !empty($data['title']) ? $data['title'] : '';
                         $val = img_style_wh($val, $titleNew);
                         /*--end*/
 
-                        /*支持子目录*/
+                        /*支援子目錄*/
                         $val = handle_subdir_pic($val, 'html');
                         /*--end*/
                         break;
@@ -135,7 +135,7 @@ class FieldLogic extends Model
                     
                     default:
                     {
-                        /*支持子目录*/
+                        /*支援子目錄*/
                         if (is_string($val)) {
                             $val = handle_subdir_pic($val, 'html');
                             $val = handle_subdir_pic($val);
@@ -151,9 +151,9 @@ class FieldLogic extends Model
     }
 
     /**
-     * 列表批量处理自定义字段的值
-     * @param array $data 表数据
-     * @param array $fieldInfo 自定义字段集合
+     * 列表批量處理自定義欄位的值
+     * @param array $data 表數據
+     * @param array $fieldInfo 自定義欄位集合
      * @author 小虎哥 by 2018-7-25
      */
     public function handleBatchAddonFieldList($data, $fieldInfo)

@@ -13,10 +13,10 @@
                             <div class="tc">&nbsp;</div>
                         </th>
                         <th abbr="article_title" axis="col3" class="w250">
-                            <div class="">变量标题</div>
+                            <div class="">變數標題</div>
                         </th>
                         <th abbr="ac_id" axis="col4">
-                            <div class="">变量名</div>
+                            <div class="">變數名</div>
                         </th>
                         <th axis="col1" class="w150">
                             <div class="tc">操作</div>
@@ -33,7 +33,7 @@
                     {empty name="list"}
                         <tr>
                             <td class="no-data" align="center" axis="col0" colspan="50">
-                                <i class="fa fa-exclamation-circle"></i>没有符合条件的记录
+                                <i class="fa fa-exclamation-circle"></i>沒有符合條件的記錄
                             </td>
                         </tr>
                     {else/}
@@ -55,10 +55,10 @@
                             <td>
                                 <div class="w150 tc">
                                     {eq name="'System@customvar_recovery'|is_check_access" value="1"}
-                                    <a href="javascript:void(0);" class="btn blue" onclick="customvar_recovery(this);" data-id="{$vo['id']}"><i class="fa fa-pencil-square-o"></i>恢复</a>
+                                    <a href="javascript:void(0);" class="btn blue" onclick="customvar_recovery(this);" data-id="{$vo['id']}"><i class="fa fa-pencil-square-o"></i>恢復</a>
                                     {/eq}
                                     {eq name="'System@customvar_del_thorough'|is_check_access" value="1"}
-                                    <a class="btn red"  href="javascript:void(0)" data-id="{$vo.id}" onClick="customvar_del_thorough(this);"><i class="fa fa-trash-o"></i>彻底删除</a>
+                                    <a class="btn red"  href="javascript:void(0)" data-id="{$vo.id}" onClick="customvar_del_thorough(this);"><i class="fa fa-trash-o"></i>徹底刪除</a>
                                     {/eq}
                                 </div>
                             </td>
@@ -70,25 +70,25 @@
             </div>
             <div class="iDiv" style="display: none;"></div>
         </div>
-        <!--分页位置-->
+        <!--分頁位置-->
         {$page}
     </div>
 </div>
 <script>
     $(document).ready(function(){
-        // 表格行点击选中切换
+        // 表格行點選選中切換
         $('#flexigrid > table>tbody >tr').click(function(){
             $(this).toggleClass('trSelected');
         });
 
-        // 点击刷新数据
+        // 點選重新整理數據
         $('.fa-refresh').click(function(){
             location.href = location.href;
         });
     });
 
     function customvar_recovery(obj) {
-        layer_loading('正在处理');
+        layer_loading('正在處理');
         $.ajax({
             type : 'post',
             url : "{:U('System/customvar_recovery')}",
@@ -109,7 +109,7 @@
     }
 
     function customvar_del_thorough(obj) {
-        layer_loading('正在处理');
+        layer_loading('正在處理');
         $.ajax({
             type : 'post',
             url : "{:U('System/customvar_del_thorough')}",

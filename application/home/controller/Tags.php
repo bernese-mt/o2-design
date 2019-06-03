@@ -1,11 +1,11 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
@@ -20,7 +20,7 @@ class Tags extends Base
     }
 
     /**
-     * 标签主页
+     * 標籤主頁
      */
     public function index()
     {
@@ -28,7 +28,7 @@ class Tags extends Base
     }
 
     /**
-     * 标签列表
+     * 標籤列表
      */
     public function lists()
     {
@@ -51,7 +51,7 @@ class Tags extends Base
         if (!empty($tagindexInfo)) {
             $tagid = $tagindexInfo['id'];
             $tag = $tagindexInfo['tag'];
-            //更新浏览量和记录数
+            //更新瀏覽量和記錄數
             $map = array(
                 'tid'   => array('eq', $tagid),
                 'arcrank'   => array('gt', -1),
@@ -70,7 +70,7 @@ class Tags extends Base
             $ntime = getTime();
             $oneday = 24 * 3600;
 
-            //周统计
+            //周統計
             if(ceil( ($ntime - $tagindexInfo['weekup'])/$oneday ) > 7)
             {
                 M('tagindex')->where([
@@ -79,7 +79,7 @@ class Tags extends Base
                     ])->update(array('weekcc'=>0, 'weekup'=>$ntime));
             }
 
-            //月统计
+            //月統計
             if(ceil( ($ntime - $tagindexInfo['monthup'])/$oneday ) > 30)
             {
                 M('tagindex')->where([
@@ -99,11 +99,11 @@ class Tags extends Base
         $this->eyou = array_merge($this->eyou, $eyou);
         $this->assign('eyou', $this->eyou);
 
-        /*模板文件*/
+        /*模板檔案*/
         $viewfile = 'lists_tags';
         /*--end*/
 
-        /*多语言内置模板文件名*/
+        /*多語言內建模板檔名*/
         if (!empty($this->home_lang)) {
             $viewfilepath = TEMPLATE_PATH.$this->theme_style.DS.$viewfile."_{$this->home_lang}.".$this->view_suffix;
             if (file_exists($viewfilepath)) {

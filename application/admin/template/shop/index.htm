@@ -8,25 +8,25 @@
     <div class="flexigrid">
         <div class="mDiv">
             <div class="ftitle">
-                <h3>订单列表</h3>
-                <h5>(共{$pageObj->totalRows}条记录)</h5>
+                <h3>訂單列表</h3>
+                <h5>(共{$pageObj->totalRows}條記錄)</h5>
             </div>
-            <div title="刷新数据" class="pReload"><i class="fa fa-refresh"></i></div>
-            <form class="navbar-form form-inline" id="postForm" action="{:url('Shop/index')}" method="get" onsubmit="layer_loading('正在处理');">
+            <div title="重新整理數據" class="pReload"><i class="fa fa-refresh"></i></div>
+            <form class="navbar-form form-inline" id="postForm" action="{:url('Shop/index')}" method="get" onsubmit="layer_loading('正在處理');">
                 {$searchform.hidden|default=''}
                 <div class="sDiv">
-                    <!-- 订单状态查询 -->
+                    <!-- 訂單狀態查詢 -->
                     <div class="sDiv2 fl" style="margin-right: 6px;">  
                         <select name="order_status" class="select" style="margin:0px 5px;" onchange="OrderQueryStatus();">
-                            <option value="">查看全部</option>
+                            <option value="">檢視全部</option>
                             {volist name="$OrderStatus" id="vo"}
                                 <option value="{$vo.order_status}" {eq name="$Request.param.order_status" value="$vo.order_status"}selected{/eq}>{$vo.status_name}</option>
                             {/volist}
                         </select>
                     </div>
-                    <!-- 订单号查询 -->
+                    <!-- 訂單號查詢 -->
                     <div class="sDiv2 fl" style="margin-right: 6px;">
-                        <input type="text" size="50"  name="order_code" class="qsbox" style="width: 200px;" value="{$Request.param.order_code}" placeholder="搜索订单号...">
+                        <input type="text" size="50"  name="order_code" class="qsbox" style="width: 200px;" value="{$Request.param.order_code}" placeholder="搜索訂單號...">
                         <input type="submit" class="btn" value="搜索">
                     </div>
                     {include file="shop/shop_bar" /}
@@ -39,25 +39,25 @@
                     <thead>
                     <tr>
                         <th class="sign w40" axis="col0">
-                            <div class="tc">选择</div>
+                            <div class="tc">選擇</div>
                         </th>
                         <th abbr="article_title" axis="col3" class="">
-                            <div style="text-align: left; padding-left: 10px;" class="">订单号</div>
+                            <div style="text-align: left; padding-left: 10px;" class="">訂單號</div>
                         </th>
                         <th abbr="article_time" axis="col6" class="w100">
-                            <div class="tc">订单金额</div>
+                            <div class="tc">訂單金額</div>
                         </th>
                         <!--<th abbr="article_time" axis="col6" class="w100">
                             <div class="tc">支付方式</div>
                         </th>-->
                         <th abbr="article_time" axis="col6" class="w100">
-                            <div class="tc">订单状态</div>
+                            <div class="tc">訂單狀態</div>
                         </th>
                         <th abbr="article_time" axis="col6" class="w160">
-                            <div class="tc">下单时间</div>
+                            <div class="tc">下單時間</div>
                         </th>
                         <!--<th abbr="article_time" axis="col6" class="w160">
-                            <div class="tc">支付时间</div>
+                            <div class="tc">支付時間</div>
                         </th>-->
                         <th axis="col1" class="w160">
                             <div class="tc">操作</div>
@@ -74,7 +74,7 @@
                     {empty name="list"}
                         <tr>
                             <td class="no-data" align="center" axis="col0" colspan="50">
-                                <i class="fa fa-exclamation-circle"></i>没有符合条件的记录
+                                <i class="fa fa-exclamation-circle"></i>沒有符合條件的記錄
                             </td>
                         </tr>
                     {else/}
@@ -127,49 +127,49 @@
                             -->
                             <td>
                                 <div class="w160 tc">
-                                    <a href="{:url('Shop/order_details',array('order_id'=>$vo['order_id']))}" class="btn blue"><i class="fa fa-pencil-square-o"></i>详情</a>
+                                    <a href="{:url('Shop/order_details',array('order_id'=>$vo['order_id']))}" class="btn blue"><i class="fa fa-pencil-square-o"></i>詳情</a>
                                     {eq name="$vo.order_status" value='0'}
-                                        <!-- 订单未付款时出现 -->
+                                        <!-- 訂單未付款時出現 -->
                                         <a href="JavaScript:void(0);" onclick="OrderMark('yfk','{$vo.order_id}','{$vo.users_id}');" class="btn blue">
                                             <i class="fa fa-pencil-square-o"></i>付款
                                         </a>
 
                                         <a href="JavaScript:void(0);" onclick="OrderMark('gbdd','{$vo.order_id}','{$vo.users_id}');" class="btn blue">
-                                            <i class="fa fa-pencil-square-o"></i>关闭
+                                            <i class="fa fa-pencil-square-o"></i>關閉
                                         </a>
                                     {/eq}
 
                                     {eq name="$vo.order_status" value='1'}
-                                        <!-- 订单待发货时出现 -->
+                                        <!-- 訂單待發貨時出現 -->
                                         <a href="JavaScript:void(0);" data-url="{:url('Shop/order_send', ['order_id'=>$vo.order_id])}" onclick="OrderSend(this);" class="btn blue">
-                                            <i class="fa fa-pencil-square-o"></i>发货
+                                            <i class="fa fa-pencil-square-o"></i>發貨
                                         </a>
 
                                         <a href="JavaScript:void(0);" onclick="OrderMark('gbdd','{$vo.order_id}','{$vo.users_id}');" class="btn blue">
-                                            <i class="fa fa-pencil-square-o"></i>关闭
+                                            <i class="fa fa-pencil-square-o"></i>關閉
                                         </a>
                                     {/eq}
 
                                     {eq name="$vo.order_status" value='2'}
-                                        <!-- 订单已发货时出现 -->
+                                        <!-- 訂單已發貨時出現 -->
                                         <a href="JavaScript:void(0);" onclick="OrderMark('ysh','{$vo.order_id}','{$vo.users_id}');" class="btn blue">
                                             <i class="fa fa-pencil-square-o"></i>完成
                                         </a>
 
                                         <a href="JavaScript:void(0);" onclick="OrderMark('gbdd','{$vo.order_id}','{$vo.users_id}');" class="btn blue">
-                                            <i class="fa fa-pencil-square-o"></i>关闭
+                                            <i class="fa fa-pencil-square-o"></i>關閉
                                         </a>
                                     {/eq}
 
                                     {if condition="-1 == $vo.order_status or 4 == $vo.order_status"}
-                                        <!-- 订单取消或取消过期时出现 -->
+                                        <!-- 訂單取消或取消過期時出現 -->
                                         <a href="JavaScript:void(0);" onclick="OrderMark('ddbz','{$vo.order_id}','{$vo.users_id}','{$vo.admin_note}');" class="btn blue">
-                                            <i class="fa fa-pencil-square-o"></i>备注
+                                            <i class="fa fa-pencil-square-o"></i>備註
                                             <input type="hidden" id="beizhu-url" value="{:url('Shop/update_note')}">
                                         </a>
 
                                         <a href="JavaScript:void(0);" onclick="OrderMark('ddsc','{$vo.order_id}','{$vo.users_id}');" class="btn blue">
-                                            <i class="fa fa-pencil-square-o"></i>删除
+                                            <i class="fa fa-pencil-square-o"></i>刪除
                                         </a>
                                     {/if}
                                 </div>
@@ -189,26 +189,26 @@
                 </div>
                 <div class="fbutton">
                     <a onclick="batch_del(this, 'ids');" data-url="{:url('Shop/order_del')}">
-                        <div class="add" title="批量删除">
-                            <span><i class="fa fa-close"></i>批量删除</span>
+                        <div class="add" title="批量刪除">
+                            <span><i class="fa fa-close"></i>批量刪除</span>
                         </div>
                     </a>
                 </div>
             </div>
             <div style="clear:both"></div>
         </div>
-        <!--分页位置-->
+        <!--分頁位置-->
         {$pageStr}
     </div>
 </div>
 <script>
     $(document).ready(function(){
-        // 表格行点击选中切换
+        // 表格行點選選中切換
         $('#flexigrid > table>tbody >tr').click(function(){
             $(this).toggleClass('trSelected');
         });
 
-        // 点击刷新数据
+        // 點選重新整理數據
         $('.fa-refresh').click(function(){
             location.href = location.href;
         });
@@ -218,8 +218,8 @@
         {/eq}
         function syn_theme_shop()
         {
-            layer_loading('订单初始化');
-            // 确定
+            layer_loading('訂單初始化');
+            // 確定
             $.ajax({
                 type : 'get',
                 url : "{:url('Shop/ajax_syn_theme_shop')}",
@@ -237,7 +237,7 @@
                 },
                 error: function(e){
                     layer.closeAll();
-                    layer.alert('网络失败，请刷新页面后重试', {icon: 2, title:false}, function(){
+                    layer.alert('網路失敗，請重新整理頁面後重試', {icon: 2, title:false}, function(){
                         window.location.reload();
                     });
                 }
@@ -255,7 +255,7 @@
         // iframe窗
         var iframes = layer.open({
             type: 2,
-            title: '订单发货详情',
+            title: '訂單發貨詳情',
             fixed: true, //不固定
             shadeClose: false,
             shade: 0.3,
@@ -265,14 +265,14 @@
         layer.full(iframes);
     }
 
-    // 订单操作
+    // 訂單操作
     function OrderMark(status_name,order_id,users_id,admin_note){
         if('yfk' == status_name){
-            var msg = '确认订单已付款？';
+            var msg = '確認訂單已付款？';
         }else if('ysh' == status_name){
-            var msg = '确认订单已收货？';
+            var msg = '確認訂單已收貨？';
         }else if('gbdd' == status_name){
-            var msg = '确认关闭订单？';
+            var msg = '確認關閉訂單？';
         }else if('ddbz' == status_name){
             layer.prompt({
                 formType: 2,
@@ -286,12 +286,12 @@
             
             return false;
         }else if('ddsc' == status_name){
-            var msg = '确认删除订单？';
+            var msg = '確認刪除訂單？';
         }
 
         layer.confirm(msg, {
             title:false,
-            btn: ['确定','取消'],
+            btn: ['確定','取消'],
         },function(){
             $.ajax({
                 url: "{:url('Shop/order_mark_status')}",

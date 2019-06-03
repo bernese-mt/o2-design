@@ -1,11 +1,11 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
@@ -19,11 +19,11 @@ use app\common\logic\ArctypeLogic;
 
 class Guestbook extends Base
 {
-    // 模型标识
+    // 模型標識
     public $nid = 'guestbook';
     // 模型ID
     public $channeltype = '';
-    // 表单类型
+    // 表單型別
     public $attrInputTypeArr = array();
     
     public function _initialize() {
@@ -40,13 +40,13 @@ class Guestbook extends Base
     {
         $assign_data = array();
         $condition = array();
-        // 获取到所有GET参数
+        // 獲取到所有GET參數
         $get = input('get.');
         $typeid = input('typeid/d');
         $begin = strtotime(input('add_time_begin'));
         $end = strtotime(input('add_time_end'));
 
-        // 应用搜索条件
+        // 應用搜索條件
         foreach (['keywords','typeid'] as $key) {
             if (isset($get[$key]) && $get[$key] !== '') {
                 if ($key == 'keywords') {
@@ -61,7 +61,7 @@ class Guestbook extends Base
             }
         }
 
-        // 时间检索
+        // 時間檢索
         if ($begin > 0 && $end > 0) {
             $condition['a.add_time'] = array('between',"$begin,$end");
         } else if ($begin > 0) {
@@ -70,14 +70,14 @@ class Guestbook extends Base
             $condition['a.add_time'] = array('elt', $end);
         }
         
-        // 多语言
+        // 多語言
         $condition['a.lang'] = array('eq', $this->admin_lang);
 
         /**
-         * 数据查询，搜索出主键ID的值
+         * 數據查詢，搜索出主鍵ID的值
          */
-        $count = DB::name('guestbook')->alias('a')->where($condition)->count('aid');// 查询满足要求的总记录数
-        $Page = new Page($count, config('paginate.list_rows'));// 实例化分页类 传入总记录数和每页显示的记录数
+        $count = DB::name('guestbook')->alias('a')->where($condition)->count('aid');// 查詢滿足要求的總記錄數
+        $Page = new Page($count, config('paginate.list_rows'));// 實例化分頁類 傳入總記錄數和每頁顯示的記錄數
         $list = DB::name('guestbook')
             ->field("b.*, a.*")
             ->alias('a')
@@ -88,8 +88,8 @@ class Guestbook extends Base
             ->getAllWithIndex('aid');
 
         /**
-         * 完善数据集信息
-         * 在数据量大的情况下，经过优化的搜索逻辑，先搜索出主键ID，再通过ID将其他信息补充完整；
+         * 完善數據集資訊
+         * 在數據量大的情況下，經過優化的搜索邏輯，先搜索出主鍵ID，再通過ID將其他資訊補充完整；
          */
         if ($list) {
             $aids = array_keys($list);
@@ -108,14 +108,14 @@ class Guestbook extends Base
                 $list[$key]['attr_list'] = isset($attr_list[$val['aid']]) ? $attr_list[$val['aid']] : array();
             }
         }
-        $show = $Page->show(); // 分页显示输出
-        $assign_data['page'] = $show; // 赋值分页输出
-        $assign_data['list'] = $list; // 赋值数据集
-        $assign_data['pager'] = $Page; // 赋值分页对象
+        $show = $Page->show(); // 分頁顯示輸出
+        $assign_data['page'] = $show; // 賦值分頁輸出
+        $assign_data['list'] = $list; // 賦值數據集
+        $assign_data['pager'] = $Page; // 賦值分頁對像
 
-        // 栏目ID
-        $assign_data['typeid'] = $typeid; // 栏目ID
-        /*当前栏目信息*/
+        // 欄目ID
+        $assign_data['typeid'] = $typeid; // 欄目ID
+        /*目前欄目資訊*/
         $arctype_info = array();
         if ($typeid > 0) {
             $arctype_info = M('arctype')->field('typename')->find($typeid);
@@ -123,7 +123,7 @@ class Guestbook extends Base
         $assign_data['arctype_info'] = $arctype_info;
         /*--end*/
 
-        /*选项卡*/
+        /*選項卡*/
         $tab = input('param.tab/d', 3);
         $assign_data['tab'] = $tab;
         /*--end*/
@@ -133,7 +133,7 @@ class Guestbook extends Base
     }
 
     /**
-     * 删除
+     * 刪除
      */
     public function del()
     {
@@ -145,31 +145,31 @@ class Guestbook extends Base
                     'lang'  => $this->admin_lang,
                 ])->delete();
             if($r){
-                // ---------后置操作
+                // ---------後置操作
                 model('Guestbook')->afterDel($id_arr);
                 // ---------end
-                adminLog('删除留言-id：'.implode(',', $id_arr));
-                $this->success('删除成功');
+                adminLog('刪除留言-id：'.implode(',', $id_arr));
+                $this->success('刪除成功');
             }else{
-                $this->error('删除失败');
+                $this->error('刪除失敗');
             }
         }else{
-            $this->error('参数有误');
+            $this->error('參數有誤');
         }
     }
 
     /**
-     * 留言表单表单列表
+     * 留言表單表單列表
      */
     public function attribute_index()
     {
         $assign_data = array();
         $condition = array();
-        // 获取到所有GET参数
+        // 獲取到所有GET參數
         $get = input('get.');
         $typeid = input('typeid/d');
 
-        // 应用搜索条件
+        // 應用搜索條件
         foreach (['keywords','typeid'] as $key) {
             if (isset($get[$key]) && $get[$key] !== '') {
                 if ($key == 'keywords') {
@@ -183,14 +183,14 @@ class Guestbook extends Base
         }
 
         $condition['is_del'] = 0;
-        // 多语言
+        // 多語言
         $condition['lang'] = $this->admin_lang;
 
         /**
-         * 数据查询，搜索出主键ID的值
+         * 數據查詢，搜索出主鍵ID的值
          */
-        $count = DB::name('guestbook_attribute')->alias('a')->where($condition)->count();// 查询满足要求的总记录数
-        $Page = new Page($count, config('paginate.list_rows'));// 实例化分页类 传入总记录数和每页显示的记录数
+        $count = DB::name('guestbook_attribute')->alias('a')->where($condition)->count();// 查詢滿足要求的總記錄數
+        $Page = new Page($count, config('paginate.list_rows'));// 實例化分頁類 傳入總記錄數和每頁顯示的記錄數
         $list = DB::name('guestbook_attribute')
             ->field("a.attr_id")
             ->alias('a')
@@ -200,8 +200,8 @@ class Guestbook extends Base
             ->getAllWithIndex('attr_id');
 
         /**
-         * 完善数据集信息
-         * 在数据量大的情况下，经过优化的搜索逻辑，先搜索出主键ID，再通过ID将其他信息补充完整；
+         * 完善數據集資訊
+         * 在數據量大的情況下，經過優化的搜索邏輯，先搜索出主鍵ID，再通過ID將其他資訊補充完整；
          */
         if ($list) {
             $attr_ida = array_keys($list);
@@ -213,8 +213,8 @@ class Guestbook extends Base
                 ->where('a.attr_id', 'in', $attr_ida)
                 ->getAllWithIndex('attr_id');
             
-            /*获取多语言关联绑定的值*/
-            $row = model('LanguageAttr')->getBindValue($row, 'guestbook_attribute', $this->main_lang); // 多语言
+            /*獲取多語言關聯繫結的值*/
+            $row = model('LanguageAttr')->getBindValue($row, 'guestbook_attribute', $this->main_lang); // 多語言
             /*--end*/
 
             foreach ($row as $key => $val) {
@@ -225,14 +225,14 @@ class Guestbook extends Base
                 $list[$key] = $row[$val['attr_id']];
             }
         }
-        $show = $Page->show(); // 分页显示输出
-        $assign_data['page'] = $show; // 赋值分页输出
-        $assign_data['list'] = $list; // 赋值数据集
-        $assign_data['pager'] = $Page; // 赋值分页对象
+        $show = $Page->show(); // 分頁顯示輸出
+        $assign_data['page'] = $show; // 賦值分頁輸出
+        $assign_data['list'] = $list; // 賦值數據集
+        $assign_data['pager'] = $Page; // 賦值分頁對像
 
-        // 栏目ID
-        $assign_data['typeid'] = $typeid; // 栏目ID
-        /*当前栏目信息*/
+        // 欄目ID
+        $assign_data['typeid'] = $typeid; // 欄目ID
+        /*目前欄目資訊*/
         $arctype_info = array();
         if ($typeid > 0) {
             $arctype_info = M('arctype')->field('typename')->find($typeid);
@@ -240,32 +240,32 @@ class Guestbook extends Base
         $assign_data['arctype_info'] = $arctype_info;
         /*--end*/
 
-        /*选项卡*/
+        /*選項卡*/
         $tab = input('param.tab/d', 3);
         $assign_data['tab'] = $tab;
         /*--end*/
 
-        $assign_data['attrInputTypeArr'] = $this->attrInputTypeArr; // 表单类型
+        $assign_data['attrInputTypeArr'] = $this->attrInputTypeArr; // 表單型別
         $this->assign($assign_data);
         return $this->fetch();
     }
 
     /**
-     * 新增留言表单
+     * 新增留言表單
      */
     public function attribute_add()
     {
-        //防止php超时
+        //防止php超時
         function_exists('set_time_limit') && set_time_limit(0);
         
-        $this->language_access(); // 多语言功能操作权限
+        $this->language_access(); // 多語言功能操作許可權
 
-        if(IS_AJAX && IS_POST)//ajax提交验证
+        if(IS_AJAX && IS_POST)//ajax提交驗證
         {
             $model = model('GuestbookAttribute');
 
-            $attr_values = str_replace('_', '', input('attr_values')); // 替换特殊字符
-            $attr_values = str_replace('@', '', $attr_values); // 替换特殊字符            
+            $attr_values = str_replace('_', '', input('attr_values')); // 替換特殊字元
+            $attr_values = str_replace('@', '', $attr_values); // 替換特殊字元            
             $attr_values = trim($attr_values);
             
             $post_data = input('post.');
@@ -282,7 +282,7 @@ class Guestbook extends Base
                 'update_time'   => getTime(),
             );
 
-            // 数据验证            
+            // 數據驗證            
             $validate = \think\Loader::validate('GuestbookAttribute');
             if(!$validate->batch()->check($savedata))
             {
@@ -295,11 +295,11 @@ class Guestbook extends Base
                 );
                 respose($return_arr);
             } else {
-                $model->data($savedata,true); // 收集数据
-                $model->save(); // 写入数据到数据库
+                $model->data($savedata,true); // 收集數據
+                $model->save(); // 寫入數據到數據庫
                 $insertId = $model->getLastInsID();
 
-                /*同步留言属性ID到多语言的模板变量里*/
+                /*同步留言屬性ID到多語言的模板變數里*/
                 $this->syn_add_language_attribute($insertId);
                 /*--end*/
 
@@ -308,7 +308,7 @@ class Guestbook extends Base
                      'msg'   => '操作成功',                        
                      'data'  => array('url'=>url('Guestbook/attribute_index', array('typeid'=>$post_data['typeid']))),
                 );
-                adminLog('新增留言表单：'.$savedata['attr_name']);
+                adminLog('新增留言表單：'.$savedata['attr_name']);
                 respose($return_arr);
             }  
         }  
@@ -316,7 +316,7 @@ class Guestbook extends Base
         $typeid = input('param.typeid/d', 0);
         if ($typeid > 0) {
             $select_html = M('arctype')->where('id', $typeid)->getField('typename');
-            $select_html = !empty($select_html) ? $select_html : '该栏目不存在';
+            $select_html = !empty($select_html) ? $select_html : '該欄目不存在';
         } else {
             $arctypeLogic = new ArctypeLogic();
             $map = array(
@@ -326,23 +326,23 @@ class Guestbook extends Base
             $select_html = $arctypeLogic->arctype_list(0, $typeid, true, $arctype_max_level, $map);
         }
         $assign_data['select_html'] = $select_html; // 
-        $assign_data['typeid'] = $typeid; // 栏目ID
+        $assign_data['typeid'] = $typeid; // 欄目ID
         
         $this->assign($assign_data);
         return $this->fetch();
     }
 
     /**
-     * 编辑留言表单
+     * 編輯留言表單
      */
     public function attribute_edit()
     {
-        if(IS_AJAX && IS_POST)//ajax提交验证
+        if(IS_AJAX && IS_POST)//ajax提交驗證
         {
             $model = model('GuestbookAttribute');
 
-            $attr_values = str_replace('_', '', input('attr_values')); // 替换特殊字符
-            $attr_values = str_replace('@', '', $attr_values); // 替换特殊字符            
+            $attr_values = str_replace('_', '', input('attr_values')); // 替換特殊字元
+            $attr_values = str_replace('@', '', $attr_values); // 替換特殊字元            
             $attr_values = trim($attr_values);
             
             $post_data = input('post.');
@@ -357,7 +357,7 @@ class Guestbook extends Base
                 'sort_order'    => 100,
                 'update_time'   => getTime(),
             );
-            // 数据验证            
+            // 數據驗證            
             $validate = \think\Loader::validate('GuestbookAttribute');
             if(!$validate->batch()->check($savedata))
             {
@@ -370,17 +370,17 @@ class Guestbook extends Base
                 );
                 respose($return_arr);
             } else {
-                $model->data($savedata,true); // 收集数据
+                $model->data($savedata,true); // 收集數據
                 $model->isUpdate(true, [
                         'attr_id'   => $post_data['attr_id'],
                         'lang'  => $this->admin_lang,
-                    ])->save(); // 写入数据到数据库     
+                    ])->save(); // 寫入數據到數據庫     
                 $return_arr = array(
                      'status' => 1,
                      'msg'   => '操作成功',                        
                      'data'  => array('url'=>url('Guestbook/attribute_index', array('typeid'=>$post_data['typeid']))),
                 );
-                adminLog('编辑留言表单：'.$savedata['attr_name']);
+                adminLog('編輯留言表單：'.$savedata['attr_name']);
                 respose($return_arr);
             }  
         }  
@@ -388,8 +388,8 @@ class Guestbook extends Base
         $assign_data = array();
 
         $id = input('id/d');
-        /*获取多语言关联绑定的值*/
-        $new_id = model('LanguageAttr')->getBindValue($id, 'guestbook_attribute'); // 多语言
+        /*獲取多語言關聯繫結的值*/
+        $new_id = model('LanguageAttr')->getBindValue($id, 'guestbook_attribute'); // 多語言
         !empty($new_id) && $id = $new_id;
         /*--end*/
         $info = M('GuestbookAttribute')->where([
@@ -397,14 +397,14 @@ class Guestbook extends Base
                 'lang'  => $this->admin_lang,
             ])->find();
         if (empty($info)) {
-            $this->error('数据不存在，请联系管理员！');
+            $this->error('數據不存在，請聯繫管理員！');
             exit;
         }
         $assign_data['field'] = $info;
 
-        // 所在栏目
+        // 所在欄目
         $select_html = M('arctype')->where('id', $info['typeid'])->getField('typename');
-        $select_html = !empty($select_html) ? $select_html : '该栏目不存在';
+        $select_html = !empty($select_html) ? $select_html : '該欄目不存在';
         $assign_data['select_html'] = $select_html;
 
         $this->assign($assign_data);
@@ -412,16 +412,16 @@ class Guestbook extends Base
     }
     
     /**
-     * 删除留言表单
+     * 刪除留言表單
      */
     public function attribute_del()
     {
-        $this->language_access(); // 多语言功能操作权限
+        $this->language_access(); // 多語言功能操作許可權
 
         $id_arr = input('del_id/a');
         $id_arr = eyIntval($id_arr);
         if(!empty($id_arr)){
-            /*多语言*/
+            /*多語言*/
             if (is_language()) {
                 $attr_name_arr = [];
                 foreach ($id_arr as $key => $val) {
@@ -441,22 +441,22 @@ class Guestbook extends Base
                     'update_time'   => getTime(),
                 ]);
             if($r){
-                adminLog('删除留言表单-id：'.implode(',', $id_arr));
-                $this->success('删除成功');
+                adminLog('刪除留言表單-id：'.implode(',', $id_arr));
+                $this->success('刪除成功');
             }else{
-                $this->error('删除失败');
+                $this->error('刪除失敗');
             }
         }else{
-            $this->error('参数有误');
+            $this->error('參數有誤');
         }
     }
 
     /**
-     * 同步新增留言属性ID到多语言的模板变量里
+     * 同步新增留言屬性ID到多語言的模板變數里
      */
     private function syn_add_language_attribute($attr_id)
     {
-        /*单语言情况下不执行多语言代码*/
+        /*單語言情況下不執行多語言程式碼*/
         if (!is_language()) {
             return true;
         }
@@ -464,7 +464,7 @@ class Guestbook extends Base
 
         $attr_group = 'guestbook_attribute';
         $languageRow = Db::name('language')->field('mark')->order('id asc')->select();
-        if (!empty($languageRow) && $this->admin_lang == $this->main_lang) { // 当前语言是主体语言，即语言列表最早新增的语言
+        if (!empty($languageRow) && $this->admin_lang == $this->main_lang) { // 目前語言是主體語言，即語言列表最早新增的語言
             $result = Db::name('guestbook_attribute')->find($attr_id);
             $attr_name = 'attr_'.$attr_id;
             $r = Db::name('language_attribute')->save([
@@ -477,7 +477,7 @@ class Guestbook extends Base
             if (false !== $r) {
                 $data = [];
                 foreach ($languageRow as $key => $val) {
-                    /*同步新留言属性到其他语言留言属性列表*/
+                    /*同步新留言屬性到其他語言留言屬性列表*/
                     if ($val['mark'] != $this->admin_lang) {
                         $addsaveData = $result;
                         $addsaveData['lang'] = $val['mark'];
@@ -492,7 +492,7 @@ class Guestbook extends Base
                     }
                     /*--end*/
                     
-                    /*所有语言绑定在主语言的ID容器里*/
+                    /*所有語言繫結在主語言的ID容器里*/
                     $data[] = [
                         'attr_name' => $attr_name,
                         'attr_value'    => $attr_id,

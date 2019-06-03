@@ -1,11 +1,11 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
@@ -16,22 +16,22 @@ namespace app\admin\model;
 use think\Model;
 
 /**
- * 单页
+ * 單頁
  */
 class Single extends Model
 {
     //初始化
     protected function initialize()
     {
-        // 需要调用`Model`的`initialize`方法
+        // 需要呼叫`Model`的`initialize`方法
         parent::initialize();
     }
 
     /**
-     * 后置操作方法
-     * 自定义的一个函数 用于数据保存后做的相应处理操作, 使用时手动调用
-     * @param int $aid 产品id
-     * @param array $post post数据
+     * 後置操作方法
+     * 自定義的一個函式 用於數據儲存后做的相應處理操作, 使用時手動呼叫
+     * @param int $aid 產品id
+     * @param array $post post數據
      * @param string $opt 操作
      */
     public function afterSave($aid, $post, $opt)
@@ -42,8 +42,8 @@ class Single extends Model
     }
 
     /**
-     * 删除的后置操作方法
-     * 自定义的一个函数 用于数据删除后做的相应处理操作, 使用时手动调用
+     * 刪除的後置操作方法
+     * 自定義的一個函式 用於數據刪除后做的相應處理操作, 使用時手動呼叫
      * @param int $aid
      */
     public function afterDel($typeidArr = array())
@@ -52,21 +52,21 @@ class Single extends Model
             $typeidArr = explode(',', $typeidArr);
         }
 
-        // 同时删除单页文档表
+        // 同時刪除單頁文件表
         M('archives')->where(
                 array(
                     'typeid'=>array('IN', $typeidArr)
                 )
             )
             ->delete();
-        // 同时删除内容
+        // 同時刪除內容
         M('single_content')->where(
                 array(
                     'typeid'=>array('IN', $typeidArr)
                 )
             )
             ->delete();
-        // 清除缓存
+        // 清除快取
         \think\Cache::clear("arctype");
         extra_cache('admin_all_menu', NULL);
         \think\Cache::clear('admin_archives_release');

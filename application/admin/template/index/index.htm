@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -80,7 +80,7 @@
                   <span class="hidden-xs">購買授權</span>
                 </a>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="shouquan">
-                    <li class="ey-tool-list text-center"><a target="_blank" class="liaojie" href="http://www.eyoucms.com/buy/">了解商業授權</a></li>
+                    <li class="ey-tool-list text-center"><a target="_blank" class="liaojie" href="http://www.eyoucms.com/buy/">瞭解商業授權</a></li>
                     <li class="ey-tool-list text-center">
                       <input class="btn btn-primary" type="button" onclick="$('.em_authortoken').toggleClass('open');openItem('Index|authortoken');" value="錄入商業授權" />
                     </li>
@@ -91,7 +91,7 @@
 
               <!-- 多語言 -->
               <em id="Language_index" class="eyou_tool em_lang" data-expanded="close" {if condition='empty($web_language_switch)'}style="display: none;"{/if}>
-                <a class="btn btn-default dropdown-toggle" title="支持多語言切換" href="javascript:void(0);" onclick="valide(this);">
+                <a class="btn btn-default dropdown-toggle" title="支援多語言切換" href="javascript:void(0);" onclick="valide(this);">
                   <i class="fa fa-globe"></i>
                   <span class="hidden-xs">{$languages[$admin_lang]['title']|default='簡體中文'}</span>
                 </a>
@@ -110,7 +110,7 @@
               <div id="upgrade_filelist" style="display:none;"></div>
               <div id="upgrade_intro" style="display:none;"></div>
               <div id="upgrade_notice" style="display:none;"></div>
-              <a class="btn btn-default dropdown-toggle" style="display: none;color:#F00;" title="不升級可能有安全隐患" href="javascript:void(0);" id="a_upgrade" data-version="" data-max_version="" data-iframe="parent" data-tips_url="{:url('Upgrade/setPopupUpgrade')}" data-upgrade_url="{:url('Upgrade/OneKeyUpgrade')}" data-check_authority="{:url('Upgrade/check_authority')}">
+              <a class="btn btn-default dropdown-toggle" style="display: none;color:#F00;" title="不升級可能有安全隱患" href="javascript:void(0);" id="a_upgrade" data-version="" data-max_version="" data-iframe="parent" data-tips_url="{:url('Upgrade/setPopupUpgrade')}" data-upgrade_url="{:url('Upgrade/OneKeyUpgrade')}" data-check_authority="{:url('Upgrade/check_authority')}">
                 <i class="fa fa-info-circle"></i>
                 <span class="hidden-xs">系統更新</span>
               </a>
@@ -133,7 +133,7 @@
               <ul class="nc-row" tptype="quick_link">
                   <!--<li class="hide"><a href="javascript:void(0);" onClick="openItem('System|web');" title="站點設置">站點設置</a></li>-->
                   <li><a href="{:url('Admin/logout')}" title="登出">登出</a></li>
-                  <!--<li class="hide"><a href="javascript:void(0);" onClick="GetUploadify(1,'','adminlogo','adminlogo_call_back','{:url('Uploadify/upload_full')}');" title="后台Logo">后台Logo</a></li>-->
+                  <!--<li class="hide"><a href="javascript:void(0);" onClick="GetUploadify(1,'','adminlogo','adminlogo_call_back','{:url('Uploadify/upload_full')}');" title="後臺Logo">後臺Logo</a></li>-->
               </ul>
             </div>
           </div>

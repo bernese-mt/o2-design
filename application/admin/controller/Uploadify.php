@@ -1,11 +1,11 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
@@ -18,7 +18,7 @@ class Uploadify extends Base
     public $image_type = '';
 
     /**
-     * 析构函数
+     * 解構函式
      */
     function __construct() 
     {
@@ -32,8 +32,8 @@ class Uploadify extends Base
         $func = input('func');
         $path = input('path','allimg');
         $num = input('num/d', '1');
-        $default_size = intval(tpCache('basic.file_size') * 1024 * 1024); // 单位为b
-        $size = input('size/d'); // 单位为kb
+        $default_size = intval(tpCache('basic.file_size') * 1024 * 1024); // 單位為b
+        $size = input('size/d'); // 單位為kb
         $size = empty($size) ? $default_size : $size*1024;
         $info = array(
             'num'=> $num,
@@ -50,15 +50,15 @@ class Uploadify extends Base
     }
 
     /**
-     * 在弹出窗里的上传图片
+     * 在彈出窗里的上傳圖片
      */
     public function upload_frame()
     {
         $func = input('func');
         $path = input('path','allimg');
         $num = input('num/d', '1');
-        $default_size = intval(tpCache('basic.file_size') * 1024 * 1024); // 单位为b
-        $size = input('size/d'); // 单位为kb
+        $default_size = intval(tpCache('basic.file_size') * 1024 * 1024); // 單位為b
+        $size = input('size/d'); // 單位為kb
         $size = empty($size) ? $default_size : $size*1024;
         $info = array(
             'num'=> $num,
@@ -75,7 +75,7 @@ class Uploadify extends Base
     }
 
     /**
-     * 后台（产品）专用
+     * 後臺（產品）專用
      */
     public function upload_product()
     {
@@ -83,8 +83,8 @@ class Uploadify extends Base
         $func = input('func');
         $path = input('path','allimg');
         $num = input('num/d', '1');
-        $default_size = intval(tpCache('basic.file_size') * 1024 * 1024); // 单位为b
-        $size = input('size/d'); // 单位为kb
+        $default_size = intval(tpCache('basic.file_size') * 1024 * 1024); // 單位為b
+        $size = input('size/d'); // 單位為kb
         $size = empty($size) ? $default_size : $size*1024;
         $field = array(
             'aid' => $aid,
@@ -102,15 +102,15 @@ class Uploadify extends Base
     }
 
     /**
-     * 完整的上传模板展示
+     * 完整的上傳模板展示
      */
     public function upload_full()
     {
         $func = input('func');
         $path = input('path','allimg');
         $num = input('num/d', '1');
-        $default_size = intval(tpCache('basic.file_size') * 1024 * 1024); // 单位为b
-        $size = input('size/d'); // 单位为kb
+        $default_size = intval(tpCache('basic.file_size') * 1024 * 1024); // 單位為b
+        $size = input('size/d'); // 單位為kb
         $size = empty($size) ? $default_size : $size*1024;
         $info = array(
             'num'=> $num,
@@ -127,7 +127,7 @@ class Uploadify extends Base
     }
     
     /*
-     * 删除上传的图片
+     * 刪除上傳的圖片
      */
     public function delupload()
     {
@@ -140,7 +140,7 @@ class Uploadify extends Base
             $filename= trim($filename,'/');
             if(eyPreventShell($filename) && $action=='del' && !empty($filename) && file_exists($filename)){
                 $filetype = preg_replace('/^(.*)\.(\w+)$/i', '$2', $filename);
-                $phpfile = strtolower(strstr($filename,'.php'));  //排除PHP文件
+                $phpfile = strtolower(strstr($filename,'.php'));  //排除PHP檔案
                 $size = getimagesize($filename);
                 $fileInfo = explode('/',$size['mime']);
                 if($fileInfo[0] != 'image' || $phpfile || !in_array($filetype, explode(',', config('global.image_ext')))){
@@ -157,15 +157,15 @@ class Uploadify extends Base
     }
     
     public function fileList(){
-        /* 判断类型 */
+        /* 判斷型別 */
         $type = input('type','Images');
         switch ($type){
-            /* 列出图片 */
+            /* 列出圖片 */
             case 'Images' : $allowFiles = str_replace(',', '|', $this->image_type);break;
         
             case 'Flash' : $allowFiles = 'flash|swf';break;
         
-            /* 列出文件 */
+            /* 列出檔案 */
             default : 
             {
                 $file_type = tpCache('basic.file_type');
@@ -178,7 +178,7 @@ class Uploadify extends Base
         
         $key = empty($_GET['key']) ? '' : $_GET['key'];
         
-        /* 获取参数 */
+        /* 獲取參數 */
         $size = isset($_GET['size']) ? htmlspecialchars($_GET['size']) : $listSize;
         $start = isset($_GET['start']) ? htmlspecialchars($_GET['start']) : 0;
         $end = $start + $size;
@@ -186,7 +186,7 @@ class Uploadify extends Base
         $path = input('path','allimg');
         if (1 == preg_match('#\.#', $path)) {
             echo json_encode(array(
-                    "state" => "路径不符合规范",
+                    "state" => "路徑不符合規範",
                     "list" => array(),
                     "start" => $start,
                     "total" => 0
@@ -199,11 +199,11 @@ class Uploadify extends Base
             $path = UPLOAD_PATH.$path;
         }
 
-        /* 获取文件列表 */
+        /* 獲取檔案列表 */
         $files = $this->getfiles($path, $allowFiles, $key);
         if (empty($files)) {
             echo json_encode(array(
-                    "state" => "没有相关文件",
+                    "state" => "沒有相關檔案",
                     "list" => array(),
                     "start" => $start,
                     "total" => count($files)
@@ -211,13 +211,13 @@ class Uploadify extends Base
             exit;
         }
         
-        /* 获取指定范围的列表 */
+        /* 獲取指定範圍的列表 */
         $len = count($files);
         for ($i = min($end, $len) - 1, $list = array(); $i < $len && $i >= 0 && $i >= $start; $i--){
             $list[] = $files[$i];
         }
         
-        /* 返回数据 */
+        /* 返回數據 */
         $result = json_encode(array(
                 "state" => "SUCCESS",
                 "list" => $list,
@@ -229,7 +229,7 @@ class Uploadify extends Base
     }
 
     /**
-     * 遍历获取目录下的指定类型的文件
+     * 遍歷獲取目錄下的指定型別的檔案
      * @param $path
      * @param array $files
      * @return array
@@ -246,7 +246,7 @@ class Uploadify extends Base
                 } else {
                     if (preg_match("/\.(".$allowFiles.")$/i", $file) && preg_match("/.*". $key .".*/i", $file)) {
                         $files[] = array(
-                            'url'=> ROOT_DIR.'/'.$path2, // 支持子目录
+                            'url'=> ROOT_DIR.'/'.$path2, // 支援子目錄
                             'name'=> $file,
                             'mtime'=> filemtime($path2)
                         );

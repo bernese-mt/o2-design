@@ -1,26 +1,26 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
  */
 
-// 关闭所有PHP错误报告
+// 關閉所有PHP錯誤報告
 error_reporting(0);
 
 include_once EXTEND_PATH."function.php";
 
-// 应用公共文件
+// 應用公共檔案
 
 if (!function_exists('switch_exception')) 
 {
-    // 模板错误提示
+    // 模板錯誤提示
     function switch_exception() {
         $web_exception = tpCache('web.web_exception');
         if (!empty($web_exception)) {
@@ -33,11 +33,11 @@ if (!function_exists('switch_exception'))
 if (!function_exists('tpCache')) 
 {
     /**
-     * 获取缓存或者更新缓存，只适用于config表
-     * @param string $config_key 缓存文件名称
-     * @param array $data 缓存数据  array('k1'=>'v1','k2'=>'v3')
-     * @param array $options 缓存配置
-     * @param string $lang 语言标识
+     * 獲取快取或者更新快取，只適用於config表
+     * @param string $config_key 快取檔名稱
+     * @param array $data 快取數據  array('k1'=>'v1','k2'=>'v3')
+     * @param array $options 快取配置
+     * @param string $lang 語言標識
      * @return array or string or bool
      */
     function tpCache($config_key,$data = array(), $lang = '', $options = null){
@@ -52,11 +52,11 @@ if (!function_exists('tpCache'))
             $options['path'] = CACHE_PATH.$lang.DS;
         }
         if(empty($data)){
-            //如$config_key=shop_info则获取网站信息数组
-            //如$config_key=shop_info.logo则获取网站logo字符串
-            $config = cache($cache_inc_type,'',$options);//直接获取缓存文件
+            //如$config_key=shop_info則獲取網站資訊陣列
+            //如$config_key=shop_info.logo則獲取網站logo字串
+            $config = cache($cache_inc_type,'',$options);//直接獲取快取檔案
             if(empty($config)){
-                //缓存文件不存在就读取数据库
+                //快取檔案不存在就讀取數據庫
                 if ($param[0] == 'global') {
                     $param[0] = 'global';
                     $res = $table_db->where([
@@ -85,7 +85,7 @@ if (!function_exists('tpCache'))
                 return $config;
             }
         }else{
-            //更新缓存
+            //更新快取
             $result =  $table_db->where([
                 'inc_type'  => $param[0],
                 'lang'  => $lang,
@@ -106,20 +106,20 @@ if (!function_exists('tpCache'))
                         'update_time'   => getTime(),
                     );
                     if(!isset($temp[$newK])){
-                        array_push($add_data, $newArr); //新key数据插入数据库
+                        array_push($add_data, $newArr); //新key數據插入數據庫
                     }else{
                         if ($v != $temp[$newK]) {
                             $table_db->where([
                                 'name'  => $newK,
                                 'lang'  => $lang,
-                            ])->save($newArr);//缓存key存在且值有变更新此项
+                            ])->save($newArr);//快取key存在且值有變更新此項
                         }
                     }
                 }
                 if (!empty($add_data)) {
                     $table_db->insertAll($add_data);
                 }
-                //更新后的数据库记录
+                //更新后的數據庫記錄
                 $newRes = $table_db->where([
                     'inc_type'  => $param[0],
                     'lang'  => $lang,
@@ -170,7 +170,7 @@ if (!function_exists('tpCache'))
 if (!function_exists('write_global_params')) 
 {
     /**
-     * 写入全局内置参数
+     * 寫入全域性內建參數
      * @return array
      */
     function write_global_params($lang = '', $options = null)
@@ -180,9 +180,9 @@ if (!function_exists('write_global_params'))
             'lang'  => $lang,
             'is_del'    => 0,
         ])->select();
-        $web_basehost = !empty($webConfigParams['web_basehost']) ? $webConfigParams['web_basehost'] : ''; // 网站根网址
-        $web_cmspath = !empty($webConfigParams['web_cmspath']) ? $webConfigParams['web_cmspath'] : ''; // EyouCMS安装目录
-        /*启用绝对网址，开启此项后附件、栏目连接、arclist内容等都使用http路径*/
+        $web_basehost = !empty($webConfigParams['web_basehost']) ? $webConfigParams['web_basehost'] : ''; // 網站根網址
+        $web_cmspath = !empty($webConfigParams['web_cmspath']) ? $webConfigParams['web_cmspath'] : ''; // EyouCMS安裝目錄
+        /*啟用絕對網址，開啟此項后附件、欄目連線、arclist內容等都使用http路徑*/
         $web_multi_site = !empty($webConfigParams['web_multi_site']) ? $webConfigParams['web_multi_site'] : '';
         if($web_multi_site == 1)
         {
@@ -193,16 +193,16 @@ if (!function_exists('write_global_params'))
             $web_mainsite = '';
         }
         /*--end*/
-        /*CMS安装目录的网址*/
+        /*CMS安裝目錄的網址*/
         $param['web_cmsurl'] = $web_mainsite.$web_cmspath;
         /*--end*/
-        $param['web_templets_dir'] = $web_cmspath.'/template'; // 前台模板根目录
-        $param['web_templeturl'] = $web_mainsite.$param['web_templets_dir']; // 前台模板根目录的网址
-        $param['web_templets_pc'] = $web_mainsite.$param['web_templets_dir'].'/pc'; // 前台PC模板主题
-        $param['web_templets_m'] = $web_mainsite.$param['web_templets_dir'].'/mobile'; // 前台手机模板主题
-        $param['web_eyoucms'] = str_replace('#', '', '#h#t#t#p#:#/#/#w#w#w#.#e#y#o#u#c#m#s#.#c#o#m#'); // eyou网址
+        $param['web_templets_dir'] = $web_cmspath.'/template'; // 前臺模板根目錄
+        $param['web_templeturl'] = $web_mainsite.$param['web_templets_dir']; // 前臺模板根目錄的網址
+        $param['web_templets_pc'] = $web_mainsite.$param['web_templets_dir'].'/pc'; // 前臺PC模板主題
+        $param['web_templets_m'] = $web_mainsite.$param['web_templets_dir'].'/mobile'; // 前臺手機模板主題
+        $param['web_eyoucms'] = str_replace('#', '', '#h#t#t#p#:#/#/#w#w#w#.#e#y#o#u#c#m#s#.#c#o#m#'); // eyou網址
 
-        /*将内置的全局变量(页面上没有入口更改的全局变量)存储到web版块里*/
+        /*將內建的全域性變數(頁面上沒有入口更改的全域性變數)儲存到web版塊里*/
         $inc_type = 'web';
         foreach ($param as $key => $val) {
             if (preg_match("/^".$inc_type."_(.)+/i", $key) !== 1) {
@@ -218,24 +218,24 @@ if (!function_exists('write_global_params'))
 if (!function_exists('write_html_cache')) 
 {
     /**
-     * 写入静态页面缓存
+     * 寫入靜態頁面快取
      */
     function write_html_cache($html = ''){
         $html_cache_status = config('HTML_CACHE_STATUS');
         $html_cache_arr = config('HTML_CACHE_ARR');
         if ($html_cache_status && !empty($html_cache_arr) && !empty($html)) {
-            $home_lang = get_home_lang(); // 多语言
+            $home_lang = get_home_lang(); // 多語言
             $request = \think\Request::instance();
             $param = input('param.');
 
-            /*URL模式是否启动页面缓存（排除admin后台、前台可视化装修）*/
+            /*URL模式是否啟動頁面快取（排除admin後臺、前臺視覺化裝修）*/
             $uiset = input('param.uiset/s', 'off');
             $uiset = trim($uiset, '/');
             if ('on' == $uiset || 'admin' == $request->module()) {
                 return false;
             }
             $seo_pseudo = config('ey_config.seo_pseudo');
-            if (!in_array($seo_pseudo, array(1,3))) { // 排除普通动态模式
+            if (!in_array($seo_pseudo, array(1,3))) { // 排除普通動態模式
                 return false;
             }
             /*--end*/
@@ -247,30 +247,30 @@ if (!function_exists('write_html_cache'))
             }
             isset($param['page']) && $param['page'] = input('param.page/d');
 
-            // aid唯一性的处理
+            // aid唯一性的處理
             if (isset($param['aid'])) {
                 if (strval(intval($param['aid'])) !== strval($param['aid'])) {
-                    abort(404,'页面不存在');
+                    abort(404,'頁面不存在');
                 }
                 $param['aid'] = intval($param['aid']);
             }
 
-            $m_c_a_str = $request->module().'_'.$request->controller().'_'.$request->action(); // 模块_控制器_方法
+            $m_c_a_str = $request->module().'_'.$request->controller().'_'.$request->action(); // 模組_控制器_方法
             $m_c_a_str = strtolower($m_c_a_str);
-            //exit('write_html_cache写入缓存<br/>');
+            //exit('write_html_cache寫入快取<br/>');
             foreach($html_cache_arr as $mca=>$val)
             {
                 $mca = strtolower($mca);
-                if($mca != $m_c_a_str) //不是当前 模块 控制器 方法 直接跳过
+                if($mca != $m_c_a_str) //不是目前 模組 控制器 方法 直接跳過
                     continue;
 
                 if (empty($val['filename'])) {
                     continue;
                 }
 
-                $cache_tag = ''; // 缓存标签
+                $cache_tag = ''; // 快取標籤
                 $filename = '';
-                // 组合参数  
+                // 組合參數  
                 if(isset($val['p']))
                 {
                     $tid = '';
@@ -297,17 +297,17 @@ if (!function_exists('write_html_cache'))
                             }
                         }
                     }
-                    /*针对列表缓存的标签*/
+                    /*針對列表快取的標籤*/
                     !empty($tid) && $cache_tag = $tid;
                     /*--end*/
-                    /*针对内容缓存的标签*/
+                    /*針對內容快取的標籤*/
                     $aid = input("param.aid/d");
                     !empty($aid) && $cache_tag = $aid;
                     /*--end*/
                 }
                 empty($filename) && $filename = 'index';
 
-                // 缓存时间
+                // 快取時間
                 $web_cmsmode = tpCache('web.web_cmsmode');
                 if (1 == intval($web_cmsmode)) { // 永久
                     $path = HTML_PATH.$val['filename'].DS.$home_lang;
@@ -342,7 +342,7 @@ if (!function_exists('write_html_cache'))
 if (!function_exists('read_html_cache')) 
 {
     /**
-     * 读取静态页面缓存
+     * 讀取靜態頁面快取
      */
     function read_html_cache(){
         $html_cache_status = config('HTML_CACHE_STATUS');
@@ -360,30 +360,30 @@ if (!function_exists('read_html_cache'))
             }
             isset($param['page']) && $param['page'] = input('param.page/d');
 
-            // aid唯一性的处理
+            // aid唯一性的處理
             if (isset($param['aid'])) {
                 if (strval(intval($param['aid'])) !== strval($param['aid'])) {
-                    abort(404,'页面不存在');
+                    abort(404,'頁面不存在');
                 }
                 $param['aid'] = intval($param['aid']);
             }
 
-            $m_c_a_str = $request->module().'_'.$request->controller().'_'.$request->action(); // 模块_控制器_方法
+            $m_c_a_str = $request->module().'_'.$request->controller().'_'.$request->action(); // 模組_控制器_方法
             $m_c_a_str = strtolower($m_c_a_str);
-            //exit('read_html_cache读取缓存<br/>');
+            //exit('read_html_cache讀取快取<br/>');
             foreach($html_cache_arr as $mca=>$val)
             {
                 $mca = strtolower($mca);
-                if($mca != $m_c_a_str) //不是当前 模块 控制器 方法 直接跳过
+                if($mca != $m_c_a_str) //不是目前 模組 控制器 方法 直接跳過
                     continue;
 
                 if (empty($val['filename'])) {
                     continue;
                 }
 
-                $cache_tag = ''; // 缓存标签
+                $cache_tag = ''; // 快取標籤
                 $filename = '';
-                // 组合参数  
+                // 組合參數  
                 if(isset($val['p']))
                 {
                     $tid = '';
@@ -410,17 +410,17 @@ if (!function_exists('read_html_cache'))
                             }
                         }
                     }
-                    /*针对列表缓存的标签*/
+                    /*針對列表快取的標籤*/
                     !empty($tid) && $cache_tag = $tid;
                     /*--end*/
-                    /*针对内容缓存的标签*/
+                    /*針對內容快取的標籤*/
                     $aid = input("param.aid/d");
                     !empty($aid) && $cache_tag = $aid;
                     /*--end*/
                 }
                 empty($filename) && $filename = 'index';
 
-                // 缓存时间
+                // 快取時間
                 $web_cmsmode = tpCache('web.web_cmsmode');
                 if (1 == intval($web_cmsmode)) { // 永久
                     $path = HTML_PATH.$val['filename'].DS.$home_lang;
@@ -464,7 +464,7 @@ if (!function_exists('read_html_cache'))
 if (!function_exists('get_head_pic')) 
 {
     /**
-     * 默认头像
+     * 預設頭像
      */
     function get_head_pic($pic_url = '')
     {
@@ -476,9 +476,9 @@ if (!function_exists('get_head_pic'))
 if (!function_exists('get_default_pic')) 
 {
     /**
-     * 图片不存在，显示默认无图封面
-     * @param string $pic_url 图片路径
-     * @param string|boolean $domain 完整路径的域名
+     * 圖片不存在，顯示預設無圖封面
+     * @param string $pic_url 圖片路徑
+     * @param string|boolean $domain 完整路徑的域名
      */
     function get_default_pic($pic_url = '', $domain = false)
     {
@@ -489,7 +489,7 @@ if (!function_exists('get_default_pic'))
                 $domain = '';
             }
             
-            $pic_url = preg_replace('#^(/[/\w]+)?(/public/upload/|/uploads/)#i', '$2', $pic_url); // 支持子目录
+            $pic_url = preg_replace('#^(/[/\w]+)?(/public/upload/|/uploads/)#i', '$2', $pic_url); // 支援子目錄
             $realpath = realpath(trim($pic_url, '/'));
             if ( is_file($realpath) && file_exists($realpath) ) {
                 $pic_url = $domain . ROOT_DIR . $pic_url;
@@ -505,8 +505,8 @@ if (!function_exists('get_default_pic'))
 if (!function_exists('handle_subdir_pic')) 
 {
     /**
-     * 处理子目录与根目录的图片平缓切换
-     * @param string $str 图片路径或html代码
+     * 處理子目錄與根目錄的圖片平緩切換
+     * @param string $str 圖片路徑或html程式碼
      */
     function handle_subdir_pic($str = '', $type = 'img')
     {
@@ -514,30 +514,30 @@ if (!function_exists('handle_subdir_pic'))
         switch ($type) {
             case 'img':
                 if (!is_http_url($str) && !empty($str)) {
-                    // if (!empty($root_dir)) { // 子目录之间切换
+                    // if (!empty($root_dir)) { // 子目錄之間切換
                         $str = preg_replace('#^(/[/\w]+)?(/public/upload/|/uploads/)#i', $root_dir.'$2', $str);
-                    // } else { // 子目录与根目录切换
+                    // } else { // 子目錄與根目錄切換
                         // $str = preg_replace('#^(/[/\w]+)?(/public/upload/|/uploads/)#i', $root_dir.'$2', $str);
                     // }
                 }else if (is_http_url($str) && !empty($str)) {
-                    // 图片路径处理
+                    // 圖片路徑處理
                     $str     = preg_replace('#^(/[/\w]+)?(/public/upload/|/uploads/)#i', $root_dir.'$2', $str);
                     $StrData = parse_url($str);
                     $strlen  = strlen($root_dir);
                     if (empty($StrData['scheme'])) {
                         if ('/uploads/'==substr($StrData['path'],$strlen,9) || '/public/upload/'==substr($StrData['path'],$strlen,15)) {
-                            // 七牛云配置处理
+                            // 七牛云配置處理
                             static $Qiniuyun = null;
                             if (null == $Qiniuyun) {
-                                // 需要填写你的 Access Key 和 Secret Key
+                                // 需要填寫你的 Access Key 和 Secret Key
                                 $data     = M('weapp')->where('code','Qiniuyun')->field('data,status')->find();
                                 $Qiniuyun = json_decode($data['data'], true);
                                 $Qiniuyun['status'] = $data['status'];
                             }
 
-                            // 是否开启图片加速
+                            // 是否開啟圖片加速
                             if ('1' == $Qiniuyun['status']) {
-                                // 开启
+                                // 開啟
                                 if ($Qiniuyun['domain'] == $StrData['host']) {
                                     $tcp = !empty($Qiniuyun['tcp']) ? $Qiniuyun['tcp'] : '';
                                     switch ($tcp) {
@@ -556,11 +556,11 @@ if (!function_exists('handle_subdir_pic'))
                                     }
                                     $str = $tcp.$Qiniuyun['domain'].$StrData['path'];
                                 }else{
-                                    // 若切换了存储空间或访问域名，与数据库中存储的图片路径域名不一致时，访问本地路径，保证图片正常
+                                    // 若切換了儲存空間或訪問域名，與數據庫中儲存的圖片路徑域名不一致時，訪問本地路徑，保證圖片正常
                                     $str = $StrData['path'];
                                 }
                             }else{
-                                // 关闭
+                                // 關閉
                                 $str = $StrData['path'];
                             }
                         }
@@ -569,9 +569,9 @@ if (!function_exists('handle_subdir_pic'))
                 break;
 
             case 'html':
-                // if (!empty($root_dir)) { // 子目录之间切换
+                // if (!empty($root_dir)) { // 子目錄之間切換
                     $str = preg_replace('#(.*)(\#39;|&quot;|"|\')(/[/\w]+)?(/public/upload/|/public/plugins/|/uploads/)(.*)#iU', '$1$2'.$root_dir.'$4$5', $str);
-                // } else { // 子目录与根目录切换
+                // } else { // 子目錄與根目錄切換
                     // $str = preg_replace('#(.*)(\#39;|&quot;|"|\')(/[/\w]+)?(/public/upload/|/public/plugins/|/uploads/)(.*)#iU', '$1$2'.$root_dir.'$4$5', $str);
                 // }
                 break;
@@ -586,7 +586,7 @@ if (!function_exists('handle_subdir_pic'))
 }
 
 /**
- * 获取阅读权限
+ * 獲取閱讀許可權
  */
 if ( ! function_exists('get_arcrank_list'))
 {
@@ -606,40 +606,40 @@ if ( ! function_exists('get_arcrank_list'))
 if (!function_exists('thumb_img')) 
 {
     /**
-     * 缩略图 从原始图来处理出来
-     * @param type $original_img  图片路径
-     * @param type $width     生成缩略图的宽度
-     * @param type $height    生成缩略图的高度
-     * @param type $thumb_mode    生成方式
+     * 縮圖 從原始圖來處理出來
+     * @param type $original_img  圖片路徑
+     * @param type $width     產生縮圖的寬度
+     * @param type $height    產生縮圖的高度
+     * @param type $thumb_mode    產生方式
      */
     function thumb_img($original_img = '', $width = '', $height = '', $thumb_mode = '')
     {
-        // 缩略图配置
+        // 縮圖配置
         $thumbConfig = tpCache('thumb');
         $thumbextra = config('global.thumb');
 
-        if (!empty($width) || !empty($height) || !empty($thumb_mode)) { // 单独在模板里调用，不受缩略图全局开关影响
+        if (!empty($width) || !empty($height) || !empty($thumb_mode)) { // 單獨在模板里呼叫，不受縮圖全域性開關影響
 
-        } else { // 非单独模板调用
+        } else { // 非單獨模板呼叫
             if (empty($thumbConfig['thumb_open'])) {
                 return $original_img;
             }
         }
 
-        // 未开启缩略图，或远程图片
+        // 未開啟縮圖，或遠端圖片
         if (is_http_url($original_img) || stristr($original_img, '/public/static/common/images/not_adv.jpg')) {
             return $original_img;
         } else if (empty($original_img)) {
             return ROOT_DIR.'/public/static/common/images/not_adv.jpg';
         }
 
-        // 图片文件名
+        // 圖片檔名
         $filename = '';
         $imgArr = explode('/', $original_img);    
         $imgArr = end($imgArr);
         $filename = preg_replace("/\.([^\.]+)$/i", "", $imgArr);
 
-        // 如果图片参数是缩略图，则直接获取到原图，并进行缩略处理
+        // 如果圖片參數是縮圖，則直接獲取到原圖，並進行縮略處理
         if (preg_match('/\/uploads\/thumb\/\d{1,}_\d{1,}\//i', $original_img)) {
             $file_ext = preg_replace("/^(.*)\.([^\.]+)$/i", "$2", $imgArr);
             $pattern = UPLOAD_PATH.'allimg/*/'.$filename;
@@ -656,25 +656,25 @@ if (!function_exists('thumb_img'))
         // --end
 
         $original_img1 = preg_replace('#^'.ROOT_DIR.'#i', '', handle_subdir_pic($original_img));
-        $original_img1 = '.' . $original_img1; // 相对路径
-        //获取图像信息
+        $original_img1 = '.' . $original_img1; // 相對路徑
+        //獲取影象資訊
         $info = @getimagesize($original_img1);
-        //检测图像合法性
+        //檢測影象合法性
         if (false === $info || (IMAGETYPE_GIF === $info[2] && empty($info['bits']))) {
             return $original_img;
         }
 
-        // 缩略图宽高度
+        // 縮圖寬高度
         empty($width) && $width = !empty($thumbConfig['thumb_width']) ? $thumbConfig['thumb_width'] : $thumbextra['width'];
         empty($height) && $height = !empty($thumbConfig['thumb_height']) ? $thumbConfig['thumb_height'] : $thumbextra['height'];
         $width = intval($width);
         $height = intval($height);
 
-        //判断缩略图是否存在
+        //判斷縮圖是否存在
         $path = UPLOAD_PATH."thumb/{$width}_{$height}/";
         $img_thumb_name = "{$filename}";
 
-        // 已经生成过这个比例的图片就直接返回了
+        // 已經產生過這個比例的圖片就直接返回了
         if (is_file($path . $img_thumb_name . '.jpg')) return ROOT_DIR.'/' . $path . $img_thumb_name . '.jpg';
         if (is_file($path . $img_thumb_name . '.jpeg')) return ROOT_DIR.'/' . $path . $img_thumb_name . '.jpeg';
         if (is_file($path . $img_thumb_name . '.gif')) return ROOT_DIR.'/' . $path . $img_thumb_name . '.gif';
@@ -697,11 +697,11 @@ if (!function_exists('thumb_img'))
             $image = \think\Image::open($original_img1);
 
             $img_thumb_name = $img_thumb_name . '.' . $image->type();
-            // 生成缩略图
+            // 產生縮圖
             !is_dir($path) && mkdir($path, 0777, true);
-            // 填充颜色
+            // 填充顏色
             $thumb_color = !empty($thumbConfig['thumb_color']) ? $thumbConfig['thumb_color'] : $thumbextra['color'];
-            // 生成方式参考 vendor/topthink/think-image/src/Image.php
+            // 產生方式參考 vendor/topthink/think-image/src/Image.php
             if (!empty($thumb_mode)) {
                 $thumb_mode = intval($thumb_mode);
             } else {
@@ -713,7 +713,7 @@ if (!function_exists('thumb_img'))
                 $img_width = $image->width();
                 $img_height = $image->height();
                 if ($width < $img_width && $height < $img_height) {
-                    // 先进行缩略图等比例缩放类型，取出宽高中最小的属性值
+                    // 先進行縮圖等比例縮放型別，取出寬高中最小的屬性值
                     $min_width = ($img_width < $img_height) ? $img_width : 0;
                     $min_height = ($img_width > $img_height) ? $img_height : 0;
                     if ($min_width > $width || $min_height > $height) {
@@ -726,14 +726,14 @@ if (!function_exists('thumb_img'))
                         }
                         $s_width  = $img_width / $scale;
                         $s_height = $img_height / $scale;
-                        $image->thumb($s_width, $s_height, 1, $thumb_color)->save($path . $img_thumb_name, NULL, 100); //按照原图的比例生成一个最大为$width*$height的缩略图并保存
+                        $image->thumb($s_width, $s_height, 1, $thumb_color)->save($path . $img_thumb_name, NULL, 100); //按照原圖的比例產生一個最大為$width*$height的縮圖並儲存
                     }
                 }
-                $thumb_mode = 3; // 截减
+                $thumb_mode = 3; // 截減
             }
-            // 参考文章 http://www.mb5u.com/biancheng/php/php_84533.html  改动参考 http://www.thinkphp.cn/topic/13542.html
-            $image->thumb($width, $height, $thumb_mode, $thumb_color)->save($path . $img_thumb_name, NULL, 100); //按照原图的比例生成一个最大为$width*$height的缩略图并保存
-            //图片水印处理
+            // 參考文章 http://www.mb5u.com/biancheng/php/php_84533.html  改動參考 http://www.thinkphp.cn/topic/13542.html
+            $image->thumb($width, $height, $thumb_mode, $thumb_color)->save($path . $img_thumb_name, NULL, 100); //按照原圖的比例產生一個最大為$width*$height的縮圖並儲存
+            //圖片水印處理
             $water = tpCache('water');
             if($water['is_mark']==1 && $water['is_thumb_mark'] == 1 && $image->width()>$water['mark_width'] && $image->height()>$water['mark_height']){
                 $imgresource = '.' . ROOT_DIR . '/' . $path . $img_thumb_name;
@@ -752,8 +752,8 @@ if (!function_exists('thumb_img'))
                         $return_data['mark_txt'] = $water['mark_txt'];
                     }
                 }else{
-                    /*支持子目录*/
-                    $water['mark_img'] = preg_replace('#^(/[/\w]+)?(/public/upload/|/uploads/)#i', '$2', $water['mark_img']); // 支持子目录
+                    /*支援子目錄*/
+                    $water['mark_img'] = preg_replace('#^(/[/\w]+)?(/public/upload/|/uploads/)#i', '$2', $water['mark_img']); // 支援子目錄
                     /*--end*/
                     //$image->water(".".$water['mark_img'],9,$water['mark_degree'])->save($imgresource);
                     $waterPath = "." . $water['mark_img'];
@@ -780,15 +780,15 @@ if (!function_exists('thumb_img'))
 if (!function_exists('get_product_sub_images')) 
 {
     /**
-     * 产品相册缩略图
+     * 產品相簿縮圖
      */
     function get_product_sub_images($sub_img, $aid, $width, $height)
     {
-        //判断缩略图是否存在
+        //判斷縮圖是否存在
         $path = "public/upload/product/thumb/$aid/";
         $product_thumb_name = "product_sub_thumb_{$sub_img['img_id']}_{$width}_{$height}";
         
-        //这个缩略图 已经生成过这个比例的图片就直接返回了
+        //這個縮圖 已經產生過這個比例的圖片就直接返回了
         if (is_file($path . $product_thumb_name . '.jpg')) return '/' . $path . $product_thumb_name . '.jpg';
         if (is_file($path . $product_thumb_name . '.jpeg')) return '/' . $path . $product_thumb_name . '.jpeg';
         if (is_file($path . $product_thumb_name . '.gif')) return '/' . $path . $product_thumb_name . '.gif';
@@ -799,7 +799,7 @@ if (!function_exists('get_product_sub_images'))
             return $ossUrl;
         }
         
-        $original_img = '.' . $sub_img['image_url']; //相对路径
+        $original_img = '.' . $sub_img['image_url']; //相對路徑
         if (!is_file($original_img)) {
             return '/public/static/common/images/not_adv.jpg';
         }
@@ -815,17 +815,17 @@ if (!function_exists('get_product_sub_images'))
             $image = \think\Image::open($original_img);
 
             $product_thumb_name = $product_thumb_name . '.' . $image->type();
-            // 生成缩略图
+            // 產生縮圖
             !is_dir($path) && mkdir($path, 0777, true);
-            // 参考文章 http://www.mb5u.com/biancheng/php/php_84533.html  改动参考 http://www.thinkphp.cn/topic/13542.html
-            $image->thumb($width, $height, 2)->save($path . $product_thumb_name, NULL, 100); //按照原图的比例生成一个最大为$width*$height的缩略图并保存
-            //图片水印处理
+            // 參考文章 http://www.mb5u.com/biancheng/php/php_84533.html  改動參考 http://www.thinkphp.cn/topic/13542.html
+            $image->thumb($width, $height, 2)->save($path . $product_thumb_name, NULL, 100); //按照原圖的比例產生一個最大為$width*$height的縮圖並儲存
+            //圖片水印處理
             $water = tpCache('water');
             if ($water['is_mark'] == 1) {
                 $imgresource = './' . $path . $product_thumb_name;
                 if ($width > $water['mark_width'] && $height > $water['mark_height']) {
                     if ($water['mark_type'] == 'img') {
-                        //检查水印图片是否存在
+                        //檢查水印圖片是否存在
                         $waterPath = "." . $water['mark_img'];
                         if (is_file($waterPath)) {
                             $quality = $water['mark_quality'] ?: 80;
@@ -835,7 +835,7 @@ if (!function_exists('get_product_sub_images'))
                             @unlink($waterTempPath);
                         }
                     } else {
-                        //检查字体文件是否存在,注意是否有字体文件
+                        //檢查字型檔案是否存在,注意是否有字型檔案
                         $ttf = ROOT_PATH.'public/static/common/font/hgzb.ttf';
                         if (file_exists($ttf)) {
                             $size = $water['mark_txt_size'] ?: 30;
@@ -862,7 +862,7 @@ if (!function_exists('get_product_sub_images'))
 
 if (!function_exists('get_controller_byct')) {
     /**
-     * 根据模型ID获取控制器的名称
+     * 根據模型ID獲取控制器的名稱
      * @return mixed
      */
     function get_controller_byct($current_channel)
@@ -874,8 +874,8 @@ if (!function_exists('get_controller_byct')) {
 
 if (!function_exists('ui_read_bidden_inc')) {
     /**
-     * 读取被禁止外部访问的配置文件
-     * @param string $filename 文件路径
+     * 讀取被禁止外部訪問的配置檔案
+     * @param string $filename 檔案路徑
      * @return mixed
      */
     function ui_read_bidden_inc($filename)
@@ -887,7 +887,7 @@ if (!function_exists('ui_read_bidden_inc')) {
         }
 
         if (empty($data)) {
-            // -------------优先读取配置文件，不存在才读取数据表
+            // -------------優先讀取配置檔案，不存在才讀取數據表
             $params = explode('/', $filename);
             $page = $params[count($params) - 1];
             $pagearr = explode('.', $page);
@@ -911,7 +911,7 @@ if (!function_exists('ui_read_bidden_inc')) {
             //---------------end
 
             if (!empty($data)) {
-                // ----------文件不存在，并写入文件缓存
+                // ----------檔案不存在，並寫入檔案快取
                 tp_mkdir(dirname($filename));
                 $nowData = $data;
                 $setting = "<?php die('forbidden'); ?>\n";
@@ -931,9 +931,9 @@ if (!function_exists('ui_read_bidden_inc')) {
 
 if (!function_exists('ui_write_bidden_inc')) {
     /**
-     * 写入被禁止外部访问的配置文件
-     * @param array $arr 配置变量
-     * @param string $filename 文件路径
+     * 寫入被禁止外部訪問的配置檔案
+     * @param array $arr 配置變數
+     * @param string $filename 檔案路徑
      * @param bool $is_append false
      * @return mixed
      */
@@ -942,7 +942,7 @@ if (!function_exists('ui_write_bidden_inc')) {
         $data2 = $data;
         if (!empty($filename)) {
 
-            // -------------写入数据表，同时写入配置文件
+            // -------------寫入數據表，同時寫入配置檔案
             reset($data2);
             $value = current($data2);
             $tmp_val = json_decode($value, true);
@@ -986,7 +986,7 @@ if (!function_exists('ui_write_bidden_inc')) {
 
             if ($r) {
 
-                // ----------同时写入文件缓存
+                // ----------同時寫入檔案快取
                 tp_mkdir(dirname($filename));
 
                 // 追加
@@ -1017,7 +1017,7 @@ if (!function_exists('ui_write_bidden_inc')) {
 
 if (!function_exists('get_ui_inc_params')) {
     /**
-     * 获取模板主题的美化配置参数
+     * 獲取模板主題的美化配置參數
      * @return mixed
      */
     function get_ui_inc_params($page)
@@ -1033,16 +1033,16 @@ if (!function_exists('get_ui_inc_params')) {
 if (!function_exists('allow_release_arctype')) 
 {
     /**
-     * 允许发布文档的栏目列表
+     * 允許發佈文件的欄目列表
      */
     function allow_release_arctype($selected = 0, $allow_release_channel = array(), $selectform = true)
     {
         $where = [];
 
-        $where['c.lang']   = get_current_lang(); // 多语言 by 小虎哥
+        $where['c.lang']   = get_current_lang(); // 多語言 by 小虎哥
         $where['c.is_del'] = 0; // 回收站功能
 
-        /*权限控制 by 小虎哥*/
+        /*許可權控制 by 小虎哥*/
         $admin_info = session('admin_info');
         if (0 < intval($admin_info['role_id'])) {
             $auth_role_info = $admin_info['auth_role_info'];
@@ -1061,10 +1061,10 @@ if (!function_exists('allow_release_arctype'))
         $cacheKey = json_encode($selected).json_encode($allow_release_channel).$selectform.json_encode($where);
         $select_html = cache($cacheKey);
         if (empty($select_html) || false == $selectform) {
-            /*允许发布文档的模型*/
+            /*允許發佈文件的模型*/
             $allow_release_channel = !empty($allow_release_channel) ? $allow_release_channel : config('global.allow_release_channel');
 
-            /*所有栏目分类*/
+            /*所有欄目分類*/
             $arctype_max_level = intval(config('global.arctype_max_level'));
             $where['c.status'] = 1;
             $fields = "c.id, c.parent_id, c.current_channel, c.typename, c.grade, count(s.id) as has_children, '' as children";
@@ -1082,7 +1082,7 @@ if (!function_exists('allow_release_arctype'))
                 return '';
             }
 
-            /*过滤掉第三级栏目属于不允许发布的模型下*/
+            /*過濾掉第三級欄目屬於不允許發佈的模型下*/
             foreach ($res as $key => $val) {
                 if ($val['grade'] == ($arctype_max_level - 1) && !in_array($val['current_channel'], $allow_release_channel)) {
                     unset($res[$key]);
@@ -1090,7 +1090,7 @@ if (!function_exists('allow_release_arctype'))
             }
             /*--end*/
 
-            /*所有栏目列表进行层次归类*/
+            /*所有欄目列表進行層次歸類*/
             $arr = group_same_key($res, 'parent_id');
             for ($i=0; $i < $arctype_max_level; $i++) {
                 foreach ($arr as $key => $val) {
@@ -1106,7 +1106,7 @@ if (!function_exists('allow_release_arctype'))
             }
             /*--end*/
 
-            /*过滤掉第二级不包含允许发布模型的栏目*/
+            /*過濾掉第二級不包含允許發佈模型的欄目*/
             $nowArr = $arr[0];
             foreach ($nowArr as $key => $val) {
                 if (!empty($nowArr[$key]['children'])) {
@@ -1123,7 +1123,7 @@ if (!function_exists('allow_release_arctype'))
             }
             /*--end*/
 
-            /*组装成层级下拉列表框*/
+            /*組裝成層級下拉選單框*/
             $select_html = '';
             if (false == $selectform) {
                 $select_html = $nowArr;
@@ -1189,7 +1189,7 @@ if (!function_exists('allow_release_arctype'))
 if (!function_exists('every_top_dirname_list')) 
 {
     /**
-     * 获取一级栏目的目录名称
+     * 獲取一級欄目的目錄名稱
      */
     function every_top_dirname_list() {
         $arctypeModel = new \app\common\model\Arctype();
@@ -1202,14 +1202,14 @@ if (!function_exists('every_top_dirname_list'))
 if (!function_exists('gettoptype')) 
 {
     /**
-     * 获取当前栏目的第一级栏目
+     * 獲取目前欄目的第一級欄目
      */
     function gettoptype($typeid, $field = 'typename')
     {
-        $parent_list = model('Arctype')->getAllPid($typeid); // 获取当前栏目的所有父级栏目
-        $result = current($parent_list); // 第一级栏目
+        $parent_list = model('Arctype')->getAllPid($typeid); // 獲取目前欄目的所有父級欄目
+        $result = current($parent_list); // 第一級欄目
         if (isset($result[$field]) && !empty($result[$field])) {
-            return handle_subdir_pic($result[$field]); // 支持子目录
+            return handle_subdir_pic($result[$field]); // 支援子目錄
         } else {
             return '';
         }
@@ -1219,7 +1219,7 @@ if (!function_exists('gettoptype'))
 if (!function_exists('get_main_lang')) 
 {
     /**
-     * 获取主体语言（语言列表里最早的一条）
+     * 獲取主體語言（語言列表里最早的一條）
      */
     function get_main_lang()
     {
@@ -1240,7 +1240,7 @@ if (!function_exists('get_main_lang'))
 if (!function_exists('get_default_lang')) 
 {
     /**
-     * 获取默认语言
+     * 獲取預設語言
      */
     function get_default_lang()
     {
@@ -1258,7 +1258,7 @@ if (!function_exists('get_default_lang'))
 if (!function_exists('get_current_lang')) 
 {
     /**
-     * 获取当前默认语言
+     * 獲取目前預設語言
      */
     function get_current_lang()
     {
@@ -1276,7 +1276,7 @@ if (!function_exists('get_current_lang'))
 if (!function_exists('get_admin_lang')) 
 {
     /**
-     * 获取后台当前语言
+     * 獲取後臺目前語言
      */
     function get_admin_lang()
     {
@@ -1295,7 +1295,7 @@ if (!function_exists('get_admin_lang'))
 if (!function_exists('get_home_lang')) 
 {
     /**
-     * 获取前台当前语言
+     * 獲取前臺目前語言
      */
     function get_home_lang()
     {
@@ -1319,7 +1319,7 @@ if (!function_exists('get_home_lang'))
 if (!function_exists('is_language')) 
 {
     /**
-     * 是否多语言
+     * 是否多語言
      */
     function is_language()
     {
@@ -1341,9 +1341,9 @@ if (!function_exists('is_language'))
 if (!function_exists('switch_language')) 
 {
     /**
-     * 多语言切换（默认中文）
+     * 多語言切換（預設中文）
      *
-     * @param string $lang   语言变量值
+     * @param string $lang   語言變數值
      * @return void
      */
     function switch_language($lang = null) 
@@ -1366,7 +1366,7 @@ if (!function_exists('switch_language'))
         }
         \think\Lang::setLangCookieVar($langCookieVar);
 
-        /*单语言执行代码*/
+        /*單語言執行程式碼*/
         $langRow = \think\Db::name('language')->field('mark')
             ->order('id asc')
             ->select();
@@ -1380,7 +1380,7 @@ if (!function_exists('switch_language'))
         /*--end*/
 
         $current_lang = '';
-        /*兼容伪静态多语言切换*/
+        /*相容偽靜態多語言切換*/
         $pathinfo = $request->pathinfo();
         if (!empty($pathinfo)) {
             // $seo_pseudo = tpCache('seo.seo_pseudo');
@@ -1397,7 +1397,7 @@ if (!function_exists('switch_language'))
         $lang = $request->param('lang/s', $current_lang);
         $lang = trim($lang, '/');
         if (!empty($lang)) {
-            // 处理访问不存在的语言
+            // 處理訪問不存在的語言
             $lang = $language_db->where('mark',$lang)->getField('mark');
         }
         if (empty($lang)) {
@@ -1426,13 +1426,13 @@ if (!function_exists('switch_language'))
 
 if (!function_exists('getUsersConfigData')) 
 {
-    // 专用于获取users_config，会员配置表数据处理。
-    // 参数1：必须传入，传入值不同，获取数据不同：
-    // 例：获取配置所有数据，传入：all，
-    // 获取分组所有数据，传入：分组标识，如：member，
-    // 获取分组中的单个数据，传入：分组标识.名称标识，如：users.users_open_register
-    // 参数2：data数据，为空则查询，否则为添加或修改。
-    // 参数3：多语言标识，为空则获取当前默认语言。
+    // 專用於獲取users_config，會員配置表數據處理。
+    // 參數1：必須傳入，傳入值不同，獲取數據不同：
+    // 例：獲取配置所有數據，傳入：all，
+    // 獲取分組所有數據，傳入：分組標識，如：member，
+    // 獲取分組中的單個數據，傳入：分組標識.名稱標識，如：users.users_open_register
+    // 參數2：data數據，為空則查詢，否則為新增或修改。
+    // 參數3：多語言標識，為空則獲取目前預設語言。
     function getUsersConfigData($config_key,$data=array(),$lang='', $options = null){
         $tableName = 'users_config';
         $table_db = \think\Db::name($tableName);
@@ -1444,11 +1444,11 @@ if (!function_exists('getUsersConfigData'))
             $options['path'] = CACHE_PATH.$lang.DS;
         }
         if(empty($data)){
-            //如$config_key=shop_info则获取网站信息数组
-            //如$config_key=shop_info.logo则获取网站logo字符串
-            $config = cache($cache_inc_type,'',$options);//直接获取缓存文件
+            //如$config_key=shop_info則獲取網站資訊陣列
+            //如$config_key=shop_info.logo則獲取網站logo字串
+            $config = cache($cache_inc_type,'',$options);//直接獲取快取檔案
             if(empty($config)){
-                //缓存文件不存在就读取数据库
+                //快取檔案不存在就讀取數據庫
                 if ($param[0] == 'all') {
                     $param[0] = 'all';
                     $res = $table_db->where([
@@ -1474,7 +1474,7 @@ if (!function_exists('getUsersConfigData'))
                 return $config;
             }
         }else{
-            //更新缓存
+            //更新快取
             $result =  $table_db->where([
                 'inc_type'  => $param[0],
                 'lang'  => $lang,
@@ -1494,20 +1494,20 @@ if (!function_exists('getUsersConfigData'))
                         'update_time'   => time(),
                     );
                     if(!isset($temp[$newK])){
-                        array_push($add_data, $newArr); //新key数据插入数据库
+                        array_push($add_data, $newArr); //新key數據插入數據庫
                     }else{
                         if ($v != $temp[$newK]) {
                             $table_db->where([
                                 'name'  => $newK,
                                 'lang'  => $lang,
-                            ])->save($newArr);//缓存key存在且值有变更新此项
+                            ])->save($newArr);//快取key存在且值有變更新此項
                         }
                     }
                 }
                 if (!empty($add_data)) {
                     $table_db->insertAll($add_data);
                 }
-                //更新后的数据库记录
+                //更新后的數據庫記錄
                 $newRes = $table_db->where([
                     'inc_type'  => $param[0],
                     'lang'  => $lang,
@@ -1556,16 +1556,16 @@ if (!function_exists('getUsersConfigData'))
 if (!function_exists('send_email')) 
 {
     /**
-     * 邮件发送
+     * 郵件發送
      * @param $to    接收人
-     * @param string $subject   邮件标题
-     * @param string $content   邮件内容(html模板渲染后的内容)
-     * @param string $scene   使用场景
+     * @param string $subject   郵件標題
+     * @param string $content   郵件內容(html模板渲染后的內容)
+     * @param string $scene   使用場景
      * @throws Exception
      * @throws phpmailerException
      */
     function send_email($to='', $subject='', $data=array(), $scene=0, $smtp_config = []){
-        // 实例化类库，调用发送邮件
+        // 實例化類庫，呼叫發送郵件
         $emailLogic = new \app\common\logic\EmailLogic($smtp_config);
         $res = $emailLogic->send_email($to, $subject, $data, $scene);
         return $res;
@@ -1573,7 +1573,7 @@ if (!function_exists('send_email'))
 }
 
 /**
- * 获得全部省份列表
+ * 獲得全部省份列表
  */
 function get_province_list()
 {
@@ -1589,7 +1589,7 @@ function get_province_list()
 }
 
 /**
- * 获得全部城市列表
+ * 獲得全部城市列表
  */
 function get_city_list()
 {
@@ -1605,7 +1605,7 @@ function get_city_list()
 }
 
 /**
- * 获得全部地区列表
+ * 獲得全部地區列表
  */
 function get_area_list()
 {
@@ -1621,16 +1621,16 @@ function get_area_list()
 }
 
 /**
- * 根据地区ID获得省份名称
+ * 根據地區ID獲得省份名稱
  */
 function get_province_name($id)
 {
     $result = get_province_list();
-    return empty($result[$id]) ? '银河系' : $result[$id]['name'];
+    return empty($result[$id]) ? '銀河系' : $result[$id]['name'];
 }
 
 /**
- * 根据地区ID获得城市名称
+ * 根據地區ID獲得城市名稱
  */
 function get_city_name($id)
 {
@@ -1639,7 +1639,7 @@ function get_city_name($id)
 }
 
 /**
- * 根据地区ID获得县区名称
+ * 根據地區ID獲得縣區名稱
  */
 function get_area_name($id)
 {
@@ -1650,23 +1650,23 @@ function get_area_name($id)
 if (!function_exists('AddOrderAction')) 
 {
     /**
-     * 添加订单操作表数据
-     * 参数说明：
-     * $OrderId       订单ID或订单ID数组
-     * $UsersId       会员ID，若不为0，则ActionUsers为0
-     * $ActionUsers   操作员ID，为0，表示会员操作，反之则为管理员ID
-     * $OrderStatus   操作时，订单当前状态
-     * $ExpressStatus 操作时，订单当前物流状态
-     * $PayStatus     操作时，订单当前付款状态
+     * 新增訂單操作表數據
+     * 參數說明：
+     * $OrderId       訂單ID或訂單ID陣列
+     * $UsersId       會員ID，若不為0，則ActionUsers為0
+     * $ActionUsers   操作員ID，為0，表示會員操作，反之則為管理員ID
+     * $OrderStatus   操作時，訂單目前狀態
+     * $ExpressStatus 操作時，訂單目前物流狀態
+     * $PayStatus     操作時，訂單目前付款狀態
      * $ActionDesc    操作描述
-     * $ActionNote    操作备注
-     * 返回说明：
-     * return 无需返回
+     * $ActionNote    操作備註
+     * 返回說明：
+     * return 無需返回
      */
-    function AddOrderAction($OrderId,$UsersId,$ActionUsers='0',$OrderStatus='0',$ExpressStatus='0',$PayStatus='0',$ActionDesc='提交订单！',$ActionNote='会员提交订单成功！')
+    function AddOrderAction($OrderId,$UsersId,$ActionUsers='0',$OrderStatus='0',$ExpressStatus='0',$PayStatus='0',$ActionDesc='提交訂單！',$ActionNote='會員提交訂單成功！')
     {
         if (is_array($OrderId) && '4' == $OrderStatus) {
-            // OrderId为数组并且订单状态为过期，则执行
+            // OrderId為陣列並且訂單狀態為過期，則執行
             foreach ($OrderId as $key => $value) {
                 $ActionData[] = [
                     'order_id'       => $value['order_id'],
@@ -1681,10 +1681,10 @@ if (!function_exists('AddOrderAction'))
                     'add_time'       => getTime(),
                 ];
             }
-            // 批量添加
+            // 批量新增
             M('shop_order_log')->insertAll($ActionData);
         }else{
-            // OrderId不为数组，则执行
+            // OrderId不為陣列，則執行
             $ActionData = [
                 'order_id'       => $OrderId,
                 'users_id'       => $UsersId,
@@ -1697,7 +1697,7 @@ if (!function_exists('AddOrderAction'))
                 'lang'           => get_home_lang(),
                 'add_time'       => getTime(),
             ];
-            // 单条添加
+            // 單條新增
             M('shop_order_log')->add($ActionData);
         }
     }
@@ -1706,32 +1706,32 @@ if (!function_exists('AddOrderAction'))
 if (!function_exists('download_file')) 
 {
     /**
-     * 下载文件
-     * @param $down_path 文件路径
-     * @param $file_mime 文件类型
+     * 下載檔案
+     * @param $down_path 檔案路徑
+     * @param $file_mime 檔案型別
      */
     function download_file($down_path = '', $file_mime = '')
     {
-        /*支持子目录*/
+        /*支援子目錄*/
         $down_path = handle_subdir_pic($down_path);
         /*--end*/
 
-        //文件名
+        //檔名
         $filename = explode('/', $down_path);
         $filename = end($filename);
-        //以只读和二进制模式打开文件
+        //以只讀和二進制模式打開檔案
         $file = fopen('.'.$down_path, "rb");
-        //文件大小
+        //檔案大小
         $file_size = filesize('.'.$down_path);
-        //告诉浏览器这是一个文件流格式的文件    
+        //告訴瀏覽器這是一個檔案流格式的檔案    
         header("Content-type: ".$file_mime);
-        //请求范围的度量单位
+        //請求範圍的度量單位
         Header("Accept-Ranges: bytes");
-        //Content-Length是指定包含于请求或响应中数据的字节长度
+        //Content-Length是指定包含于請求或響應中數據的位元組長度
         Header("Accept-Length: " . $file_size);
-        //用来告诉浏览器，文件是可以当做附件被下载，下载后的文件名称为$filename该变量的值。
+        //用來告訴瀏覽器，檔案是可以當做附件被下載，下載后的檔名稱為$filename該變數的值。
         Header("Content-Disposition: attachment; filename=" . $filename); 
-        //读取文件内容并直接输出到浏览器    
+        //讀取檔案內容並直接輸出到瀏覽器    
         echo fread($file, $file_size);    
         fclose($file);    
         exit();
@@ -1741,8 +1741,8 @@ if (!function_exists('download_file'))
 if (!function_exists('is_realdomain')) 
 {
     /**
-     * 简单判断当前访问的域名是否真实
-     * @param string $domain 不带协议的域名
+     * 簡單判斷目前訪問的域名是否真實
+     * @param string $domain 不帶協議的域名
      * @return boolean
      */
     function is_realdomain($domain = '')
@@ -1760,7 +1760,7 @@ if (!function_exists('is_realdomain'))
 if (!function_exists('img_style_wh')) 
 {
     /**
-     * 追加指定内嵌样式到编辑器内容的img标签，兼容图片自动适应页面
+     * 追加指定內嵌樣式到編輯器內容的img標籤，相容圖片自動適應頁面
      */
     function img_style_wh($content = '', $title = '')
     {
@@ -1774,7 +1774,7 @@ if (!function_exists('img_style_wh'))
                 foreach ($imginfo as $key => $imgstr) {
                     $imgstrNew = $imgstr;
                     
-                    /* 兼容已存在的多重追加样式，处理去重 */
+                    /* 相容已存在的多重追加樣式，處理去重 */
                     if (stristr($imgstrNew, $appendStyle.$appendStyle)) {
                         $imgstrNew = preg_replace('/'.$appendStyle.$appendStyle.'/i', '', $imgstrNew);
                     }
@@ -1785,33 +1785,33 @@ if (!function_exists('img_style_wh'))
                     }
                     /* end */
 
-                    // 追加style属性
+                    // 追加style屬性
                     $imgstrNew = preg_replace('/style(\s*)=(\s*)[\'|\"](.*?)[\'|\"]/i', 'style="'.$appendStyle.'${3}"', $imgstrNew);
                     if (!preg_match('/<img(.*?)style(\s*)=(\s*)[\'|\"](.*?)[\'|\"](.*?)[\/]?(\s*)>/i', $imgstrNew)) {
-                        // 新增style属性
+                        // 新增style屬性
                         $imgstrNew = str_ireplace('<img', "<img style=\"".$appendStyle."\" ", $imgstrNew);
                     }
 
-                    // 移除img中多余的title属性
+                    // 移除img中多餘的title屬性
                     // $imgstrNew = preg_replace('/title(\s*)=(\s*)[\'|\"]([\w\.]*?)[\'|\"]/i', '', $imgstrNew);
 
-                    // 追加alt属性
-                    $altNew = $title."(图{$num})";
+                    // 追加alt屬性
+                    $altNew = $title."(圖{$num})";
                     $imgstrNew = preg_replace('/alt(\s*)=(\s*)[\'|\"]([\w\.]*?)[\'|\"]/i', 'alt="'.$altNew.'"', $imgstrNew);
                     if (!preg_match('/<img(.*?)alt(\s*)=(\s*)[\'|\"](.*?)[\'|\"](.*?)[\/]?(\s*)>/i', $imgstrNew)) {
-                        // 新增alt属性
+                        // 新增alt屬性
                         $imgstrNew = str_ireplace('<img', "<img alt=\"{$altNew}\" ", $imgstrNew);
                     }
 
-                    // 追加title属性
-                    $titleNew = $title."(图{$num})";
+                    // 追加title屬性
+                    $titleNew = $title."(圖{$num})";
                     $imgstrNew = preg_replace('/title(\s*)=(\s*)[\'|\"]([\w\.]*?)[\'|\"]/i', 'title="'.$titleNew.'"', $imgstrNew);
                     if (!preg_match('/<img(.*?)title(\s*)=(\s*)[\'|\"](.*?)[\'|\"](.*?)[\/]?(\s*)>/i', $imgstrNew)) {
-                        // 新增alt属性
+                        // 新增alt屬性
                         $imgstrNew = str_ireplace('<img', "<img alt=\"{$titleNew}\" ", $imgstrNew);
                     }
                     
-                    // 新的img替换旧的img
+                    // 新的img替換舊的img
                     $content = str_ireplace($imgstr, $imgstrNew, $content);
                     $num++;
                 }
@@ -1825,14 +1825,14 @@ if (!function_exists('img_style_wh'))
 if (!function_exists('get_archives_data')) 
 {
     /**
-     * 查询文档主表信息和文档栏目表信息整合到一个数组中
-     * @param string $array 产品数组信息
-     * @param string $id 产品ID，购物车下单页传入aid，订单列表订单详情页传入product_id
+     * 查詢文件主表資訊和文件欄目表資訊整合到一個陣列中
+     * @param string $array 產品陣列資訊
+     * @param string $id 產品ID，購物車下單頁傳入aid，訂單列表訂單詳情頁傳入product_id
      * @return return array_new
      */
     function get_archives_data($array,$id)
     {
-        // 目前定义仅订单中心使用
+        // 目前定義僅訂單中心使用
         
         if (empty($array) || empty($id)) {
             return false;
@@ -1855,51 +1855,51 @@ if (!function_exists('get_archives_data'))
 if (!function_exists('SynchronizeQiniu')) 
 {
     /**
-     * 参数说明：
-     * $images   本地图片地址
-     * $Qiniuyun 七牛云插件配置信息
-     * $is_tcp 是否携带协议
-     * 返回说明：
-     * return false 没有配置齐全
+     * 參數說明：
+     * $images   本地圖片地址
+     * $Qiniuyun 七牛云外掛配置資訊
+     * $is_tcp 是否攜帶協議
+     * 返回說明：
+     * return false 沒有配置齊全
      * return true  同步成功
      */
     function SynchronizeQiniu($images,$Qiniuyun=null,$is_tcp=false)
     {
         static $Qiniuyun = null;
-        // 若没有传入配信信息则读取数据库
+        // 若沒有傳入配信資訊則讀取數據庫
         if (null == $Qiniuyun) {
-            // 需要填写你的 Access Key 和 Secret Key
+            // 需要填寫你的 Access Key 和 Secret Key
             $data     = M('weapp')->where('code','Qiniuyun')->field('data')->find();
             $Qiniuyun = json_decode($data['data'], true);
         }
-        // 配置为空则返回原图片路径
+        // 配置為空則返回原圖片路徑
         if (empty($Qiniuyun)) {
             return $images;
         }
 
-        //引入七牛云的相关文件
+        //引入七牛云的相關檔案
         weapp_vendor('Qiniu.src.Qiniu.Auth', 'Qiniuyun');
         weapp_vendor('Qiniu.src.Qiniu.Storage.UploadManager', 'Qiniuyun');
         require_once ROOT_PATH.'weapp/Qiniuyun/vendor/Qiniu/autoload.php';
 
-        // 配置信息
+        // 配置資訊
         $accessKey = $Qiniuyun['access_key'];
         $secretKey = $Qiniuyun['secret_key'];
         $bucket    = $Qiniuyun['bucket'];
         $domain    = $Qiniuyun['domain'];
-        // 图片处理，去除图片途径中的第一个斜杠
+        // 圖片處理，去除圖片途徑中的第一個斜槓
         $images    = ltrim($images, '/'); 
-        // 构建鉴权对象
+        // 構建鑒權對像
         $auth      = new Qiniu\Auth($accessKey, $secretKey);
-        // 生成上传 Token
+        // 產生上傳 Token
         $token     = $auth->uploadToken($bucket);
-        // 要上传文件的本地路径
+        // 要上傳檔案的本地路徑
         $filePath  = ROOT_PATH.$images;
-        // 上传到七牛后保存的文件名
+        // 上傳到七牛後儲存的檔名
         $key       = $images;
-        // 初始化 UploadManager 对象并进行文件的上传。
+        // 初始化 UploadManager 對象並進行檔案的上傳。
         $uploadMgr = new Qiniu\Storage\UploadManager;
-        // 调用 UploadManager 的 putFile 方法进行文件的上传。
+        // 呼叫 UploadManager 的 putFile 方法進行檔案的上傳。
         list($ret, $err) = $uploadMgr->putFile($token, $key, $filePath);
         // list($ret, $err) = $uploadMgr->put($token, $key, $filePath);
         if (empty($err) || $err === null) {

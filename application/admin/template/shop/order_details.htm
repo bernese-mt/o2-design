@@ -15,9 +15,9 @@
     <div class="flexigrid">
         <div class="mDiv">
             <div class="ftitle">
-                <h3>订单详情</h3>
+                <h3>訂單詳情</h3>
             </div>
-            <div title="刷新数据" class="pReload"><i class="fa fa-refresh"></i></div>
+            <div title="重新整理數據" class="pReload"><i class="fa fa-refresh"></i></div>
             <div class="sDiv">
                 <div class="sDiv2 addartbtn fl" style="margin-right: 6px;">
                     <input type="button" class="btn current" value="返回列表" onclick="window.location.href='{:url("Shop/index")}';">
@@ -38,7 +38,7 @@
                                     <div class="tc"></div>
                                 </th>
                                 <th abbr="article_title" axis="col3" class="w10">
-                                    <div class="tc">订单信息</div>
+                                    <div class="tc">訂單資訊</div>
                                 </th>
                                 <th abbr="ac_id" axis="col4">
                                     <div class=""></div>
@@ -53,47 +53,47 @@
                 <table cellpadding="0" cellspacing="0" class="system_table">
                     <tbody>
                         <tr>
-                            <td class="gray_bg">订单ID：</td>
+                            <td class="gray_bg">訂單ID：</td>
                             <td>{$OrderData.order_id}</td>
-                            <td class="gray_bg">订单编号：</td>
+                            <td class="gray_bg">訂單編號：</td>
                             <td>{$OrderData.order_code}</td>
                         </tr>
                         <tr>
-                            <td class="gray_bg">用户名：</td>
+                            <td class="gray_bg">使用者名稱：</td>
                             <td>{$UsersData.username}</td>
-                            <td class="gray_bg">邮箱地址：</td>
+                            <td class="gray_bg">郵箱地址：</td>
                             <td>{$UsersData.email}</td>
                         </tr>
                         <tr>
-                            <td class="gray_bg">手机号码：</td>
+                            <td class="gray_bg">手機號碼：</td>
                             <td>{$UsersData.mobile}</td>
-                            <td class="gray_bg">应付金额：</td>
+                            <td class="gray_bg">應付金額：</td>
                             <td>￥{$OrderData.order_amount}</td>
                         </tr>
                         <tr>
                             <td class="gray_bg">支付方式：</td>
                             <td>
                                 {eq name="$OrderData.payment_method" value="1"}
-                                    货到付款
+                                    貨到付款
                                 {else/}
-                                    在线支付
+                                    線上支付
                                 {/eq}
                             </td>
-                            <td class="gray_bg">订单状态：</td>
+                            <td class="gray_bg">訂單狀態：</td>
                             <td>
                                 {$admin_order_status_arr[$OrderData.order_status]|default=''}
                                 {eq name="$OrderData.order_status" value="2"}
                                     &nbsp;<a href="javascript:void(0);" data-url="{:url('Shop/order_send',array('order_id'=>$OrderData['order_id']))}" onclick="sendOrderDetails(this);" class="ncap-btn ncap-btn-green" >
-                                        发货详情
+                                        發貨詳情
                                     </a>
                                     <script type="text/javascript">
-                                        // 发货、标记未付款
+                                        // 發貨、標記未付款
                                         function sendOrderDetails(obj){
                                             var url = $(obj).attr('data-url');
                                             //iframe窗
                                             var iframes = layer.open({
                                                 type: 2,
-                                                title: '订单发货详情',
+                                                title: '訂單發貨詳情',
                                                 fixed: true, //不固定
                                                 shadeClose: false,
                                                 shade: 0.3,
@@ -105,18 +105,18 @@
                                     </script>
                                     {eq name="$OrderData.prom_type" value="0"}
                                         &nbsp;<a href="javascript:void(0);" data-url="{$MobileExpressUrl}" onclick="LogisticsInquiry(this);" class="ncap-btn ncap-btn-green" >
-                                            物流查询
+                                            物流查詢
                                         </a>
                                         <script type="text/javascript">
-                                            // 发货、标记未付款
+                                            // 發貨、標記未付款
                                             function LogisticsInquiry(obj){
                                                 var url = $(obj).attr('data-url');
                                                 //iframe窗
                                                 var iframes = layer.open({
                                                     type: 2,
-                                                    title: '物流查询',
+                                                    title: '物流查詢',
                                                     shadeClose: false,
-                                                    maxmin: false, //开启最大化最小化按钮
+                                                    maxmin: false, //開啟最大化最小化按鈕
                                                     area: ['60%', '80%'],
                                                     content: url
                                                 });
@@ -127,28 +127,28 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="gray_bg">下单时间：</td>
+                            <td class="gray_bg">下單時間：</td>
                             <td>{$OrderData.add_time|MyDate='Y-m-d H:i:s',###}</td>
-                            <td class="gray_bg">付款时间：</td>
+                            <td class="gray_bg">付款時間：</td>
                             <td>{$OrderData.pay_time|MyDate='Y-m-d H:i:s',###}</td>
                         </tr>
                         <tr>
                             <td class="gray_bg">付款方式：</td>
                             <td>
                                 {eq name="$OrderData.payment_method" value="1"}
-                                    快递代收
+                                    快遞代收
                                 {else/}
                                     {$pay_method_arr[$OrderData.pay_name]|default='未付款'}
                                 {/eq}
                             </td>
-                            <td class="gray_bg">订单类型：</td>
+                            <td class="gray_bg">訂單型別：</td>
                             <td>{$OrderData.prom_type_name}</td>
                         </tr>
                         {empty name="$OrderData.prom_type"}
                             <tr>
                                 <td class="gray_bg">物流公司：</td>
                                 <td>{$OrderData.express_name}</td>
-                                <td class="gray_bg">配送单号：</td>
+                                <td class="gray_bg">配送單號：</td>
                                 <td>{$OrderData.express_order}</td>
                             </tr>
                         {/empty}
@@ -165,7 +165,7 @@
                                     <div class="tc"></div>
                                 </th>
                                 <th abbr="article_title" axis="col3" class="w10">
-                                    <div class="tc">收货信息</div>
+                                    <div class="tc">收貨資訊</div>
                                 </th>
                                 <th abbr="ac_id" axis="col4">
                                     <div class=""></div>
@@ -179,7 +179,7 @@
                 {empty name="$OrderData.prom_type"}
                 <dl class="row">
                     <dt class="tit">
-                        <label>收货人</label>
+                        <label>收貨人</label>
                     </dt>
                     <dd class="opt">          
                         {$OrderData.consignee}
@@ -187,7 +187,7 @@
                 </dl>
                 <dl class="row">
                     <dt class="tit">
-                        <label>联系方式</label>
+                        <label>聯繫方式</label>
                     </dt>
                     <dd class="opt">          
                         {$OrderData.mobile}
@@ -195,7 +195,7 @@
                 </dl>
                 <dl class="row">
                     <dt class="tit">
-                        <label>收货地址</label>
+                        <label>收貨地址</label>
                     </dt>
                     <dd class="opt">          
                         {$OrderData.country} {$OrderData.province} {$OrderData.city} {$OrderData.district} {$OrderData.address}
@@ -205,7 +205,7 @@
                 {/empty}
                 <dl class="row">
                     <dt class="tit">
-                        <label>订单留言</label>
+                        <label>訂單留言</label>
                     </dt>
                     <dd class="opt">          
                         {$OrderData.user_note}
@@ -213,7 +213,7 @@
                 </dl>
                 <dl class="row">
                     <dt class="tit">
-                        <label>管理员备注</label>
+                        <label>管理員備註</label>
                     </dt>
                     <dd class="opt">          
                         <textarea rows="5" cols="60" id="admin_note" name="admin_note" style="height:60px;">{$OrderData.admin_note}</textarea>
@@ -223,7 +223,7 @@
                 </dl>
                 <div class="bot" style="padding-bottom:0px;">
                     <input type="hidden" name="gourl" value="{$gourl}">
-                    <a href="JavaScript:void(0);" onclick="UpNote('{$OrderData.order_id}');" class="ncap-btn-big ncap-btn-green" id="submitBtn">保存</a>
+                    <a href="JavaScript:void(0);" onclick="UpNote('{$OrderData.order_id}');" class="ncap-btn-big ncap-btn-green" id="submitBtn">儲存</a>
                 </div>
             </div>
 
@@ -236,7 +236,7 @@
                                 <div class="tc"></div>
                             </th>
                             <th abbr="article_title" axis="col3" class="w10">
-                                <div class="tc">商品信息</div>
+                                <div class="tc">商品資訊</div>
                             </th>
                             <th abbr="ac_id" axis="col4">
                                 <div class=""></div>
@@ -256,19 +256,19 @@
                                     <div class="tc">商品ID</div>
                                 </th>
                                 <th abbr="article_title" axis="col3" class="">
-                                    <div style="text-align: left; padding-left: 10px;" class="">商品名称</div>
+                                    <div style="text-align: left; padding-left: 10px;" class="">商品名稱</div>
                                 </th>
                                 <th abbr="article_time" axis="col6" class="w150">
-                                    <div class="tl">规格属性</div>
+                                    <div class="tl">規格屬性</div>
                                 </th>
                                 <th abbr="article_time" axis="col6" class="w80">
-                                    <div class="tc">数量</div>
+                                    <div class="tc">數量</div>
                                 </th>
                                 <th abbr="article_time" axis="col6" class="w100">
-                                    <div class="tc">会员价格</div>
+                                    <div class="tc">會員價格</div>
                                 </th>
                                 <th abbr="article_title" axis="col3" class="w100">
-                                    <div class="tc">单品小计</div>
+                                    <div class="tc">單品小計</div>
                                 </th>
                             </tr>
                         </thead>
@@ -282,7 +282,7 @@
                         {empty name="DetailsData"}
                             <tr>
                                 <td class="no-data" align="center" axis="col0" colspan="50">
-                                    <i class="fa fa-exclamation-circle"></i>没有符合条件的记录
+                                    <i class="fa fa-exclamation-circle"></i>沒有符合條件的記錄
                                 </td>
                             </tr>
                         {else/}
@@ -338,7 +338,7 @@
                                 <div class="tc"></div>
                             </th>
                             <th abbr="article_title" axis="col3" class="w10">
-                                <div class="tc">操作信息</div>
+                                <div class="tc">操作資訊</div>
                             </th>
                             <th abbr="ac_id" axis="col4">
                                 <div class=""></div>
@@ -352,22 +352,22 @@
                 <input type="hidden" name="status_name" id="status_name">
                 <dl class="row">
                     <dt class="tit">
-                        <label for="uname">可执行操作</label>
+                        <label for="uname">可執行操作</label>
                     </dt>
                     <dd class="opt">
                         {eq name="$OrderData['order_status']" value='0'}
                             <a href="JavaScript:void(0);" onclick="OrderMark('yfk');" class="ncap-btn-big ncap-btn-green" id="submitBtn">
-                                标记已付款
+                                標記已付款
                             </a>
                         {/eq}
                         {eq name="$OrderData['order_status']" value='2'}
                             <a href="JavaScript:void(0);" onclick="OrderMark('ysh');" class="ncap-btn-big ncap-btn-green" id="submitBtn">
-                                标记已收货
+                                標記已收貨
                             </a>
                         {/eq}
                         {neq name="$OrderData['order_status']" value='-1'}
                             <a href="JavaScript:void(0);" onclick="OrderMark('wx');" class="ncap-btn-big ncap-btn-green" id="submitBtn">
-                                标记为无效
+                                標記為無效
                             </a>
                         {/neq}
                     </dd>
@@ -383,7 +383,7 @@
                                 <div class="tc"></div>
                             </th>
                             <th abbr="article_title" axis="col3" class="w10">
-                                <div class="tc">操作记录</div>
+                                <div class="tc">操作記錄</div>
                             </th>
                             <th abbr="ac_id" axis="col4">
                                 <div class=""></div>
@@ -405,22 +405,22 @@
                                 <div class="tl">操作者</div>
                             </th>
                             <th abbr="article_title" axis="col3" class="w180">
-                                <div class="tc">操作时间</div>
+                                <div class="tc">操作時間</div>
                             </th>
                             <th abbr="article_time" axis="col6" class="w100">
-                                <div class="tc">支付状态</div>
+                                <div class="tc">支付狀態</div>
                             </th>
                             <th abbr="article_time" axis="col6" class="w100">
-                                <div class="tc">发货状态</div>
+                                <div class="tc">發貨狀態</div>
                             </th>
                             <th abbr="article_time" axis="col6" class="w100">
-                                <div class="tc">订单状态</div>
+                                <div class="tc">訂單狀態</div>
                             </th>
                             <th abbr="article_time" axis="col6" class="w100">
                                 <div class="tc">操作描述</div>
                             </th>
                             <th abbr="article_title" axis="col3" class="">
-                                <div style="text-align: left; padding-left: 10px;" class="">操作备注</div>
+                                <div style="text-align: left; padding-left: 10px;" class="">操作備註</div>
                             </th>
                         </tr>
                         </thead>
@@ -434,7 +434,7 @@
                         {empty name="Action"}
                             <tr>
                                 <td class="no-data" align="center" axis="col0" colspan="50">
-                                    <i class="fa fa-exclamation-circle"></i>没有符合条件的记录
+                                    <i class="fa fa-exclamation-circle"></i>沒有符合條件的記錄
                                 </td>
                             </tr>
                         {else/}
@@ -490,7 +490,7 @@
     </div>
 </div>
 <script type="text/javascript">
-    // 判断输入框是否为空
+    // 判斷輸入框是否為空
     function OrderMark(status_name){
         if('qfh' == status_name){
             var order_id = '{$OrderData.order_id}';
@@ -504,28 +504,28 @@
             window.location.href = url;
             return false;
         }else if('yfk' == status_name){
-            var msg = '确认订单已付款？';
+            var msg = '確認訂單已付款？';
         }else if('ysh' == status_name){
-            var msg = '确认订单已收货？';
+            var msg = '確認訂單已收貨？';
         }else if('wfk' == status_name){
-            var msg = '确认订单未付款？';
+            var msg = '確認訂單未付款？';
         }else if('wx' == status_name){
-            var msg = '确认订单无效？';
+            var msg = '確認訂單無效？';
         }
         
         layer.confirm(msg, {
             title: false,
-            btn: ['确定','取消']
+            btn: ['確定','取消']
         },function(){
             $('#status_name').val(status_name);
-            layer_loading('正在处理');
+            layer_loading('正在處理');
             $('#postForm').submit();
         },function(index){
             layer.closeAll(index);
         });
     }
 
-    // 更新管理员备注
+    // 更新管理員備註
     function UpNote(order_id){
         var admin_note = $('#admin_note').val();
         $.ajax({
@@ -545,12 +545,12 @@
     }
 
     $(document).ready(function(){
-        // 表格行点击选中切换
+        // 表格行點選選中切換
         $('#flexigrid > table>tbody >tr').click(function(){
             $(this).toggleClass('trSelected');
         });
 
-        // 点击刷新数据
+        // 點選重新整理數據
         $('.fa-refresh').click(function(){
             location.href = location.href;
         });

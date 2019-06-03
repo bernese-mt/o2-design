@@ -1,11 +1,11 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
@@ -25,18 +25,18 @@ class LanguageAttr extends Model
     //初始化
     protected function initialize()
     {
-        // 需要调用`Model`的`initialize`方法
+        // 需要呼叫`Model`的`initialize`方法
         parent::initialize();
     }
 
     /**
-     * 获取关联绑定的变量值
-     * @param string|array $bind_value 绑定之前的值，或者绑定之后的值
-     * @param string $group 分组
+     * 獲取關聯繫結的變數值
+     * @param string|array $bind_value 繫結之前的值，或者繫結之後的值
+     * @param string $group 分組
      */
     public function getBindValue($bind_value = '', $attr_group = 'arctype', $langvar = '')
     {
-        /*单语言情况下不执行多语言代码*/
+        /*單語言情況下不執行多語言程式碼*/
         if (!is_language()) {
             return $bind_value;
         }
@@ -54,7 +54,7 @@ class LanguageAttr extends Model
             switch ($attr_group) {
                 case 'arctype':
                     {
-                        if (!is_array($bind_value)) { // 获取关联绑定的栏目ID
+                        if (!is_array($bind_value)) { // 獲取關聯繫結的欄目ID
                             $typeidArr = explode(',', $bind_value);
                             $row = Db::name('language_attr')->field('attr_name')
                                 ->where([
@@ -107,7 +107,7 @@ class LanguageAttr extends Model
                                     }
                                 }
                             }
-                        } else { // 获取关联绑定的产品属性ID
+                        } else { // 獲取關聯繫結的產品屬性ID
                             $attr_name = 'attr_'.$bind_value;
                             $bind_value = Db::name('language_attr')->where([
                                     'attr_name'    => $attr_name,
@@ -145,7 +145,7 @@ class LanguageAttr extends Model
                                     }
                                 }
                             }
-                        } else { // 获取关联绑定的留言属性ID
+                        } else { // 獲取關聯繫結的留言屬性ID
                             $attr_name = 'attr_'.$bind_value;
                             $bind_value = Db::name('language_attr')->where([
                                     'attr_name'    => $attr_name,
@@ -159,7 +159,7 @@ class LanguageAttr extends Model
 
                 case 'ad_position':
                     {
-                        if (!is_array($bind_value)) {// 获取关联绑定的广告位置ID
+                        if (!is_array($bind_value)) {// 獲取關聯繫結的廣告位置ID
                             $attr_name = 'adp'.$bind_value;
                             $bind_value = Db::name('language_attr')->where([
                                     'attr_name'    => $attr_name,
@@ -173,7 +173,7 @@ class LanguageAttr extends Model
 
                 case 'ad':
                     {
-                        if (!is_array($bind_value)) {// 获取关联绑定的广告ID
+                        if (!is_array($bind_value)) {// 獲取關聯繫結的廣告ID
                             $attr_name = 'ad'.$bind_value;
                             $bind_value = Db::name('language_attr')->where([
                                     'attr_name'    => $attr_name,
@@ -195,13 +195,13 @@ class LanguageAttr extends Model
     }
 
     /**
-     * 获取关联绑定的主语言的变量值
-     * @param string|array $bind_value 绑定之前的值，或者绑定之后的值
-     * @param string $group 分组
+     * 獲取關聯繫結的主語言的變數值
+     * @param string|array $bind_value 繫結之前的值，或者繫結之後的值
+     * @param string $group 分組
      */
     public function getBindMainValue($bind_value = '', $attr_group = 'arctype')
     {
-        /*单语言情况下不执行多语言代码*/
+        /*單語言情況下不執行多語言程式碼*/
         if (!is_language()) {
             return $bind_value;
         }
@@ -213,7 +213,7 @@ class LanguageAttr extends Model
             switch ($attr_group) {
                 case 'ad':
                     {
-                        if (!is_array($bind_value)) {// 获取关联绑定的广告ID
+                        if (!is_array($bind_value)) {// 獲取關聯繫結的廣告ID
                             $attr_name = Db::name('language_attr')->where([
                                     'attr_value'    => $bind_value,
                                     'attr_group'    => $attr_group,

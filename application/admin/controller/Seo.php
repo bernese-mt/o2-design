@@ -1,11 +1,11 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
@@ -21,7 +21,7 @@ class Seo extends Base
 
     public function _initialize() {
         parent::_initialize();
-        $this->language_access(); // 多语言功能操作权限
+        $this->language_access(); // 多語言功能操作許可權
     }
     
     /*
@@ -37,38 +37,38 @@ class Seo extends Base
             $seo_pseudo_list = get_seo_pseudo_list();
             $this->assign('seo_pseudo_list', $seo_pseudo_list);
         } elseif ('html' == $inc_type) {
-            // 栏目列表
+            // 欄目列表
             $arctypeLogic = new ArctypeLogic();
             $select_html = $arctypeLogic->arctype_list(0, 0, true, config('global.arctype_max_level'));
             $this->assign('select_html',$select_html);
         } else if ('rewrite' == $inc_type) {
-            $this->assign('root_dir', ROOT_DIR); // 支持子目录
+            $this->assign('root_dir', ROOT_DIR); // 支援子目錄
         }
-        $this->assign('config',$config);//当前配置项
+        $this->assign('config',$config);//目前配置項
         return $this->fetch($inc_type);
     }
     
     /*
-     * 新增修改配置（同步数据到其他语言里）
+     * 新增修改配置（同步數據到其他語言里）
      */
     public function handle()
     {
         $param = input('post.');
         $inc_type = $param['inc_type'];
         if ($inc_type == 'seo') {
-            /*检测是否开启pathinfo模式*/
+            /*檢測是否開啟pathinfo模式*/
             try {
                 if (3 == $param['seo_pseudo'] || (1 == $param['seo_pseudo'] && 2 == $param['seo_dynamic_format'])) {
                     $fix_pathinfo = ini_get('cgi.fix_pathinfo');
                     if (stristr($_SERVER['HTTP_HOST'], '.mylightsite.com')) {
-                        $this->error('腾讯云空间不支持伪静态！');
+                        $this->error('騰訊云空間不支援偽靜態！');
                     } else if ('' != $fix_pathinfo && 0 === $fix_pathinfo) {
-                        $this->error('空间不支持伪静态，请开启pathinfo，或者在php.ini里修改cgi.fix_pathinfo=1');
+                        $this->error('空間不支援偽靜態，請開啟pathinfo，或者在php.ini里修改cgi.fix_pathinfo=1');
                     }
                 }
             } catch (\Exception $e) {}
             /*--end*/
-            /*强制去除index.php*/
+            /*強制去除index.php*/
             if (isset($param['seo_force_inlet'])) {
                 $seo_force_inlet = $param['seo_force_inlet'];
                 $seo_force_inlet_old = tpCache('seo.seo_force_inlet');
@@ -82,11 +82,11 @@ class Seo extends Base
             $param['sitemap_not2'] = isset($param['sitemap_not2']) ? $param['sitemap_not2'] : 0;
             $param['sitemap_xml'] = isset($param['sitemap_xml']) ? $param['sitemap_xml'] : 0;
             $param['sitemap_txt'] = isset($param['sitemap_txt']) ? $param['sitemap_txt'] : 0;
-            /* 生成sitemap */
+            /* 產生sitemap */
             sitemap_all();
         }
         unset($param['inc_type']);
-        /*多语言*/
+        /*多語言*/
         if (is_language()) {
             $langRow = \think\Db::name('language')->order('id asc')
                 ->cache(true, EYOUCMS_CACHE_TIME, 'language')
@@ -100,7 +100,7 @@ class Seo extends Base
         /*--end*/
         
         if ($inc_type == 'seo') {
-            // 清空缓存
+            // 清空快取
             delFile(rtrim(HTML_ROOT, '/'));
             \think\Cache::clear();
         }
@@ -108,7 +108,7 @@ class Seo extends Base
     }
     
     /*
-     * 生成静态页面
+     * 產生靜態頁面
      */
     public function htmlHandle()
     {
@@ -124,7 +124,7 @@ class Seo extends Base
     }
 
     /*
-     * 生成静态页面
+     * 產生靜態頁面
      */
     public function bindHtml()
     {
@@ -155,7 +155,7 @@ class Seo extends Base
     }
 
     /**
-     * 更新首页html
+     * 更新首頁html
      */
     public function bindIndexHtml()
     {
@@ -176,7 +176,7 @@ class Seo extends Base
     }
 
     /**
-     * 更新文档html
+     * 更新文件html
      */
     public function bindArchivesHtml($typeid = '', $startid = '', $endid = '')
     {
@@ -221,7 +221,7 @@ class Seo extends Base
     }
 
     /**
-     * 更新栏目html
+     * 更新欄目html
      */
     public function bindArctypeHtml($typeid = '')
     {
@@ -240,7 +240,7 @@ class Seo extends Base
         foreach ($result as $key => $val) {
             $ctl_name = $channelList[$val['current_channel']]['ctl_name'];
             $cacheKey = strtolower("taglist_lastPage_home{$ctl_name}lists".$val['id']);
-            $lastPage = cache($cacheKey); // 用于静态页面的分页生成
+            $lastPage = cache($cacheKey); // 用於靜態頁面的分頁產生
             for ($i=1; $i <= $lastPage; $i++) { 
                 $nowtypeurl = typeurl('home/'.$ctl_name.'/lists', $val, true, request()->domain(), 2);
                 if ($i == 1) {

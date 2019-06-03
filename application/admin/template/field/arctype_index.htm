@@ -8,16 +8,16 @@
     <div class="flexigrid">
         <div class="mDiv">
             <div class="ftitle">
-                <h3>栏目字段列表</h3>
-                <h5>(共{$pager->totalRows}条记录)</h5>
+                <h3>欄目欄位列表</h3>
+                <h5>(共{$pager->totalRows}條記錄)</h5>
             </div>
-            <div title="刷新数据" class="pReload"><i class="fa fa-refresh"></i></div>
-            <form class="navbar-form form-inline" action="{:url('Field/arctype_index')}" method="get" onsubmit="layer_loading('正在处理');">
+            <div title="重新整理數據" class="pReload"><i class="fa fa-refresh"></i></div>
+            <form class="navbar-form form-inline" action="{:url('Field/arctype_index')}" method="get" onsubmit="layer_loading('正在處理');">
                 {$searchform.hidden|default=''}
                 <div class="sDiv">
                     <div class="sDiv2">
                         <input type="hidden" name="searchopt" value="1">
-                        <input type="text" size="30" name="keywords" value="{$Request.param.keywords}" class="qsbox" placeholder="字段搜索...">
+                        <input type="text" size="30" name="keywords" value="{$Request.param.keywords}" class="qsbox" placeholder="欄位搜索...">
                         <input type="submit" class="btn" value="搜索">
                     </div>
                     <!-- <div class="sDiv2">
@@ -35,19 +35,19 @@
                             <div class="tc">ID</div>
                         </th>
                         <th abbr="article_title" axis="col3" class="">
-                            <div class="">字段标题</div>
+                            <div class="">欄位標題</div>
                         </th>
                         <th abbr="article_time" axis="col6" class="w160">
-                            <div class="tc">字段名称</div>
+                            <div class="tc">欄位名稱</div>
                         </th>
                         <th abbr="article_time" axis="col6" class="w120">
-                            <div class="tc">字段类型</div>
+                            <div class="tc">欄位型別</div>
                         </th>
                         <th abbr="article_time" axis="col6" class="w70">
-                            <div class="tc">字段分类</div>
+                            <div class="tc">欄位分類</div>
                         </th>
                         <th abbr="article_time" axis="col6" class="w100">
-                            <div class="tc">更新时间</div>
+                            <div class="tc">更新時間</div>
                         </th>
                         <th axis="col1" class="w180">
                             <div class="tc">操作</div>
@@ -67,7 +67,7 @@
                     {empty name="list"}
                         <tr>
                             <td class="no-data" align="center" axis="col0" colspan="50">
-                                <i class="fa fa-exclamation-circle"></i>没有符合条件的记录
+                                <i class="fa fa-exclamation-circle"></i>沒有符合條件的記錄
                             </td>
                         </tr>
                     {else/}
@@ -98,15 +98,15 @@
                             </td>
                             <td class="">
                                 <div class="w120 tc">
-                                    {$fieldtypeList[$vo['dtype']]['title']|default='数据出错'}
+                                    {$fieldtypeList[$vo['dtype']]['title']|default='數據出錯'}
                                 </div>
                             </td>
                             <td>
                                 <div class="tc w70">
                                     {if condition="$vo['ifsystem'] eq 1"}
-                                        系统
+                                        系統
                                     {else /}
-                                        自定义
+                                        自定義
                                     {/if}
                                 </div>
                             </td>
@@ -119,15 +119,15 @@
                                 <div class="w180 tc">
                                 {if condition="empty($vo['ifsystem'])"}
                                     {eq name="$Think.const.CONTROLLER_NAME.'@arctype_edit'|is_check_access" value="1"}
-                                    <a href="{:url('Field/arctype_edit',array('id'=>$vo['id']))}" class="btn blue"><i class="fa fa-pencil-square-o"></i>编辑</a>
+                                    <a href="{:url('Field/arctype_edit',array('id'=>$vo['id']))}" class="btn blue"><i class="fa fa-pencil-square-o"></i>編輯</a>
                                     {/eq}
                                     {eq name="$Think.const.CONTROLLER_NAME.'@arctype_del'|is_check_access" value="1"}
-                                    <a class="btn red"  href="javascript:void(0);" data-url="{:url('Field/arctype_del')}" data-id="{$vo.id}" onClick="delfun(this);"><i class="fa fa-trash-o"></i>删除</a>
+                                    <a class="btn red"  href="javascript:void(0);" data-url="{:url('Field/arctype_del')}" data-id="{$vo.id}" onClick="delfun(this);"><i class="fa fa-trash-o"></i>刪除</a>
                                     {/eq}
                                 {else /}
                                     ——————
                                 {/if}
-                                <a class="btn blue" href="javascript:void(0);" data-name="{$vo.name}" data-dtype="{$vo.dtype}" onclick="copyToClipBoard(this)">标签调用</a>
+                                <a class="btn blue" href="javascript:void(0);" data-name="{$vo.name}" data-dtype="{$vo.dtype}" onclick="copyToClipBoard(this)">標籤呼叫</a>
                                 </div>
                             </td>
                             <td class="sort">
@@ -157,8 +157,8 @@
                 {eq name="$Think.const.CONTROLLER_NAME.'@arctype_add'|is_check_access" value="1"}
                 <div class="fbutton">
                     <a href="{:url('Field/arctype_add')}">
-                        <div class="add" title="新增字段">
-                            <span class="red"><i class="fa fa-plus"></i>新增字段</span>
+                        <div class="add" title="新增欄位">
+                            <span class="red"><i class="fa fa-plus"></i>新增欄位</span>
                         </div>
                     </a>
                 </div>
@@ -166,19 +166,19 @@
             </div>
             <div style="clear:both"></div>
         </div>
-        <!--分页位置-->
+        <!--分頁位置-->
         {$page}
     </div>
 </div>
 <script type="text/javascript">
     $(document).ready(function(){
 
-        // 表格行点击选中切换
+        // 表格行點選選中切換
         $('#flexigrid > table>tbody >tr').click(function(){
             $(this).toggleClass('trSelected');
         });
 
-        // 点击刷新数据
+        // 點選重新整理數據
         $('.fa-refresh').click(function(){
             location.href = location.href;
         });
@@ -186,12 +186,12 @@
 
     function delfun(obj){
       var title = $(obj).attr('data-typename');
-      layer.confirm('<font color="#ff0000">数据将无法恢复</font>，确认删除？', {
+      layer.confirm('<font color="#ff0000">數據將無法恢復</font>，確認刪除？', {
           title: false,
-          btn: ['确定','取消'] //按钮
+          btn: ['確定','取消'] //按鈕
         }, function(){
-          layer_loading('正在处理');
-        // 确定
+          layer_loading('正在處理');
+        // 確定
           $.ajax({
             type : 'post',
             url : $(obj).attr('data-url'),
@@ -216,8 +216,8 @@
     }  
 
     /**
-     * 标签调用js
-     * @param string  fieldname 字段名称
+     * 標籤呼叫js
+     * @param string  fieldname 欄位名稱
      */
     function copyToClipBoard(obj) {
         var fieldname = $(obj).attr('data-name');
@@ -232,10 +232,10 @@
                 {
                     height = '400px';
                     var viewstr = "{eyou:diyfield type='"+dtype+"' id='"+fieldname+"' name='$"+"eyou.field."+fieldname+"'}\r\n    <img src='{$"+fieldname+".image_url}' />\r\n{/eyou:diyfield";
-                    contentdiv += '<dd>列表/内容页：</dd>';
+                    contentdiv += '<dd>列表/內容頁：</dd>';
                     contentdiv += '<dd><textarea rows="4" cols="60" style="width:470px;height:60px;">' + viewstr + '}</textarea></dd>';
                     var liststr = "{eyou:type typeid='$"+"field.typeid' id='eyoav'}\r\n    {eyou:diyfield type='"+dtype+"' id='"+fieldname+"' name='$"+"eyoav."+fieldname+"'}\r\n        <img src='{$"+fieldname+".image_url}' />\r\n    {/eyou:diyfield"+"}\r\n{/eyou:type";
-                    contentdiv += '<dd>标签 arclist / list 内调用 <font color="red">(更多简洁调法请参考标签 arclist /list)</font>：</dd>';
+                    contentdiv += '<dd>標籤 arclist / list 內呼叫 <font color="red">(更多簡潔調法請參考標籤 arclist /list)</font>：</dd>';
                     contentdiv += '<dd><textarea rows="4" cols="60" style="width:470px;height:100px;">' + liststr + '}</textarea></dd>';
                 }
                 break;
@@ -244,31 +244,31 @@
                 {
                     height = '400px';
                     var viewstr = "{eyou:diyfield type='"+dtype+"' id='"+fieldname+"' name='$"+"eyou.field."+fieldname+"'}\r\n    {$"+fieldname+".value}\r\n{/eyou:diyfield";
-                    contentdiv += '<dd>列表/内容页：</dd>';
+                    contentdiv += '<dd>列表/內容頁：</dd>';
                     contentdiv += '<dd><textarea rows="4" cols="60" style="width:470px;height:60px;">' + viewstr + '}</textarea></dd>';
                     var liststr = "{eyou:type typeid='$"+"field.typeid' id='eyoav'}\r\n    {eyou:diyfield type='"+dtype+"' id='"+fieldname+"' name='$"+"eyoav."+fieldname+"'}\r\n        {$"+fieldname+".value}\r\n    {/eyou:diyfield"+"}\r\n{/eyou:type";
-                    contentdiv += '<dd>标签 arclist / list 内调用 <font color="red">(更多简洁调法请参考标签 arclist /list)</font>：</dd>';
+                    contentdiv += '<dd>標籤 arclist / list 內呼叫 <font color="red">(更多簡潔調法請參考標籤 arclist /list)</font>：</dd>';
                     contentdiv += '<dd><textarea rows="4" cols="60" style="width:470px;height:100px;">' + liststr + '}</textarea></dd>';
                 }
                 break;
 
             default:
                 {
-                    contentdiv += '<dd>列表/内容页：</dd>';
+                    contentdiv += '<dd>列表/內容頁：</dd>';
                     contentdiv += '<dd><input type="text" style=" width:470px;margin-bottom:10px;" value="{$'+'eyou.field.'+fieldname+'}"></dd>'
-                    contentdiv += '<dd>标签 type / arclist / list 内调用：</dd>'
+                    contentdiv += '<dd>標籤 type / arclist / list 內呼叫：</dd>'
                     contentdiv += '<dd><input type="text" style=" width:470px;" value="{$'+'field.'+fieldname+'}"></dd>'
                 }
                 break;
         }
 
-        contentdiv += '<dd style="border-top: dotted 1px #E7E7E7; color: #F60;">请将相应标签复制并粘贴到对应模板文件中！</dd></dl></div>';
+        contentdiv += '<dd style="border-top: dotted 1px #E7E7E7; color: #F60;">請將相應標籤複製並貼上到對應模板檔案中！</dd></dl></div>';
 
         layer.open({
-            title: '标签调用',
+            title: '標籤呼叫',
             type: 1,
             skin: 'layui-layer-demo',
-            area: ['550px', height], //宽高
+            area: ['550px', height], //寬高
             content: contentdiv
         });
     }

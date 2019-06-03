@@ -1,11 +1,11 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
@@ -24,11 +24,11 @@ class Uiset extends Controller
     public $v = '';
 
     /**
-     * 析构函数
+     * 解構函式
      */
     function __construct() 
     {
-        header("Cache-control: private");  // history.back返回后输入框值丢失问题
+        header("Cache-control: private");  // history.back返回后輸入框值丟失問題
         parent::__construct();
         $this->theme_style = THEME_STYLE;
         $this->uipath = RUNTIME_PATH.'ui/'.$this->theme_style.'/';
@@ -39,7 +39,7 @@ class Uiset extends Controller
      */
     public function _initialize() 
     {
-        //过滤不需要登陆的行为
+        //過濾不需要登陸的行為
         $ctl_act = CONTROLLER_NAME.'@'.ACTION_NAME;
         $ctl_all = CONTROLLER_NAME.'@*';
         $filter_login_action = config('filter_login_action');
@@ -47,12 +47,12 @@ class Uiset extends Controller
             //return;
         }else{
             if(!session('?admin_id')){
-                $this->error('请先登录后台！');
+                $this->error('請先登錄後臺！');
                 exit;
             }
         }
 
-        /*电脑版与手机版的切换*/
+        /*電腦版與手機版的切換*/
         $this->v = input('param.v/s', '');
         $this->v = trim($this->v, '/');
         $this->assign('v', $this->v);
@@ -68,7 +68,7 @@ class Uiset extends Controller
             $page = $post['page'];
             $content = isset($post['content']) ? $post['content'] : '';
 
-            // 同步外观调试的变量值到config，前提是变量名在config是存在
+            // 同步外觀除錯的變數值到config，前提是變數名在config是存在
             $this->synConfigVars($id, $content, $type);
 
             switch ($type) {
@@ -97,19 +97,19 @@ class Uiset extends Controller
                     break;
 
                 default:
-                    $this->error('不存在的可编辑区域');
+                    $this->error('不存在的可編輯區域');
                     exit;
                     break;
             }
 
         }
 
-        $this->error('请先登录后台！');
+        $this->error('請先登錄後臺！');
         exit;
     }
 
     /**
-     * 同步外观调试的变量值到config，前提是变量名在config是存在
+     * 同步外觀除錯的變數值到config，前提是變數名在config是存在
      */
     public function synConfigVars($name, $value = '', $type = '')
     {
@@ -131,7 +131,7 @@ class Uiset extends Controller
                     'lang'  => $this->home_lang,
                 ])->cache(true,EYOUCMS_CACHE_TIME,'config')->update(array('value'=>$value));
 
-                /*多语言*/
+                /*多語言*/
                 if (is_language()) {
                     $langRow = Db::name('language')->order('id asc')
                         ->cache(true, EYOUCMS_CACHE_TIME, 'language')
@@ -139,7 +139,7 @@ class Uiset extends Controller
                     foreach ($langRow as $key => $val) {
                         tpCache($nameArr[0], [$name=>$value], $val['mark']);
                     }
-                } else { // 单语言
+                } else { // 單語言
                     tpCache($nameArr[0], [$name=>$value]);
                 }
                 /*--end*/
@@ -151,7 +151,7 @@ class Uiset extends Controller
     }
 
     /**
-     * 纯文本编辑处理
+     * 純文字編輯處理
      */
     private function textHandle($id, $page, $post = array())
     {
@@ -174,13 +174,13 @@ class Uiset extends Controller
             $this->success('操作成功');
             exit;
         } else {
-            $this->error('写入失败');
+            $this->error('寫入失敗');
             exit;
         }
     }
 
     /**
-     * 带html的富文本处理
+     * 帶html的富文字處理
      */
     public function html($id, $page)
     {
@@ -211,7 +211,7 @@ class Uiset extends Controller
     }
 
     /**
-     * 富文本编辑器处理
+     * 富文字編輯器處理
      */
     private function htmlHandle($id, $page, $post = array())
     {
@@ -234,13 +234,13 @@ class Uiset extends Controller
             $this->success('操作成功');
             exit;
         } else {
-            $this->error('写入失败');
+            $this->error('寫入失敗');
             exit;
         }
     }
 
     /**
-     * 栏目编辑
+     * 欄目編輯
      */
     public function type($id, $page)
     {
@@ -261,7 +261,7 @@ class Uiset extends Controller
             $info = $data['info'];
         }
 
-        /*所有栏目列表*/
+        /*所有欄目列表*/
         $map = array(
             'is_del'    => 0, // 回收站功能
             'status'   => 1,
@@ -283,7 +283,7 @@ class Uiset extends Controller
     }
 
     /**
-     * 栏目编辑处理
+     * 欄目編輯處理
      */
     private function typeHandle($id, $page, $post = array())
     {
@@ -304,13 +304,13 @@ class Uiset extends Controller
             $this->success('操作成功');
             exit;
         } else {
-            $this->error('写入失败');
+            $this->error('寫入失敗');
             exit;
         }
     }
 
     /**
-     * 栏目文章编辑
+     * 欄目文章編輯
      */
     public function arclist($id, $page)
     {
@@ -331,13 +331,13 @@ class Uiset extends Controller
             $info = $data['info'];
         }
 
-        /*允许发布文档列表的栏目*/
+        /*允許發佈文件列表的欄目*/
         $selected = $typeid;
         $arctype_html = allow_release_arctype($selected);
         $this->assign('arctype_html', $arctype_html);
         /*--end*/
 
-        /*不允许发布文档的模型ID，用于JS判断*/
+        /*不允許發佈文件的模型ID，用於JS判斷*/
         $allow_release_channel = config('global.allow_release_channel');
         $js_allow_channel_arr = '[';
         foreach ($allow_release_channel as $key => $val) {
@@ -363,7 +363,7 @@ class Uiset extends Controller
     }
 
     /**
-     * 栏目文章编辑处理
+     * 欄目文章編輯處理
      */
     private function arclistHandle($id, $page, $post = array())
     {
@@ -385,13 +385,13 @@ class Uiset extends Controller
             $this->success('操作成功');
             exit;
         } else {
-            $this->error('写入失败');
+            $this->error('寫入失敗');
             exit;
         }
     }
 
     /**
-     * 栏目列表编辑
+     * 欄目列表編輯
      */
     public function channel($id, $page)
     {
@@ -413,7 +413,7 @@ class Uiset extends Controller
             $info = $data['info'];
         }
 
-        /*所有栏目列表*/
+        /*所有欄目列表*/
         $map = array(
             'is_del'    => 0, // 回收站功能
             'status'   => 1,
@@ -435,7 +435,7 @@ class Uiset extends Controller
     }
 
     /**
-     * 栏目列表编辑处理
+     * 欄目列表編輯處理
      */
     private function channelHandle($id, $page, $post = array())
     {
@@ -456,13 +456,13 @@ class Uiset extends Controller
             $this->success('操作成功');
             exit;
         } else {
-            $this->error('写入失败');
+            $this->error('寫入失敗');
             exit;
         }
     }
 
     /**
-     * 图片编辑
+     * 圖片編輯
      */
     public function upload($id, $page)
     {
@@ -496,7 +496,7 @@ class Uiset extends Controller
     }
 
     /**
-     * 图片编辑处理
+     * 圖片編輯處理
      */
     private function uploadHandle($id, $page, $post = array())
     {
@@ -532,7 +532,7 @@ class Uiset extends Controller
             $this->success('操作成功');
             exit;
         } else {
-            $this->error('写入失败');
+            $this->error('寫入失敗');
             exit;
         }
     }

@@ -7,15 +7,15 @@
     <div class="flexigrid">
         <div class="mDiv">
             <div class="ftitle">
-                <h3>语言列表</h3>
-                <h5>(共{$pageObj->totalRows}条记录)</h5>
+                <h3>語言列表</h3>
+                <h5>(共{$pageObj->totalRows}條記錄)</h5>
             </div>
-            <div title="刷新数据" class="pReload"><i class="fa fa-refresh"></i></div>
-            <form class="navbar-form form-inline" action="{:U('Language/index')}" method="get" onsubmit="layer_loading('正在处理');">
+            <div title="重新整理數據" class="pReload"><i class="fa fa-refresh"></i></div>
+            <form class="navbar-form form-inline" action="{:U('Language/index')}" method="get" onsubmit="layer_loading('正在處理');">
                 {$searchform.hidden|default=''}
                 <div class="sDiv">
                     <div class="sDiv2">
-                        <input type="text" size="30" name="keywords" value="{$Request.param.keywords}" class="qsbox" placeholder="搜索相关数据...">
+                        <input type="text" size="30" name="keywords" value="{$Request.param.keywords}" class="qsbox" placeholder="搜索相關數據...">
                         <input type="submit" class="btn" value="搜索">
                     </div>
                     <!-- <div class="sDiv2">
@@ -31,29 +31,29 @@
                     <tr>
                         {eq name='$main_lang' value='$admin_lang'}
                         <th class="sign w40" axis="col0">
-                            <div class="tc">选择</div>
+                            <div class="tc">選擇</div>
                         </th>
                         {/eq}
                         <th abbr="article_show" axis="col5" class="w40">
                             <div class="tc">ID</div>
                         </th>
                         <th abbr="ac_id" axis="col4">
-                            <div class="">语言名称</div>
+                            <div class="">語言名稱</div>
                         </th>
                         <th abbr="article_title" axis="col3" class="w180">
-                            <div class="">中文名称</div>
+                            <div class="">中文名稱</div>
                         </th>
                         <th abbr="article_time" axis="col6" class="w40">
-                            <div class="tl">国旗</div>
+                            <div class="tl">國旗</div>
                         </th>
                         <th abbr="article_time" axis="col6" class="w100">
-                            <div class="tc">前台默认语言</div>
+                            <div class="tc">前臺預設語言</div>
                         </th>
                         <th abbr="article_time" axis="col6" class="w50">
-                            <div class="tc">开启</div>
+                            <div class="tc">開啟</div>
                         </th>
                         <!-- <th abbr="article_time" axis="col6" class="w200">
-                            <div class="tc">单独域名</div>
+                            <div class="tc">單獨域名</div>
                         </th> -->
                         <th axis="col1" class="w120">
                             <div class="tc">操作</div>
@@ -73,7 +73,7 @@
                     {empty name="list"}
                         <tr>
                             <td class="no-data" align="center" axis="col0" colspan="50">
-                                <i class="fa fa-exclamation-circle"></i>没有符合条件的记录
+                                <i class="fa fa-exclamation-circle"></i>沒有符合條件的記錄
                             </td>
                         </tr>
                     {else/}
@@ -135,11 +135,11 @@
                             <td>
                                 <div class="w120 tc">
                                     {eq name="'Language@edit'|is_check_access" value="1"}
-                                    <a href="{:U('Language/edit',array('id'=>$vo['id']))}" class="btn blue"><i class="fa fa-pencil-square-o"></i>编辑</a>
+                                    <a href="{:U('Language/edit',array('id'=>$vo['id']))}" class="btn blue"><i class="fa fa-pencil-square-o"></i>編輯</a>
                                     {/eq}
                                     {eq name='$main_lang' value='$admin_lang'}
                                     {eq name="'Language@del'|is_check_access" value="1"}
-                                    <a class="btn red"  href="javascript:void(0)" data-url="{:U('Language/del')}" data-id="{$vo.id}" onClick="delfun(this);"><i class="fa fa-trash-o"></i>删除</a>
+                                    <a class="btn red"  href="javascript:void(0)" data-url="{:U('Language/del')}" data-id="{$vo.id}" onClick="delfun(this);"><i class="fa fa-trash-o"></i>刪除</a>
                                     {/eq}
                                     {/eq}
                                 </div>
@@ -171,8 +171,8 @@
                 {eq name="'Language@del'|is_check_access" value="1"}
                 <div class="fbutton">
                     <a onclick="batch_del(this, 'ids');" data-url="{:U('Language/del')}">
-                        <div class="add" title="批量删除">
-                            <span><i class="fa fa-close"></i>批量删除</span>
+                        <div class="add" title="批量刪除">
+                            <span><i class="fa fa-close"></i>批量刪除</span>
                         </div>
                     </a>
                 </div>
@@ -180,8 +180,8 @@
                 {eq name="'Language@add'|is_check_access" value="1"}
                 <div class="fbutton">
                     <a href="{:U('Language/add')}">
-                        <div class="add" title="新增语言">
-                            <span class="red"><i class="fa fa-plus"></i>新增语言</span>
+                        <div class="add" title="新增語言">
+                            <span class="red"><i class="fa fa-plus"></i>新增語言</span>
                         </div>
                     </a>
                 </div>
@@ -190,23 +190,23 @@
             </div>
             <div style="clear:both"></div>
         </div>
-        <!--分页位置-->
+        <!--分頁位置-->
         {$page}
     </div>
 </div>
 <script>
     $(document).ready(function(){
-        // 表格行点击选中切换
+        // 表格行點選選中切換
         $('#flexigrid > table>tbody >tr').click(function(){
             $(this).toggleClass('trSelected');
         });
 
-        // 点击刷新数据
+        // 點選重新整理數據
         $('.fa-refresh').click(function(){
             location.href = location.href;
         });
 
-        // 显示顶部菜单语言列表
+        // 顯示頂部菜單語言列表
         append_lang();
         function append_lang(){
             $(".em_lang ul li.lang", window.parent.document).remove();
@@ -224,14 +224,14 @@
         //iframe窗
         layer.open({
             type: 2,
-            title: '模板语言变量',
+            title: '模板語言變數',
             fixed: true, //不固定
             shadeClose: false,
             shade: 0.3,
-            maxmin: false, //开启最大化最小化按钮
+            maxmin: false, //開啟最大化最小化按鈕
             area: ['90%', '90%'],
             content: url,
-            end: function(){ //结束弹窗之后的处理
+            end: function(){ //結束彈窗之後的處理
 
             }
         });
@@ -239,12 +239,12 @@
   
     function delfun(obj){
       var title = $(obj).attr('data-typename');
-      layer.confirm('<font color="#ff0000">将同步清空该语言的全部数据</font>，确认删除？', {
+      layer.confirm('<font color="#ff0000">將同步清空該語言的全部數據</font>，確認刪除？', {
           title: false,
-          btn: ['确定','取消'] //按钮
+          btn: ['確定','取消'] //按鈕
         }, function(){
-          layer_loading('正在处理');
-        // 确定
+          layer_loading('正在處理');
+        // 確定
           $.ajax({
             type : 'post',
             url : $(obj).attr('data-url'),

@@ -13,7 +13,7 @@
           <h3>欄目列表</h3>
           <h5>(共{$arctype_list|count}條記錄)</h5>
         </div>
-        <div title="刷新數據" class="pReload"><i class="fa fa-refresh"></i></div>
+        <div title="重新整理數據" class="pReload"><i class="fa fa-refresh"></i></div>
         {eq name='$main_lang' value='$admin_lang'}
         <div class="fbutton">
               <a href="{if condition="in_array($Request.action, array('add','edit'))"}javascript:void(0);{else /}{:url("Arctype/add")}{/if}">
@@ -42,7 +42,7 @@
                   <div class="tc">所屬模型</div>
                 </th>
                 <th axis="col2" class="w60">
-                  <div>隐藏</div>
+                  <div>隱藏</div>
                 </th>
                 <th axis="col1" class="w300">
                     <div class="tl" style="text-indent: 6px">操作</div>
@@ -125,9 +125,9 @@
                   <div class="w300 tl pb0">
                       {eq name="'Archives@index'|is_check_access" value="1"}
                         {if condition="$vo['current_channel'] == 6" /}
-                        <a href="{:url('Arctype/single_edit',array('typeid'=>$vo['id']))}" class="btn blue"><i class="fa fa-pencil-square-o"></i>内容</a>
+                        <a href="{:url('Arctype/single_edit',array('typeid'=>$vo['id']))}" class="btn blue"><i class="fa fa-pencil-square-o"></i>內容</a>
                         {else /}
-                        <a href="{:url($channeltype_list[$vo['current_channel']]['ctl_name'].'/index',array('typeid'=>$vo['id'], 'tab'=>3))}" class="btn blue"><i class="fa fa-pencil-square-o"></i>内容</a>
+                        <a href="{:url($channeltype_list[$vo['current_channel']]['ctl_name'].'/index',array('typeid'=>$vo['id'], 'tab'=>3))}" class="btn blue"><i class="fa fa-pencil-square-o"></i>內容</a>
                         {/if}
                       {/eq}
                       <a href="{:url('Arctype/edit',array('id'=>$vo['id']))}" class="btn blue"><i class="fa fa-pencil-square-o"></i>編輯</a>
@@ -136,16 +136,16 @@
                         {if condition="$vo['grade'] < ($arctype_max_level - 1)"}
                           <a href="{:url('Arctype/add',array('parent_id'=>$vo['id']))}" class="btn blue"><i class="fa fa-pencil-square-o"></i>增加子欄目</a>
                         {else /}
-                          <a class="btn blue" title="不支持增加四級欄目"><i class="fa fa-pencil-square-o"></i>不支持增加</a>
+                          <a class="btn blue" title="不支援增加四級欄目"><i class="fa fa-pencil-square-o"></i>不支援增加</a>
                         {/if}
                       {/eq}
                       {/eq}
                       {eq name="'Arctype@pseudo_del'|is_check_access" value="1"}
                       {eq name='$main_lang' value='$admin_lang'}
-                      <a class="btn red"  href="javascript:void(0);" data-url="{:url('Arctype/pseudo_del')}" data-id="{$vo.id}" data-typename="{$vo.typename}" data-deltype="pseudo" onClick="delfun(this);"><i class="fa fa-trash-o"></i>删除</a>
+                      <a class="btn red"  href="javascript:void(0);" data-url="{:url('Arctype/pseudo_del')}" data-id="{$vo.id}" data-typename="{$vo.typename}" data-deltype="pseudo" onClick="delfun(this);"><i class="fa fa-trash-o"></i>刪除</a>
                       {/eq}
                       {/eq}
-                      <a href="{$vo|get_typeurl=###}" class="btn blue" target="_blank"><i class="fa fa-pencil-square-o"></i>浏覽</a>
+                      <a href="{$vo|get_typeurl=###}" class="btn blue" target="_blank"><i class="fa fa-pencil-square-o"></i>瀏覽</a>
                   </div>
               </td>
               <td class="sort">
@@ -173,7 +173,7 @@
             $(this).toggleClass('trSelected');
         });
 
-        // 點擊刷新數據
+        // 點擊重新整理數據
         $('.fa-refresh').click(function(){
             location.href = location.href;
         });
@@ -216,7 +216,7 @@
              $(obj).attr('src','__SKIN__/images/tv-expandable.gif');     
              var status = 'open';      
              
-             // 如果是點擊減号, 遍曆循環他下面的所有都關閉
+             // 如果是點擊減號, 遍曆循環他下面的所有都關閉
              var tbl = document.getElementById("arctype_table");
              cur_tr = obj.parentNode.parentNode.parentNode;
              var fnd = false;
@@ -255,12 +255,12 @@
   
     function delfun(obj){
         var title = $(obj).attr('data-typename');
-        layer.confirm('<font color="#ff0000">如有子欄目及文檔将一起清空</font>，确認删除到回收站？', {
+        layer.confirm('<font color="#ff0000">如有子欄目及文檔將一起清空</font>，確認刪除到回收站？', {
             title: false,
-            btn: ['确定','取消'] //按鈕
+            btn: ['確定','取消'] //按鈕
         }, function(){
             layer_loading('正在處理');
-            // 确定
+            // 確定
             $.ajax({
                 type : 'post',
                 url : $(obj).attr('data-url'),

@@ -1,11 +1,11 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
@@ -16,19 +16,19 @@ namespace app\common\model;
 use think\Model;
 
 /**
- * 文章Tag标签
+ * 文章Tag標籤
  */
 class Taglist extends Model
 {
     //初始化
     protected function initialize()
     {
-        // 需要调用`Model`的`initialize`方法
+        // 需要呼叫`Model`的`initialize`方法
         parent::initialize();
     }
 
     /**
-     * 获取单条记录
+     * 獲取單條記錄
      * @author wengxianhu by 2017-7-26
      */
     public function getInfo($tid, $field = '*')
@@ -39,7 +39,7 @@ class Taglist extends Model
     }
 
     /**
-     * 获取单篇文章的标签
+     * 獲取單篇文章的標籤
      * @author wengxianhu by 2017-7-26
      */
     public function getListByAid($aid = '', $typeid = 0, $field = 'tag')
@@ -58,7 +58,7 @@ class Taglist extends Model
     }
 
     /**
-     * 获取多篇文章的标签
+     * 獲取多篇文章的標籤
      * @author wengxianhu by 2017-7-26
      */
     public function getListByAids($aids = array(), $field = '*')
@@ -79,21 +79,21 @@ class Taglist extends Model
     }
 
     /**
-     * 写入文章标签
+     * 寫入文章標籤
      */
     public function savetags($aid = 0, $typeid = 0, $tags = '')
     {
         if (intval($aid) > 0 && intval($typeid) > 0 && !empty($tags)) {
-            // --处理TAG标签
+            // --處理TAG標籤
             $tags = func_preg_replace(array('，'), ',', $tags);
             $tags_arr = explode(',', $tags);
             // 去除左右空格
             foreach ($tags_arr as $key => $val) {
                 $tags_arr[$key] = trim($val);
             }
-            // 移除重复值
+            // 移除重複值
             $tags_arr = array_unique($tags_arr);
-            // 获取存在的标签
+            // 獲取存在的標籤
             $tagindexlist = M('tagindex')->field('id,tag')->where(array('tag'=>array('in', $tags_arr)))->select();
             foreach ($tagindexlist as $key => $val) {
                 $tagmd5 = md5($val['tag']);
@@ -101,10 +101,10 @@ class Taglist extends Model
                 unset($tagindexlist[$key]);
             }
 
-            // 删除标签
+            // 刪除標籤
             M('taglist')->where(array('aid'=>$aid))->delete();
 
-            // 组装数据写入数据表
+            // 組裝數據寫入數據表
             $time = getTime();
             $add_data = array();
             $now_data = array();
@@ -128,13 +128,13 @@ class Taglist extends Model
                     'add_time'  => $time,
                 );
             }
-            // 保存标签
+            // 儲存標籤
             M('taglist')->insertAll($add_data);
         }
     }
 
     /**
-     * 删除文章标签
+     * 刪除文章標籤
      */
     public function delByAids($aids = array())
     {

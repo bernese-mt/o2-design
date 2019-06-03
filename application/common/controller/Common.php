@@ -1,11 +1,11 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
@@ -26,11 +26,11 @@ class Common extends Controller {
     public $users = array();
 
     /**
-     * 析构函数
+     * 解構函式
      */
     function __construct() 
     {
-        /*是否隐藏或显示应用入口index.php*/
+        /*是否隱藏或顯示應用入口index.php*/
         if (tpCache('seo.seo_inlet') == 0) {
             \think\Url::root('/index.php');
         } else {
@@ -45,42 +45,42 @@ class Common extends Controller {
      */
     public function _initialize() 
     {
-        session('admin_info'); // 传后台信息到前台，此处可视化用到
+        session('admin_info'); // 傳後臺資訊到前臺，此處視覺化用到
         if (!session_id()) {
             Session::start();
         }
-        header("Cache-control: private");  // history.back返回后输入框值丢失问题 
-        $this->session_id = session_id(); // 当前的 session_id
-        !defined('SESSION_ID') && define('SESSION_ID', $this->session_id); //将当前的session_id保存为常量，供其它方法调用
+        header("Cache-control: private");  // history.back返回后輸入框值丟失問題 
+        $this->session_id = session_id(); // 目前的 session_id
+        !defined('SESSION_ID') && define('SESSION_ID', $this->session_id); //將目前的session_id儲存為常量，供其它方法呼叫
 
-        /*关闭网站*/
+        /*關閉網站*/
         if (tpCache('web.web_status') == 1) {
-            die("<div style='text-align:center; font-size:20px; font-weight:bold; margin:50px 0px;'>网站暂时关闭，维护中……</div>");
+            die("<div style='text-align:center; font-size:20px; font-weight:bold; margin:50px 0px;'>網站暫時關閉，維護中……</div>");
         }
         /*--end*/
 
-        $this->global_assign(); // 获取网站全局变量值
-        $this->view_suffix = config('template.view_suffix'); // 模板后缀htm
-        $this->theme_style = THEME_STYLE; // 模板目录
-        //全局变量
+        $this->global_assign(); // 獲取網站全域性變數值
+        $this->view_suffix = config('template.view_suffix'); // 模板後綴htm
+        $this->theme_style = THEME_STYLE; // 模板目錄
+        //全域性變數
         $global = tpCache('global'); 
         $this->eyou['global'] = $global;
-        // 多语言变量
+        // 多語言變數
         $langArr = include_once APP_PATH."lang/{$this->home_lang}.php";
         $this->eyou['lang'] = !empty($langArr) ? $langArr : [];
-        /*电脑版与手机版的切换*/
+        /*電腦版與手機版的切換*/
         $v = I('param.v/s', 'pc');
         $v = trim($v, '/');
         $this->assign('v', $v);
         /*--end*/
 
-        // 判断是否开启注册入口
+        // 判斷是否開啟註冊入口
         $users_open_register = getUsersConfigData('users.users_open_register');
         $this->assign('users_open_register', $users_open_register);
     }
 
     /**
-     * 获取系统内置变量 
+     * 獲取系統內建變數 
      */
     public function global_assign()
     {

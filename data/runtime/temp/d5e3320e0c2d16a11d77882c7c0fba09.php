@@ -1,8 +1,8 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:47:"./application/admin/template/archives\index.htm";i:1559290115;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:47:"./application/admin/template/archives\index.htm";i:1559529923;}*/ ?>
 <!doctype html>
 <html>
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -10,7 +10,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <!-- Apple devices fullscreen -->
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>内容管理</title>
+    <title>內容管理</title>
     <link rel="shortcut icon" type="image/x-icon" href="/o2-design/favicon.ico" media="screen"/>
     <!-- <link rel="stylesheet" href="/o2-design/public/plugins/ztree/css/amazeui.min.css"> -->
     <link rel="stylesheet" href="/o2-design/public/plugins/ztree/css/iframe.css?v=<?php echo $version; ?>">
@@ -39,10 +39,10 @@
         var myLayout;
         $(document).ready(function () {
             myLayout = $("body").layout({
-            /*  全局配置 */
-                closable:                   true    /* 是否顯示點擊關閉隐藏按鈕*/
+            /*  全域性配置 */
+                closable:                   true    /* 是否顯示點擊關閉隱藏按鈕*/
             ,   resizable:                  true    /* 是否允許拉動*/
-            ,   maskContents:               true    /* 加入此參數，框架内容頁就可以拖動了*/
+            ,   maskContents:               true    /* 加入此參數，框架內容頁就可以拖動了*/
             /*  頂部配置 */
             ,   north__spacing_open:        0       /* 頂部邊框大小*/
             /*  底部配置 */

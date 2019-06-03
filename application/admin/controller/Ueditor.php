@@ -1,11 +1,11 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
@@ -34,8 +34,8 @@ class Ueditor extends Base
     {
         parent::__construct();
         
-        //header('Access-Control-Allow-Origin: http://www.baidu.com'); //设置http://www.baidu.com允许跨域访问
-        //header('Access-Control-Allow-Headers: X-Requested-With,X_Requested_With'); //设置允许的跨域header
+        //header('Access-Control-Allow-Origin: http://www.baidu.com'); //設定http://www.baidu.com允許跨域訪問
+        //header('Access-Control-Allow-Headers: X-Requested-With,X_Requested_With'); //設定允許的跨域header
         
         date_default_timezone_set("Asia/Shanghai");
         
@@ -63,12 +63,12 @@ class Ueditor extends Base
             case 'config':
                 $result =  json_encode($CONFIG2);
                 break;
-            /* 上传图片 */
+            /* 上傳圖片 */
             case 'uploadimage':
                 $fieldName = $CONFIG2['imageFieldName'];
                 $result = $this->upFile($fieldName);
                 break;
-            /* 上传涂鸦 */
+            /* 上傳塗鴉 */
             case 'uploadscrawl':
                 $config = array(
                     "pathFormat" => $CONFIG2['scrawlPathFormat'],
@@ -80,17 +80,17 @@ class Ueditor extends Base
                 $base64 = "base64";
                 $result = $this->upBase64($config,$fieldName);
                 break;
-            /* 上传视频 */
+            /* 上傳視訊 */
             case 'uploadvideo':
                 $fieldName = $CONFIG2['videoFieldName'];
                 $result = $this->upFile($fieldName);
                 break;
-            /* 上传文件 */
+            /* 上傳檔案 */
             case 'uploadfile':
                 $fieldName = $CONFIG2['fileFieldName'];
                 $result = $this->upFile($fieldName);
                 break;
-            /* 列出图片 */
+            /* 列出圖片 */
             case 'listimage':
                 $allowFiles = $CONFIG2['imageManagerAllowFiles'];
                 $listSize = $CONFIG2['imageManagerListSize'];
@@ -98,7 +98,7 @@ class Ueditor extends Base
                 $get =$_GET;
                 $result =$this->fileList($allowFiles,$listSize,$get);
                 break;
-            /* 列出文件 */
+            /* 列出檔案 */
             case 'listfile':
                 $allowFiles = $CONFIG2['fileManagerAllowFiles'];
                 $listSize = $CONFIG2['fileManagerListSize'];
@@ -106,7 +106,7 @@ class Ueditor extends Base
                 $get = $_GET;
                 $result = $this->fileList($allowFiles,$listSize,$get);
                 break;
-            /* 抓取远程文件 */
+            /* 抓取遠端檔案 */
             case 'catchimage':
                 $config = array(
                     "pathFormat" => $CONFIG2['catcherPathFormat'],
@@ -115,7 +115,7 @@ class Ueditor extends Base
                     "oriName" => "remote.png"
                 );
                 $fieldName = $CONFIG2['catcherFieldName'];
-                /* 抓取远程图片 */
+                /* 抓取遠端圖片 */
                 $list = array();
                 isset($_POST[$fieldName]) ? $source = $_POST[$fieldName] : $source = $_GET[$fieldName];
                 
@@ -139,18 +139,18 @@ class Ueditor extends Base
                 break;
             default:
                 $result = json_encode(array(
-                    'state' => '请求地址出错'
+                    'state' => '請求地址出錯'
                 ));
                 break;
         }
 
-        /* 输出结果 */
+        /* 輸出結果 */
         if(isset($_GET["callback"])){
             if(preg_match("/^[\w_]+$/", $_GET["callback"])){
                 echo htmlspecialchars($_GET["callback"]).'('.$result.')';
             }else{
                 echo json_encode(array(
-                    'state' => 'callback参数不合法'
+                    'state' => 'callback參數不合法'
                 ));
             }
         }else{
@@ -158,12 +158,12 @@ class Ueditor extends Base
         }
     }
     
-    //上传文件
+    //上傳檔案
     private function upFile($fieldName){
         $image_upload_limit_size = intval(tpCache('basic.file_size') * 1024 * 1024);
         $file = request()->file($fieldName);
         if(empty($file)){
-            return json_encode(['state' =>'ERROR，请上传文件']);
+            return json_encode(['state' =>'ERROR，請上傳檔案']);
         }
         $error = $file->getError();
         if(!empty($error)){
@@ -172,7 +172,7 @@ class Ueditor extends Base
         $result = $this->validate(
             ['file' => $file], 
             ['file'=>'fileSize:'.$image_upload_limit_size],
-            ['file.fileSize' => '上传文件过大']
+            ['file.fileSize' => '上傳檔案過大']
         );
         if (true !== $result || empty($file)) {
             $state = "ERROR" . $result;
@@ -181,7 +181,7 @@ class Ueditor extends Base
 
         $ossConfig = tpCache('oss');
         if ($ossConfig['oss_switch']) {
-            //商品图片可选择存放在oss
+            //商品圖片可選擇存放在oss
             $savePath = $this->savePath.date('Ymd/');
             $object = UPLOAD_PATH.$savePath.md5(getTime().uniqid(mt_rand(), TRUE)).'.'.pathinfo($file->getInfo('name'), PATHINFO_EXTENSION);
             $ossClient = new \app\common\logic\OssLogic;
@@ -201,9 +201,9 @@ class Ueditor extends Base
             @unlink($file->getRealPath());
             return json_encode($data);
         } else {
-            // 移动到框架应用根目录/public/uploads/ 目录下
+            // 移動到框架應用根目錄/public/uploads/ 目錄下
             $this->savePath = $this->savePath.date('Ymd/');
-            // 使用自定义的文件保存规则
+            // 使用自定義的檔案儲存規則
             $info = $file->rule(function ($file) {
                 return  md5(mt_rand());
             })->move(UPLOAD_PATH.$this->savePath);
@@ -219,7 +219,7 @@ class Ueditor extends Base
                 'size' => $info->getSize(),
             );
 
-            //图片加水印
+            //圖片加水印
             if($data['state'] == 'SUCCESS'){
                 $file_type = $file->getInfo('type');
                 $file_ext = pathinfo($file->getInfo('name'), PATHINFO_EXTENSION);
@@ -245,8 +245,8 @@ class Ueditor extends Base
                                 $return_data['mark_txt'] = $water['mark_txt'];
                             }
                         }else{
-                            /*支持子目录*/
-                            $water['mark_img'] = preg_replace('#^(/[/\w]+)?(/public/upload/|/uploads/)#i', '$2', $water['mark_img']); // 支持子目录
+                            /*支援子目錄*/
+                            $water['mark_img'] = preg_replace('#^(/[/\w]+)?(/public/upload/|/uploads/)#i', '$2', $water['mark_img']); // 支援子目錄
                             /*--end*/
                             //$image->water(".".$water['mark_img'],9,$water['mark_degree'])->save($imgresource);
                             $waterPath = "." . $water['mark_img'];
@@ -262,22 +262,22 @@ class Ueditor extends Base
                 }
             }
 
-            $data['url'] = ROOT_DIR.$data['url']; // 支持子目录
+            $data['url'] = ROOT_DIR.$data['url']; // 支援子目錄
         }else{
             $data = array('state' => 'ERROR'.$info->getError());
         }
         return json_encode($data);
     }
 
-    //列出图片
+    //列出圖片
     private function fileList($allowFiles,$listSize,$get){
         $dirname = './'.UPLOAD_PATH;
         $allowFiles = substr(str_replace(".","|",join("",$allowFiles)),1);
-        /* 获取参数 */
+        /* 獲取參數 */
         $size = isset($get['size']) ? htmlspecialchars($get['size']) : $listSize;
         $start = isset($get['start']) ? htmlspecialchars($get['start']) : 0;
         $end = $start + $size;
-        /* 获取文件列表 */
+        /* 獲取檔案列表 */
         $path = $dirname;
         $files = $this->getFiles($path,$allowFiles);
         if(empty($files)){
@@ -288,13 +288,13 @@ class Ueditor extends Base
                 "total" => count($files)
             ));
         }
-        /* 获取指定范围的列表 */
+        /* 獲取指定範圍的列表 */
         $len = count($files);
         for($i = min($end, $len) - 1, $list = array(); $i < $len && $i >= 0 && $i >= $start; $i--){
             $list[] = $files[$i];
         }
 
-        /* 返回数据 */
+        /* 返回數據 */
         $result = json_encode(array(
             "state" => "SUCCESS",
             "list" => $list,
@@ -306,7 +306,7 @@ class Ueditor extends Base
     }
 
     /*
-     * 遍历获取目录下的指定类型的文件
+     * 遍歷獲取目錄下的指定型別的檔案
      * @param $path
      * @param array $files
      * @return array
@@ -334,38 +334,38 @@ class Ueditor extends Base
         return $files;
     }
 
-    //抓取远程图片
+    //抓取遠端圖片
     private function saveRemote($config,$fieldName){
         $imgUrl = htmlspecialchars($fieldName);
         $imgUrl = str_replace("&amp;","&",$imgUrl);
 
-        //http开头验证
+        //http開頭驗證
         if(strpos($imgUrl,"http") !== 0){
             $data=array(
-                'state' => '链接不是http链接',
+                'state' => '鏈接不是http鏈接',
             );
             return json_encode($data);
         }
-        //获取请求头并检测死链
+        //獲取請求頭並檢測死鏈
         $heads = get_headers($imgUrl);
         if(!(stristr($heads[0],"200") && stristr($heads[0],"OK"))){
             $data=array(
-                'state' => '链接不可用',
+                'state' => '鏈接不可用',
             );
             return json_encode($data);
         }
-        //格式验证(扩展名验证和Content-Type验证)
+        //格式驗證(副檔名驗證和Content-Type驗證)
         if(preg_match("/^http(s?):\/\/mmbiz.qpic.cn\/(.*)/", $imgUrl) != 1){
             $fileType = strtolower(strrchr($imgUrl,'.'));
             if(!in_array($fileType,$config['allowFiles']) || (isset($heads['Content-Type']) && stristr($heads['Content-Type'],"image"))){
                 $data=array(
-                    'state' => '链接contentType不正确',
+                    'state' => '鏈接contentType不正確',
                 );
                 return json_encode($data);
             }
         }
 
-        //打开输出缓冲区并获取远程图片
+        //打開輸出緩衝區並獲取遠端圖片
         ob_start();
         $context = stream_context_create(
             array('http' => array(
@@ -385,37 +385,37 @@ class Ueditor extends Base
         $file['fullName'] = $dirname.$file['name'];
         $fullName = $file['fullName'];
 
-        //检查文件大小是否超出限制
+        //檢查檔案大小是否超出限制
         if($file['filesize'] >= ($config["maxSize"])){
             $data=array(
-                'state' => '文件大小超出网站限制',
+                'state' => '檔案大小超出網站限制',
             );
             return json_encode($data);
         }
 
-        //创建目录失败
+        //建立目錄失敗
         if(!file_exists($dirname) && !mkdir($dirname,0777,true)){
             $data=array(
-                'state' => '目录创建失败',
+                'state' => '目錄建立失敗',
             );
             return json_encode($data);
         }else if(!is_writeable($dirname)){
             $data=array(
-                'state' => '目录没有写权限',
+                'state' => '目錄沒有寫許可權',
             );
             return json_encode($data);
         }
 
-        //移动文件
-        if(!(file_put_contents($fullName, $img) && file_exists($fullName))){ //移动失败
+        //移動檔案
+        if(!(file_put_contents($fullName, $img) && file_exists($fullName))){ //移動失敗
             $data=array(
-                'state' => '写入文件内容错误',
+                'state' => '寫入檔案內容錯誤',
             );
             return json_encode($data);
-        }else{ //移动成功
+        }else{ //移動成功
             $data=array(
                 'state' => 'SUCCESS',
-                'url' => ROOT_DIR.substr($file['fullName'],1), // 支持子目录
+                'url' => ROOT_DIR.substr($file['fullName'],1), // 支援子目錄
                 'title' => $file['name'],
                 'original' => $file['oriName'],
                 'type' => $file['ext'],
@@ -424,7 +424,7 @@ class Ueditor extends Base
 
             $ossConfig = tpCache('oss');
             if ($ossConfig['oss_switch']) {
-                //图片可选择存放在oss
+                //圖片可選擇存放在oss
                 $savePath = $this->savePath.date('Ymd/');
                 $object = UPLOAD_PATH.$savePath.md5(getTime().uniqid(mt_rand(), TRUE)).'.'.pathinfo($data['url'], PATHINFO_EXTENSION);
                 $getRealPath = ltrim($data['url'], '/');
@@ -444,8 +444,8 @@ class Ueditor extends Base
     }
 
     /*
-     * 处理base64编码的图片上传
-     * 例如：涂鸦图片上传
+     * 處理base64編碼的圖片上傳
+     * 例如：塗鴉圖片上傳
     */
     private function upBase64($config,$fieldName){
         $base64Data = $_POST[$fieldName];
@@ -459,33 +459,33 @@ class Ueditor extends Base
         $file['fullName'] = $dirname.$file['name'];
         $fullName = $file['fullName'];
 
-        //检查文件大小是否超出限制
+        //檢查檔案大小是否超出限制
         if($file['filesize'] >= ($config["maxSize"])){
             $data=array(
-                'state' => '文件大小超出网站限制',
+                'state' => '檔案大小超出網站限制',
             );
             return json_encode($data);
         }
 
-        //创建目录失败
+        //建立目錄失敗
         if(!file_exists($dirname) && !mkdir($dirname,0777,true)){
             $data=array(
-                'state' => '目录创建失败',
+                'state' => '目錄建立失敗',
             );
             return json_encode($data);
         }else if(!is_writeable($dirname)){
             $data=array(
-                'state' => '目录没有写权限',
+                'state' => '目錄沒有寫許可權',
             );
             return json_encode($data);
         }
 
-        //移动文件
-        if(!(file_put_contents($fullName, $img) && file_exists($fullName))){ //移动失败
+        //移動檔案
+        if(!(file_put_contents($fullName, $img) && file_exists($fullName))){ //移動失敗
             $data=array(
-                'state' => '写入文件内容错误',
+                'state' => '寫入檔案內容錯誤',
             );
-        }else{ //移动成功          
+        }else{ //移動成功          
             $data=array(
                 'state' => 'SUCCESS',
                 'url' => substr($file['fullName'],1),
@@ -505,37 +505,37 @@ class Ueditor extends Base
     public function imageUp()
     {
         if (!IS_POST) {
-            $return_data['state'] = '非法上传';
+            $return_data['state'] = '非法上傳';
             respose($return_data,'json');
         }
         
         $image_upload_limit_size = intval(tpCache('basic.file_size') * 1024 * 1024);
-        // 上传图片框中的描述表单名称，
+        // 上傳圖片框中的描述表單名稱，
         $pictitle = input('pictitle');
         $dir = input('dir');
         $title = htmlspecialchars($pictitle , ENT_QUOTES);        
         $path = htmlspecialchars($dir, ENT_QUOTES);
-        //$input_file ['upfile'] = $info['Filedata'];  一个是上传插件里面来的, 另外一个是 文章编辑器里面来的
-        // 获取表单上传文件
+        //$input_file ['upfile'] = $info['Filedata'];  一個是上傳外掛裡面來的, 另外一個是 文章編輯器裡面來的
+        // 獲取表單上傳檔案
         $file = request()->file('file');
         if(empty($file))
             $file = request()->file('upfile');    
 
-        // ico图片文件不进行验证
+        // ico圖片檔案不進行驗證
         if (pathinfo($file->getInfo('name'), PATHINFO_EXTENSION) != 'ico') {
             $result = $this->validate(
                 ['file' => $file], 
                 ['file'=>'image|fileSize:'.$image_upload_limit_size.'|fileExt:'.$this->fileExt],
-                ['file.image' => '上传文件必须为图片','file.fileSize' => '上传文件过大','file.fileExt'=>'上传文件后缀名必须为'.$this->fileExt]                
+                ['file.image' => '上傳檔案必須為圖片','file.fileSize' => '上傳檔案過大','file.fileExt'=>'上傳檔案後綴名必須為'.$this->fileExt]                
                );
         } else {
             $result = true;
         }
 
-        /*验证图片一句话木马*/
+        /*驗證圖片一句話木馬*/
         $imgstr = @file_get_contents($file->getInfo('tmp_name'));
         if (false !== $imgstr && preg_match('#<\?php#i', $imgstr)) {
-            $result = '上传图片不合格';
+            $result = '上傳圖片不合格';
         }
         /*--end*/
 
@@ -549,7 +549,7 @@ class Ueditor extends Base
             }
             $ossConfig = tpCache('oss');
             if ($ossConfig['oss_switch']) {
-                //商品图片可选择存放在oss
+                //商品圖片可選擇存放在oss
                 $object = $savePath.md5(getTime().uniqid(mt_rand(), TRUE)).'.'.pathinfo($file->getInfo('name'), PATHINFO_EXTENSION);
                 $ossClient = new \app\common\logic\OssLogic;
                 $return_url = $ossClient->uploadFile($file->getRealPath(), $object);
@@ -561,9 +561,9 @@ class Ueditor extends Base
                 }
                 @unlink($file->getRealPath());
             } else {
-                // 移动到框架应用根目录/public/uploads/ 目录下
+                // 移動到框架應用根目錄/public/uploads/ 目錄下
                 $info = $file->rule(function ($file) {    
-                return  md5(mt_rand()); // 使用自定义的文件保存规则
+                return  md5(mt_rand()); // 使用自定義的檔案儲存規則
                 })->move($savePath);
                 if ($info) {
                     $state = "SUCCESS";
@@ -572,11 +572,11 @@ class Ueditor extends Base
                 }
                 $return_url = '/'.$savePath.$info->getSaveName();
             }
-            $return_data['url'] = ROOT_DIR.$return_url; // 支持子目录
+            $return_data['url'] = ROOT_DIR.$return_url; // 支援子目錄
         }
         
         if($state == 'SUCCESS' && pathinfo($file->getInfo('name'), PATHINFO_EXTENSION) != 'ico'){
-            if(true || $this->savePath=='news/'){ // 添加水印
+            if(true || $this->savePath=='news/'){ // 新增水印
                 $imgresource = ".".$return_url;
                 $image = \think\Image::open($imgresource);
                 $water = tpCache('water');
@@ -597,8 +597,8 @@ class Ueditor extends Base
                             $return_data['mark_txt'] = $water['mark_txt'];
                         }
                     }else{
-                        /*支持子目录*/
-                        $water['mark_img'] = preg_replace('#^(/[/\w]+)?(/public/upload/|/uploads/)#i', '$2', $water['mark_img']); // 支持子目录
+                        /*支援子目錄*/
+                        $water['mark_img'] = preg_replace('#^(/[/\w]+)?(/public/upload/|/uploads/)#i', '$2', $water['mark_img']); // 支援子目錄
                         /*--end*/
                         //$image->water(".".$water['mark_img'],9,$water['mark_degree'])->save($imgresource);
                         $waterPath = "." . $water['mark_img'];
@@ -614,14 +614,14 @@ class Ueditor extends Base
             }
         }
         $return_data['title'] = $title;
-        $return_data['original'] = ''; // 这里好像没啥用 暂时注释起来
+        $return_data['original'] = ''; // 這裡好像沒啥用 暫時註釋起來
         $return_data['state'] = $state;
         $return_data['path'] = $path;
 
-        // 是否开启七牛云插件
+        // 是否開啟七牛云外掛
         $data = Db::name('weapp')->where('code','Qiniuyun')->field('status')->find();
         if (!empty($data) && 1 == $data['status']) {
-            // 同步图片到七牛云
+            // 同步圖片到七牛云
             $return_data['url'] = SynchronizeQiniu($return_data['url']);
         }
 
@@ -629,7 +629,7 @@ class Ueditor extends Base
     }
     
     /**
-     * app文件上传
+     * app檔案上傳
      */
     public function appFileUp()
     {      
@@ -639,8 +639,8 @@ class Ueditor extends Base
             mkdir($path);
         }
 
-        //$input_file  ['upfile'] = $info['Filedata'];  一个是上传插件里面来的, 另外一个是 文章编辑器里面来的
-        // 获取表单上传文件
+        //$input_file  ['upfile'] = $info['Filedata'];  一個是上傳外掛裡面來的, 另外一個是 文章編輯器裡面來的
+        // 獲取表單上傳檔案
         $file = request()->file('Filedata');
         if (empty($file)) {
             $file = request()->file('upfile');    
@@ -649,13 +649,13 @@ class Ueditor extends Base
         $result = $this->validate(
             ['file2' => $file], 
             ['file2'=>'fileSize:'.$image_upload_limit_size.'|fileExt:apk,ipa,pxl,deb'],
-            ['file2.fileSize' => '上传文件过大', 'file2.fileExt' => '上传文件后缀名必须为：apk,ipa,pxl,deb']                    
+            ['file2.fileSize' => '上傳檔案過大', 'file2.fileExt' => '上傳檔案後綴名必須為：apk,ipa,pxl,deb']                    
            );
         if (true !== $result || empty($file)) {            
             $state = "ERROR" . $result;
         } else {
             $info = $file->rule(function ($file) {    
-                return date('YmdHis_').input('Filename'); // 使用自定义的文件保存规则
+                return date('YmdHis_').input('Filename'); // 使用自定義的檔案儲存規則
             })->move($path);
             if ($info) {
                 $state = "SUCCESS";                         
@@ -665,8 +665,8 @@ class Ueditor extends Base
             $return_data['url'] = $path.$info->getSaveName();            
         }
         
-        $return_data['title'] = 'app文件';
-        $return_data['original'] = ''; // 这里好像没啥用 暂时注释起来
+        $return_data['title'] = 'app檔案';
+        $return_data['original'] = ''; // 這裡好像沒啥用 暫時註釋起來
         $return_data['state'] = $state;
         $return_data['path'] = $path;        
 
@@ -674,7 +674,7 @@ class Ueditor extends Base
     }
     
     /**
-     * 资料文件上传
+     * 資料檔案上傳
      */
     public function downFileUp()
     {
@@ -734,23 +734,23 @@ class Ueditor extends Base
         $fileMime = '';
         if (isset($_REQUEST["name"])) {
             $fileMime = $_REQUEST["type"]; // application/x-zip-compressed
-            $lastModifiedDate = !empty($_REQUEST["lastModifiedDate"]) ? strtotime($_REQUEST["lastModifiedDate"]) : time(); // Tue Apr 03 2018 09:42:55 GMT+0800 (中国标准时间)
-            $fileSize = $_REQUEST["size"]; // 文件大小
+            $lastModifiedDate = !empty($_REQUEST["lastModifiedDate"]) ? strtotime($_REQUEST["lastModifiedDate"]) : time(); // Tue Apr 03 2018 09:42:55 GMT+0800 (中國標準時間)
+            $fileSize = $_REQUEST["size"]; // 檔案大小
             $fileName = $_REQUEST["name"]; // include_new.zip
         } elseif (!empty($_FILES)) {
             $fileName = $_FILES["file"]["name"];
-            $fileSize = $_FILES["file"]["size"]; // 文件大小
+            $fileSize = $_FILES["file"]["size"]; // 檔案大小
             $fileMime = $_FILES["file"]["type"]; // application/x-zip-compressed
         } else {
             $fileName = uniqid("file_");
         }
-        // 提取文件名后缀
+        // 提取檔名後綴
         $file_ext = pathinfo($fileName, PATHINFO_EXTENSION);
-        // 提取出文件名，不包括扩展名
+        // 提取出檔名，不包括副檔名
         $newfileName = preg_replace('/\.([^\.]+)$/', '', $fileName);
-        // 过滤文件名.\/的特殊字符，防止利用上传漏洞
+        // 過濾檔名.\/的特殊字元，防止利用上傳漏洞
         $newfileName = preg_replace('#(\\\|\/|\.)#i', '', $newfileName);
-        // 过滤后的新文件名
+        // 過濾后的新檔名
         $fileName = $newfileName.'.'.$file_ext;
 
         $upload_limit_size = intval(tpCache('basic.file_size') * 1024 * 1024);
@@ -759,7 +759,7 @@ class Ueditor extends Base
                 'jsonrpc'   => '2.0',
                 'error' => array(
                     'code'  => 90,
-                    'msg'   => '上传文件过大',
+                    'msg'   => '上傳檔案過大',
                 ),
                 'id'    => 'id',
             ));
@@ -772,14 +772,14 @@ class Ueditor extends Base
                 'jsonrpc'   => '2.0',
                 'error' => array(
                     'code'  => 91,
-                    'msg'   => '上传文件后缀不正确',
+                    'msg'   => '上傳檔案後綴不正確',
                 ),
                 'id'    => 'id',
             ));
         }
 
         if ($this->nowFileName == -1) {
-            // 提取出文件名，不包括扩展名
+            // 提取出檔名，不包括副檔名
             $this->nowFileName = preg_replace('/\.([^\.]+)$/', '', $fileName);
         }
         $filePath = $targetDir . '/' . $fileName;
@@ -796,7 +796,7 @@ class Ueditor extends Base
                     'jsonrpc'   => '2.0',
                     'error' => array(
                         'code'  => 100,
-                        'msg'   => '打开临时目录失败。',
+                        'msg'   => '打開臨時目錄失敗。',
                     ),
                     'id'    => 'id',
                 ));
@@ -825,7 +825,7 @@ class Ueditor extends Base
                 'jsonrpc'   => '2.0',
                 'error' => array(
                     'code'  => 102,
-                    'msg'   => '打开输出流失败。',
+                    'msg'   => '打開輸出流失敗。',
                 ),
                 'id'    => 'id',
             ));
@@ -837,7 +837,7 @@ class Ueditor extends Base
                     'jsonrpc'   => '2.0',
                     'error' => array(
                         'code'  => 103,
-                        'msg'   => '移动上传文件失败。',
+                        'msg'   => '移動上傳檔案失敗。',
                     ),
                     'id'    => 'id',
                 ));
@@ -849,7 +849,7 @@ class Ueditor extends Base
                     'jsonrpc'   => '2.0',
                     'error' => array(
                         'code'  => 101,
-                        'msg'   => '打开输入流失败。',
+                        'msg'   => '打開輸入流失敗。',
                     ),
                     'id'    => 'id',
                 ));
@@ -860,7 +860,7 @@ class Ueditor extends Base
                     'jsonrpc'   => '2.0',
                     'error' => array(
                         'code'  => 101,
-                        'msg'   => '打开输入流失败。',
+                        'msg'   => '打開輸入流失敗。',
                     ),
                     'id'    => 'id',
                 ));
@@ -890,7 +890,7 @@ class Ueditor extends Base
                     'jsonrpc'   => '2.0',
                     'error' => array(
                         'code'  => 102,
-                        'msg'   => '打开输出流失败。',
+                        'msg'   => '打開輸出流失敗。',
                     ),
                     'id'    => 'id',
                 ));
@@ -921,7 +921,7 @@ class Ueditor extends Base
             'jsonrpc'   => '2.0',
             'error' => array(
                 'code'  => 0,
-                'msg'   => '上传成功',
+                'msg'   => '上傳成功',
                 'path'    => $path,
                 'mime'  => $fileMime,
             ),
@@ -980,23 +980,23 @@ class Ueditor extends Base
         $fileMime = '';
         if (isset($_REQUEST["name"])) {
             $fileMime = $_REQUEST["type"]; // application/x-zip-compressed
-            $lastModifiedDate = !empty($_REQUEST["lastModifiedDate"]) ? strtotime($_REQUEST["lastModifiedDate"]) : time(); // Tue Apr 03 2018 09:42:55 GMT+0800 (中国标准时间)
-            $fileSize = $_REQUEST["size"]; // 文件大小
+            $lastModifiedDate = !empty($_REQUEST["lastModifiedDate"]) ? strtotime($_REQUEST["lastModifiedDate"]) : time(); // Tue Apr 03 2018 09:42:55 GMT+0800 (中國標準時間)
+            $fileSize = $_REQUEST["size"]; // 檔案大小
             $fileName = $_REQUEST["name"]; // include_new.zip
         } elseif (!empty($_FILES)) {
             $fileName = $_FILES["file"]["name"];
-            $fileSize = $_FILES["file"]["size"]; // 文件大小
+            $fileSize = $_FILES["file"]["size"]; // 檔案大小
             $fileMime = $_FILES["file"]["type"]; // application/x-zip-compressed
         } else {
             $fileName = uniqid("file_");
         }
-        // 提取文件名后缀
+        // 提取檔名後綴
         $file_ext = pathinfo($fileName, PATHINFO_EXTENSION);
-        // 提取出文件名，不包括扩展名
+        // 提取出檔名，不包括副檔名
         $newfileName = preg_replace('/\.([^\.]+)$/', '', $fileName);
-        // 过滤文件名.\/的特殊字符，防止利用上传漏洞
+        // 過濾檔名.\/的特殊字元，防止利用上傳漏洞
         $newfileName = preg_replace('#(\\\|\/|\.)#i', '', $newfileName);
-        // 过滤后的新文件名
+        // 過濾后的新檔名
         $fileName = $newfileName.'.'.$file_ext;
 
         $upload_limit_size = intval(tpCache('basic.file_size') * 1024 * 1024);
@@ -1005,7 +1005,7 @@ class Ueditor extends Base
                 'jsonrpc'   => '2.0',
                 'error' => array(
                     'code'  => 90,
-                    'msg'   => '上传文件过大',
+                    'msg'   => '上傳檔案過大',
                 ),
                 'id'    => 'id',
             ));
@@ -1018,7 +1018,7 @@ class Ueditor extends Base
                 'jsonrpc'   => '2.0',
                 'error' => array(
                     'code'  => 91,
-                    'msg'   => '上传文件后缀不正确',
+                    'msg'   => '上傳檔案後綴不正確',
                 ),
                 'id'    => 'id',
             ));
@@ -1040,7 +1040,7 @@ class Ueditor extends Base
         }
 
         if ($this->nowFileName == -1) {
-            // 提取出文件名，不包括扩展名
+            // 提取出檔名，不包括副檔名
             $this->nowFileName = preg_replace('/\.([^\.]+)$/', '', $fileName);
         }
 
@@ -1058,7 +1058,7 @@ class Ueditor extends Base
                     'jsonrpc'   => '2.0',
                     'error' => array(
                         'code'  => 100,
-                        'msg'   => '打开临时目录失败。',
+                        'msg'   => '打開臨時目錄失敗。',
                     ),
                     'id'    => 'id',
                 ));
@@ -1087,7 +1087,7 @@ class Ueditor extends Base
                 'jsonrpc'   => '2.0',
                 'error' => array(
                     'code'  => 102,
-                    'msg'   => '打开输出流失败。',
+                    'msg'   => '打開輸出流失敗。',
                 ),
                 'id'    => 'id',
             ));
@@ -1099,7 +1099,7 @@ class Ueditor extends Base
                     'jsonrpc'   => '2.0',
                     'error' => array(
                         'code'  => 103,
-                        'msg'   => '移动上载文件失败。',
+                        'msg'   => '移動上載檔案失敗。',
                     ),
                     'id'    => 'id',
                 ));
@@ -1111,7 +1111,7 @@ class Ueditor extends Base
                     'jsonrpc'   => '2.0',
                     'error' => array(
                         'code'  => 101,
-                        'msg'   => '打开输入流失败',
+                        'msg'   => '打開輸入流失敗',
                     ),
                     'id'    => 'id',
                 ));
@@ -1122,7 +1122,7 @@ class Ueditor extends Base
                     'jsonrpc'   => '2.0',
                     'error' => array(
                         'code'  => 101,
-                        'msg'   => '打开输入流失败',
+                        'msg'   => '打開輸入流失敗',
                     ),
                     'id'    => 'id',
                 ));
@@ -1157,7 +1157,7 @@ class Ueditor extends Base
             'jsonrpc'   => '2.0',
             'error' => array(
                 'code'  => 0,
-                'msg'   => '上传成功',
+                'msg'   => '上傳成功',
                 'path'    => $path,
                 'mime'  => $fileMime,
                 'uhash' => $uhash,

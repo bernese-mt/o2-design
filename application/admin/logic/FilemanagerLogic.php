@@ -1,11 +1,11 @@
 <?php
 /**
- * 易优CMS
+ * 易優CMS
  * ============================================================================
- * 版权所有 2016-2028 海南赞赞网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.eyoucms.com
+ * 版權所有 2016-2028 海南贊贊網路科技有限公司，並保留所有權利。
+ * 網站地址: http://www.eyoucms.com
  * ----------------------------------------------------------------------------
- * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 如果商業用途務必到官方購買正版授權, 以免引起不必要的法律糾紛.
  * ============================================================================
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
@@ -16,50 +16,50 @@ namespace app\admin\logic;
 use think\Model;
 use think\db;
 /**
- * 文件管理逻辑定义
+ * 檔案管理邏輯定義
  * Class CatsLogic
  * @package admin\Logic
  */
 class FilemanagerLogic extends Model
 {
     public $globalTpCache = array();
-    public $baseDir = ''; // 服务器站点根目录绝对路径
+    public $baseDir = ''; // 伺服器站點根目錄絕對路徑
     public $maxDir = '';
-    public $replaceImgOpArr = array(); // 替换权限
-    public $editOpArr = array(); // 编辑权限
-    public $renameOpArr = array(); // 改名权限
-    public $delOpArr = array(); // 删除权限
-    public $moveOpArr = array(); // 移动权限
-    public $editExt = array(); // 允许新增/编辑扩展名文件
+    public $replaceImgOpArr = array(); // 替換許可權
+    public $editOpArr = array(); // 編輯許可權
+    public $renameOpArr = array(); // 改名許可權
+    public $delOpArr = array(); // 刪除許可權
+    public $moveOpArr = array(); // 移動許可權
+    public $editExt = array(); // 允許新增/編輯副檔名檔案
 
     /**
-     * 析构函数
+     * 解構函式
      */
     function  __construct() {
         $this->globalTpCache = tpCache('global');
-        $this->baseDir = rtrim(ROOT_PATH, DS); // 服务器站点根目录绝对路径
-        $this->maxDir = $this->globalTpCache['web_templets_dir']; // 默认文件管理的最大级别目录
-        // 替换权限
+        $this->baseDir = rtrim(ROOT_PATH, DS); // 伺服器站點根目錄絕對路徑
+        $this->maxDir = $this->globalTpCache['web_templets_dir']; // 預設檔案管理的最大級別目錄
+        // 替換許可權
         $this->replaceImgOpArr = array('gif','jpg','svg');
-        // 编辑权限
+        // 編輯許可權
         $this->editOpArr = array('txt','htm','js','css');
-        // 改名权限
+        // 改名許可權
         $this->renameOpArr = array('dir','gif','jpg','svg','flash','zip','exe','mp3','wmv','rm','txt','htm','js','css','other');
-        // 删除权限
+        // 刪除許可權
         $this->delOpArr = array('dir','gif','jpg','svg','flash','zip','exe','mp3','wmv','rm','txt','htm','php','js','css','other');
-        // 移动权限
+        // 移動許可權
         $this->moveOpArr = array('gif','jpg','svg','flash','zip','exe','mp3','wmv','rm','txt','htm','js','css','other');
-        // 允许新增/编辑扩展名文件
+        // 允許新增/編輯副檔名檔案
         $this->editExt = array('htm','js','css','txt');
     }
 
     /**
-     * 编辑文件
+     * 編輯檔案
      *
      * @access    public
-     * @param     string  $filename  文件名
-     * @param     string  $activepath  当前路径
-     * @param     string  $content  文件内容
+     * @param     string  $filename  檔名
+     * @param     string  $activepath  目前路徑
+     * @param     string  $content  檔案內容
      * @return    string
      */
     public function editFile($filename, $activepath = '', $content = '')
@@ -67,23 +67,23 @@ class FilemanagerLogic extends Model
         $fileinfo = pathinfo($filename);
         $ext = strtolower($fileinfo['extension']);
 
-        /*不允许越过指定最大级目录的文件编辑*/
+        /*不允許越過指定最大級目錄的檔案編輯*/
         $tmp_max_dir = preg_replace("#\/#i", "\/", $this->maxDir);
         if (!preg_match("#^".$tmp_max_dir."#i", $activepath)) {
-            return '没有操作权限！';
+            return '沒有操作許可權！';
         }
         /*--end*/
 
-        /*允许编辑的文件类型*/
+        /*允許編輯的檔案型別*/
         if (!in_array($ext, $this->editExt)) {
-            return '只允许操作文件类型如下：'.implode('|', $this->editExt);
+            return '只允許操作檔案型別如下：'.implode('|', $this->editExt);
         }
         /*--end*/
 
         $filename = str_replace("..", "", $filename);
         $file = $this->baseDir."$activepath/$filename";
         if (!is_writable(dirname($file))) {
-            return "请把模板文件目录设置为可写入权限！";
+            return "請把模板檔案目錄設定為可寫入許可權！";
         }
         if ('css' != $ext) {
             $content = htmlspecialchars_decode($content, ENT_QUOTES);
@@ -97,11 +97,11 @@ class FilemanagerLogic extends Model
     }
 
     /**
-     * 上传文件
+     * 上傳檔案
      *
-     * @param     string  $dirname  新目录
-     * @param     string  $activepath  当前路径
-     * @param     boolean  $replace  是否替换
+     * @param     string  $dirname  新目錄
+     * @param     string  $activepath  目前路徑
+     * @param     boolean  $replace  是否替換
      */
     public function upload($fileElementId, $activepath = '', $replace = false)
     {
@@ -121,26 +121,26 @@ class FilemanagerLogic extends Model
             }
         }
 
-        return "成功上传 $i 个文件到: $activepath";
+        return "成功上傳 $i 個檔案到: $activepath";
     }
 
     /**
-     * 自定义上传
+     * 自定義上傳
      *
-     * @param     object  $file  文件对象
-     * @param     string  $activepath  当前路径
-     * @param     boolean  $replace  是否替换
+     * @param     object  $file  檔案對像
+     * @param     string  $activepath  目前路徑
+     * @param     boolean  $replace  是否替換
      */
     public function uploadfile($file, $activepath = '', $replace = false)
     {
         $validate = array();
-        /*文件大小限制*/
+        /*檔案大小限制*/
         $validate_size = tpCache('basic.file_size');
         if (!empty($validate_size)) {
-            $validate['size'] = $validate_size * 1024 * 1024; // 单位为b
+            $validate['size'] = $validate_size * 1024 * 1024; // 單位為b
         }
         /*--end*/
-        /*上传文件验证*/
+        /*上傳檔案驗證*/
         if (!empty($validate)) {
             $is_validate = $file->check($validate);
             if ($is_validate === false) {
@@ -156,12 +156,12 @@ class FilemanagerLogic extends Model
 
         if (false == $replace) {
             $fileinfo = $file->getInfo();
-            $filename = pathinfo($fileinfo['name'], PATHINFO_BASENAME); //获取上传文件名
+            $filename = pathinfo($fileinfo['name'], PATHINFO_BASENAME); //獲取上傳檔名
         } else {
             $filename = $replace;
         }
 
-        // 使用自定义的文件保存规则
+        // 使用自定義的檔案儲存規則
         $info = $file->move($savePath, $filename, true);
         if($info){
             return true;
@@ -171,7 +171,7 @@ class FilemanagerLogic extends Model
     }
 
     /**
-     * 当前目录下的文件列表
+     * 目前目錄下的檔案列表
      */
     public function getDirFile($directory, $activepath = '',  &$arr_file = array()) {
 
@@ -206,20 +206,20 @@ class FilemanagerLogic extends Model
                 $parentArr = array(
                     array(
                         'filepath'  => preg_replace("#[\/][^\/]*$#i", "", $activepath),
-                        'filename'  => '上级目录',
+                        'filename'  => '上級目錄',
                         'filesize'  => '',
                         'filetime'  => '',
                         'filemine'  => 'dir',
                         'filetype'  => 'dir2',
                         'icon'      => 'file_topdir.gif',
-                        'intro'  => '（当前目录：'.$activepath.'）',
+                        'intro'  => '（目前目錄：'.$activepath.'）',
                     ),
                 );
                 continue;
             } 
             else if(is_dir("$directory/$file"))
             {
-                if(preg_match("#^_(.*)$#i", $file)) continue; #屏蔽FrontPage扩展目录和linux隐蔽目录
+                if(preg_match("#^_(.*)$#i", $file)) continue; #遮蔽FrontPage擴充套件目錄和linux隱蔽目錄
                 if(preg_match("#^\.(.*)$#i", $file)) continue;
                 $file_info = array(
                     'filepath'  => $activepath.'/'.$file,
@@ -333,10 +333,10 @@ class FilemanagerLogic extends Model
     }
 
     /**
-     * 将冒号符反替换为反斜杠，适用于IIS服务器在URL上的双重转义限制
-     * @param string $filepath 相对路径
-     * @param string $replacement 目标字符
-     * @param boolean $is_back false为替换，true为还原
+     * 將冒號符反替換為反斜槓，適用於IIS伺服器在URL上的雙重轉義限制
+     * @param string $filepath 相對路徑
+     * @param string $replacement 目標字元
+     * @param boolean $is_back false為替換，true為還原
      */
     public function replace_path($activepath, $replacement = ':', $is_back = false)
     {

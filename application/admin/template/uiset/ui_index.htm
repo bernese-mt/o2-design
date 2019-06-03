@@ -6,15 +6,15 @@
     <div class="fixed-bar">
         <div class="item-title">
             <div class="subject">
-                <h3>数据清理</h3>
+                <h3>數據清理</h3>
                 <h5></h5>
             </div>
             <ul class="tab-base nc-row">
                 {if condition="in_array('pc', $templateArr)"}
-                <li><a href="{:url("Uiset/ui_index", array('theme_style'=>'pc'))}" class="tab {eq name="$theme_style" value="pc"}current{/eq}"><span>电脑版</span></a></li>
+                <li><a href="{:url("Uiset/ui_index", array('theme_style'=>'pc'))}" class="tab {eq name="$theme_style" value="pc"}current{/eq}"><span>電腦版</span></a></li>
                 {/if}
                 {if condition="in_array('mobile', $templateArr)"}
-                <li><a href="{:url("Uiset/ui_index", array('theme_style'=>'mobile'))}" class="tab {eq name="$theme_style" value="mobile"}current{/eq}"><span>手机版</span></a></li>
+                <li><a href="{:url("Uiset/ui_index", array('theme_style'=>'mobile'))}" class="tab {eq name="$theme_style" value="mobile"}current{/eq}"><span>手機版</span></a></li>
                 {/if}
             </ul>
         </div>
@@ -22,15 +22,15 @@
     <div class="flexigrid">
         <div class="mDiv">
             <div class="ftitle">
-                <h3>数据列表</h3>
-                <h5>(共{$pager->totalRows}条记录)</h5>
+                <h3>數據列表</h3>
+                <h5>(共{$pager->totalRows}條記錄)</h5>
             </div>
-            <div title="刷新数据" class="pReload"><i class="fa fa-refresh"></i></div>
-            <form class="navbar-form form-inline" action="{:url('Uiset/ui_index')}" method="get" onsubmit="layer_loading('正在处理');">
+            <div title="重新整理數據" class="pReload"><i class="fa fa-refresh"></i></div>
+            <form class="navbar-form form-inline" action="{:url('Uiset/ui_index')}" method="get" onsubmit="layer_loading('正在處理');">
                 {$searchform.hidden|default=''}
                 <div class="sDiv">
                     <div class="sDiv2">
-                        <input type="text" size="30" name="keywords" class="qsbox" placeholder="搜索相关数据...">
+                        <input type="text" size="30" name="keywords" class="qsbox" placeholder="搜索相關數據...">
                         <input type="submit" class="btn" value="搜索">
                     </div>
                     <!-- <div class="sDiv2">
@@ -45,19 +45,19 @@
                     <thead>
                     <tr>
                         <th class="sign w40" axis="col0">
-                            <div class=" tc">选择</div>
+                            <div class=" tc">選擇</div>
                         </th>
                         <th abbr="article_title" axis="col3" class="">
-                            <div style=" padding-left: 10px">文件分组(e-page)</div>
+                            <div style=" padding-left: 10px">檔案分組(e-page)</div>
                         </th>
                         <th abbr="ac_id" axis="col4" class="w120">
-                            <div class="tc">标签类型(e-type)</div>
+                            <div class="tc">標籤型別(e-type)</div>
                         </th>
                         <th abbr="article_time" axis="col6"  class="w120">
                             <div class="tc">初始ID(e-id)</div>
                         </th>
                         <th abbr="article_time" axis="col6" class="w160">
-                            <div class="tc">更新时间</div>
+                            <div class="tc">更新時間</div>
                         </th>
                         <th axis="col1" class="w120">
                             <div class="tc">操作</div>
@@ -75,7 +75,7 @@
                     {empty name="list"}
                         <tr>
                             <td class="no-data" align="center" axis="col0" colspan="50">
-                                <i class="fa fa-exclamation-circle"></i>没有符合条件的记录
+                                <i class="fa fa-exclamation-circle"></i>沒有符合條件的記錄
                             </td>
                         </tr>
                     {else/}
@@ -107,7 +107,7 @@
                             <td class="w120">
                                 <div class="tc">
                                     {eq name="$Think.const.CONTROLLER_NAME.'@del'|is_check_access" value="1"}
-                                    <a class="btn red"  href="javascript:void(0)" data-url="{:url('Uiset/del')}" data-id="{$vo.id}" onClick="delfun(this);"><i class="fa fa-trash-o"></i>删除</a>
+                                    <a class="btn red"  href="javascript:void(0)" data-url="{:url('Uiset/del')}" data-id="{$vo.id}" onClick="delfun(this);"><i class="fa fa-trash-o"></i>刪除</a>
                                     {/eq}
                                 </div>
                             </td>
@@ -128,8 +128,8 @@
                 {eq name="$Think.const.CONTROLLER_NAME.'@del'|is_check_access" value="1"}
                 <div class="fbutton">
                     <a onclick="batch_del(this, 'ids');" data-url="{:url('Uiset/del')}">
-                        <div class="add" title="批量删除">
-                            <span><i class="fa fa-close"></i>批量删除</span>
+                        <div class="add" title="批量刪除">
+                            <span><i class="fa fa-close"></i>批量刪除</span>
                         </div>
                     </a>
                 </div>
@@ -137,18 +137,18 @@
             </div>
             <div style="clear:both"></div>
         </div>
-        <!--分页位置-->
+        <!--分頁位置-->
         {$page}
     </div>
 </div>
 <script>
     $(document).ready(function(){
-        // 表格行点击选中切换
+        // 表格行點選選中切換
         $('#flexigrid > table>tbody >tr').click(function(){
             $(this).toggleClass('trSelected');
         });
 
-        // 点击刷新数据
+        // 點選重新整理數據
         $('.fa-refresh').click(function(){
             location.href = location.href;
         });
